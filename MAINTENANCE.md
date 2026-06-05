@@ -164,13 +164,13 @@ grep "专业名" src/data/catalog.ts
   ],
 
   // 9. 避坑提醒（3-5 条，具体可行动）
-  avoidTraps: [
+  pitfalls: [
     'TODO',
   ],
 
   // 10. 相关专业区别（2-4 条，vs 容易混淆的专业）
-  relatedMajorDiff: [
-    'TODO',
+  relatedMajors: [
+    { name: '对比专业名', slug: 'slug', diff: '一句话说明区别' },
   ],
 
   updatedAt: '2026-06-05',
@@ -202,6 +202,94 @@ git commit -m "📝 新增 XX 专业详情（draft）"
 | 「千万别选」 | 「建议先看清楚 X 方面再做决定」 |
 | 堆砌培养方案术语 | 用大白话描述真实场景 |
 | 「女生不适合工科」 | 不提及性别、地域、家庭背景等标签 |
+
+---
+
+## 2.5. 新建具体专业详情（三级路由）
+
+**触发语**：「集成电路这个专业要建单独的页面」「为 XX 专业建详情页」
+
+⚠️ **重要区分**：
+- **专业类页（Category）**：`/majors/{gate}/{category}` — 例如计算机类、电子信息类
+- **具体专业页（Major）**：`/majors/{gate}/{category}/{major}` — 例如集成电路设计与集成系统
+
+具体专业必须放在所属专业类下面，不要新建独立专业类！
+
+### 前置条件
+
+1. 该专业已在 `src/data/catalog.ts` 中作为某个专业类的 `major` 存在
+2. 该专业所属的专业类状态至少为 `building`
+
+如果专业不存在于目录中，先用「新建专业详情 → 情况 B」添加到目录。
+
+### 流程
+
+**第 1 步：确认路由**
+
+找到专业的所属门类 slug（如 `engineering`）和所属专业类 slug（如 `electronic-information`），路由固定为：
+
+```
+/majors/{gateSlug}/{categorySlug}/{majorSlug}
+```
+
+示例：集成电路设计与集成系统 → `/majors/engineering/electronic-information/ic-design`
+
+**第 2 步：写入详情内容**
+
+编辑 `src/data/major-details.ts`，使用三级 key 格式：
+
+```typescript
+'{gate}/{category}/{major}': {
+  categorySlug: 'majorSlug',
+  gateSlug: 'gate',
+  oneLiner: '一句话解释（可稍长，但不能太长）',
+  whatYouLearn: [...],
+  vsHighSchool: [...],
+  suitableFor: [...],
+  notSuitableFor: [...],
+  commonMisconceptions: [...],
+  realScenes: [...],
+  futurePaths: [...],
+  pitfalls: [...],
+  relatedMajors: [{ name: '对比专业名', slug: 'slug', diff: '区别说明' }],
+  updatedAt: '2026-06-05',
+  reviewStatus: 'draft',
+  videos: [],
+  contributors: [{ name: '贡献者名', role: 'XX专业学生 · 内容共建' }],
+}
+```
+
+⚠️ **字段易错点**：
+- 字段名是 `pitfalls` 不是 `avoidTraps`
+- 字段名是 `relatedMajors` 不是 `relatedMajorDiff`，且格式是 `[{ name, slug?, diff }]` 对象数组，不是字符串数组
+- key 格式必须是 `'{gate}/{category}/{major}'` 三级
+
+**第 3 步：更新专业状态**
+
+编辑 `src/data/catalog.ts`：
+- 将对应 major 的 `status` 改为 `'completed'`（或保持 `'building'` 如果还在写）
+
+**第 4 步：审核后上线**
+
+内容确认无误后，改 `reviewStatus: 'draft'` → `'reviewed'`
+
+**第 5 步：构建 + 提交**
+
+```bash
+npm run build          # 验证通过
+git add -A
+git commit -m "📝 新增 XX 专业详情（draft/reviewed）"
+git push
+```
+
+### 检查清单
+
+- [ ] 路由是三级格式 `/majors/{gate}/{category}/{major}`
+- [ ] major-details.ts 的 key 是 `'{gate}/{category}/{major}'`
+- [ ] 字段名是 `pitfalls` 和 `relatedMajors`（不是 `avoidTraps` / `relatedMajorDiff`）
+- [ ] `relatedMajors` 是对象数组 `[{ name, diff }]`，不是字符串数组
+- [ ] catalog.ts 中该 major 的 status 已更新
+- [ ] `npm run build` 通过
 
 ---
 

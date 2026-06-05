@@ -260,7 +260,7 @@ export const majorDetails: MajorDetailMap = {
     gateSlug: 'engineering',
 
     oneLiner:
-      '学习怎么把一个复杂电子系统浓缩到一小块芯片里——芯片是数字世界的物理根基。',
+      '集成电路设计与集成系统，简单说就是：学习怎么把一个复杂电子系统，浓缩到一小块芯片里。你可以把它想象成：手机、电脑、耳机、汽车、智能手表里都有很多"会思考、会计算、会控制"的小零件，而这个专业研究的就是这些小零件背后的核心——芯片。它不是简单修电脑，也不是单纯焊电路板，更不是每天在工厂里造芯片。',
 
     whatYouLearn: [
       '电路基础：先搞清楚电压、电流、电阻、电容这些东西是怎么工作的。高中物理里的"恒定电流"那一章，其实和这个专业会有一点联系。如果你对电路图、电流方向、电阻串并联、电压分配有兴趣，会更容易进入状态。',
@@ -361,7 +361,7 @@ export const majorDetails: MajorDetailMap = {
     ],
 
     updatedAt: '2026-06-05',
-    reviewStatus: 'draft',
+    reviewStatus: 'reviewed',
     videos: [],
     contributors: [{ name: 'dlx', role: '集成电路专业学生 · 内容共建' }],
   },
