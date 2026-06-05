@@ -678,3 +678,76 @@
   2. 内测题库：确认随机化生效、学科隐蔽性达标
   3. 推进第二阶段剩余项：AI 报告解释、EdgeOne Pages 部署
 - **当前版本状态**：v0.13 — 题库质量整改 + 匿名反馈入口 + 共建页三类共建入口完成
+
+### 2026-06-05 07:55 — 题库审计与修复
+
+- **使用模型**：DeepSeek V4 Pro
+- **任务类型**：审查 + 开发
+- **完成内容**：
+  - 审计通用题库三大问题：选项随机排列、选项覆盖漏缺、学科显式展示
+  - 修复 4 处选项覆盖漏缺（gen_002 缺 art_creative / gen_010 缺 life_health / gen_011 缺 humanities / gen_019 缺 art_creative 排斥）
+  - 修复 3 处「写代码」→ 中性表述（gen_001_c、gen_006_d、gen_011_e）
+  - 确认 test-flow.js 已实现 Fisher-Yates 选项随机排列
+- **修改的文件**：
+  - `src/data/questionBank.ts` — 5 处选项增补 + 3 处文本替换
+- **关键决策**：通用题选项严格禁用任何学科/专业名称（「计算机」「代码」等），B4 分支题保留「写代码」作为子方向区分信号
+- **遗留问题**：无
+- **下次建议**：后续新增题目时参照本次修复模式检查覆盖和学科暴露
+- **当前版本状态**：v0.14 — 题库审计完成
+
+### 2026-06-05 08:00 — DeepSeek Flash 报告解释接入
+
+- **使用模型**：DeepSeek V4 Pro
+- **任务类型**：开发
+- **完成内容**：
+  - 创建服务端 API 端点 `src/pages/api/explain.ts`（限流/校验/DeepSeek Flash 调用/模板回退）
+  - 报告页新增「🤖 大白话说说你的方向」区域（loading 态 → AI 解释 / 模板兜底）
+  - 九条 AI 使用红线全部通过系统提示词约束
+  - 三层回退机制：服务端 try/catch → 客户端 fetch catch → 硬编码兜底文案
+  - 安全措施：限流（5req/min/IP）+ 防重复点击 + 12s 超时 + 输入校验
+- **修改的文件**：
+  - `src/pages/api/explain.ts` — 新建
+  - `.env.example` — 新建
+  - `public/scripts/report.js` — AI 解释区域 + fetch + 防重复点击
+  - `astro.config.mjs` — 新增 `@astrojs/cloudflare` 适配器
+- **关键决策**：AI 仅接收规则系统结果包，不接收用户原始答案；无 API Key 时直接回退模板
+- **遗留问题**：主观补充输入 UI 暂未实现（前端可传主观笔记但尚无输入框）
+- **下次建议**：部署后在 EdgeOne 配置 DEEPSEEK_API_KEY 环境变量
+- **当前版本状态**：v0.14 — AI 报告解释上线
+
+### 2026-06-05 08:10 — 部署就绪检查
+
+- **使用模型**：DeepSeek V4 Pro
+- **任务类型**：审查 + 文档
+- **完成内容**：
+  - 6 项部署就绪检查全部通过（scripts/构建命令/输出目录/静态兼容/API Key 暴露/Node.js API 兼容）
+  - 验证 API Key 零泄漏（client bundle、public/、dist/client/ 均无 DEEPSEEK_API_KEY）
+  - 重写 README.md（从 Astro 默认模板 → 项目专属，含简介/技术栈/本地运行/部署/项目结构）
+  - 细化 TECH_DECISIONS.md 部署方案（构建配置/环境变量/备选方案）
+  - 更新 CURRENT_STATUS.md（v0.14.1，部署→就绪）
+  - 修复 .gitignore（追加 .wrangler/）
+- **修改的文件**：
+  - `README.md` — 重写
+  - `TECH_DECISIONS.md` — 决策 4 细化
+  - `CURRENT_STATUS.md` — 版本 + 部署状态更新
+  - `.gitignore` — 追加 .wrangler/
+- **关键决策**：EdgeOne Pages 对中国大陆访问延迟最优；@astrojs/cloudflare 适配器输出标准 Workers
+- **遗留问题**：实际部署需在 GitHub 创建仓库并配置 EdgeOne Pages
+- **下次建议**：推送后在 EdgeOne 控制台完成部署配置
+- **当前版本状态**：v0.14.1 — 部署就绪
+
+### 2026-06-05 08:14 — Git 仓库初始化
+
+- **使用模型**：DeepSeek V4 Pro
+- **任务类型**：操作
+- **完成内容**：
+  - `git init` + 分支改为 `main`
+  - 初始提交：49 个文件（15,951 行新增）
+  - 排除 .wrangler/ 本地开发缓存
+  - 向用户说明 GitHub 创建仓库 + EdgeOne Pages 部署的完整操作清单
+- **修改的文件**：
+  - 无代码变更（仅 git 操作）
+- **关键决策**：main 分支，Public 仓库（公益项目），待用户创建 GitHub 仓库后 push
+- **遗留问题**：尚未 push 到 GitHub（需用户创建远程仓库）
+- **下次建议**：用户创建 GitHub 仓库后执行 `git remote add origin ... && git push -u origin main`
+- **当前版本状态**：v0.14.1 — 已提交，待推送
