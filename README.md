@@ -1,4 +1,4 @@
-# 专业不迷路（MajorNav）
+# 专业不迷路（MajorPath）
 
 用说大白话的方式，帮高中生看懂大学专业、找到方向。
 
@@ -41,8 +41,8 @@
 
 ```bash
 # 1. 克隆仓库
-git clone <repo-url> majornav
-cd majornav
+git clone <repo-url> majorpath
+cd majorpath
 
 # 2. 安装依赖
 npm install
@@ -108,7 +108,7 @@ npm run preview
 ## 项目结构
 
 ```
-majornav/
+majorpath/
 ├── public/
 │   └── scripts/
 │       ├── test-flow.js    # 测试引擎（纯原生 JS，零框架）

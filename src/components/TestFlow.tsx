@@ -54,7 +54,7 @@ export default function TestFlow() {
     if (isLastAll) {
       const tags = collectRiskTags(questionBank, responses);
       const payload = { bucketScores: bucketScores ?? computeBucketScores(questionBank, responses), userType: userType ?? 'exploratory', humanitiesProtected, riskTags: tags, responses, generalCount: generalQ.length, totalCount: allQuestions.length };
-      try { sessionStorage.setItem('majornav_test_results', JSON.stringify(payload)); } catch {}
+      try { sessionStorage.setItem('majorpath_test_results', JSON.stringify(payload)); } catch {}
       setPhase('done'); window.location.href = '/report'; return;
     }
     setCurrentIdx(p => p + 1); setSelected(null);

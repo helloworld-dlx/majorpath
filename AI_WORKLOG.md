@@ -37,18 +37,18 @@
 - **任务类型**：文档
 - **完成内容**：
   - 读取并理解三份项目源文档（计划书、技术方案书、算法说明 v0.2）
-  - 创建项目根目录 `/home/xyzlh/majornav`
+  - 创建项目根目录 `/home/xyzlh/majorpath`
   - 初始化 9 个核心项目文档
 - **修改的文件**：
-  - `/home/xyzlh/majornav/PROJECT_BRIEF.md` — 新建
-  - `/home/xyzlh/majornav/TECH_DECISIONS.md` — 新建
-  - `/home/xyzlh/majornav/CURRENT_STATUS.md` — 新建
-  - `/home/xyzlh/majornav/TODO.md` — 新建
-  - `/home/xyzlh/majornav/AI_WORKLOG.md` — 新建
-  - `/home/xyzlh/majornav/CATALOG_STATUS.md` — 新建
-  - `/home/xyzlh/majornav/ALGORITHM_SPEC.md` — 新建
-  - `/home/xyzlh/majornav/MODEL_HANDOFF.md` — 新建
-  - `/home/xyzlh/majornav/PROMPT_LIBRARY.md` — 新建
+  - `/home/xyzlh/majorpath/PROJECT_BRIEF.md` — 新建
+  - `/home/xyzlh/majorpath/TECH_DECISIONS.md` — 新建
+  - `/home/xyzlh/majorpath/CURRENT_STATUS.md` — 新建
+  - `/home/xyzlh/majorpath/TODO.md` — 新建
+  - `/home/xyzlh/majorpath/AI_WORKLOG.md` — 新建
+  - `/home/xyzlh/majorpath/CATALOG_STATUS.md` — 新建
+  - `/home/xyzlh/majorpath/ALGORITHM_SPEC.md` — 新建
+  - `/home/xyzlh/majorpath/MODEL_HANDOFF.md` — 新建
+  - `/home/xyzlh/majorpath/PROMPT_LIBRARY.md` — 新建
 - **关键决策**：无（文档初始化阶段，按既定方案执行）
 - **遗留问题**：无
 - **下次建议**：下一步可以搭建 Astro 项目脚手架，开始实现首页和目录框架。
@@ -65,8 +65,8 @@
   - 更新 AI_WORKLOG.md：追加本次收尾记录
   - 补充文档间引用关系和下一步建议
 - **修改的文件**：
-  - `/home/xyzlh/majornav/CURRENT_STATUS.md` — 状态更新
-  - `/home/xyzlh/majornav/AI_WORKLOG.md` — 追加记录
+  - `/home/xyzlh/majorpath/CURRENT_STATUS.md` — 状态更新
+  - `/home/xyzlh/majorpath/AI_WORKLOG.md` — 追加记录
 - **关键决策**：无
 - **遗留问题**：无
 - **下次建议**：搭建 Astro 项目脚手架（TODO.md 第一阶段第一项）。初始化后应立即：配置 TypeScript + Tailwind + React 集成，然后创建基础布局组件（Header/Footer/Layout），再实现首页双入口。
@@ -80,7 +80,7 @@
 - **任务类型**：开发
 - **完成内容**：
   - 读取全部 5 份核心项目文档（PROJECT_BRIEF / TECH_DECISIONS / CURRENT_STATUS / TODO / MODEL_HANDOFF）
-  - 在 `/home/xyzlh/majornav` 目录初始化 Astro 项目（minimal 模板 + TypeScript strict）
+  - 在 `/home/xyzlh/majorpath` 目录初始化 Astro 项目（minimal 模板 + TypeScript strict）
   - 安装依赖：`@astrojs/react` `react` `react-dom` `@tailwindcss/vite`
   - 配置 `astro.config.mjs`：集成 React + Tailwind CSS（使用 @tailwindcss/vite）
   - 创建全局样式 `src/styles/global.css`（Tailwind @import "tailwindcss" + 主题变量）
@@ -96,18 +96,18 @@
   - 构建验证：`npm run build` 成功，27 个页面输出到 `/dist`
   - 开发验证：`npm run dev` 启动成功（localhost:4321）
 - **修改的文件**：
-  - `/home/xyzlh/majornav/astro.config.mjs` — 新建
-  - `/home/xyzlh/majornav/src/styles/global.css` — 新建
-  - `/home/xyzlh/majornav/src/layouts/Layout.astro` — 新建
-  - `/home/xyzlh/majornav/src/pages/index.astro` — 新建
-  - `/home/xyzlh/majornav/src/pages/majors/index.astro` — 新建
-  - `/home/xyzlh/majornav/src/pages/majors/[gate].astro` — 新建
-  - `/home/xyzlh/majornav/src/pages/majors/[gate]/[category].astro` — 新建
-  - `/home/xyzlh/majornav/src/pages/test.astro` — 新建
-  - `/home/xyzlh/majornav/src/pages/about.astro` — 新建
-  - `/home/xyzlh/majornav/src/pages/contribute.astro` — 新建
-  - `/home/xyzlh/majornav/CURRENT_STATUS.md` — 更新进度
-  - `/home/xyzlh/majornav/AI_WORKLOG.md` — 追加记录
+  - `/home/xyzlh/majorpath/astro.config.mjs` — 新建
+  - `/home/xyzlh/majorpath/src/styles/global.css` — 新建
+  - `/home/xyzlh/majorpath/src/layouts/Layout.astro` — 新建
+  - `/home/xyzlh/majorpath/src/pages/index.astro` — 新建
+  - `/home/xyzlh/majorpath/src/pages/majors/index.astro` — 新建
+  - `/home/xyzlh/majorpath/src/pages/majors/[gate].astro` — 新建
+  - `/home/xyzlh/majorpath/src/pages/majors/[gate]/[category].astro` — 新建
+  - `/home/xyzlh/majorpath/src/pages/test.astro` — 新建
+  - `/home/xyzlh/majorpath/src/pages/about.astro` — 新建
+  - `/home/xyzlh/majorpath/src/pages/contribute.astro` — 新建
+  - `/home/xyzlh/majorpath/CURRENT_STATUS.md` — 更新进度
+  - `/home/xyzlh/majorpath/AI_WORKLOG.md` — 追加记录
 - **关键决策**：
   - 使用 `@tailwindcss/vite` 替代 `@astrojs/tailwind`（Astro 6.x 兼容性问题）
   - 动态路由使用硬编码 `getStaticPaths` 而非数据文件（快速出雏形）
@@ -149,13 +149,13 @@
     - 底部免责文案保留
   - `npm run build` ✅ 通过，27 个页面
 - **修改的文件**：
-  - `/home/xyzlh/majornav/src/styles/global.css` — 重构
-  - `/home/xyzlh/majornav/src/components/ui/Button.astro` — 新建
-  - `/home/xyzlh/majornav/src/components/ui/Card.astro` — 新建
-  - `/home/xyzlh/majornav/src/components/ui/Section.astro` — 新建
-  - `/home/xyzlh/majornav/src/layouts/Layout.astro` — 优化 Header/Nav/Footer + 移动端菜单
-  - `/home/xyzlh/majornav/src/pages/index.astro` — 优化布局和视觉
-  - `/home/xyzlh/majornav/AI_WORKLOG.md` — 追加记录
+  - `/home/xyzlh/majorpath/src/styles/global.css` — 重构
+  - `/home/xyzlh/majorpath/src/components/ui/Button.astro` — 新建
+  - `/home/xyzlh/majorpath/src/components/ui/Card.astro` — 新建
+  - `/home/xyzlh/majorpath/src/components/ui/Section.astro` — 新建
+  - `/home/xyzlh/majorpath/src/layouts/Layout.astro` — 优化 Header/Nav/Footer + 移动端菜单
+  - `/home/xyzlh/majorpath/src/pages/index.astro` — 优化布局和视觉
+  - `/home/xyzlh/majorpath/AI_WORKLOG.md` — 追加记录
 - **关键决策**：
   - 公益说明用暖色（#fefcf8）而非焦虑色，营造安心氛围
   - Footer 法律声明明确写出「不替代正式志愿填报建议」
@@ -181,7 +181,7 @@
   - 确认 TODO.md 已在 21:10 勾除完成事项
   - AI_WORKLOG.md 已有完整记录（21:01 脚手架 + 21:14 视觉优化）
 - **修改的文件**：
-  - `/home/xyzlh/majornav/CURRENT_STATUS.md` — 版本更新
+  - `/home/xyzlh/majorpath/CURRENT_STATUS.md` — 版本更新
 - **关键决策**：无
 - **遗留问题**：沿用 21:14 遗留问题
 - **下次建议**：沿用 21:14 下次建议
@@ -198,13 +198,13 @@
   - 涉及文件：Layout.astro、index.astro、about.astro、PROJECT_BRIEF.md、PROMPT_LIBRARY.md、ALGORITHM_SPEC.md（共 7 处）
   - `npm run build` ✅ 通过（27 页面）
 - **修改的文件**：
-  - `/home/xyzlh/majornav/src/layouts/Layout.astro` — 2 处替换
-  - `/home/xyzlh/majornav/src/pages/index.astro` — 2 处替换
-  - `/home/xyzlh/majornav/src/pages/about.astro` — 1 处替换
-  - `/home/xyzlh/majornav/PROJECT_BRIEF.md` — 1 处替换
-  - `/home/xyzlh/majornav/PROMPT_LIBRARY.md` — 1 处替换
-  - `/home/xyzlh/majornav/ALGORITHM_SPEC.md` — 1 处替换
-  - `/home/xyzlh/majornav/AI_WORKLOG.md` — 追加记录
+  - `/home/xyzlh/majorpath/src/layouts/Layout.astro` — 2 处替换
+  - `/home/xyzlh/majorpath/src/pages/index.astro` — 2 处替换
+  - `/home/xyzlh/majorpath/src/pages/about.astro` — 1 处替换
+  - `/home/xyzlh/majorpath/PROJECT_BRIEF.md` — 1 处替换
+  - `/home/xyzlh/majorpath/PROMPT_LIBRARY.md` — 1 处替换
+  - `/home/xyzlh/majorpath/ALGORITHM_SPEC.md` — 1 处替换
+  - `/home/xyzlh/majorpath/AI_WORKLOG.md` — 追加记录
 - **关键决策**：无
 - **遗留问题**：沿用 21:14 遗留问题
 - **下次建议**：沿用 21:14 下次建议
@@ -228,12 +228,12 @@
   - 更新 CATALOG_STATUS.md：12→13 门类，新增交叉学科专区，更新统计和建设清单
   - `npm run build` ✅ 通过（27 页面，新数据文件不影响现有页面）
 - **修改的文件**：
-  - `/home/xyzlh/majornav/src/types/catalog.ts` — 新建（类型定义 + 辅助函数）
-  - `/home/xyzlh/majornav/src/data/catalog.ts` — 新建（约 500 行，完整骨架数据）
-  - `/home/xyzlh/majornav/CATALOG_STATUS.md` — 重写（13 门类 + 交叉学科专区 + 建设清单更新）
-  - `/home/xyzlh/majornav/AI_WORKLOG.md` — 追加记录
-  - `/home/xyzlh/majornav/CURRENT_STATUS.md` — 更新
-  - `/home/xyzlh/majornav/TODO.md` — 更新
+  - `/home/xyzlh/majorpath/src/types/catalog.ts` — 新建（类型定义 + 辅助函数）
+  - `/home/xyzlh/majorpath/src/data/catalog.ts` — 新建（约 500 行，完整骨架数据）
+  - `/home/xyzlh/majorpath/CATALOG_STATUS.md` — 重写（13 门类 + 交叉学科专区 + 建设清单更新）
+  - `/home/xyzlh/majorpath/AI_WORKLOG.md` — 追加记录
+  - `/home/xyzlh/majorpath/CURRENT_STATUS.md` — 更新
+  - `/home/xyzlh/majorpath/TODO.md` — 更新
 - **关键决策**：
   1. 数据结构采用三层嵌套（Gate → Category → Major[]），每层独立 status 字段，支持渐进填充
   2. Major 的 detailSlug 可选，默认路由规则为 /majors/{gate}/{category}/{major}
@@ -265,13 +265,13 @@
   - 交叉学科门类自动纳入全部路由（`/majors/interdisciplinary` + 专业类页）
   - `npm run build` ✅ 通过：**111 个页面**（从 27 跃升到 111）
 - **修改的文件**：
-  - `/home/xyzlh/majornav/src/components/ui/StatusBadge.astro` — 新建（completed→绿/building→黄/todo→灰）
-  - `/home/xyzlh/majornav/src/pages/majors/index.astro` — 重写（接入 catalog 数据源）
-  - `/home/xyzlh/majornav/src/pages/majors/[gate].astro` — 重写（接入 catalog 数据源）
-  - `/home/xyzlh/majornav/src/pages/majors/[gate]/[category].astro` — 重写（接入 catalog 数据源）
-  - `/home/xyzlh/majornav/AI_WORKLOG.md` — 追加记录
-  - `/home/xyzlh/majornav/CURRENT_STATUS.md` — 更新
-  - `/home/xyzlh/majornav/TODO.md` — 更新
+  - `/home/xyzlh/majorpath/src/components/ui/StatusBadge.astro` — 新建（completed→绿/building→黄/todo→灰）
+  - `/home/xyzlh/majorpath/src/pages/majors/index.astro` — 重写（接入 catalog 数据源）
+  - `/home/xyzlh/majorpath/src/pages/majors/[gate].astro` — 重写（接入 catalog 数据源）
+  - `/home/xyzlh/majorpath/src/pages/majors/[gate]/[category].astro` — 重写（接入 catalog 数据源）
+  - `/home/xyzlh/majorpath/AI_WORKLOG.md` — 追加记录
+  - `/home/xyzlh/majorpath/CURRENT_STATUS.md` — 更新
+  - `/home/xyzlh/majorpath/TODO.md` — 更新
 - **关键决策**：
   1. 页面重构彻底消灭硬编码数据，所有 majors 页面数据取自 `catalog` 单一数据源
   2. 交叉学科门类已自动纳入全部路由，无需额外特殊处理
@@ -301,13 +301,13 @@
   - 重构详情页 `[gate]/[category].astro`：接入 `majorDetails` 数据源 + `MajorDetailTemplate` 模板组件；有详情内容时渲染完整模板，无内容时保留专业列表 + 占位
   - `npm run build` ✅ 通过（111 页面）
 - **修改的文件**：
-  - `/home/xyzlh/majornav/src/types/major-detail.ts` — 新建（MajorDetailContent / RelatedMajorDiff / MajorDetailMap）
-  - `/home/xyzlh/majornav/src/data/major-details.ts` — 新建（计算机类完整示例，11 模块全）
-  - `/home/xyzlh/majornav/src/components/ui/MajorDetailTemplate.astro` — 新建（9 内容卡片 + 头部 + 共建入口）
-  - `/home/xyzlh/majornav/src/pages/majors/[gate]/[category].astro` — 重写（接入模板组件，消除硬编码详情内容）
-  - `/home/xyzlh/majornav/AI_WORKLOG.md` — 追加记录
-  - `/home/xyzlh/majornav/CURRENT_STATUS.md` — 更新
-  - `/home/xyzlh/majornav/TODO.md` — 更新
+  - `/home/xyzlh/majorpath/src/types/major-detail.ts` — 新建（MajorDetailContent / RelatedMajorDiff / MajorDetailMap）
+  - `/home/xyzlh/majorpath/src/data/major-details.ts` — 新建（计算机类完整示例，11 模块全）
+  - `/home/xyzlh/majorpath/src/components/ui/MajorDetailTemplate.astro` — 新建（9 内容卡片 + 头部 + 共建入口）
+  - `/home/xyzlh/majorpath/src/pages/majors/[gate]/[category].astro` — 重写（接入模板组件，消除硬编码详情内容）
+  - `/home/xyzlh/majorpath/AI_WORKLOG.md` — 追加记录
+  - `/home/xyzlh/majorpath/CURRENT_STATUS.md` — 更新
+  - `/home/xyzlh/majorpath/TODO.md` — 更新
 - **关键决策**：
   1. 详情内容和数据结构分离：catalog.ts 管"目录骨架"，major-details.ts 管"深度解读"，互不耦合
   2. 模板组件采用 9 色卡片体系：白底=常规信息，绿底=适合，红底=不适合，灰底=误解，琥珀=避坑，蓝底=相关专业
@@ -347,13 +347,13 @@
   - npm run build ✅ 通过（111 页面）
 - **审计结论**：6 项检查全部通过（数据结构 ✅ / 诚实度 ✅ / 路由 ✅ / 可维护性 ✅ / 公益边界 ✅ / 构建 ✅），仅上述 4 项做了必要修复
 - **修改的文件**：
-  - `/home/xyzlh/majornav/src/types/catalog.ts` — +2 辅助函数
-  - `/home/xyzlh/majornav/src/types/major-detail.ts` — RelatedMajorDiff +gateSlug
-  - `/home/xyzlh/majornav/src/pages/majors/index.astro` — 双数字显示
-  - `/home/xyzlh/majornav/src/pages/majors/[gate].astro` — 双数字显示
-  - `/home/xyzlh/majornav/src/pages/majors/[gate]/[category].astro` — 双数字显示
-  - `/home/xyzlh/majornav/src/components/ui/MajorDetailTemplate.astro` — 跨门类引用
-  - `/home/xyzlh/majornav/AI_WORKLOG.md` — 追加记录
+  - `/home/xyzlh/majorpath/src/types/catalog.ts` — +2 辅助函数
+  - `/home/xyzlh/majorpath/src/types/major-detail.ts` — RelatedMajorDiff +gateSlug
+  - `/home/xyzlh/majorpath/src/pages/majors/index.astro` — 双数字显示
+  - `/home/xyzlh/majorpath/src/pages/majors/[gate].astro` — 双数字显示
+  - `/home/xyzlh/majorpath/src/pages/majors/[gate]/[category].astro` — 双数字显示
+  - `/home/xyzlh/majorpath/src/components/ui/MajorDetailTemplate.astro` — 跨门类引用
+  - `/home/xyzlh/majorpath/AI_WORKLOG.md` — 追加记录
 - **当前版本状态**：v0.4.1 — 审计修复完成
 
 ---
@@ -370,10 +370,10 @@
   - 四个相关专业对比全部带交叉链接（计算机类、通信工程、自动化类、电气类）
   - `npm run build` ✅ 通过（111 页面）
 - **修改的文件**：
-  - `/home/xyzlh/majornav/src/data/major-details.ts` — 新增 engineering/electronic-information 条目（9×whatYouLearn + 4×suitableFor + 4×notSuitableFor + 4×misconceptions + 5×realScenes + 7×futurePaths + 4×pitfalls + 4×relatedMajors）
-  - `/home/xyzlh/majornav/CATALOG_STATUS.md` — 电子信息类 🏗️→🟡 待审核
-  - `/home/xyzlh/majornav/AI_WORKLOG.md` — 追加记录
-  - `/home/xyzlh/majornav/CURRENT_STATUS.md` — 更新
+  - `/home/xyzlh/majorpath/src/data/major-details.ts` — 新增 engineering/electronic-information 条目（9×whatYouLearn + 4×suitableFor + 4×notSuitableFor + 4×misconceptions + 5×realScenes + 7×futurePaths + 4×pitfalls + 4×relatedMajors）
+  - `/home/xyzlh/majorpath/CATALOG_STATUS.md` — 电子信息类 🏗️→🟡 待审核
+  - `/home/xyzlh/majorpath/AI_WORKLOG.md` — 追加记录
+  - `/home/xyzlh/majorpath/CURRENT_STATUS.md` — 更新
 - **当前版本状态**：v0.4.2 — 电子信息类 draft 内容完成，当前共 2/92 专业类有完整详情（计算机类 + 电子信息类）
 
 ---
@@ -395,8 +395,8 @@
     8. 新增调参节奏（内测→公测→稳定三阶段）
   - `npm run build` ✅ 通过（111 页面，纯文档变更）
 - **修改的文件**：
-  - `/home/xyzlh/majornav/ALGORITHM_SPEC.md` — 重写（v0.2→v0.3，8 通道→6 桶）
-  - `/home/xyzlh/majornav/AI_WORKLOG.md` — 追加记录
+  - `/home/xyzlh/majorpath/ALGORITHM_SPEC.md` — 重写（v0.2→v0.3，8 通道→6 桶）
+  - `/home/xyzlh/majorpath/AI_WORKLOG.md` — 追加记录
 - **当前版本状态**：v0.5 — 算法规格 v0.3 完成，6 桶两阶段体系就绪
 
 ---
@@ -412,10 +412,10 @@
   - 示例题覆盖了所有 4 种题目类型和全部 6 个桶
   - `npm run build` ✅ 通过（111 页面）
 - **修改的文件**：
-  - `/home/xyzlh/majornav/src/types/test.ts` — 新建（11 个类型 + 2 个辅助函数）
-  - `/home/xyzlh/majornav/src/data/questionBank.ts` — 新建（9 道示例题，含完整 scoreEffects 和 riskTags）
-  - `/home/xyzlh/majornav/AI_WORKLOG.md` — 追加记录
-  - `/home/xyzlh/majornav/CURRENT_STATUS.md` — 更新
+  - `/home/xyzlh/majorpath/src/types/test.ts` — 新建（11 个类型 + 2 个辅助函数）
+  - `/home/xyzlh/majorpath/src/data/questionBank.ts` — 新建（9 道示例题，含完整 scoreEffects 和 riskTags）
+  - `/home/xyzlh/majorpath/AI_WORKLOG.md` — 追加记录
+  - `/home/xyzlh/majorpath/CURRENT_STATUS.md` — 更新
 - **关键决策**：
   1. ScoreEffect.target 用联合类型（DirectionBucket | Dimension | string），第三个为专业类 slug，兼顾精准和灵活
   2. 每个选项可携带多个 scoreEffects——一次选择可能同时影响桶得分+维度得分+专业类标签
@@ -445,10 +445,10 @@
   - 避坑题（8/8）：risk_001-008，覆盖三大类别（热门跟风/学习方式排斥/方向误解）
   - `npm run build` ✅ 通过（111 页面）
 - **修改的文件**：
-  - `/home/xyzlh/majornav/src/data/questionBank.ts` — 重写（9→87 题，65000+ 字节）
-  - `/home/xyzlh/majornav/AI_WORKLOG.md` — 追加记录
-  - `/home/xyzlh/majornav/CURRENT_STATUS.md` — 更新
-  - `/home/xyzlh/majornav/TODO.md` — 更新
+  - `/home/xyzlh/majorpath/src/data/questionBank.ts` — 重写（9→87 题，65000+ 字节）
+  - `/home/xyzlh/majorpath/AI_WORKLOG.md` — 追加记录
+  - `/home/xyzlh/majorpath/CURRENT_STATUS.md` — 更新
+  - `/home/xyzlh/majorpath/TODO.md` — 更新
 - **当前版本状态**：v0.7 — 题库 87 题完成，达到正式运行所需最低库存
 
 ---
@@ -471,8 +471,8 @@
   - 题库：87 → **99 题**（20+58+13+8）
   - `npm run build` ✅ 通过
 - **修改的文件**：
-  - `/home/xyzlh/majornav/src/utils/adaptiveQuestioning.ts` — 新建（9 导出函数 + 类型 + 配置）
-  - `/home/xyzlh/majornav/src/data/questionBank.ts` — +12 道 cross_check 题
+  - `/home/xyzlh/majorpath/src/utils/adaptiveQuestioning.ts` — 新建（9 导出函数 + 类型 + 配置）
+  - `/home/xyzlh/majorpath/src/data/questionBank.ts` — +12 道 cross_check 题
   - 文档：AI_WORKLOG / CURRENT_STATUS / TODO
 - **关键决策**：Fisher-Yates shuffle + priority 排序 + usedIds 去重贯穿全流程，纯函数零依赖可单测
 - **遗留问题**：抽题无 seed（随机），校验题每对 1-2 题可满足
@@ -491,9 +491,9 @@
   - 新建 `src/pages/report.astro` 报告页占位（建设中 + 重新测试/浏览目录入口）
   - `npm run build` ✅ 通过（112 页面，+1 /report），零警告
 - **修改的文件**：
-  - `/home/xyzlh/majornav/src/components/TestFlow.tsx` — 新建
-  - `/home/xyzlh/majornav/src/pages/test.astro` — 重写
-  - `/home/xyzlh/majornav/src/pages/report.astro` — 新建
+  - `/home/xyzlh/majorpath/src/components/TestFlow.tsx` — 新建
+  - `/home/xyzlh/majorpath/src/pages/test.astro` — 重写
+  - `/home/xyzlh/majorpath/src/pages/report.astro` — 新建
   - 文档：AI_WORKLOG / CURRENT_STATUS / TODO
 - **关键决策**：单向流程无后退，sessionStorage 传结果，报告页先占位保证流程可走通
 - **遗留问题**：报告页未展示得分和三层推荐，无移动端键盘适配
@@ -519,9 +519,9 @@
     - `generateResult()` — 主流程：维度→桶→门类→专业类→避坑→置信度→画像→输出
   - `npm run build` ✅ 通过（112 页面），零错误零警告
 - **修改的文件**：
-  - `/home/xyzlh/majornav/src/types/result.ts` — 新建（7 类型）
-  - `/home/xyzlh/majornav/src/data/recommendationWeights.ts` — 新建（5 个映射表）
-  - `/home/xyzlh/majornav/src/utils/scoring.ts` — 新建（9 导出函数 + 3 映射表）
+  - `/home/xyzlh/majorpath/src/types/result.ts` — 新建（7 类型）
+  - `/home/xyzlh/majorpath/src/data/recommendationWeights.ts` — 新建（5 个映射表）
+  - `/home/xyzlh/majorpath/src/utils/scoring.ts` — 新建（9 导出函数 + 3 映射表）
   - 文档：AI_WORKLOG / CURRENT_STATUS / TODO
 - **关键决策**：
   1. 桶得分 = raw(0.4) + dimensionMatrix(0.6)——维度矩阵提供更细粒度的调参空间
@@ -660,12 +660,12 @@
     3. 新增绿色"隐私安全"声明框
   - `npm run build` ✅ 通过（112 页面）
 - **修改的文件**：
-  - `/home/xyzlh/majornav/public/scripts/test-flow.js` — 选项 shuffle() + renderQuestion()
-  - `/home/xyzlh/majornav/src/data/questionBank.ts` — 15+ 处学科暴露修复 + gen_008/gen_010 选项补全
-  - `/home/xyzlh/majornav/public/scripts/report.js` — renderFeedback() 重构
-  - `/home/xyzlh/majornav/src/pages/contribute.astro` — 重构为三类共建入口
-  - `/home/xyzlh/majornav/CURRENT_STATUS.md` — 版本 v0.13
-  - `/home/xyzlh/majornav/AI_WORKLOG.md` — 追加本条记录
+  - `/home/xyzlh/majorpath/public/scripts/test-flow.js` — 选项 shuffle() + renderQuestion()
+  - `/home/xyzlh/majorpath/src/data/questionBank.ts` — 15+ 处学科暴露修复 + gen_008/gen_010 选项补全
+  - `/home/xyzlh/majorpath/public/scripts/report.js` — renderFeedback() 重构
+  - `/home/xyzlh/majorpath/src/pages/contribute.astro` — 重构为三类共建入口
+  - `/home/xyzlh/majorpath/CURRENT_STATUS.md` — 版本 v0.13
+  - `/home/xyzlh/majorpath/AI_WORKLOG.md` — 追加本条记录
 - **关键决策**：
   1. 选项随机化用 shuffle() 不影响 scoreEffects 语义（A-F 顺序不影响计分逻辑）
   2. 问卷链接统一占位格式，创建飞书表单后替换即可

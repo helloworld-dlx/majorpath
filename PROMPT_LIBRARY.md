@@ -15,7 +15,7 @@
 - 集成 Tailwind CSS
 - 集成 React 组件支持
 - 使用默认的博客/内容站模板
-- 项目名称：majornav
+- 项目名称：majorpath
 ```
 
 适用模型：MiniMax / DeepSeek Pro

@@ -370,7 +370,7 @@
         generalCount: generalQ.length,
         totalCount: allQ.length,
       };
-      try { sessionStorage.setItem('majornav_test_results', JSON.stringify(payload)); } catch (e) { /* noop */ }
+      try { sessionStorage.setItem('majorpath_test_results', JSON.stringify(payload)); } catch (e) { /* noop */ }
       phase = 'done';
       window.location.href = '/report';
       return;
@@ -396,7 +396,7 @@
         generalCount: generalQ.length,
         totalCount: allQ.length,
       };
-      try { sessionStorage.setItem('majornav_test_results', JSON.stringify(payload2)); } catch (e) { /* noop */ }
+      try { sessionStorage.setItem('majorpath_test_results', JSON.stringify(payload2)); } catch (e) { /* noop */ }
       phase = 'done';
       window.location.href = '/report';
       return;

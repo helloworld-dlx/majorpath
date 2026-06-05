@@ -974,7 +974,7 @@
 
     var stored = null;
     try {
-      var raw = sessionStorage.getItem('majornav_test_results');
+      var raw = sessionStorage.getItem('majorpath_test_results');
       if (raw) stored = JSON.parse(raw);
     } catch (e) { /* noop */ }
 
