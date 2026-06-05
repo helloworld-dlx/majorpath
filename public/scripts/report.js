@@ -160,7 +160,7 @@
     business: { name: '偏实务的商业管理型', summary: '你对商业规则、资源组织和效率有天然的敏感。经济学、管理学和金融方向值得深入了解。' },
     stem: { name: '偏逻辑的理工探索型', summary: '你喜欢用逻辑和数学来看世界，对技术、系统和如何建造东西有热情。理工科方向有丰富的选择。' },
     life_health: { name: '偏实践的生命关怀型', summary: '你对生命、健康和自然世界有真诚的关注。医学、药学、农学等方向可能让你找到意义感。' },
-    art_creative: { name: '偏直觉的艺术创作型', summary: '你喜欢用创作来表达自己，对美和形式有敏感的判断。艺术和设计方向能让你把天赋变成专业。' },
+    art_creative: { name: '偏直觉的艺术创作型', summary: '你喜欢用创作来表达自己，对美和形式有敏感的判断。艺术和设计方向能把你那种对美的直觉变成一门专业。' },
   };
   var MIXED_PROFILE = { name: '多元探索型', summary: '你的兴趣比较多元，在多个方向都有体现。这未必是坏事——很多有意思的方向恰好是交叉领域。建议你从下面挑最感兴趣的 2-3 个深入了解。' };
 
@@ -537,6 +537,17 @@
     }
     lines.push('【置信度】' + (result.confidenceNote || ''));
     lines.push('');
+    // AI 解释（如果已加载）
+    var aiEl = document.getElementById('ai-explain-section');
+    if (aiEl) {
+      var aiText = (aiEl.textContent || '').trim();
+      // 过滤掉加载中的占位文字
+      if (aiText && aiText.indexOf('正在帮你组织语言') === -1 && aiText.length > 30) {
+        lines.push('【大白话解读】');
+        lines.push(aiText);
+        lines.push('');
+      }
+    }
     lines.push('——');
     lines.push('本报告来自「专业不迷路」公益项目');
     lines.push('仅供参考，不构成志愿填报建议。');
@@ -1064,9 +1075,10 @@
     wrapper.appendChild(renderCategorySection(result, 'cautiousCategories', { icon: '\u26a0\ufe0f', title: TXT.cautiousTitle, sub: TXT.cautiousSub, tier: 'cautious' }));
     wrapper.appendChild(renderRiskTags(result));
     wrapper.appendChild(renderNextSteps(result));
+    // 下载/复制按钮（在反馈区之前，方便先复制再填问卷）
+    wrapper.appendChild(renderActionBar());
     wrapper.appendChild(renderFeedback());
     wrapper.appendChild(renderFinalDisclaimer());
-    wrapper.appendChild(renderActionBar());
 
     r.appendChild(wrapper);
   }

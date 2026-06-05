@@ -227,7 +227,7 @@ export const PROFILE_TEMPLATES: Record<DirectionBucket, { name: string; summary:
   },
   art_creative: {
     name: '偏直觉的艺术创作型',
-    summary: '你喜欢用创作来表达自己，对美和形式有敏感的判断。艺术和设计方向能让你把天赋变成专业。',
+    summary: '你喜欢用创作来表达自己，对美和形式有敏感的判断。艺术和设计方向能把你那种对美的直觉变成一门专业。',
   },
 };
 
