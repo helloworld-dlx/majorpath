@@ -25,8 +25,10 @@
 | 5 | `TODO.md` | 需要了解下一步做什么时 |
 | 6 | `ALGORITHM_SPEC.md` | 涉及测试逻辑或推荐算法时 |
 | 7 | `CATALOG_STATUS.md` | 涉及专业目录或内容建设时 |
-| 8 | `PROMPT_LIBRARY.md` | 需要参考常用 Prompt 模板时 |
-| 9 | `MODEL_HANDOFF.md` | 当前文件，了解协作流程 |
+| 8 | `MAINTENANCE.md` | 执行审核/新建/修改/调参等维护操作时 |
+| 9 | `REVIEW_CHECKLIST.md` | 审核专业详情内容时 |
+| 10 | `PROMPT_LIBRARY.md` | 需要参考常用 Prompt 模板时 |
+| 11 | `MODEL_HANDOFF.md` | 当前文件，了解协作流程 |
 
 ---
 
