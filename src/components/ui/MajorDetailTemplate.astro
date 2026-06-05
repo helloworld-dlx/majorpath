@@ -6,11 +6,11 @@ interface Props {
   content: MajorDetailContent;
   /** 内容审核状态 */
   reviewStatus?: 'draft' | 'reviewed';
-  /** 该专业类下所有具体专业（可选，用于展示专业列表） */
-  majorNames?: string[];
+  /** 当前专业名称（在"容易混淆的专业"中显示对比对象） */
+  currentName?: string;
 }
 
-const { content: c, reviewStatus, majorNames } = Astro.props;
+const { content: c, reviewStatus, currentName } = Astro.props;
 const isDraft = reviewStatus === 'draft' || reviewStatus === undefined;
 ---
 
@@ -18,9 +18,9 @@ const isDraft = reviewStatus === 'draft' || reviewStatus === undefined;
 
   <!-- ═══ 头部 ═══ -->
   <header class="border-b border-slate-100 pb-6">
-    <h1 class="text-2xl font-bold text-slate-900 mb-3">
+    <p class="text-lg text-slate-700 leading-relaxed">
       {c.oneLiner}
-    </h1>
+    </p>
     {isDraft && (
       <div class="inline-flex items-center gap-1.5 text-xs text-amber-600 bg-amber-50 border border-amber-200 rounded-full px-3 py-1">
         <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"/></svg>
@@ -207,7 +207,9 @@ const isDraft = reviewStatus === 'draft' || reviewStatus === undefined;
                     </a>
                   ) : related.name}
                 </span>
-                <span class="text-blue-300 text-xs">vs</span>
+                <span class="text-blue-300 text-xs">
+                  {currentName ? `和 ${currentName}` : 'vs'}
+                </span>
               </div>
               <p class="text-slate-600 mt-0.5">{related.diff}</p>
             </li>

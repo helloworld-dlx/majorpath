@@ -72,6 +72,7 @@ const detailContent = majorDetails[detailKey] ?? null;
             <MajorDetailTemplate
               content={detailContent}
               reviewStatus={detailContent.reviewStatus}
+              currentName={majorData?.name}
             />
           ) : (
             <div class="text-center py-12 bg-slate-50 rounded-xl border border-slate-100">
