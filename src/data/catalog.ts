@@ -392,7 +392,9 @@ export const catalog: Catalog = {
           slug: 'mechanical',
           status: 'building',
           majorCount: 18,
-          majors: [],
+          majors: [
+            { code: '080202', name: '机械设计制造及其自动化', slug: 'mechanical-design', status: 'building', tags: ['传统工科', '核心'], summary: '学怎么设计、制造和运行机器设备——从零件图纸到生产线' },
+          ],
         },
         {
           code: '0803',
