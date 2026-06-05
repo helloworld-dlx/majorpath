@@ -796,7 +796,8 @@
         el('button', {
           className: 'w-full py-3 rounded-xl bg-primary text-white text-sm font-semibold hover:bg-primary/90 transition-colors shadow-sm',
           onClick: function () {
-            // 外部匿名问卷链接（待替换为真实链接）
+            // 外部匿名问卷链接
+            if (!confirm('即将跳转到问卷星匿名问卷（不收集姓名/手机号/身份证等信息），是否继续？')) return;
             var surveyUrl = 'https://v.wjx.cn/vm/wFFJa5x.aspx';
             window.open(surveyUrl, '_blank', 'noopener,noreferrer');
           },

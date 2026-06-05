@@ -9,7 +9,7 @@
  *   2. 不写成官方培养方案
  *   3. 不夸大就业前景，也不贬低任何方向
  *   4. 每个专业类平等呈现
- *   5. 所有内容标记 draft，正式上线前需人工审核
+ *   5. 所有内容标记 draft，按 REVIEW_CHECKLIST.md 审核后方可上线
  */
 
 import type { MajorDetailMap } from '../types/major-detail';
