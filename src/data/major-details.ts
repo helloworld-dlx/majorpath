@@ -240,7 +240,7 @@ export const majorDetails: MajorDetailMap = {
     ],
 
     updatedAt: '2026-06-05',
-    reviewStatus: 'draft',
+    reviewStatus: 'reviewed',
     videos: [
       {
         title: '【科普】电子信息类专业的就业方向',
