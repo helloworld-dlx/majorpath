@@ -459,7 +459,14 @@
 
   function el(tag, attrs) {
     var children = [];
-    for (var i = 2; i < arguments.length; i++) children.push(arguments[i]);
+    for (var i = 2; i < arguments.length; i++) {
+      var arg = arguments[i];
+      if (Array.isArray(arg)) {
+        for (var j = 0; j < arg.length; j++) children.push(arg[j]);
+      } else {
+        children.push(arg);
+      }
+    }
     var e = document.createElement(tag);
     if (attrs) {
       Object.keys(attrs).forEach(function (k) {
@@ -978,13 +985,26 @@
       if (raw) stored = JSON.parse(raw);
     } catch (e) { /* noop */ }
 
-    if (!stored || !stored.responses) {
+    if (!stored || !stored.responses || Object.keys(stored.responses).length === 0) {
       renderEmptyState();
       return;
     }
 
-    var result = generateResult(bank, stored.responses, stored.riskTags || [], stored.userType || 'exploratory');
-    renderFullReport(result);
+    try {
+      var result = generateResult(bank, stored.responses, stored.riskTags || [], stored.userType || 'exploratory');
+      renderFullReport(result);
+    } catch (e) {
+      console.error('Report render error:', e);
+      var r = rootEl();
+      r.innerHTML = '';
+      r.appendChild(el('div', { className: 'max-w-xl mx-auto px-4 py-16 text-center' },
+        el('div', { className: 'text-4xl mb-4' }, '⚠️'),
+        el('h1', { className: 'text-lg font-bold text-slate-900 mb-2' }, '报告生成失败'),
+        el('p', { className: 'text-sm text-slate-500 mb-4' }, '请刷新页面重试，或重新做一次测试'),
+        el('pre', { className: 'text-xs text-left text-red-500 bg-red-50 p-3 rounded-lg max-h-40 overflow-auto' }, String(e && e.message || e))
+      ));
+      return;
+    }
 
     // 主观题答案非空 → 调用 AI；为空 → 直接显示模板
     var subjectiveNotes = stored.subjectiveNotes || '';

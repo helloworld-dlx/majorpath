@@ -32,6 +32,7 @@
   let bucketScores = null;
   let userType = null;
   let humanitiesProtected = false;
+  let shuffledOptionsCache = {};
 
   // ─── helpers ───
 
@@ -201,6 +202,7 @@
     idx = 0;
     responses = {};
     adaptiveQ = [];
+    shuffledOptionsCache = {};
     renderQuestion();
   }
 
@@ -244,27 +246,45 @@
       }
     } else {
       // ── 选择题：option buttons ──
-      var shuffledOptions = shuffle(q.question.options);
+      // 内容随机打乱映射到固定 label（A/B/C/D...），每道题仅打乱一次
+      var LABELS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      var mapping = shuffledOptionsCache[q.question.id];
+      if (!mapping) {
+        var shuffled = shuffle(q.question.options.slice());
+        mapping = [];
+        for (var si = 0; si < shuffled.length; si++) {
+          mapping.push({ label: LABELS[si] || String(si + 1), optId: shuffled[si].id, text: shuffled[si].text });
+        }
+        shuffledOptionsCache[q.question.id] = mapping;
+      }
       html += '<div class="space-y-2 mb-6">';
-      shuffledOptions.forEach(function (opt) {
-        var isThis = ansId === opt.id;
+      for (var mi = 0; mi < mapping.length; mi++) {
+        var mapped = mapping[mi];
+        var isThis = ansId === mapped.optId;
         var cls = 'w-full text-left p-4 rounded-xl border transition-all cursor-pointer ';
         if (isThis) cls += 'border-primary bg-primary/5 ring-1 ring-primary/20';
         else cls += 'border-slate-200 bg-white hover:border-primary/30 hover:bg-slate-50';
 
-        html += '<button class="' + cls + '" data-opt="' + opt.id + '">';
+        html += '<button class="' + cls + '" data-opt="' + mapped.optId + '">';
         html += '<div class="flex items-start gap-3">';
         var circleCls = isThis ? 'bg-primary text-white border-primary' : 'border-slate-300 text-slate-500';
-        html += '<span class="shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-xs font-medium border ' + circleCls + '">' + opt.label + '</span>';
-        html += '<span class="text-sm text-slate-700 leading-relaxed pt-0.5">' + opt.text + '</span>';
+        html += '<span class="shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-xs font-medium border ' + circleCls + '">' + mapped.label + '</span>';
+        html += '<span class="text-sm text-slate-700 leading-relaxed pt-0.5">' + mapped.text + '</span>';
         html += '</div></button>';
-      });
+      }
       html += '</div>';
 
       // next button（选择题需选中才可点）
+      var showPrev = idx > 0;
       var nextDisabled = !ansId;
       var nextCls = nextDisabled ? 'bg-slate-100 text-slate-400 cursor-not-allowed' : 'bg-primary text-white hover:bg-primary/90 shadow-sm';
-      html += '<div class="flex justify-end"><button id="btn-next" class="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl font-medium text-sm transition-all ' + nextCls + '" ' + (nextDisabled ? 'disabled' : '') + '>' + (isLast ? '查看结果' : '下一题') + '<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></button></div>';
+      html += '<div class="flex items-center justify-between">';
+      if (showPrev) {
+        html += '<button id="btn-prev" class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl font-medium text-sm transition-all border border-slate-200 text-slate-600 bg-white hover:bg-slate-50"><svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>上一题</button>';
+      } else {
+        html += '<div></div>';
+      }
+      html += '<button id="btn-next" class="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl font-medium text-sm transition-all ' + nextCls + '" ' + (nextDisabled ? 'disabled' : '') + '>' + (isLast ? '查看结果' : '下一题') + '<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></button></div>';
 
       if (phase === 'adaptive' && idx === generalQ.length) {
         html += '<div class="mt-4 text-center"><p class="text-xs text-slate-400">接下来会问你一些更具体的问题，帮你缩小方向</p></div>';
@@ -294,6 +314,9 @@
         };
       });
     }
+
+    var btnPrev = document.getElementById('btn-prev');
+    if (btnPrev) btnPrev.onclick = function () { idx--; renderQuestion(); };
 
     var btnNext = document.getElementById('btn-next');
     if (btnNext) btnNext.onclick = handleNext;
