@@ -65,13 +65,20 @@ const detailContent = majorDetails[detailKey] ?? null;
               <h2 class="text-lg font-semibold text-slate-800 mb-3">📋 具体专业</h2>
               {catData.majors.length > 0 ? (
                 <div class="space-y-2">
-                  {catData.majors.map((major: Major) => (
+                  {catData.majors.map((major: Major) => {
+                    const majorKey = `${gate}/${category}/${major.slug}`;
+                    const hasDetail = majorDetails[majorKey] !== undefined;
+                    return (
                     <div
                       class="p-3 bg-white rounded-lg border border-slate-200 flex items-start justify-between gap-3"
                     >
                       <div class="min-w-0 flex-1">
                         <div class="flex items-center gap-2 flex-wrap">
-                          <span class="font-medium text-slate-800 text-sm">{major.name}</span>
+                          {hasDetail ? (
+                            <a href={`/majors/${gate}/${category}/${major.slug}`} class="font-medium text-primary hover:underline text-sm">{major.name}</a>
+                          ) : (
+                            <span class="font-medium text-slate-800 text-sm">{major.name}</span>
+                          )}
                           <span class="text-xs text-slate-300">{major.code}</span>
                           {major.status !== 'completed' && (
                             <StatusBadge status={major.status} size="sm" />
@@ -91,7 +98,8 @@ const detailContent = majorDetails[detailKey] ?? null;
                         )}
                       </div>
                     </div>
-                  ))}
+                  )})}
+                </div>
                 </div>
               ) : (
                 <div class="text-center py-8 bg-slate-50 rounded-xl border border-slate-100">

@@ -442,17 +442,6 @@ export const catalog: Catalog = {
           ],
         },
         {
-          code: '080710T',
-          name: '集成电路设计与集成系统',
-          slug: 'ic-design',
-          status: 'building',
-          majorCount: 1,
-          description: '学习怎么把复杂电子系统浓缩到一小块芯片里——芯片是数字世界的物理根基',
-          majors: [
-            { code: '080710T', name: '集成电路设计与集成系统', slug: 'ic-design-major', status: 'building', tags: ['国家战略', '特设'], summary: '芯片设计全流程——从晶体管到系统，软硬件贯通' },
-          ],
-        },
-        {
           code: '0808',
           name: '自动化类',
           slug: 'automation',
