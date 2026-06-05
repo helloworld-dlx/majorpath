@@ -29,163 +29,12 @@ const isDraft = reviewStatus === 'draft' || reviewStatus === undefined;
     )}
   </header>
 
-  <!-- ═══ 1. 专业到底学什么 ═══ -->
-  <section class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
-    <h2 class="font-semibold text-slate-800 mb-3 flex items-center gap-2 text-base">
-      <span class="text-lg">📖</span>大学大概学什么
-    </h2>
-    <ul class="space-y-2">
-      {c.whatYouLearn.map((item) => (
-        <li class="flex gap-2 text-sm text-slate-600 leading-relaxed">
-          <span class="text-slate-300 mt-0.5 shrink-0">•</span>
-          <span>{item}</span>
-        </li>
-      ))}
-    </ul>
-  </section>
-
-  <!-- ═══ 2. 和高中有什么不同 ═══ -->
-  <section class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
-    <h2 class="font-semibold text-slate-800 mb-3 flex items-center gap-2 text-base">
-      <span class="text-lg">📐</span>和高中学科有什么不同
-    </h2>
-    <ul class="space-y-2">
-      {c.vsHighSchool.map((item) => (
-        <li class="flex gap-2 text-sm text-slate-600 leading-relaxed">
-          <span class="text-slate-300 mt-0.5 shrink-0">•</span>
-          <span>{item}</span>
-        </li>
-      ))}
-    </ul>
-  </section>
-
-  <!-- ═══ 3. 适合什么样的人 ═══ -->
-  <section class="bg-emerald-50/50 p-5 rounded-xl border border-emerald-100">
-    <h2 class="font-semibold text-emerald-800 mb-3 flex items-center gap-2 text-base">
-      <span class="text-lg">✅</span>适合什么样的人
-    </h2>
-    <ul class="space-y-2">
-      {c.suitableFor.map((item) => (
-        <li class="flex gap-2 text-sm text-slate-700 leading-relaxed">
-          <span class="text-emerald-400 mt-0.5 shrink-0">•</span>
-          <span>{item}</span>
-        </li>
-      ))}
-    </ul>
-  </section>
-
-  <!-- ═══ 4. 不太适合什么样的人 ═══ -->
-  <section class="bg-rose-50/50 p-5 rounded-xl border border-rose-100">
-    <h2 class="font-semibold text-rose-700 mb-3 flex items-center gap-2 text-base">
-      <span class="text-lg">🤔</span>不太适合什么样的人
-    </h2>
-    <p class="text-xs text-rose-400 mb-3">不是劝退，只是提前让你知道可能要面对什么</p>
-    <ul class="space-y-2">
-      {c.notSuitableFor.map((item) => (
-        <li class="flex gap-2 text-sm text-slate-700 leading-relaxed">
-          <span class="text-rose-300 mt-0.5 shrink-0">•</span>
-          <span>{item}</span>
-        </li>
-      ))}
-    </ul>
-  </section>
-
-  <!-- ═══ 5. 常见误解 ═══ -->
-  <section class="bg-slate-50 p-5 rounded-xl border border-slate-100">
-    <h2 class="font-semibold text-slate-800 mb-3 flex items-center gap-2 text-base">
-      <span class="text-lg">⚠️</span>常见误解
-    </h2>
-    <ul class="space-y-3">
-      {c.commonMisconceptions.map((item) => (
-        <li class="flex gap-2 text-sm text-slate-600 leading-relaxed">
-          <span class="text-amber-400 mt-0.5 shrink-0 font-bold">✕</span>
-          <span>{item}</span>
-        </li>
-      ))}
-    </ul>
-  </section>
-
-  <!-- ═══ 6. 真实学习场景 ═══ -->
-  <section class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
-    <h2 class="font-semibold text-slate-800 mb-3 flex items-center gap-2 text-base">
-      <span class="text-lg">🎓</span>真实学习场景
-    </h2>
-    <ul class="space-y-2">
-      {c.realScenes.map((item) => (
-        <li class="flex gap-2 text-sm text-slate-600 leading-relaxed">
-          <span class="text-slate-300 mt-0.5 shrink-0">•</span>
-          <span>{item}</span>
-        </li>
-      ))}
-    </ul>
-  </section>
-
-  <!-- ═══ 7. 未来可能方向 ═══ -->
-  <section class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
-    <h2 class="font-semibold text-slate-800 mb-3 flex items-center gap-2 text-base">
-      <span class="text-lg">🚀</span>未来可能方向
-    </h2>
-    <p class="text-xs text-slate-400 mb-3">以下只是常见的出路，不代表全部。每个人的路都不一样。</p>
-    <ul class="space-y-2">
-      {c.futurePaths.map((item) => (
-        <li class="flex gap-2 text-sm text-slate-600 leading-relaxed">
-          <span class="text-slate-300 mt-0.5 shrink-0">•</span>
-          <span>{item}</span>
-        </li>
-      ))}
-    </ul>
-  </section>
-
-  <!-- ═══ 8. 避坑提醒 ═══ -->
-  <section class="bg-amber-50 p-5 rounded-xl border border-amber-100">
-    <h2 class="font-semibold text-amber-800 mb-3 flex items-center gap-2 text-base">
-      <span class="text-lg">⚡</span>避坑提醒
-    </h2>
-    <ul class="space-y-2">
-      {c.pitfalls.map((item) => (
-        <li class="flex gap-2 text-sm text-slate-700 leading-relaxed">
-          <span class="text-amber-400 mt-0.5 shrink-0">!</span>
-          <span>{item}</span>
-        </li>
-      ))}
-    </ul>
-  </section>
-
-  <!-- ═══ 9. 相关专业区别 ═══ -->
-  {
-    c.relatedMajors.length > 0 && (
-      <section class="bg-blue-50/50 p-5 rounded-xl border border-blue-100">
-        <h2 class="font-semibold text-blue-800 mb-3 flex items-center gap-2 text-base">
-          <span class="text-lg">🔗</span>容易混淆的专业
-        </h2>
-        <p class="text-xs text-blue-400 mb-3">这几个专业名字或方向接近，帮你分清楚。</p>
-        <ul class="space-y-3">
-          {c.relatedMajors.map((related) => (
-            <li class="text-sm leading-relaxed">
-              <div class="flex items-baseline gap-2 flex-wrap">
-                <span class="font-medium text-slate-800">
-                  {related.slug ? (
-                    <a href={`/majors/${related.gateSlug ?? c.gateSlug}/${related.slug}`} class="hover:text-primary transition-colors underline underline-offset-2 decoration-slate-300 hover:decoration-primary">
-                      {related.name}
-                    </a>
-                  ) : related.name}
-                </span>
-                <span class="text-blue-300 text-xs">vs</span>
-              </div>
-              <p class="text-slate-600 mt-0.5">{related.diff}</p>
-            </li>
-          ))}
-        </ul>
-      </section>
-    )
-  }
-
-  <!-- ═══ 10. 相关介绍视频 ═══ -->
+  <!-- ═══ 1. 相关介绍视频（如果存在） ═══ -->
   {
     (c.videos && c.videos.length > 0) ? (
       <section class="bg-white p-5 sm:p-6 rounded-xl border border-slate-200 shadow-sm">
         <h2 class="font-semibold text-slate-800 mb-1 flex items-center gap-2 text-base">
-          <span class="text-lg">🎬</span>相关介绍视频
+          <span class="text-lg">🎬</span>先看个视频了解一下
         </h2>
         <p class="text-xs text-slate-400 mb-4">以下视频来自网络，仅供参考了解，不代表本站立场</p>
         <div class="grid sm:grid-cols-2 gap-3">
@@ -217,23 +66,188 @@ const isDraft = reviewStatus === 'draft' || reviewStatus === undefined;
     )
   }
 
+  <!-- ═══ 2. 专业到底学什么 ═══ -->
+  <section class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+    <h2 class="font-semibold text-slate-800 mb-3 flex items-center gap-2 text-base">
+      <span class="text-lg">📖</span>大学大概学什么
+    </h2>
+    <ul class="space-y-2">
+      {c.whatYouLearn.map((item) => (
+        <li class="flex gap-2 text-sm text-slate-600 leading-relaxed">
+          <span class="text-slate-300 mt-0.5 shrink-0">•</span>
+          <span>{item}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <!-- ═══ 3. 和高中有什么不同 ═══ -->
+  <section class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+    <h2 class="font-semibold text-slate-800 mb-3 flex items-center gap-2 text-base">
+      <span class="text-lg">📐</span>和高中学科有什么不同
+    </h2>
+    <ul class="space-y-2">
+      {c.vsHighSchool.map((item) => (
+        <li class="flex gap-2 text-sm text-slate-600 leading-relaxed">
+          <span class="text-slate-300 mt-0.5 shrink-0">•</span>
+          <span>{item}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <!-- ═══ 4. 适合什么样的人 ═══ -->
+  <section class="bg-emerald-50/50 p-5 rounded-xl border border-emerald-100">
+    <h2 class="font-semibold text-emerald-800 mb-3 flex items-center gap-2 text-base">
+      <span class="text-lg">✅</span>适合什么样的人
+    </h2>
+    <ul class="space-y-2">
+      {c.suitableFor.map((item) => (
+        <li class="flex gap-2 text-sm text-slate-700 leading-relaxed">
+          <span class="text-emerald-400 mt-0.5 shrink-0">•</span>
+          <span>{item}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <!-- ═══ 5. 不太适合什么样的人 ═══ -->
+  <section class="bg-rose-50/50 p-5 rounded-xl border border-rose-100">
+    <h2 class="font-semibold text-rose-700 mb-3 flex items-center gap-2 text-base">
+      <span class="text-lg">🤔</span>不太适合什么样的人
+    </h2>
+    <p class="text-xs text-rose-400 mb-3">不是劝退，只是提前让你知道可能要面对什么</p>
+    <ul class="space-y-2">
+      {c.notSuitableFor.map((item) => (
+        <li class="flex gap-2 text-sm text-slate-700 leading-relaxed">
+          <span class="text-rose-300 mt-0.5 shrink-0">•</span>
+          <span>{item}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <!-- ═══ 6. 常见误解 ═══ -->
+  <section class="bg-slate-50 p-5 rounded-xl border border-slate-100">
+    <h2 class="font-semibold text-slate-800 mb-3 flex items-center gap-2 text-base">
+      <span class="text-lg">⚠️</span>常见误解
+    </h2>
+    <ul class="space-y-3">
+      {c.commonMisconceptions.map((item) => (
+        <li class="flex gap-2 text-sm text-slate-600 leading-relaxed">
+          <span class="text-amber-400 mt-0.5 shrink-0 font-bold">✕</span>
+          <span>{item}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <!-- ═══ 7. 真实学习场景 ═══ -->
+  <section class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+    <h2 class="font-semibold text-slate-800 mb-3 flex items-center gap-2 text-base">
+      <span class="text-lg">🎓</span>真实学习场景
+    </h2>
+    <ul class="space-y-2">
+      {c.realScenes.map((item) => (
+        <li class="flex gap-2 text-sm text-slate-600 leading-relaxed">
+          <span class="text-slate-300 mt-0.5 shrink-0">•</span>
+          <span>{item}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <!-- ═══ 8. 未来可能方向 ═══ -->
+  <section class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+    <h2 class="font-semibold text-slate-800 mb-3 flex items-center gap-2 text-base">
+      <span class="text-lg">🚀</span>未来可能方向
+    </h2>
+    <p class="text-xs text-slate-400 mb-3">以下只是常见的出路，不代表全部。每个人的路都不一样。</p>
+    <ul class="space-y-2">
+      {c.futurePaths.map((item) => (
+        <li class="flex gap-2 text-sm text-slate-600 leading-relaxed">
+          <span class="text-slate-300 mt-0.5 shrink-0">•</span>
+          <span>{item}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <!-- ═══ 9. 避坑提醒 ═══ -->
+  <section class="bg-amber-50 p-5 rounded-xl border border-amber-100">
+    <h2 class="font-semibold text-amber-800 mb-3 flex items-center gap-2 text-base">
+      <span class="text-lg">⚡</span>避坑提醒
+    </h2>
+    <ul class="space-y-2">
+      {c.pitfalls.map((item) => (
+        <li class="flex gap-2 text-sm text-slate-700 leading-relaxed">
+          <span class="text-amber-400 mt-0.5 shrink-0">!</span>
+          <span>{item}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <!-- ═══ 10. 相关专业区别 ═══ -->
+  {
+    c.relatedMajors.length > 0 && (
+      <section class="bg-blue-50/50 p-5 rounded-xl border border-blue-100">
+        <h2 class="font-semibold text-blue-800 mb-3 flex items-center gap-2 text-base">
+          <span class="text-lg">🔗</span>容易混淆的专业
+        </h2>
+        <p class="text-xs text-blue-400 mb-3">这几个专业名字或方向接近，帮你分清楚。</p>
+        <ul class="space-y-3">
+          {c.relatedMajors.map((related) => (
+            <li class="text-sm leading-relaxed">
+              <div class="flex items-baseline gap-2 flex-wrap">
+                <span class="font-medium text-slate-800">
+                  {related.slug ? (
+                    <a href={`/majors/${related.gateSlug ?? c.gateSlug}/${related.slug}`} class="hover:text-primary transition-colors underline underline-offset-2 decoration-slate-300 hover:decoration-primary">
+                      {related.name}
+                    </a>
+                  ) : related.name}
+                </span>
+                <span class="text-blue-300 text-xs">vs</span>
+              </div>
+              <p class="text-slate-600 mt-0.5">{related.diff}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
+
   <!-- ═══ 共建与纠错入口 ═══ -->
-  <footer class="bg-slate-50/80 p-5 rounded-xl border border-slate-200 space-y-3">
-    <!-- 贡献人（低调信息条） -->
+  <footer class="space-y-4">
+    <!-- 贡献人（显眼卡片） -->
     {(c.contributors && c.contributors.length > 0) && (
-      <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-400">
-        <span class="text-slate-300 select-none">内容贡献</span>
-        {c.contributors.map((con) => (
-          <span class="inline-flex items-center gap-1.5">
-            <span class="text-slate-500">{con.name}</span>
-            {con.role && <span class="text-slate-300">{con.role}</span>}
-            {con.note && <span class="text-slate-300 hidden sm:inline">— {con.note}</span>}
-          </span>
-        ))}
+      <div class="bg-gradient-to-r from-primary-light/60 to-blue-50/60 p-5 rounded-xl border border-primary-border/50">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-lg">🙋</span>
+          <h3 class="text-sm font-semibold text-slate-800">内容贡献者</h3>
+          <span class="text-[11px] text-primary bg-primary/10 px-2 py-0.5 rounded-full font-medium">真人学生</span>
+        </div>
+        <div class="space-y-2">
+          {c.contributors.map((con) => (
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center text-sm font-bold text-primary shrink-0">
+                {con.name.charAt(0)}
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-semibold text-slate-800">{con.name}</p>
+                <p class="text-xs text-slate-500">{con.role}</p>
+              </div>
+              <span class="text-[11px] text-green-600 bg-green-50 px-2 py-0.5 rounded-full shrink-0">✓ 已核实学生身份</span>
+            </div>
+          ))}
+        </div>
+        <p class="text-[11px] text-slate-400 mt-3 pt-3 border-t border-primary-border/30">
+          以上内容由该专业在读学生编写或审核。比起官方介绍，他们更懂真实的学习体验。
+        </p>
       </div>
     )}
     <!-- 纠错入口 -->
-    <div class="text-center pt-1">
+    <div class="bg-slate-50/80 p-5 rounded-xl border border-slate-200 text-center">
       <p class="text-sm text-slate-600 mb-2">
         你是这个专业的学生或毕业生？发现内容有不对或不准确的地方？
       </p>
