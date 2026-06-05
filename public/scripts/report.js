@@ -494,6 +494,94 @@
     );
   }
 
+  var _reportResult = null;
+
+  function buildReportText(result) {
+    var lines = [];
+    lines.push('专业不迷路 — 测试报告');
+    lines.push('');
+    lines.push('【方向画像】');
+    lines.push(result.profileName);
+    lines.push(result.profileSummary);
+    lines.push('');
+    if (result.topBuckets && result.topBuckets.length > 0) {
+      lines.push('【兴趣倾向】');
+      result.topBuckets.forEach(function (b) { lines.push('  ' + b.label + ': ' + b.score + '分'); });
+      lines.push('');
+    }
+    if (result.recommendedCategories && result.recommendedCategories.length > 0) {
+      lines.push('【建议优先了解】');
+      result.recommendedCategories.forEach(function (c) { lines.push('  ' + c.name + '（' + c.gate + '）'); });
+      lines.push('');
+    }
+    if (result.optionalCategories && result.optionalCategories.length > 0) {
+      lines.push('【可以继续看看】');
+      result.optionalCategories.forEach(function (c) { lines.push('  ' + c.name + '（' + c.gate + '）'); });
+      lines.push('');
+    }
+    if (result.cautiousCategories && result.cautiousCategories.length > 0) {
+      lines.push('【建议谨慎了解】');
+      result.cautiousCategories.forEach(function (c) {
+        lines.push('  ' + c.name + '（' + c.gate + '）');
+        (c.cautions || []).forEach(function (caution) { lines.push('    注意：' + caution); });
+      });
+      lines.push('');
+    }
+    if (result.riskTags && result.riskTags.length > 0) {
+      var real = result.riskTags.filter(function (r) { return r.description; });
+      if (real.length > 0) {
+        lines.push('【避坑提醒】');
+        real.forEach(function (r) { lines.push('  ' + r.label + '：' + r.description); });
+        lines.push('');
+      }
+    }
+    lines.push('【置信度】' + (result.confidenceNote || ''));
+    lines.push('');
+    lines.push('——');
+    lines.push('本报告来自「专业不迷路」公益项目');
+    lines.push('仅供参考，不构成志愿填报建议。');
+    return lines.join('\n');
+  }
+
+  function downloadReport() {
+    if (!_reportResult) return;
+    var text = buildReportText(_reportResult);
+    var blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = '专业不迷路_测试报告_' + new Date().toISOString().slice(0, 10) + '.txt';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  function copyReport() {
+    if (!_reportResult) return;
+    var text = buildReportText(_reportResult);
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () {
+        alert('报告已复制！快去粘贴到反馈问卷里吧');
+      }).catch(function () {
+        fallbackCopy(text);
+      });
+    } else {
+      fallbackCopy(text);
+    }
+  }
+
+  function fallbackCopy(text) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.left = '-9999px';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); alert('报告已复制！快去粘贴到反馈问卷里吧'); } catch (e) { alert('复制失败，请手动全选报告文本后 Ctrl+C 复制'); }
+    document.body.removeChild(ta);
+  }
+
   // ─── 渲染函数 ───
 
   function renderEmptyState() {
@@ -809,7 +897,8 @@
             window.open(surveyUrl, '_blank', 'noopener,noreferrer');
           },
         }, '\ud83d\udcab ' + TXT.feedbackBtn),
-        el('p', { className: 'text-[10px] text-slate-400 text-center mt-1.5' }, TXT.feedbackExternalNote)
+        el('p', { className: 'text-[10px] text-slate-400 text-center mt-1.5' }, TXT.feedbackExternalNote),
+        el('p', { className: 'text-[11px] text-blue-600 text-center mt-1.5' }, '\ud83d\udca1 提示：先用上面的「复制报告」按钮复制内容，再粘贴到问卷里，就能把报告一起发给我们')
       ),
 
       // contribute link
@@ -832,17 +921,29 @@
   }
 
   function renderActionBar() {
-    return el('div', { className: 'flex items-center justify-center gap-4 mb-8' },
-      el('a', { href: '/test', className: 'inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-primary transition-colors underline' },
-        '\ud83d\udd04 ' + TXT.retest
+    return el('div', { className: 'flex flex-col items-center gap-3 mb-8' },
+      el('div', { className: 'flex items-center gap-3' },
+        el('button', {
+          className: 'inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-medium border border-primary text-primary bg-white hover:bg-primary-light transition-colors',
+          onClick: downloadReport,
+        }, '\ud83d\udce5 下载报告'),
+        el('button', {
+          className: 'inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-medium border border-primary text-primary bg-white hover:bg-primary-light transition-colors',
+          onClick: copyReport,
+        }, '\ud83d\udccb 复制报告')
       ),
-      el('span', { className: 'text-slate-300' }, '|'),
-      el('a', { href: '/majors', className: 'inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-primary transition-colors underline' },
-        '\ud83d\udcda ' + TXT.browseMajors
-      ),
-      el('span', { className: 'text-slate-300' }, '|'),
-      el('a', { href: '/', className: 'inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-primary transition-colors underline' },
-        '\ud83c\udfe0 ' + TXT.goHome
+      el('div', { className: 'flex items-center justify-center gap-4' },
+        el('a', { href: '/test', className: 'inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-primary transition-colors underline' },
+          '\ud83d\udd04 ' + TXT.retest
+        ),
+        el('span', { className: 'text-slate-300' }, '|'),
+        el('a', { href: '/majors', className: 'inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-primary transition-colors underline' },
+          '\ud83d\udcda ' + TXT.browseMajors
+        ),
+        el('span', { className: 'text-slate-300' }, '|'),
+        el('a', { href: '/', className: 'inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-primary transition-colors underline' },
+          '\ud83c\udfe0 ' + TXT.goHome
+        )
       )
     );
   }
@@ -938,6 +1039,7 @@
   }
 
   function renderFullReport(result) {
+    _reportResult = result;
     var r = rootEl();
     r.innerHTML = '';
 
