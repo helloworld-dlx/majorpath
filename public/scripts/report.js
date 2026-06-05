@@ -797,7 +797,7 @@
           className: 'w-full py-3 rounded-xl bg-primary text-white text-sm font-semibold hover:bg-primary/90 transition-colors shadow-sm',
           onClick: function () {
             // 外部匿名问卷链接（待替换为真实链接）
-            var surveyUrl = 'https://wjgmltqm.feishu.cn/mr/xxxxxxxxxxxx';
+            var surveyUrl = 'https://v.wjx.cn/vm/wFFJa5x.aspx';
             window.open(surveyUrl, '_blank', 'noopener,noreferrer');
           },
         }, '\ud83d\udcab ' + TXT.feedbackBtn),
