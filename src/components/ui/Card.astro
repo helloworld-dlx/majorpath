@@ -1,0 +1,69 @@
+---
+interface Props {
+  href?: string;
+  variant?: 'default' | 'primary' | 'accent';
+  padding?: 'none' | 'sm' | 'md' | 'lg';
+  class?: string;
+}
+
+const {
+  href,
+  variant = 'default',
+  padding = 'md',
+  class: className = '',
+} = Astro.props;
+
+const baseStyles = `
+  bg-bg-card rounded-xl border border-border
+  transition-all duration-200
+`;
+
+const variantStyles = {
+  default: `
+    shadow-sm hover:shadow-md hover:border-border-hover
+  `,
+  primary: `
+    shadow-sm hover:shadow-md
+    border-primary-border hover:border-primary
+    hover:bg-primary-light/30
+  `,
+  accent: `
+    shadow-sm hover:shadow-md
+    border-accent-border hover:border-accent
+    hover:bg-accent-light/30
+  `,
+};
+
+const paddingStyles = {
+  none: '',
+  sm: 'p-4',
+  md: 'p-5 sm:p-6',
+  lg: 'p-6 sm:p-8',
+};
+
+const classes = [
+  baseStyles,
+  variantStyles[variant],
+  paddingStyles[padding],
+  className,
+].join(' ');
+
+const tag = href ? 'a' : 'div';
+---
+
+{tag === 'a' ? (
+  <a href={href} class={classes}>
+    <slot />
+  </a>
+) : (
+  <div class={classes}>
+    <slot />
+  </div>
+)}
+
+<style>
+  a {
+    display: block;
+    text-decoration: none;
+  }
+</style>

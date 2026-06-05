@@ -1,0 +1,178 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/ui/Card.astro';
+import Section from '../components/ui/Section.astro';
+---
+
+<Layout title="首页" description="用说大白话的方式，帮高中生看懂大学专业、找到方向，少一点盲选">
+
+  <!-- Hero -->
+  <Section spacing="lg" background="default">
+    <div class="max-w-3xl mx-auto text-center">
+      <!-- Badge -->
+      <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary-light/60 border border-primary-border text-primary text-xs font-medium mb-6">
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 9.75l5.5 5.5a4.5 4.5 0 009.75 0l5.5-5.5a4.5 4.5 0 000-9.75l-5.5-5.5a4.5 4.5 0 00-9.75 0l-5.5 5.5z" />
+        </svg>
+        永久免费 · 学生共建
+      </div>
+
+      <h1 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-4 leading-tight">
+        志愿填报前，<br class="hidden sm:block" />先来看看专业长什么样
+      </h1>
+      <p class="text-lg text-slate-600 mb-2 leading-relaxed">
+        用说大白话的方式，帮你搞清楚：<br />
+        这个专业到底学什么、适不适合你、有哪些坑要避开。
+      </p>
+      <p class="text-sm text-slate-400">
+        不是志愿填报工具，不预测录取概率，不替代正式建议
+      </p>
+    </div>
+  </Section>
+
+  <!-- Dual Entry Cards -->
+  <Section spacing="md" background="default">
+    <div class="max-w-3xl mx-auto">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <!-- Entry A: 专业目录 -->
+        <Card href="/majors" variant="primary" padding="lg" class="group">
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-primary-light flex items-center justify-center group-hover:scale-110 transition-transform">
+              <svg class="w-6 h-6 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+              </svg>
+            </div>
+            <div>
+              <h2 class="text-lg font-semibold text-slate-900 mb-1.5">先看专业目录</h2>
+              <p class="text-sm text-slate-500 leading-relaxed">
+                已经有感兴趣的方向？从学科门类一路看到具体专业，了解最真实的学习内容。
+              </p>
+              <div class="mt-3 flex items-center gap-1 text-sm font-medium text-primary">
+                <span>进入目录</span>
+                <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </Card>
+
+        <!-- Entry B: 方向测试 -->
+        <Card href="/test" variant="accent" padding="lg" class="group">
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-accent-light flex items-center justify-center group-hover:scale-110 transition-transform">
+              <svg class="w-6 h-6 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+              </svg>
+            </div>
+            <div>
+              <h2 class="text-lg font-semibold text-slate-900 mb-1.5">我没方向，做个测试</h2>
+              <p class="text-sm text-slate-500 leading-relaxed">
+                还不知道喜欢什么？答完 8 道题，帮你发现可能适合的专业方向。
+              </p>
+              <div class="mt-3 flex items-center gap-1 text-sm font-medium text-accent">
+                <span>开始测试</span>
+                <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </Card>
+      </div>
+    </div>
+  </Section>
+
+  <!-- What we do -->
+  <Section spacing="md" background="alt">
+    <div class="max-w-3xl mx-auto">
+      <div class="text-center mb-6">
+        <h2 class="text-lg font-semibold text-slate-900">「专业不迷路」能帮你做什么</h2>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div class="flex items-start gap-3 p-4 bg-bg-card rounded-lg border border-border">
+          <div class="flex-shrink-0 w-8 h-8 rounded-lg bg-primary-light flex items-center justify-center">
+            <svg class="w-4 h-4 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+            </svg>
+          </div>
+          <div>
+            <p class="text-sm font-medium text-slate-800">看清专业真相</p>
+            <p class="text-xs text-slate-500 mt-0.5">学什么课、做不做实验、和高中有什么不同</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-3 p-4 bg-bg-card rounded-lg border border-border">
+          <div class="flex-shrink-0 w-8 h-8 rounded-lg bg-primary-light flex items-center justify-center">
+            <svg class="w-4 h-4 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+            </svg>
+          </div>
+          <div>
+            <p class="text-sm font-medium text-slate-800">缩小选择范围</p>
+            <p class="text-xs text-slate-500 mt-0.5">从 845 个专业里，找到值得认真了解的 3-5 个</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-3 p-4 bg-bg-card rounded-lg border border-border">
+          <div class="flex-shrink-0 w-8 h-8 rounded-lg bg-primary-light flex items-center justify-center">
+            <svg class="w-4 h-4 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+          </div>
+          <div>
+            <p class="text-sm font-medium text-slate-800">避坑提醒</p>
+            <p class="text-xs text-slate-500 mt-0.5">哪些专业被误解最深，哪些人其实不适合</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-3 p-4 bg-bg-card rounded-lg border border-border">
+          <div class="flex-shrink-0 w-8 h-8 rounded-lg bg-primary-light flex items-center justify-center">
+            <svg class="w-4 h-4 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+          </div>
+          <div>
+            <p class="text-sm font-medium text-slate-800">真实经验补充</p>
+            <p class="text-xs text-slate-500 mt-0.5">大学生可以提交自己的学习体验</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <!-- Public welfare note -->
+  <Section spacing="md" background="default">
+    <div class="max-w-3xl mx-auto">
+      <div class="bg-[#fefcf8] rounded-xl p-5 border border-amber-100">
+        <div class="flex items-start gap-3">
+          <div class="flex-shrink-0 w-8 h-8 rounded-lg bg-amber-50 flex items-center justify-center mt-0.5">
+            <svg class="w-4 h-4 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold text-amber-800 mb-1">公益说明</h3>
+            <p class="text-sm text-amber-700 leading-relaxed">
+              核心功能永久免费，不设会员门槛，不通过焦虑营销盈利。<br />
+              不主动导向付费志愿填报或商业咨询服务。
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <!-- Disclaimer -->
+  <Section spacing="sm" background="default">
+    <div class="max-w-3xl mx-auto">
+      <div class="text-center py-4 border-t border-border">
+        <p class="text-xs text-slate-400 leading-relaxed">
+          ⚠️ 本站不提供录取概率预测，不替代正式志愿填报建议。最终选择请结合分数、位次、院校、家庭情况和个人目标综合判断。
+        </p>
+      </div>
+    </div>
+  </Section>
+
+</Layout>

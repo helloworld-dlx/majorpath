@@ -1,0 +1,132 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import StatusBadge from '../../../components/ui/StatusBadge.astro';
+import MajorDetailTemplate from '../../../components/ui/MajorDetailTemplate.astro';
+import { catalog } from '../../../data/catalog';
+import { majorDetails } from '../../../data/major-details';
+import type { Major } from '../../../types/catalog';
+
+export function getStaticPaths() {
+  const paths: { params: { gate: string; category: string } }[] = [];
+  for (const gate of catalog.gates) {
+    for (const cat of gate.categories) {
+      paths.push({ params: { gate: gate.slug, category: cat.slug } });
+    }
+  }
+  return paths;
+}
+
+const { gate, category } = Astro.params;
+
+const gateData = catalog.gates.find((g) => g.slug === gate);
+const catData = gateData?.categories.find((c) => c.slug === category);
+
+const detailKey = `${gate}/${category}`;
+const detailContent = majorDetails[detailKey] ?? null;
+---
+
+<Layout
+  title={catData ? `${catData.name} | ${gateData?.name ?? gate} | 专业目录` : '专业详情'}
+  description={catData?.description}
+>
+  <section class="py-10 px-4">
+    <div class="max-w-3xl mx-auto">
+      <!-- Breadcrumb -->
+      <nav class="text-sm text-slate-400 mb-6">
+        <a href="/majors" class="hover:text-primary transition-colors">专业目录</a>
+        <span class="mx-2">/</span>
+        <a href={`/majors/${gate}`} class="hover:text-primary transition-colors">{gateData?.name ?? gate}</a>
+        <span class="mx-2">/</span>
+        <span class="text-slate-600">{catData?.name ?? category}</span>
+      </nav>
+
+      {
+        catData ? (
+          <>
+            <!-- 专业类头部 -->
+            <header class="border-b border-slate-100 pb-6 mb-6">
+              <div class="flex items-center gap-3 mb-2">
+                <h1 class="text-2xl font-bold text-slate-900">{catData.name}</h1>
+                <StatusBadge status={catData.status} size="md" />
+              </div>
+              {catData.description && (
+                <p class="text-slate-600 mt-2">{catData.description}</p>
+              )}
+              <p class="text-xs text-slate-400 mt-2">
+                代码 {catData.code} · 官方 {catData.majorCount} 个专业
+                {catData.majors.length > 0 && catData.majors.length < catData.majorCount
+                  ? `（本站已收录 ${catData.majors.length} 个）`
+                  : catData.majors.length === 0 ? '' : ''}
+              </p>
+            </header>
+
+            <!-- 该专业类下的具体专业列表 -->
+            <section class="mb-8">
+              <h2 class="text-lg font-semibold text-slate-800 mb-3">📋 具体专业</h2>
+              {catData.majors.length > 0 ? (
+                <div class="space-y-2">
+                  {catData.majors.map((major: Major) => (
+                    <div
+                      class="p-3 bg-white rounded-lg border border-slate-200 flex items-start justify-between gap-3"
+                    >
+                      <div class="min-w-0 flex-1">
+                        <div class="flex items-center gap-2 flex-wrap">
+                          <span class="font-medium text-slate-800 text-sm">{major.name}</span>
+                          <span class="text-xs text-slate-300">{major.code}</span>
+                          {major.status !== 'completed' && (
+                            <StatusBadge status={major.status} size="sm" />
+                          )}
+                        </div>
+                        {major.summary && (
+                          <p class="text-xs text-slate-500 mt-0.5">{major.summary}</p>
+                        )}
+                        {major.tags && major.tags.length > 0 && (
+                          <div class="flex flex-wrap gap-1 mt-1.5">
+                            {major.tags.map((tag) => (
+                              <span class="text-xs px-1.5 py-0.5 bg-slate-100 text-slate-500 rounded">
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div class="text-center py-8 bg-slate-50 rounded-xl border border-slate-100">
+                  <p class="text-sm text-slate-400">该专业类下的具体专业数据尚在整理中</p>
+                </div>
+              )}
+            </section>
+
+            <!-- 详情内容：有则渲染模板，无则占位 -->
+            {detailContent ? (
+              <MajorDetailTemplate
+                content={detailContent}
+                reviewStatus={detailContent.reviewStatus}
+              />
+            ) : (
+              <div class="text-center py-12 bg-slate-50 rounded-xl border border-slate-100">
+                <p class="text-3xl mb-3">🚧</p>
+                <p class="text-slate-500 text-sm mb-2">
+                  {catData.status === 'building' ? '详细内容正在建设中，敬请期待' : '详情内容待补充'}
+                </p>
+                <p class="text-xs text-slate-400">
+                  该专业类的深度解读还在编写中，先看看上面的专业列表了解一下？
+                </p>
+              </div>
+            )}
+          </>
+        ) : (
+          <div class="text-center py-16 text-slate-500">
+            <p class="text-4xl mb-4">🔍</p>
+            <p class="text-lg font-medium text-slate-600 mb-2">专业类页面未找到</p>
+            <p class="text-sm text-slate-400">请检查链接是否正确，或该专业类尚未建立</p>
+            <a href="/majors" class="inline-block mt-4 text-sm text-primary hover:underline">返回专业目录</a>
+          </div>
+        )
+      }
+    </div>
+  </section>
+</Layout>

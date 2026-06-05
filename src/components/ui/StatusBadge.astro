@@ -1,0 +1,30 @@
+---
+import type { ContentStatus } from '../../types/catalog';
+
+interface Props {
+  status: ContentStatus;
+  size?: 'sm' | 'md';
+}
+
+const { status, size = 'sm' } = Astro.props;
+
+const badgeConfig: Record<ContentStatus, { label: string; bg: string; color: string; border: string }> = {
+  completed: { label: '已完成', bg: 'bg-emerald-50', color: 'text-emerald-600', border: 'border-emerald-200' },
+  building: { label: '建设中', bg: 'bg-amber-50', color: 'text-amber-600', border: 'border-amber-200' },
+  todo: { label: '待补充', bg: 'bg-slate-50', color: 'text-slate-400', border: 'border-slate-200' },
+};
+
+const cfg = badgeConfig[status] ?? badgeConfig.todo;
+---
+
+<span
+  class:list={[
+    'inline-flex items-center rounded-full border font-medium whitespace-nowrap',
+    cfg.bg,
+    cfg.color,
+    cfg.border,
+    size === 'sm' ? 'text-xs px-2 py-0.5' : 'text-sm px-3 py-1',
+  ]}
+>
+  {cfg.label}
+</span>

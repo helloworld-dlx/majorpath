@@ -1,0 +1,43 @@
+---
+interface Props {
+  as?: 'section' | 'div' | 'article';
+  spacing?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
+  background?: 'default' | 'alt' | 'card' | 'warm';
+  class?: string;
+}
+
+const {
+  as: Tag = 'section',
+  spacing = 'md',
+  background = 'default',
+  class: className = '',
+} = Astro.props;
+
+const spacingStyles = {
+  none: 'py-0',
+  sm: 'py-6 sm:py-8',
+  md: 'py-8 sm:py-12',
+  lg: 'py-12 sm:py-16',
+  xl: 'py-16 sm:py-20',
+};
+
+const backgroundStyles = {
+  default: 'bg-bg',
+  alt: 'bg-bg-alt',
+  card: 'bg-bg-card',
+  warm: 'bg-[#fefcf8]', // warm cream, non-anxiety
+};
+
+const classes = [
+  spacingStyles[spacing],
+  backgroundStyles[background],
+  'px-4',
+  className,
+].join(' ');
+---
+
+<Tag class={classes}>
+  <div class="max-w-5xl mx-auto">
+    <slot />
+  </div>
+</Tag>

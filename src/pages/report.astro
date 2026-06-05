@@ -1,0 +1,21 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { questionBank } from '../data/questionBank';
+
+const bankJson = JSON.stringify(questionBank);
+---
+
+<Layout title="测试报告" description="你的专业倾向测试结果">
+  <section class="py-6 px-4">
+    <div id="report-root" class="max-w-xl mx-auto">
+      <div class="py-16 text-center text-slate-400">
+        <p class="text-sm">报告加载中…</p>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script define:vars={{ bankJson }}>
+  window.__QUESTION_BANK__ = JSON.parse(bankJson);
+</script>
+<script is:inline src="/scripts/report.js"></script>

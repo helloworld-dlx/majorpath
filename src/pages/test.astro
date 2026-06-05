@@ -1,0 +1,21 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { questionBank } from '../data/questionBank';
+
+const bankJson = JSON.stringify(questionBank);
+---
+
+<Layout title="方向测试" description="帮你从兴趣和思维方式出发，发现可能适合的专业方向">
+  <section class="py-6 px-4">
+    <div id="major-test-root" class="max-w-xl mx-auto">
+      <div class="py-16 text-center text-slate-400">
+        <p class="text-sm">测试加载中…</p>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script define:vars={{ bankJson }}>
+  window.__QUESTION_BANK__ = JSON.parse(bankJson);
+</script>
+<script is:inline src="/scripts/test-flow.js"></script>

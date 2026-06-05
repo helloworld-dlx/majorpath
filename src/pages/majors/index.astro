@@ -1,0 +1,51 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import StatusBadge from '../../components/ui/StatusBadge.astro';
+import { catalog } from '../../data/catalog';
+import { countActualMajors } from '../../types/catalog';
+
+const actualMajors = countActualMajors(catalog);
+---
+
+<Layout title="专业目录" description="按学科门类浏览本科专业，了解每个专业的学习内容、适合人群和避坑提醒">
+  <section class="py-10 px-4">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-6">
+        <h1 class="text-2xl font-bold text-slate-900 mb-2">本科专业目录</h1>
+        <p class="text-slate-500 text-sm">
+          官方目录共 {catalog.totalGates} 个门类 · {catalog.totalCategories} 个专业类 · {catalog.totalMajors} 个专业
+        </p>
+        <p class="text-xs text-slate-400 mt-1">
+          数据来源：教育部 2026 年目录 · 本站已收录 {actualMajors} 个专业信息（持续建设中）
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+        {catalog.gates.map((gate) => (
+          <a
+            href={`/majors/${gate.slug}`}
+            class="group p-4 bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow-md hover:border-primary/30 transition-all text-center"
+          >
+            <div class="text-2xl mb-2">{gate.icon}</div>
+            <div class="font-medium text-slate-800 group-hover:text-primary transition-colors">{gate.name}</div>
+            <div class="text-xs text-slate-400 mt-1">{gate.categoryCount} 个专业类</div>
+            {gate.status !== 'completed' && (
+              <div class="mt-2 flex justify-center">
+                <StatusBadge status={gate.status} size="sm" />
+              </div>
+            )}
+            {gate.name === '交叉学科' && (
+              <span class="inline-block mt-1 text-xs px-1.5 py-0.5 bg-blue-50 text-blue-500 rounded">2026 新增</span>
+            )}
+          </a>
+        ))}
+      </div>
+
+      <div class="mt-8 text-center">
+        <p class="text-xs text-slate-400">
+          详细内容正在逐步完善中，部分专业类页面标注"建设中"或"待补充"状态
+        </p>
+      </div>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,101 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import StatusBadge from '../../components/ui/StatusBadge.astro';
+import { catalog } from '../../data/catalog';
+import { countActualMajorsInGate } from '../../types/catalog';
+import type { Category } from '../../types/catalog';
+
+export function getStaticPaths() {
+  return catalog.gates.map((gate) => ({
+    params: { gate: gate.slug },
+  }));
+}
+
+const { gate } = Astro.params;
+
+const gateData = catalog.gates.find((g) => g.slug === gate);
+const actualGateMajors = gateData ? countActualMajorsInGate(gateData) : 0;
+---
+
+<Layout title={gateData ? `${gateData.name} | 专业目录` : '门类'} description={gateData?.description}>
+  <section class="py-10 px-4">
+    <div class="max-w-4xl mx-auto">
+      <nav class="text-sm text-slate-400 mb-6">
+        <a href="/majors" class="hover:text-primary transition-colors">专业目录</a>
+        <span class="mx-2">/</span>
+        <span class="text-slate-600">{gateData?.name ?? gate}</span>
+      </nav>
+
+      {gateData ? (
+        <>
+          <div class="mb-6">
+            <div class="flex items-center gap-3 mb-2">
+              <h1 class="text-2xl font-bold text-slate-900">{gateData.icon} {gateData.name}</h1>
+              <StatusBadge status={gateData.status} size="md" />
+              {gateData.name === '交叉学科' && (
+                <span class="text-xs px-2 py-0.5 bg-blue-50 text-blue-500 rounded-full border border-blue-200 font-medium">2026 新增</span>
+              )}
+            </div>
+            {gateData.description && (
+              <p class="text-slate-500 text-sm">{gateData.description}</p>
+            )}
+            <p class="text-slate-400 text-xs mt-2">
+              代码 {gateData.code} · {gateData.categoryCount} 个专业类 · 官方 {gateData.majorCount} 个专业
+              {actualGateMajors > 0 ? `（本站已收录 ${actualGateMajors} 个）` : ''}
+            </p>
+          </div>
+
+          <div class="space-y-3">
+            {gateData.categories.map((cat: Category) => (
+              <a
+                href={cat.status === 'building' || cat.status === 'completed' ? `/majors/${gate}/${cat.slug}` : '#'}
+                class:list={[
+                  "group flex items-center justify-between p-4 bg-white rounded-xl border shadow-sm transition-all",
+                  cat.status !== 'todo'
+                    ? "hover:shadow-md hover:border-primary/30 cursor-pointer"
+                    : "opacity-60 cursor-not-allowed border-slate-100",
+                ]}
+              >
+                <div class="min-w-0 flex-1">
+                  <div class="flex items-center gap-2">
+                    <span class="font-medium text-slate-800 group-hover:text-primary transition-colors truncate">
+                      {cat.name}
+                    </span>
+                    {cat.status !== 'completed' && (
+                      <StatusBadge status={cat.status} size="sm" />
+                    )}
+                  </div>
+                  {cat.description && (
+                    <p class="text-xs text-slate-400 mt-0.5 line-clamp-1">{cat.description}</p>
+                  )}
+                  <div class="text-xs text-slate-400 mt-0.5">{cat.majorCount} 个具体专业</div>
+                </div>
+                <div class="flex items-center gap-2 ml-3 shrink-0">
+                  <svg
+                    class:list={["w-4 h-4 text-slate-300", cat.status !== 'todo' && "group-hover:text-primary transition-colors"]}
+                    fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                  >
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                  </svg>
+                </div>
+              </a>
+            ))}
+          </div>
+
+          {gateData.categories.length === 0 && (
+            <div class="text-center py-12 text-slate-400">
+              <p>该门类专业类数据正在整理中</p>
+            </div>
+          )}
+        </>
+      ) : (
+        <div class="text-center py-16 text-slate-500">
+          <p class="text-4xl mb-4">🔍</p>
+          <p class="text-lg font-medium text-slate-600 mb-2">未找到该学科门类</p>
+          <p class="text-sm text-slate-400">请检查链接是否正确</p>
+          <a href="/majors" class="inline-block mt-4 text-sm text-primary hover:underline">返回专业目录</a>
+        </div>
+      )}
+    </div>
+  </section>
+</Layout>

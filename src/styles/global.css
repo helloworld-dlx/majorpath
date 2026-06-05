@@ -1,0 +1,74 @@
+@import "tailwindcss";
+
+@theme {
+  /* Primary - Blue, trustworthy, educational */
+  --color-primary: #3b82f6;
+  --color-primary-hover: #2563eb;
+  --color-primary-light: #eff6ff;
+  --color-primary-border: #bfdbfe;
+
+  /* Secondary - Slate, professional */
+  --color-secondary: #64748b;
+  --color-secondary-hover: #475569;
+  --color-secondary-light: #f1f5f9;
+  --color-secondary-border: #cbd5e1;
+
+  /* Accent - Green, positive, growth */
+  --color-accent: #10b981;
+  --color-accent-hover: #059669;
+  --color-accent-light: #ecfdf5;
+  --color-accent-border: #a7f3d0;
+
+  /* Status colors */
+  --color-warning: #f59e0b;
+  --color-warning-light: #fffbeb;
+  --color-warning-border: #fde68a;
+  --color-danger: #ef4444;
+  --color-danger-light: #fef2f2;
+  --color-danger-border: #fecaca;
+
+  /* Backgrounds */
+  --color-bg: #ffffff;
+  --color-bg-alt: #f8fafc;
+  --color-bg-card: #ffffff;
+
+  /* Text */
+  --color-text: #1e293b;
+  --color-text-secondary: #475569;
+  --color-text-muted: #94a3b8;
+
+  /* Border */
+  --color-border: #e2e8f0;
+  --color-border-hover: #cbd5e1;
+
+  /* Font family */
+  --font-sans: "Inter", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  --font-serif: "Georgia", serif;
+}
+
+/* Base styles */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-text);
+  background: var(--color-bg);
+  line-height: 1.6;
+}
+
+/* Custom selection */
+::selection {
+  background: var(--color-primary-light);
+  color: var(--color-primary-hover);
+}
+
+/* Focus visible for accessibility */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
