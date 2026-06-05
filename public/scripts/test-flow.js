@@ -22,11 +22,12 @@
 
   // ─── state ───
   let bank = null;
-  let phase = 'start'; // start | general | adaptive | done
+  let phase = 'start'; // start | general | adaptive | subjective | done
   let idx = 0;
   let responses = {};
   let generalQ = [];
   let adaptiveQ = [];
+  let subjectiveQ = [];
   let allQ = [];
   let bucketScores = null;
   let userType = null;
@@ -204,112 +205,198 @@
   }
 
   function renderQuestion() {
-    const q = allQ[idx];
+    var q = allQ[idx];
     if (!q) return;
-    const isGen = phase === 'general' || (phase === 'adaptive' && idx < generalQ.length);
-    const total = allQ.length;
-    const progress = total > 0 ? Math.round((idx / total) * 100) : 0;
-    const ansId = responses[q.question.id];
-    const isLast = idx === total - 1;
+    var isGen = phase === 'general' || (phase === 'adaptive' && idx < generalQ.length);
+    var isSubj = q.question.type === 'subjective';
+    var total = allQ.length;
+    var progress = total > 0 ? Math.round((idx / total) * 100) : 0;
+    var ansId = responses[q.question.id];
+    var isLast = idx === total - 1;
 
-    let html = '<div class="max-w-xl mx-auto px-4 py-8">';
-    // progress bar
+    var html = '<div class="max-w-xl mx-auto px-4 py-8">';
+
+    // ── progress bar ──
+    var phaseLabel = isGen ? '第 1 步：通用题' : isSubj ? '第 3 步：随便聊聊' : '第 2 步：方向题';
     html += '<div class="mb-6"><div class="flex items-center justify-between text-xs text-slate-400 mb-2">';
-    html += `<span>${isGen ? '第 1 步：通用题' : '第 2 步：方向题'}</span>`;
-    html += `<span>${idx + 1} / ${total}</span></div>`;
-    html += `<div class="h-1.5 bg-slate-100 rounded-full overflow-hidden"><div class="h-full bg-primary rounded-full transition-all duration-300" style="width:${progress}%"></div></div></div>`;
+    html += '<span>' + phaseLabel + '</span>';
+    html += '<span>' + (idx + 1) + ' / ' + total + '</span></div>';
+    html += '<div class="h-1.5 bg-slate-100 rounded-full overflow-hidden"><div class="h-full bg-primary rounded-full transition-all duration-300" style="width:' + progress + '%"></div></div></div>';
 
-    // question card
+    // ── question card ──
     html += '<div class="bg-white rounded-xl border border-slate-200 shadow-sm p-5 mb-4">';
-    if (q.question.description) html += `<p class="text-xs text-slate-400 mb-2">${q.question.description}</p>`;
-    html += `<h2 class="text-base font-medium text-slate-800 leading-relaxed">${q.question.title}</h2></div>`;
+    if (q.question.description) html += '<p class="text-xs text-slate-400 mb-2">' + q.question.description + '</p>';
+    html += '<h2 class="text-base font-medium text-slate-800 leading-relaxed">' + q.question.title + '</h2></div>';
 
-    // options
-    // 选项随机排列
-    const shuffledOptions = shuffle(q.question.options);
-    html += '<div class="space-y-2 mb-6">';
-    shuffledOptions.forEach((opt, oi) => {
-      const isThis = ansId === opt.id;
-      let cls = 'w-full text-left p-4 rounded-xl border transition-all cursor-pointer ';
-      if (isThis) cls += 'border-primary bg-primary/5 ring-1 ring-primary/20';
-      else cls += 'border-slate-200 bg-white hover:border-primary/30 hover:bg-slate-50';
+    if (isSubj) {
+      // ── 主观题：textarea ──
+      var curText = (ansId || '');
+      html += '<div class="mb-6">';
+      html += '<textarea id="subj-input" class="w-full p-4 rounded-xl border border-slate-200 bg-white text-sm text-slate-700 leading-relaxed resize-none focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" rows="4" placeholder="随便写，不写也可以跳过…">' + curText.replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</textarea>';
+      html += '<p class="text-[11px] text-slate-400 mt-1.5">这道题是选填的——写不写都不影响测试结果，写了的话报告会更懂你</p>';
+      html += '</div>';
 
-      html += `<button class="${cls}" data-opt="${opt.id}">`;
-      html += '<div class="flex items-start gap-3">';
-      const circleCls = isThis ? 'bg-primary text-white border-primary' : 'border-slate-300 text-slate-500';
-      html += `<span class="shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-xs font-medium border ${circleCls}">${opt.label}</span>`;
-      html += `<span class="text-sm text-slate-700 leading-relaxed pt-0.5">${opt.text}</span>`;
-      html += '</div></button>';
-    });
-    html += '</div>';
+      // next button（主观题始终可点）
+      html += '<div class="flex justify-end"><button id="btn-next" class="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl font-medium text-sm transition-all bg-primary text-white hover:bg-primary/90 shadow-sm">' + (isLast ? '查看结果' : '下一题') + '<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></button></div>';
 
-    // next button
-    const nextDisabled = !ansId;
-    const nextCls = nextDisabled ? 'bg-slate-100 text-slate-400 cursor-not-allowed' : 'bg-primary text-white hover:bg-primary/90 shadow-sm';
-    html += `<div class="flex justify-end"><button id="btn-next" class="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl font-medium text-sm transition-all ${nextCls}" ${nextDisabled ? 'disabled' : ''}>${isLast ? '查看结果' : '下一题'}<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></button></div>`;
+      if (idx === allQ.length - subjectiveQ.length) {
+        html += '<div class="mt-4 text-center"><p class="text-xs text-slate-400">最后两步了——随便聊两句，帮报告更了解你</p></div>';
+      }
+    } else {
+      // ── 选择题：option buttons ──
+      var shuffledOptions = shuffle(q.question.options);
+      html += '<div class="space-y-2 mb-6">';
+      shuffledOptions.forEach(function (opt) {
+        var isThis = ansId === opt.id;
+        var cls = 'w-full text-left p-4 rounded-xl border transition-all cursor-pointer ';
+        if (isThis) cls += 'border-primary bg-primary/5 ring-1 ring-primary/20';
+        else cls += 'border-slate-200 bg-white hover:border-primary/30 hover:bg-slate-50';
 
-    if (phase === 'adaptive' && idx === generalQ.length) {
-      html += '<div class="mt-4 text-center"><p class="text-xs text-slate-400">接下来会问你一些更具体的问题，帮你缩小方向</p></div>';
+        html += '<button class="' + cls + '" data-opt="' + opt.id + '">';
+        html += '<div class="flex items-start gap-3">';
+        var circleCls = isThis ? 'bg-primary text-white border-primary' : 'border-slate-300 text-slate-500';
+        html += '<span class="shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-xs font-medium border ' + circleCls + '">' + opt.label + '</span>';
+        html += '<span class="text-sm text-slate-700 leading-relaxed pt-0.5">' + opt.text + '</span>';
+        html += '</div></button>';
+      });
+      html += '</div>';
+
+      // next button（选择题需选中才可点）
+      var nextDisabled = !ansId;
+      var nextCls = nextDisabled ? 'bg-slate-100 text-slate-400 cursor-not-allowed' : 'bg-primary text-white hover:bg-primary/90 shadow-sm';
+      html += '<div class="flex justify-end"><button id="btn-next" class="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl font-medium text-sm transition-all ' + nextCls + '" ' + (nextDisabled ? 'disabled' : '') + '>' + (isLast ? '查看结果' : '下一题') + '<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></button></div>';
+
+      if (phase === 'adaptive' && idx === generalQ.length) {
+        html += '<div class="mt-4 text-center"><p class="text-xs text-slate-400">接下来会问你一些更具体的问题，帮你缩小方向</p></div>';
+      }
     }
+
     html += '</div>';
     render(html);
 
-    // bind events
-    document.querySelectorAll('[data-opt]').forEach(btn => {
-      btn.onclick = () => {
-        const optId = btn.getAttribute('data-opt');
-        responses[q.question.id] = optId;
-        renderQuestion();
-      };
-    });
+    if (isSubj) {
+      // 绑定 textarea 输入事件
+      var ta = document.getElementById('subj-input');
+      if (ta) {
+        ta.addEventListener('input', function () {
+          responses[q.question.id] = ta.value;
+        });
+        // 初始化已有的值
+        if (ansId && ta.value !== ansId) ta.value = ansId;
+      }
+    } else {
+      // 绑定选项点击事件
+      document.querySelectorAll('[data-opt]').forEach(function (btn) {
+        btn.onclick = function () {
+          var optId = btn.getAttribute('data-opt');
+          responses[q.question.id] = optId;
+          renderQuestion();
+        };
+      });
+    }
 
-    const btnNext = document.getElementById('btn-next');
+    var btnNext = document.getElementById('btn-next');
     if (btnNext) btnNext.onclick = handleNext;
   }
 
   function handleNext() {
-    const q = allQ[idx];
-    if (!q || !responses[q.question.id]) return;
+    var q = allQ[idx];
+    if (!q) return;
+    var isSubj = q.question.type === 'subjective';
+    // 主观题允许空答案，选择题必须有答案
+    if (!isSubj && !responses[q.question.id]) return;
 
-    const isLastGen = phase === 'general' && idx === generalQ.length - 1;
+    var isLastGen = phase === 'general' && idx === generalQ.length - 1;
 
     if (isLastGen) {
-      const raw = computeBucketScores(responses);
-      const norm = normalizeScores(raw);
-      const usedIds = new Set(generalQ.map(x => x.question.id));
-      const adp = buildAdaptivePhase(raw, norm, usedIds);
+      var raw = computeBucketScores(responses);
+      var norm = normalizeScores(raw);
+      var usedIds = new Set(generalQ.map(function (x) { return x.question.id; }));
+      var adp = buildAdaptivePhase(raw, norm, usedIds);
 
       bucketScores = raw;
       userType = adp.uType;
       humanitiesProtected = adp.hp;
 
-      const items = [];
-      let ord = generalQ.length + 1;
-      for (const x of [...adp.branchQs, ...adp.crossQs, ...adp.riskQs]) {
-        items.push({ question: x, phase: 'branch', order: ord++ });
+      var items = [];
+      var ord = generalQ.length + 1;
+      var alls = [].concat(adp.branchQs, adp.crossQs, adp.riskQs);
+      for (var i = 0; i < alls.length; i++) {
+        items.push({ question: alls[i], phase: 'branch', order: ord++ });
       }
       adaptiveQ = items;
-      allQ = [...generalQ, ...adaptiveQ];
+      allQ = generalQ.concat(adaptiveQ);
       phase = 'adaptive';
       idx++;
       renderQuestion();
       return;
     }
 
-    const isLastAll = phase === 'adaptive' && idx === allQ.length - 1;
+    var isLastAdaptive = phase === 'adaptive' && idx === allQ.length - 1;
 
-    if (isLastAll) {
-      const tags = collectRiskTags(responses);
-      const payload = {
+    if (isLastAdaptive) {
+      // 主观题阶段：先插入 1-2 道主观开放题
+      if (subjectiveQ.length === 0) {
+        var subPool = bank.questions.filter(function (x) { return x.type === 'subjective'; });
+        var picked = shuffle(subPool).slice(0, 2);
+        var sitems = [];
+        var sord = allQ.length + 1;
+        for (var j = 0; j < picked.length; j++) {
+          sitems.push({ question: picked[j], phase: 'subjective', order: sord++ });
+        }
+        subjectiveQ = sitems;
+        allQ = allQ.concat(subjectiveQ);
+        phase = 'subjective';
+        idx++;
+        renderQuestion();
+        return;
+      }
+
+      // 主观题已完成 → 保存结果并跳转
+      var subjText = '';
+      for (var k = 0; k < subjectiveQ.length; k++) {
+        var ans = responses[subjectiveQ[k].question.id] || '';
+        if (ans.trim()) subjText += (subjText ? '\n' : '') + ans.trim();
+      }
+
+      var tags = collectRiskTags(responses);
+      var payload = {
         bucketScores: bucketScores ?? computeBucketScores(responses),
         userType: userType ?? 'exploratory',
         humanitiesProtected,
         riskTags: tags,
         responses,
+        subjectiveNotes: subjText,
         generalCount: generalQ.length,
         totalCount: allQ.length,
       };
       try { sessionStorage.setItem('majornav_test_results', JSON.stringify(payload)); } catch (e) { /* noop */ }
+      phase = 'done';
+      window.location.href = '/report';
+      return;
+    }
+
+    // 主观题阶段最后一道
+    var isLastSubj = phase === 'subjective' && idx === allQ.length - 1;
+    if (isLastSubj) {
+      var subjText2 = '';
+      for (var m = 0; m < subjectiveQ.length; m++) {
+        var ans2 = responses[subjectiveQ[m].question.id] || '';
+        if (ans2.trim()) subjText2 += (subjText2 ? '\n' : '') + ans2.trim();
+      }
+
+      var tags2 = collectRiskTags(responses);
+      var payload2 = {
+        bucketScores: bucketScores ?? computeBucketScores(responses),
+        userType: userType ?? 'exploratory',
+        humanitiesProtected,
+        riskTags: tags2,
+        responses,
+        subjectiveNotes: subjText2,
+        generalCount: generalQ.length,
+        totalCount: allQ.length,
+      };
+      try { sessionStorage.setItem('majornav_test_results', JSON.stringify(payload2)); } catch (e) { /* noop */ }
       phase = 'done';
       window.location.href = '/report';
       return;

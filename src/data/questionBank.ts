@@ -2,7 +2,7 @@
  * 方向测试题库数据
  * 对齐 ALGORITHM_SPEC.md v0.3 六桶体系
  *
- * 题目统计：通用 20 + 方向 58 + 校验 13 + 避坑 8 = 99 题
+ * 题目统计：通用 20 + 方向 58 + 校验 13 + 避坑 8 + 主观 4 = 103 题
  *
  * 命名规则：
  *   gen_xxx   = general 通用粗筛题
@@ -578,6 +578,17 @@ export const questionBank: QuestionBank = {
       { id: 'risk_008_a', label: 'A', text: '及时调整——换方向或者继续深入了解再说', scoreEffects: [{ target: 'stable_path', points: 2 }], riskTags: [] },
       { id: 'risk_008_b', label: 'B', text: '咬着牙坚持——都已经选了，后悔也没用', scoreEffects: [], riskTags: ['surface_interest'] },
     ]},
+
+    // ============================================================
+    // 主观开放题（4 题）
+    // 测试结束时随机抽取 1-2 题，自由文本输入
+    // 无 scoreEffects——纯开放式问题，不参与评分
+    // ============================================================
+
+    { id: 'subj_001', type: 'subjective', title: '你目前心里有没有特别想了解的专业方向？随便说说就行', targetBuckets: [], priority: 30, options: [] },
+    { id: 'subj_002', type: 'subjective', title: '你对未来的大学生活或者工作，最在意什么？', targetBuckets: [], priority: 30, options: [] },
+    { id: 'subj_003', type: 'subjective', title: '有没有什么事情是你特别不想做的？比如特别讨厌的科目、排斥的工作方式', targetBuckets: [], priority: 30, options: [] },
+    { id: 'subj_004', type: 'subjective', title: '还有什么想补充的吗？任何关于选专业的想法都可以写下来', targetBuckets: [], priority: 30, options: [] },
   ],
 };
 

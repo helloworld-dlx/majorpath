@@ -985,9 +985,19 @@
     var result = generateResult(bank, stored.responses, stored.riskTags || [], stored.userType || 'exploratory');
     renderFullReport(result);
 
-    // 异步请求 AI 解释（不阻塞报告渲染）
+    // 主观题答案非空 → 调用 AI；为空 → 直接显示模板
     var subjectiveNotes = stored.subjectiveNotes || '';
-    fetchAIExplanation(result, subjectiveNotes);
+    if (subjectiveNotes.trim().length > 0) {
+      fetchAIExplanation(result, subjectiveNotes);
+    } else {
+      // 用户未填写主观题 → 直接用模板解释
+      var section = document.getElementById('ai-explain-section');
+      if (section) {
+        var templateText = '根据你的答题偏好，系统为你匹配了几个值得了解的专业方向。\n\n建议你从「优先了解」区的专业类开始探索，点进去看看大学到底学什么、未来可能做什么。如果觉得不太对，也可以去「可以继续看看」区碰碰运气——有时候兴趣恰好藏在那些你还没注意到的地方。\n\n如果你想让报告更懂你，下次测试时在最后的「随便聊聊」环节多说两句你的想法。本测试只是认知工具，最终选择还需要结合你的高考成绩、位次和家庭情况综合判断。';
+        section.innerHTML = '';
+        section.appendChild(renderAIExplanation(templateText, true));
+      }
+    }
   }
 
   if (document.readyState === 'loading') {

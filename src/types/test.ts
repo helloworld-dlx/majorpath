@@ -43,7 +43,8 @@ export type QuestionType =
   | 'general'      // 通用粗筛题（第 1 步，8 道）
   | 'branch'       // 方向分流题（第 2 步自适应抽题）
   | 'cross_check'  // 相邻方向校验题
-  | 'risk';        // 避坑风险题
+  | 'risk'         // 避坑风险题
+  | 'subjective';  // 主观开放题（测试结束时 1-2 道，自由文本）
 
 // ───── 避坑标签（对齐 ALGORITHM_SPEC v0.3 §8） ─────
 
