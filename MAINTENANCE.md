@@ -125,7 +125,7 @@ grep "专业名" src/data/catalog.ts
   categorySlug: '你的slug',
   gateSlug: 'engineering',  // 门类 slug
 
-  // 1. 一句话解释（20-40 字，高中生能看懂）
+  // 1. 一句话解释（面向高中生，说大白话，可适当展开但不建议超过200字）
   oneLiner: 'TODO',
 
   // 2. 学什么（7-10 条，每条 20-40 字）

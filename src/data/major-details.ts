@@ -475,7 +475,7 @@ export const majorDetails: MajorDetailMap = {
     updatedAt: '2026-06-05',
     reviewStatus: 'draft',
     videos: [],
-    contributors: [{ name: 'dlx', role: '内容共建' }],
+    contributors: [{ name: '待确认', role: '内容共建' }],
   },
 };
 
