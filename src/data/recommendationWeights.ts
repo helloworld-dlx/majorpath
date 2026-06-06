@@ -91,8 +91,8 @@ export const GATE_PRIORITY_CATEGORIES: Record<
     { categorySlug: 'physical-education', buckets: ['social_science'], weight: 40 },
   ],
   '05': [ // 文学
-    { categorySlug: 'chinese-literature', buckets: ['humanities'], weight: 40 },
-    { categorySlug: 'foreign-languages', buckets: ['humanities'], weight: 30 },
+    { categorySlug: 'chinese-literature', buckets: ['humanities'], weight: 35 },
+    { categorySlug: 'foreign-languages', buckets: ['humanities'], weight: 35 },
     { categorySlug: 'journalism', buckets: ['humanities', 'social_science'], weight: 30 },
   ],
   '06': [ // 历史学
@@ -196,7 +196,7 @@ export const GATE_PRIORITY_CATEGORIES: Record<
 export const RISK_CATEGORY_PENALTIES: Record<RiskTag, { slugs: string[]; penalty: number; reason: string }> = {
   trend_chasing: {
     slugs: ['computer-science', 'electronic-information', 'finance', 'business-administration'],
-    penalty: 15,
+    penalty: 30,
     reason: '你可能因为热门才关注这个方向，建议先看看它到底学什么',
   },
   salary_misconception: {
