@@ -326,8 +326,8 @@ const DIM_MATCH: Record<string, Dimension[]> = {
   'interdisciplinary-class': ['abstract_theory', 'engineering_practice', 'life_health_interest'],
 };
 
-/** 维度匹配在最终分数中的权重（0-1），0.4 = 40% */
-const DIM_MATCH_WEIGHT = 0.4;
+/** 维度匹配在最终分数中的权重（0-1），0.6 = 60% */
+const DIM_MATCH_WEIGHT = 0.6;
 
 // ───── 专业类推荐 ─────
 
@@ -380,7 +380,7 @@ export function generateCategoryRecommendations(
       if (matchDims && matchDims.length > 0) {
         const dimAvg = matchDims.reduce((s, d) => s + (dimScores[d] ?? 25), 0) / matchDims.length;
         // 将维度匹配得分标准化到 0-100，然后与桶得分融合
-        const dimScore = Math.min(100, Math.max(0, dimAvg * 2.5));
+        const dimScore = Math.min(100, Math.max(0, dimAvg * 2));
         score = score * (1 - DIM_MATCH_WEIGHT) + dimScore * DIM_MATCH_WEIGHT;
       }
 
