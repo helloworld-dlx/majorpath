@@ -861,3 +861,56 @@
   2. 等待给排水共建内容提交后整合
   3. 根据内测反馈继续优化题库表述
 - **当前版本状态**：v0.15.0 — 土木/能源动力类打开
+
+---
+
+### 2026-06-06 12:57 — 模拟器 &amp; 调参工具全套上线
+
+- **使用模型**：MiniMax M2.7
+- **任务类型**：开发 / 工具
+- **完成内容**：
+  - 创建 src/data/testQuestions.ts（题库入口，从现有 99 题重导出）
+  - 创建 src/data/majorProfiles.ts（39 个专业类画像 + 15 条 Golden Case）
+  - 创建 src/lib/recommendationEngine.ts（纯函数 calculateRecommendation）
+  - 创建 scripts/simulateTests.ts（15 个虚拟高中生画像 + CLI 参数解析 + 异常检测 + 题目影响力分析）
+  - 创建 scripts/evolveRecommendationParams.ts（遗传算法：12 参数空间 + 交叉/变异 + 评分函数）
+  - 安装 tsx 依赖，更新 package.json scripts
+  - 创建 simulation-results/ 输出目录结构
+  - 创建 SIMULATOR_USAGE_FOR_AI.md（AI 使用指南）
+  - 创建飞书云文档（D老师使用指南）
+  - npm run build ✅ 114 页面不破坏
+  - Git 推送 ✅
+- **关键决策**：
+  - 模拟器参数空间选 12 个全局参数，不直接调单个专业类权重（需手动改）
+  - 评分函数设计：Golden Cases 30% + 多样性 20% + 一致性 20% + 异常惩罚 -15% + 兴趣匹配 15%
+  - evolve 工具永不直接覆盖 recommendationWeights.ts（红线）
+- **遗留问题**：无
+- **下次建议**：
+  1. 跑 evolve 验证参数空间是否足够覆盖需求
+  2. 补充工商管理类详情页
+- **当前版本状态**：v0.16.0 — 模拟器&调参工具上线
+
+---
+
+### 2026-06-06 14:00 — 推荐修复 v0.16.1：低数学保护 + 权重调优 + 专业画像 61
+
+- **使用模型**：MiniMax M2.7
+- **任务类型**：修复 / 数据
+- **完成内容**：
+  - **数学保护**：scoring.ts computeRefinedBucketScores 新增，math_logic<20 → stem×0.4，<35 → ×0.7（矛盾率 24%→11%）
+  - **权重调优**：recommendationWeights.ts 改 6 处——数学类 25→6、电气类 6→10、航空航天 4→14、土木类 5→2、新增仪器类 weight 6、能源动力类 weight 7
+  - **专业画像**：majorProfiles.ts 从 39→61（新增能源动力、力学、仪器、化工、食品、安全、天文、地理、海洋、地质、心理、管科、电商、旅游、体育、公卫、医技、中医、动物、生态、交叉学科）
+  - **oneLiner 修复**：模板 p→h1 恢复，集成电路/机械 oneLiner 精简
+  - **多轮模拟验证**：种子 2027 跑 200 人（改前对照），再跑 100/200 人（改后验证）
+  - **多次调参**：种子 3089 跑 5 代（+5 分），确认 evolve 不直接调权重
+  - npm run build ✅ — Git 推送 ✅
+- **关键决策**：
+  - 数学保护放在 computeRefinedBucketScores 中而非 generateResult 中，确保所有推荐路径都生效
+  - 仪器类和能源动力类不直接加入 GATE_PRIORITY_CATEGORIES 的权重表，先观察
+- **遗留问题**：
+  - 航空航天权重 14 下种子 3089 仍未出现，可能需进一步提权或检查算法路径
+  - 机械类、材料类、生物医学工程类持续未被推荐
+- **下次建议**：
+  1. 如果航空航天仍不出现，检查 GATE_PRIORITY_CATEGORIES 中工学门类的路由逻辑
+  2. 补充工商管理类详情页
+- **当前版本状态**：v0.16.1 — 推荐修复完成
