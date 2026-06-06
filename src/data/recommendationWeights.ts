@@ -95,7 +95,7 @@ export const GATE_PRIORITY_CATEGORIES: Record<
     { categorySlug: 'history-class', buckets: ['humanities'], weight: 100 },
   ],
   '07': [ // 理学
-    { categorySlug: 'mathematics', buckets: ['stem'], weight: 25 },
+    { categorySlug: 'mathematics', buckets: ['stem'], weight: 15 },
     { categorySlug: 'physics', buckets: ['stem'], weight: 20 },
     { categorySlug: 'chemistry', buckets: ['stem'], weight: 15 },
     { categorySlug: 'biology', buckets: ['stem', 'life_health'], weight: 20 },
@@ -104,13 +104,13 @@ export const GATE_PRIORITY_CATEGORIES: Record<
   '08': [ // 工学
     { categorySlug: 'computer-science', buckets: ['stem'], weight: 15 },
     { categorySlug: 'electronic-information', buckets: ['stem'], weight: 12 },
+    { categorySlug: 'electrical', buckets: ['stem'], weight: 10 },
     { categorySlug: 'automation', buckets: ['stem'], weight: 8 },
     { categorySlug: 'mechanical', buckets: ['stem'], weight: 8 },
-    { categorySlug: 'electrical', buckets: ['stem'], weight: 6 },
-    { categorySlug: 'civil-engineering', buckets: ['stem'], weight: 5 },
+    { categorySlug: 'aerospace', buckets: ['stem'], weight: 8 },
+    { categorySlug: 'civil-engineering', buckets: ['stem'], weight: 2 },
     { categorySlug: 'materials', buckets: ['stem'], weight: 5 },
     { categorySlug: 'architecture', buckets: ['stem', 'art_creative'], weight: 5 },
-    { categorySlug: 'aerospace', buckets: ['stem'], weight: 4 },
     { categorySlug: 'biomedical-eng', buckets: ['stem', 'life_health'], weight: 4 },
   ],
   '09': [ // 农学

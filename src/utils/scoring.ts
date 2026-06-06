@@ -140,6 +140,14 @@ export function computeRefinedBucketScores(
     refined[key] = Math.round(rawBucketScores[key] * 0.4 + dimBucketScores[key] * 0.6);
   }
 
+  // 数学保护：低数学用户不应被强推 STEM（v0.16.1）
+  const mathScore = dimScores['math_logic'] ?? 50;
+  if (mathScore < 20) {
+    refined.stem = Math.round(refined.stem * 0.4); // 减 60%
+  } else if (mathScore < 35) {
+    refined.stem = Math.round(refined.stem * 0.7); // 减 30%
+  }
+
   return normalizeScores(refined);
 }
 

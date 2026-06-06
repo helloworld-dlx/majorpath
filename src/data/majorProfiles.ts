@@ -608,6 +608,265 @@ export const MAJOR_PROFILES: MajorProfileMap = {
     ],
     goldenConditions: [],
   },
+
+  // ────────── 工科补充 ──────────
+  'energy-power': {
+    name: '能源动力类',
+    slug: 'energy-power',
+    gateCode: '08',
+    buckets: [{ bucket: 'stem', weight: 100 }],
+    dimensions: [
+      { dim: 'engineering_practice', weight: 65 },
+      { dim: 'math_logic', weight: 60 },
+      { dim: 'abstract_theory', weight: 40 },
+    ],
+    goldenConditions: [],
+  },
+  'mechanics': {
+    name: '力学类',
+    slug: 'mechanics',
+    gateCode: '08',
+    buckets: [{ bucket: 'stem', weight: 100 }],
+    dimensions: [
+      { dim: 'math_logic', weight: 90 },
+      { dim: 'abstract_theory', weight: 80 },
+      { dim: 'engineering_practice', weight: 50 },
+    ],
+    goldenConditions: [],
+  },
+  'instrumentation': {
+    name: '仪器类',
+    slug: 'instrumentation',
+    gateCode: '08',
+    buckets: [{ bucket: 'stem', weight: 100 }],
+    dimensions: [
+      { dim: 'engineering_practice', weight: 70 },
+      { dim: 'math_logic', weight: 55 },
+      { dim: 'info_systems', weight: 50 },
+    ],
+    goldenConditions: [],
+  },
+  'chemical-pharma': {
+    name: '化工与制药类',
+    slug: 'chemical-pharma',
+    gateCode: '08',
+    buckets: [{ bucket: 'stem', weight: 100 }],
+    dimensions: [
+      { dim: 'engineering_practice', weight: 70 },
+      { dim: 'math_logic', weight: 50 },
+      { dim: 'life_health_interest', weight: 40 },
+    ],
+    goldenConditions: [],
+  },
+  'food-science': {
+    name: '食品科学与工程类',
+    slug: 'food-science',
+    gateCode: '08',
+    buckets: [{ bucket: 'stem', weight: 60 }, { bucket: 'life_health', weight: 40 }],
+    dimensions: [
+      { dim: 'engineering_practice', weight: 50 },
+      { dim: 'life_health_interest', weight: 55 },
+    ],
+    goldenConditions: [],
+  },
+  'safety-eng': {
+    name: '安全科学与工程类',
+    slug: 'safety-eng',
+    gateCode: '08',
+    buckets: [{ bucket: 'stem', weight: 100 }],
+    dimensions: [
+      { dim: 'rule_detail', weight: 60 },
+      { dim: 'engineering_practice', weight: 50 },
+      { dim: 'stable_path', weight: 40 },
+    ],
+    goldenConditions: [],
+  },
+
+  // ────────── 理学补充 ──────────
+  'astronomy': {
+    name: '天文学类',
+    slug: 'astronomy',
+    gateCode: '07',
+    buckets: [{ bucket: 'stem', weight: 100 }],
+    dimensions: [
+      { dim: 'math_logic', weight: 85 },
+      { dim: 'abstract_theory', weight: 80 },
+    ],
+    goldenConditions: [],
+  },
+  'geography': {
+    name: '地理科学类',
+    slug: 'geography',
+    gateCode: '07',
+    buckets: [{ bucket: 'stem', weight: 50 }, { bucket: 'social_science', weight: 50 }],
+    dimensions: [
+      { dim: 'abstract_theory', weight: 50 },
+      { dim: 'engineering_practice', weight: 45 },
+    ],
+    goldenConditions: [],
+  },
+  'ocean-science': {
+    name: '海洋科学类',
+    slug: 'ocean-science',
+    gateCode: '07',
+    buckets: [{ bucket: 'stem', weight: 100 }],
+    dimensions: [
+      { dim: 'abstract_theory', weight: 60 },
+      { dim: 'engineering_practice', weight: 55 },
+      { dim: 'life_health_interest', weight: 40 },
+    ],
+    goldenConditions: [],
+  },
+  'geology': {
+    name: '地质学类',
+    slug: 'geology',
+    gateCode: '07',
+    buckets: [{ bucket: 'stem', weight: 100 }],
+    dimensions: [
+      { dim: 'engineering_practice', weight: 65 },
+      { dim: 'abstract_theory', weight: 50 },
+    ],
+    goldenConditions: [],
+  },
+  'psychology': {
+    name: '心理学类',
+    slug: 'psychology',
+    gateCode: '07',
+    buckets: [{ bucket: 'social_science', weight: 50 }, { bucket: 'life_health', weight: 50 }],
+    dimensions: [
+      { dim: 'interpersonal', weight: 70 },
+      { dim: 'abstract_theory', weight: 55 },
+      { dim: 'life_health_interest', weight: 45 },
+    ],
+    goldenConditions: [],
+  },
+
+  // ────────── 管理学补充 ──────────
+  'management-science': {
+    name: '管理科学与工程类',
+    slug: 'management-science',
+    gateCode: '12',
+    buckets: [{ bucket: 'business', weight: 50 }, { bucket: 'stem', weight: 50 }],
+    dimensions: [
+      { dim: 'business_sense', weight: 55 },
+      { dim: 'math_logic', weight: 60 },
+      { dim: 'info_systems', weight: 50 },
+    ],
+    goldenConditions: [],
+  },
+  'e-commerce': {
+    name: '电子商务类',
+    slug: 'e-commerce',
+    gateCode: '12',
+    buckets: [{ bucket: 'business', weight: 100 }],
+    dimensions: [
+      { dim: 'business_sense', weight: 65 },
+      { dim: 'info_systems', weight: 55 },
+      { dim: 'interpersonal', weight: 40 },
+    ],
+    goldenConditions: [],
+  },
+  'tourism-management': {
+    name: '旅游管理类',
+    slug: 'tourism-management',
+    gateCode: '12',
+    buckets: [{ bucket: 'business', weight: 100 }],
+    dimensions: [
+      { dim: 'interpersonal', weight: 75 },
+      { dim: 'business_sense', weight: 50 },
+      { dim: 'stable_path', weight: 35 },
+    ],
+    goldenConditions: [],
+  },
+
+  // ────────── 社科补充 ──────────
+  'physical-education': {
+    name: '体育学类',
+    slug: 'physical-education',
+    gateCode: '04',
+    buckets: [{ bucket: 'social_science', weight: 100 }],
+    dimensions: [
+      { dim: 'interpersonal', weight: 55 },
+      { dim: 'stable_path', weight: 40 },
+    ],
+    goldenConditions: [],
+  },
+
+  // ────────── 医学补充 ──────────
+  'public-health': {
+    name: '公共卫生与预防医学类',
+    slug: 'public-health',
+    gateCode: '10',
+    buckets: [{ bucket: 'life_health', weight: 60 }, { bucket: 'social_science', weight: 40 }],
+    dimensions: [
+      { dim: 'life_health_interest', weight: 60 },
+      { dim: 'interpersonal', weight: 55 },
+      { dim: 'rule_detail', weight: 45 },
+    ],
+    goldenConditions: [],
+  },
+  'medical-technology': {
+    name: '医学技术类',
+    slug: 'medical-technology',
+    gateCode: '10',
+    buckets: [{ bucket: 'life_health', weight: 60 }, { bucket: 'stem', weight: 40 }],
+    dimensions: [
+      { dim: 'life_health_interest', weight: 55 },
+      { dim: 'engineering_practice', weight: 60 },
+      { dim: 'rule_detail', weight: 40 },
+    ],
+    goldenConditions: [],
+  },
+  'tcm': {
+    name: '中医学类',
+    slug: 'tcm',
+    gateCode: '10',
+    buckets: [{ bucket: 'life_health', weight: 100 }],
+    dimensions: [
+      { dim: 'life_health_interest', weight: 75 },
+      { dim: 'interpersonal', weight: 55 },
+      { dim: 'reading_expression', weight: 40 },
+    ],
+    goldenConditions: [],
+  },
+
+  // ────────── 农学补充 ──────────
+  'animal-production': {
+    name: '动物生产类',
+    slug: 'animal-production',
+    gateCode: '09',
+    buckets: [{ bucket: 'life_health', weight: 100 }],
+    dimensions: [
+      { dim: 'life_health_interest', weight: 60 },
+      { dim: 'engineering_practice', weight: 45 },
+    ],
+    goldenConditions: [],
+  },
+  'environmental-ecology': {
+    name: '自然保护与环境生态类',
+    slug: 'environmental-ecology',
+    gateCode: '09',
+    buckets: [{ bucket: 'life_health', weight: 60 }, { bucket: 'stem', weight: 40 }],
+    dimensions: [
+      { dim: 'life_health_interest', weight: 65 },
+      { dim: 'abstract_theory', weight: 45 },
+    ],
+    goldenConditions: [],
+  },
+
+  // ────────── 交叉学科 ──────────
+  'interdisciplinary-class': {
+    name: '交叉学科类',
+    slug: 'interdisciplinary-class',
+    gateCode: '14',
+    buckets: [{ bucket: 'stem', weight: 50 }, { bucket: 'life_health', weight: 50 }],
+    dimensions: [
+      { dim: 'abstract_theory', weight: 60 },
+      { dim: 'engineering_practice', weight: 50 },
+      { dim: 'life_health_interest', weight: 45 },
+    ],
+    goldenConditions: [],
+  },
 };
 
 export default MAJOR_PROFILES;

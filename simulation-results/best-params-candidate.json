@@ -1,0 +1,77 @@
+{
+  "score": 99,
+  "defaultScore": 93,
+  "scoreImprovement": 6,
+  "params": {
+    "generalCount": 6,
+    "singleMainBranch": 6,
+    "leadGap": 20,
+    "highThreshold": 58,
+    "midThreshold": 42,
+    "rawWeight": 0.3,
+    "dimWeight": 0.4,
+    "recommendThreshold": 45,
+    "optionalThreshold": 30,
+    "riskPenaltyMultiplier": 0.5,
+    "maxRecommended": 8,
+    "diversityBonus": 0
+  },
+  "paramDiff": {
+    "generalCount": {
+      "before": 8,
+      "after": 6,
+      "delta": "-2.00"
+    },
+    "leadGap": {
+      "before": 8,
+      "after": 20,
+      "delta": "+12.00"
+    },
+    "highThreshold": {
+      "before": 62,
+      "after": 58,
+      "delta": "-4.00"
+    },
+    "midThreshold": {
+      "before": 55,
+      "after": 42,
+      "delta": "-13.00"
+    },
+    "rawWeight": {
+      "before": 0.4,
+      "after": 0.3,
+      "delta": "-0.10"
+    },
+    "dimWeight": {
+      "before": 0.6,
+      "after": 0.4,
+      "delta": "-0.20"
+    },
+    "recommendThreshold": {
+      "before": 55,
+      "after": 45,
+      "delta": "-10.00"
+    },
+    "optionalThreshold": {
+      "before": 35,
+      "after": 30,
+      "delta": "-5.00"
+    },
+    "riskPenaltyMultiplier": {
+      "before": 1,
+      "after": 0.5,
+      "delta": "-0.50"
+    },
+    "maxRecommended": {
+      "before": 5,
+      "after": 8,
+      "delta": "+3.00"
+    }
+  },
+  "generationBorn": 8,
+  "generations": 20,
+  "population": 20,
+  "runsPerCandidate": 30,
+  "seed": 2027,
+  "note": "⚠️ 此文件为自动生成的候选参数，仅供人工审核，不直接覆盖线上参数。"
+}
