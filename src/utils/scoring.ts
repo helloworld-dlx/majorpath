@@ -259,6 +259,10 @@ export function generateCategoryRecommendations(
       }
       if (totalWeight > 0) score = score / totalWeight;
 
+      // v0.16.3 修复：权重按门类最大权重归一化，使权重真正生效
+      const gateMaxWeight = Math.max(...categories.map(c => c.weight), 1);
+      score = score * (cat.weight / gateMaxWeight);
+
       // 维度修饰
       const topDims = getTopDimensions(dimScores, cat.buckets, 2);
 
