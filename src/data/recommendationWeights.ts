@@ -217,7 +217,7 @@ export const RISK_CATEGORY_PENALTIES: Record<RiskTag, { slugs: string[]; penalty
   reading_writing_aversion: {
     slugs: ['law-class', 'chinese-literature', 'journalism', 'history-class', 'sociology'],
     penalty: 25,
-    reason: '你似乎不太喜欢大量读写，但这个方向需要很多阅读和写作',
+    reason: '你不喜欢大量读写——所以法学、文学、历史等大量读写的方向已经放入了谨慎了解区',
   },
   rule_detail_aversion: {
     slugs: ['law-class', 'finance', 'public-administration', 'clinical-medicine'],
