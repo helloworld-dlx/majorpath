@@ -4180,7 +4180,7 @@
       "info_systems": 24,
       "life_health_interest": 0,
       "aesthetic_creation": 0,
-      "abstract_theory": 12,
+      "abstract_theory": 16,
       "stable_path": 12,
       "rule_detail": 0
     },
@@ -4195,19 +4195,19 @@
     "recommendedCategories": [
       "计算机类",
       "电子信息类",
-      "电气类",
-      "物理学类"
+      "物理学类",
+      "电气类"
     ],
     "cautiousCategories": [],
     "categoryScores": {
       "计算机类": 76,
       "电子信息类": 64,
+      "物理学类": 61,
       "电气类": 60,
-      "物理学类": 59,
+      "航空航天类": 54,
       "自动化类": 53,
       "化学类": 52,
-      "energy-power": 52,
-      "机械类": 51
+      "energy-power": 52
     },
     "riskTags": [],
     "reason": "你喜欢用逻辑和数学来看世界，对技术、系统和如何建造东西有热情。理工科方向有丰富的选择。",
@@ -6204,7 +6204,7 @@
       "info_systems": 18,
       "life_health_interest": 0,
       "aesthetic_creation": 0,
-      "abstract_theory": 8,
+      "abstract_theory": 12,
       "stable_path": 20,
       "rule_detail": 0
     },
@@ -6224,10 +6224,10 @@
     "categoryScores": {
       "计算机类": 63,
       "电子信息类": 56,
+      "物理学类": 54,
       "机械类": 53,
-      "物理学类": 52,
       "电气类": 52,
-      "航空航天类": 50
+      "航空航天类": 52
     },
     "riskTags": [],
     "reason": "你喜欢用逻辑和数学来看世界，对技术、系统和如何建造东西有热情。理工科方向有丰富的选择。",
@@ -8258,7 +8258,7 @@
       "info_systems": 8,
       "life_health_interest": 0,
       "aesthetic_creation": 2,
-      "abstract_theory": 6,
+      "abstract_theory": 10,
       "stable_path": 0,
       "rule_detail": 0
     },
@@ -8275,7 +8275,7 @@
     "categoryScores": {
       "教育学类": 50,
       "临床医学类": 46,
-      "法学类": 42,
+      "法学类": 44,
       "体育学类": 42
     },
     "riskTags": [

@@ -347,7 +347,7 @@ export const questionBank: QuestionBank = {
       { id: 'br_stem_004_c', label: 'C', text: '不太喜欢纯数学，我更喜欢能直接看到结果的', scoreEffects: [{ target: 'stem', points: 4 }, { target: 'engineering_manufacturing', points: 6 }] },
     ]},
     { id: 'br_stem_005', type: 'branch', title: '如果让你捣鼓一个技术项目，你最想从哪入手？', targetBuckets: ['stem'], subDirection: 'cs_info', priority: 10, options: [
-      { id: 'br_stem_005_a', label: 'A', text: '为什么能算这么快、这么准——背后的逻辑和原理让我着迷', scoreEffects: [{ target: 'stem', points: 8 }, { target: 'cs_info', points: 5 }, { target: 'math_logic', points: 6 }] },
+      { id: 'br_stem_005_a', label: 'A', text: '为什么能算这么快、这么准——背后的逻辑和原理让我着迷', scoreEffects: [{ target: 'stem', points: 8 }, { target: 'cs_info', points: 5 }, { target: 'math_logic', points: 6 }, { target: 'abstract_theory', points: 4 }] },
       { id: 'br_stem_005_b', label: 'B', text: '做一个能让人真正用起来的东西——不管是什么形式', scoreEffects: [{ target: 'stem', points: 8 }, { target: 'cs_info', points: 5 }, { target: 'info_systems', points: 6 }] },
       { id: 'br_stem_005_c', label: 'C', text: '从零部件开始，让一堆金属和电信号活起来', scoreEffects: [{ target: 'stem', points: 8 }, { target: 'engineering_manufacturing', points: 5 }, { target: 'engineering_practice', points: 6 }] },
     ]},
