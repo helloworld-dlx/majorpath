@@ -83,7 +83,7 @@
   function determineUserType(scores) {
     const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
     const top = sorted[0][1], second = sorted[1][1];
-    if (top >= 62 && top - second >= 8) return 'single';
+    if (top >= 68 && top - second >= 6) return 'single';
     if (top < 58) return 'exploratory';
     if (top >= 55 && second >= 55 && top - second < 8) return 'dual';
     return 'exploratory';
@@ -115,7 +115,7 @@
 
     // branch questions
     let branchCount, buckets;
-    if (uType === 'single') { branchCount = 8; buckets = secondary ? [primary, secondary] : [primary]; }
+    if (uType === 'single') { branchCount = 6; buckets = secondary ? [primary, secondary] : [primary]; }
     else if (uType === 'dual') { branchCount = 8; buckets = [primary, secondary]; }
     else { branchCount = 9; buckets = sorted.slice(0, 3).map(([k]) => k); }
 
@@ -178,7 +178,7 @@
         <div class="text-center py-12">
           <h1 class="text-2xl font-bold text-slate-900 mb-2">专业倾向小测试</h1>
           <p class="text-slate-500 text-sm mb-2">帮你从兴趣和思维方式出发，发现可能适合的专业方向</p>
-          <p class="text-xs text-slate-400 mb-8">共 8 道通用题 + 约 8 道方向题，大约 5 分钟</p>
+          <p class="text-xs text-slate-400 mb-8">通用题 + 方向题自适应，大约 5 分钟</p>
           <div class="bg-amber-50 border border-amber-100 rounded-xl p-4 mb-8 text-left max-w-sm mx-auto">
             <p class="text-xs text-amber-700 leading-relaxed">⚠️ 本测试仅供参考，不构成志愿填报建议。最终选择请结合分数、位次、院校、家庭情况综合判断。</p>
           </div>
@@ -195,7 +195,7 @@
   function startTest() {
     // 从 20 道通用题库中随机抽取 8 道，保证每次轮换不同题目
     const pool = bank.questions.filter(q => q.type === 'general');
-    const selected = shuffle(pool).slice(0, 8);
+    const selected = shuffle(pool).slice(0, 9);
     generalQ = selected.map((q, i) => ({ question: q, phase: 'general', order: i + 1 }));
     allQ = [...generalQ];
     phase = 'general';
