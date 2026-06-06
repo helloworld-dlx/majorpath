@@ -100,9 +100,9 @@ export const GATE_PRIORITY_CATEGORIES: Record<
   ],
   '07': [ // 理学
     { categorySlug: 'mathematics', buckets: ['stem'], weight: 6 },
-    { categorySlug: 'physics', buckets: ['stem'], weight: 16 },
-    { categorySlug: 'chemistry', buckets: ['stem'], weight: 15 },
-    { categorySlug: 'biology', buckets: ['stem', 'life_health'], weight: 20 },
+    { categorySlug: 'physics', buckets: ['stem'], weight: 13 },
+    { categorySlug: 'chemistry', buckets: ['stem'], weight: 12 },
+    { categorySlug: 'biology', buckets: ['stem', 'life_health'], weight: 14 },
     { categorySlug: 'statistics', buckets: ['stem', 'business'], weight: 20 },
     { categorySlug: 'astronomy', buckets: ['stem'], weight: 4 },
     { categorySlug: 'geography', buckets: ['stem'], weight: 5 },
