@@ -15,7 +15,7 @@
 - [x] 配置 TypeScript
 - [x] 配置 Tailwind CSS
 - [x] 搭建基础页面布局组件（Header / Footer / Layout）
-- [ ] 配置 EdgeOne Pages 部署
+- [x] 配置 EdgeOne Pages 部署 ✅（域名已绑定 + DEEPSEEK_API_KEY 已配置 + 国内访问已验证）
 
 ### 首页
 
@@ -49,10 +49,10 @@
 ### 部署
 
 - [x] 推送代码到 GitHub（本地已 commit，待用户创建远程仓库后 push）
-- [x] 配置 EdgeOne Pages 部署（构建配置/适配器/环境变量文档已完成，待 EdgeOne 控制台操作）
+- [x] 配置 EdgeOne Pages 部署（构建配置/适配器/环境变量文档已完成，EdgeOne 控制台已操作 ✅）
 - [x] 替换所有占位符问卷链接为真实问卷 ✅
-- [ ] 绑定域名
-- [ ] 验证国内访问体验
+- [x] 绑定域名
+- [x] 验证国内访问体验
 
 ---
 
@@ -98,8 +98,8 @@
 
 - [x] 题库质量整改 ✅ v0.13（15+ 处学科暴露修复 + 选项随机化 + gen_008/gen_010 选项补全）
 - [x] 题库二次整改 ✅ v0.14.3（11 题干/15 选项去学科标签 + 选项内容随机+label 固定 + 上一题功能）
-- [ ] 部署 EdgeOne Pages + 配置 DEEPSEEK_API_KEY 环境变量（本地 dev 无 Edge Function 运行时，AI 解释目前本地走模板兜底）
-- [ ] 面向少量熟人内测
+- [x] 部署 EdgeOne Pages + 配置 DEEPSEEK_API_KEY 环境变量 ✅
+- [x] 面向少量熟人内测 ✅（线上全流程验证通过）
 - [ ] 收集反馈并记录到 AI_WORKLOG.md
 
 ---

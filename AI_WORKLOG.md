@@ -806,3 +806,58 @@
   3. 继续补充 P0/P1 专业类详情内容
   4. 修复上一题跨阶段 phase 标签偏差（低优先级，仅 cosmetic）
 - **当前版本状态**：v0.14.3 — 报告空白修复 + 选项随机修正 + 上一题 + 题库表达优化
+
+---
+
+### 2026-06-06 11:20 — oneLiner 风格回退 + 部署标记完成 + 文档同步
+
+- **使用模型**：MiniMax M2.7
+- **任务类型**：修复 / 文档
+- **完成内容**：
+  - oneLiner 模板从 p 段落恢复为 h1 标题（commit 6d14ca5 回退），适配 20-40 字短句
+  - 集成电路设计与集成系统 oneLiner 精简：长段 → "学怎么做芯片——把手机、电脑里那些\"会计算\"的小零件，浓缩到一块指甲盖大的硅片上。"
+  - 机械设计制造及其自动化 oneLiner 精简：长段 → "学怎么设计和制造一台机器——从图纸画线到零件加工，让东西能动起来、造得出来。"
+  - CURRENT_STATUS.md 部署状态更新：🔄 就绪 → ✅ 已完成，版本 v0.14.3 → v0.14.4
+  - TODO.md 标记完成：绑定域名 ✅ + 验证国内访问 ✅ + 配置 DEEPSEEK_API_KEY ✅
+  - AI_WORKLOG.md 追加本记录
+- **修改的文件**：
+  - `/home/xyzlh/majorpath/src/components/ui/MajorDetailTemplate.astro` — h1 风格恢复
+  - `/home/xyzlh/majorpath/src/data/major-details.ts` — 集成电路/机械 oneLiner 精简
+  - `/home/xyzlh/majorpath/CURRENT_STATUS.md` — 版本+部署状态+更新记录
+  - `/home/xyzlh/majorpath/TODO.md` — 部署相关 4 项标记完成
+  - `/home/xyzlh/majorpath/AI_WORKLOG.md` — 追加记录
+- **关键决策**：
+  - oneLiner 定位回退为"一句话概括（h1 标题）"，配合 20-40 字约束
+- **遗留问题**：无
+- **下次建议**：
+  1. 走一遍完整测试→报告流程，验证线上 AI 解释功能（EdgeOne Pages 环境）
+  2. 补充 P0 工商管理类详情页
+  3. 面向少量熟人内测
+- **当前版本状态**：v0.14.4 — oneLiner 风格恢复 + 部署完成
+
+---
+
+### 2026-06-06 11:30 — 打开土木类 + 能源动力类 + 线上验证确认
+
+- **使用模型**：MiniMax M2.7
+- **任务类型**：数据 / 文档
+- **完成内容**：
+  - 土木类打开：status todo→building，9 个专业数据填充，给排水科学与工程标记 building（已有人共建），新增智能建造等新兴专业
+  - 能源动力类打开：status todo→building，6 个专业数据填充（能动/新能源/储能/氢能/能源服务/环境系统）
+  - 线上流程验证确认：D老师反馈线上全流程已跑通
+  - TODO.md 标记 面向少量熟人内测 ✅
+  - CURRENT_STATUS.md 版本 v0.14.4→v0.15.0
+- **修改的文件**：
+  - `/home/xyzlh/majorpath/src/data/catalog.ts` — 土木类 + 能源动力类 状态+专业数据
+  - `/home/xyzlh/majorpath/CURRENT_STATUS.md` — 版本+状态+更新记录
+  - `/home/xyzlh/majorpath/TODO.md` — 标记内测完成
+  - `/home/xyzlh/majorpath/AI_WORKLOG.md` — 追加记录
+- **关键决策**：
+  - 土木类和能源动力类同时打开，为后续共建内容做准备
+  - 给排水设 building 而非 todo——提示 AI 和共建者这个专业已经在写了
+- **遗留问题**：无
+- **下次建议**：
+  1. 补充工商管理类详情页（P0，商科方向空白）
+  2. 等待给排水共建内容提交后整合
+  3. 根据内测反馈继续优化题库表述
+- **当前版本状态**：v0.15.0 — 土木/能源动力类打开
