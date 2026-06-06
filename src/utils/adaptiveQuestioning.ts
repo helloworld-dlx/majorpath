@@ -93,18 +93,18 @@ export interface AdaptiveConfig {
 
 /** 默认配置（对齐 ALGORITHM_SPEC v0.3 §6.1） */
 export const DEFAULT_CONFIG: AdaptiveConfig = {
-  generalCount: 8,
-  singleMainBranch: 6,
+  generalCount: 9,
+  singleMainBranch: 4,
   singleSecondaryBranch: 2,
   dualPerBucket: 4,
   explorePerBucket: 3,
   exploreTopN: 3,
   crossCheckCount: 2,
   riskCount: 2,
-  highThreshold: 62,
-  midThreshold: 55,
+  highThreshold: 68,
+  midThreshold: 66,
   lowThreshold: 50,
-  leadGap: 8,
+  leadGap: 6,
   exploreMax: 58,
 };
 

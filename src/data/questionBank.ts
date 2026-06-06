@@ -162,10 +162,10 @@ export const questionBank: QuestionBank = {
       { id: 'gen_019_f', label: 'F', text: '被要求当众表演或展示自己的创作并接受评判', scoreEffects: [{ target: 'art_creative', points: -8 }, { target: 'aesthetic_creation', points: -6 }] },
     ]},
     { id: 'gen_020', type: 'general', title: '如果有人对你说"你不太适合做某事"，你会怎么想？', targetBuckets: ['humanities', 'social_science', 'business', 'stem', 'art_creative'], priority: 20, options: [
-      { id: 'gen_020_a', label: 'A', text: '我会认真想想——可能是真的，也可能只是对方不了解我', scoreEffects: [{ target: 'stable_path', points: 4 }] },
+      { id: 'gen_020_a', label: 'A', text: '我会认真想想——可能是真的，也可能只是对方不了解我', scoreEffects: [{ target: 'stable_path', points: 12 }] },
       { id: 'gen_020_b', label: 'B', text: '不太在意——我觉得兴趣比天赋更重要', scoreEffects: [{ target: 'humanities', points: 4 }, { target: 'art_creative', points: 4 }] },
       { id: 'gen_020_c', label: 'C', text: '我会去求证——自己试试看是不是真的不适合', scoreEffects: [{ target: 'stem', points: 4 }, { target: 'business', points: 4 }] },
-      { id: 'gen_020_d', label: 'D', text: '如果很多人都这么说，我可能会调整方向', scoreEffects: [{ target: 'social_science', points: 4 }, { target: 'stable_path', points: 4 }] },
+      { id: 'gen_020_d', label: 'D', text: '如果很多人都这么说，我可能会调整方向', scoreEffects: [{ target: 'social_science', points: 4 }, { target: 'stable_path', points: 12 }] },
     ]},
 
     // ============================================================
@@ -305,7 +305,7 @@ export const questionBank: QuestionBank = {
     ]},
     { id: 'br_biz_007', type: 'branch', title: '你为什么要管好一笔钱？', targetBuckets: ['business'], subDirection: 'finance_accounting', priority: 10, options: [
       { id: 'br_biz_007_a', label: 'A', text: '对钱怎么流转有好奇心，不只是想赚钱', scoreEffects: [{ target: 'business', points: 8 }, { target: 'finance_accounting', points: 5 }] },
-      { id: 'br_biz_007_b', label: 'B', text: '想学会管好自己的钱，这是生活技能', scoreEffects: [{ target: 'business', points: 6 }, { target: 'finance_accounting', points: 3 }, { target: 'stable_path', points: 4 }] },
+      { id: 'br_biz_007_b', label: 'B', text: '想学会管好自己的钱，这是生活技能', scoreEffects: [{ target: 'business', points: 6 }, { target: 'finance_accounting', points: 3 }, { target: 'stable_path', points: 12 }] },
     ]},
     { id: 'br_biz_008', type: 'branch', title: '你更想和哪个部门打交道？', targetBuckets: ['business'], subDirection: 'business_admin', priority: 10, options: [
       { id: 'br_biz_008_a', label: 'A', text: '和数字打交道，确保每一笔都清楚明白', scoreEffects: [{ target: 'business', points: 8 }, { target: 'finance_accounting', points: 5 }, { target: 'rule_detail', points: 6 }] },
@@ -460,7 +460,7 @@ export const questionBank: QuestionBank = {
     { id: 'br_art_007', type: 'branch', title: '如果选择一条不太常规、需要创作和表达的路，你最担心什么？', targetBuckets: ['art_creative'], subDirection: 'fine_art_design', priority: 10, options: [
       { id: 'br_art_007_a', label: 'A', text: '不太担心——创意和审美能力在越来越多行业被重视', scoreEffects: [{ target: 'art_creative', points: 6 }, { target: 'fine_art_design', points: 5 }] },
       { id: 'br_art_007_b', label: 'B', text: '有点担心——但我愿意承担这个风险', scoreEffects: [{ target: 'art_creative', points: 8 }] },
-      { id: 'br_art_007_c', label: 'C', text: '比较担心——所以可能会选一个更"稳"的方向', scoreEffects: [{ target: 'art_creative', points: 4 }, { target: 'stable_path', points: 4 }] },
+      { id: 'br_art_007_c', label: 'C', text: '比较担心——所以可能会选一个更"稳"的方向', scoreEffects: [{ target: 'art_creative', points: 4 }, { target: 'stable_path', points: 12 }] },
     ]},
     { id: 'br_art_008', type: 'branch', title: '同样是创作东西，有的解决实际问题，有的纯粹表达自我——你更认同哪种？', targetBuckets: ['art_creative'], subDirection: 'fine_art_design', priority: 10, options: [
       { id: 'br_art_008_a', label: 'A', text: '设计是解决问题，纯艺术是提出问题', scoreEffects: [{ target: 'art_creative', points: 8 }, { target: 'fine_art_design', points: 5 }] },
@@ -541,10 +541,10 @@ export const questionBank: QuestionBank = {
     // 三大避坑类别：热门跟风 / 学习方式排斥 / 方向误解
     // ============================================================
     { id: 'risk_001', type: 'risk', title: '如果身边很多人都在说"某某专业好、工资高"，你会怎么想？', targetBuckets: ['stem', 'business', 'life_health'], priority: 20, options: [
-      { id: 'risk_001_a', label: 'A', text: '我会自己去查这个专业到底学什么，再判断适不适合我', scoreEffects: [{ target: 'stable_path', points: 4 }], riskTags: [] },
+      { id: 'risk_001_a', label: 'A', text: '我会自己去查这个专业到底学什么，再判断适不适合我', scoreEffects: [{ target: 'stable_path', points: 12 }], riskTags: [] },
       { id: 'risk_001_b', label: 'B', text: '热门+高薪，那肯定值得优先考虑', scoreEffects: [], riskTags: ['trend_chasing', 'salary_misconception'] },
       { id: 'risk_001_c', label: 'C', text: '我主要听家长和老师的建议，他们比我知道得多', scoreEffects: [], riskTags: ['trend_chasing', 'surface_interest'] },
-      { id: 'risk_001_d', label: 'D', text: '我对"热门"本身有戒心，更愿意看自己真正感兴趣的', scoreEffects: [{ target: 'stable_path', points: 2 }], riskTags: [] },
+      { id: 'risk_001_d', label: 'D', text: '我对"热门"本身有戒心，更愿意看自己真正感兴趣的', scoreEffects: [{ target: 'stable_path', points: 8 }], riskTags: [] },
     ]},
     { id: 'risk_002', type: 'risk', title: '你喜欢一个事物，主要是因为？', targetBuckets: ['stem', 'business', 'art_creative'], priority: 20, options: [
       { id: 'risk_002_a', label: 'A', text: '自己尝试过、觉得有意思', scoreEffects: [], riskTags: [] },
@@ -552,7 +552,7 @@ export const questionBank: QuestionBank = {
       { id: 'risk_002_c', label: 'C', text: '身边很多人都在说好', scoreEffects: [], riskTags: ['trend_chasing'] },
     ]},
     { id: 'risk_003', type: 'risk', title: '如果有人告诉你选某个方向"没前途"，你的反应是？', targetBuckets: ['humanities', 'social_science', 'art_creative'], priority: 20, options: [
-      { id: 'risk_003_a', label: 'A', text: '我会自己去了解再做判断，不盲从', scoreEffects: [{ target: 'stable_path', points: 4 }], riskTags: [] },
+      { id: 'risk_003_a', label: 'A', text: '我会自己去了解再做判断，不盲从', scoreEffects: [{ target: 'stable_path', points: 12 }], riskTags: [] },
       { id: 'risk_003_b', label: 'B', text: '可能会动摇——毕竟大家说没前途应该有道理', scoreEffects: [], riskTags: ['surface_interest'] },
     ]},
     { id: 'risk_004', type: 'risk', title: '你对"长期做同样的事"的态度是？', targetBuckets: ['stem', 'business', 'social_science'], priority: 20, options: [
@@ -566,16 +566,16 @@ export const questionBank: QuestionBank = {
       { id: 'risk_005_d', label: 'D', text: '长时间待在实验室或车间，没有太多和人交流', scoreEffects: [], riskTags: ['hands_on_aversion'] },
     ]},
     { id: 'risk_006', type: 'risk', title: '你有没有过"以为自己喜欢某件事，真做了才发现不太对"的经历？', targetBuckets: ['stem', 'business', 'humanities', 'life_health'], priority: 20, options: [
-      { id: 'risk_006_a', label: 'A', text: '有过——所以现在会更谨慎地了解之后再下判断', scoreEffects: [{ target: 'stable_path', points: 4 }], riskTags: [] },
+      { id: 'risk_006_a', label: 'A', text: '有过——所以现在会更谨慎地了解之后再下判断', scoreEffects: [{ target: 'stable_path', points: 12 }], riskTags: [] },
       { id: 'risk_006_b', label: 'B', text: '没太注意——很多时候还是凭直觉选', scoreEffects: [], riskTags: ['surface_interest'] },
     ]},
     { id: 'risk_007', type: 'risk', title: '选专业这件事，你觉得自己了解多少？', targetBuckets: ['stem', 'business', 'life_health', 'humanities'], priority: 20, options: [
       { id: 'risk_007_a', label: 'A', text: '只了解一两个热门专业，其他基本不清楚', scoreEffects: [], riskTags: ['info_bubble', 'name_misconception'] },
       { id: 'risk_007_b', label: 'B', text: '了解的不多，但正在努力查资料', scoreEffects: [], riskTags: [] },
-      { id: 'risk_007_c', label: 'C', text: '已经主动了解了多个方向，有一定的判断框架', scoreEffects: [{ target: 'stable_path', points: 4 }], riskTags: [] },
+      { id: 'risk_007_c', label: 'C', text: '已经主动了解了多个方向，有一定的判断框架', scoreEffects: [{ target: 'stable_path', points: 12 }], riskTags: [] },
     ]},
     { id: 'risk_008', type: 'risk', title: '如果你选了某个专业后发现和想象中完全不一样，你会？', targetBuckets: ['stem', 'business', 'life_health'], priority: 20, options: [
-      { id: 'risk_008_a', label: 'A', text: '及时调整——换方向或者继续深入了解再说', scoreEffects: [{ target: 'stable_path', points: 2 }], riskTags: [] },
+      { id: 'risk_008_a', label: 'A', text: '及时调整——换方向或者继续深入了解再说', scoreEffects: [{ target: 'stable_path', points: 8 }], riskTags: [] },
       { id: 'risk_008_b', label: 'B', text: '咬着牙坚持——都已经选了，后悔也没用', scoreEffects: [], riskTags: ['surface_interest'] },
     ]},
 

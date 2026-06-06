@@ -218,6 +218,117 @@ function buildGateReason(bucket: DirectionBucket, gateName: string): string {
   return `你的「${bucketLabel}」方向偏好较高，${gateName}是该方向的核心门类`;
 }
 
+// ───── 维度匹配表（v0.16.5 新增）─────
+
+/**
+ * 每个专业类关联的匹配维度。
+ * 维度匹配得分 = user该维度得分 / 100 × 100 → 0-100
+ * 用于在类别评分中加入维度亲和度，让同桶内不同专业类实现区分。
+ */
+const DIM_MATCH: Record<string, Dimension[]> = {
+  // 理学
+  mathematics: ['math_logic', 'abstract_theory'],
+  physics: ['math_logic', 'abstract_theory', 'engineering_practice'],
+  chemistry: ['math_logic', 'engineering_practice', 'life_health_interest'],
+  astronomy: ['math_logic', 'abstract_theory'],
+  geography: ['abstract_theory', 'engineering_practice'],
+  biology: ['life_health_interest', 'engineering_practice'],
+  statistics: ['math_logic', 'info_systems', 'business_sense'],
+  psychology: ['interpersonal', 'reading_expression', 'abstract_theory'],
+
+  // 工学
+  mechanics: ['math_logic', 'abstract_theory', 'engineering_practice'],
+  'computer-science': ['info_systems', 'math_logic'],
+  'electronic-information': ['engineering_practice', 'info_systems', 'math_logic'],
+  electrical: ['engineering_practice', 'math_logic'],
+  automation: ['engineering_practice', 'info_systems', 'math_logic'],
+  mechanical: ['engineering_practice'],
+  aerospace: ['engineering_practice', 'abstract_theory'],
+  'civil-engineering': ['engineering_practice'],
+  architecture: ['aesthetic_creation', 'engineering_practice'],
+  'biomedical-eng': ['engineering_practice', 'life_health_interest'],
+  'energy-power': ['engineering_practice', 'math_logic'],
+  instrumentation: ['engineering_practice', 'info_systems'],
+  materials: ['engineering_practice', 'abstract_theory'],
+  'chemical-pharma': ['engineering_practice', 'life_health_interest'],
+  'food-science': ['engineering_practice', 'life_health_interest'],
+  'safety-eng': ['rule_detail', 'engineering_practice'],
+  transportation: ['engineering_practice', 'math_logic'],
+  environmental: ['life_health_interest', 'engineering_practice'],
+  bioengineering: ['life_health_interest', 'engineering_practice'],
+
+  // 经济学
+  'economics-class': ['business_sense', 'math_logic'],
+  finance: ['business_sense', 'rule_detail', 'math_logic'],
+  'international-trade': ['business_sense', 'interpersonal'],
+  'public-finance': ['business_sense', 'rule_detail'],
+
+  // 管理学
+  'business-administration': ['business_sense', 'interpersonal'],
+  'public-administration': ['interpersonal', 'stable_path', 'rule_detail'],
+  'management-science': ['business_sense', 'math_logic', 'info_systems'],
+  'e-commerce': ['business_sense', 'info_systems', 'interpersonal'],
+  'tourism-management': ['interpersonal', 'business_sense'],
+  logistics: ['business_sense', 'info_systems'],
+  'industrial-engineering': ['engineering_practice', 'business_sense'],
+  'agri-economics': ['business_sense', 'life_health_interest'],
+  'library-science': ['rule_detail', 'reading_expression'],
+
+  // 法学/社科
+  'law-class': ['reading_expression', 'rule_detail', 'abstract_theory'],
+  sociology: ['interpersonal', 'reading_expression', 'abstract_theory'],
+  'political-science': ['reading_expression', 'interpersonal', 'abstract_theory'],
+  ethnology: ['reading_expression', 'interpersonal'],
+  marxism: ['abstract_theory', 'reading_expression'],
+  'public-security': ['interpersonal', 'rule_detail', 'stable_path'],
+
+  // 教育学
+  education: ['interpersonal', 'reading_expression', 'stable_path'],
+  'physical-education': ['interpersonal', 'engineering_practice'],
+
+  // 人文
+  'chinese-literature': ['reading_expression', 'aesthetic_creation'],
+  'foreign-languages': ['reading_expression', 'interpersonal'],
+  journalism: ['reading_expression', 'interpersonal', 'aesthetic_creation'],
+  'history-class': ['reading_expression', 'abstract_theory', 'rule_detail'],
+  'philosophy-class': ['abstract_theory', 'reading_expression'],
+
+  // 艺术
+  design: ['aesthetic_creation', 'engineering_practice'],
+  'fine-arts': ['aesthetic_creation'],
+  'music-dance': ['aesthetic_creation'],
+  'drama-film': ['aesthetic_creation', 'interpersonal'],
+  'art-theory': ['aesthetic_creation', 'reading_expression'],
+
+  // 医学
+  'clinical-medicine': ['life_health_interest', 'interpersonal', 'rule_detail'],
+  pharmacy: ['life_health_interest', 'engineering_practice', 'rule_detail'],
+  nursing: ['interpersonal', 'life_health_interest', 'stable_path'],
+  stomatology: ['life_health_interest', 'engineering_practice', 'interpersonal'],
+  'public-health': ['life_health_interest', 'interpersonal', 'rule_detail'],
+  'medical-technology': ['engineering_practice', 'life_health_interest', 'rule_detail'],
+  'basic-medicine': ['life_health_interest', 'abstract_theory'],
+  tcm: ['life_health_interest', 'reading_expression', 'interpersonal'],
+  'integrated-medicine': ['life_health_interest', 'abstract_theory'],
+  'chinese-pharmacy': ['life_health_interest', 'engineering_practice'],
+  'forensic-medicine': ['life_health_interest', 'rule_detail', 'engineering_practice'],
+
+  // 农学
+  'plant-production': ['life_health_interest', 'engineering_practice'],
+  'environmental-ecology': ['life_health_interest', 'abstract_theory'],
+  veterinary: ['life_health_interest', 'interpersonal', 'engineering_practice'],
+  'animal-production': ['life_health_interest', 'engineering_practice'],
+  forestry: ['life_health_interest', 'engineering_practice'],
+  aquaculture: ['life_health_interest', 'engineering_practice'],
+  'grassland-science': ['life_health_interest', 'engineering_practice'],
+
+  // 交叉学科
+  'interdisciplinary-class': ['abstract_theory', 'engineering_practice', 'life_health_interest'],
+};
+
+/** 维度匹配在最终分数中的权重（0-1），0.4 = 40% */
+const DIM_MATCH_WEIGHT = 0.4;
+
 // ───── 专业类推荐 ─────
 
 /**
@@ -262,6 +373,16 @@ export function generateCategoryRecommendations(
       // v0.16.3 修复：权重按门类最大权重归一化，使权重真正生效
       const gateMaxWeight = Math.max(...categories.map(c => c.weight), 1);
       score = score * (cat.weight / gateMaxWeight);
+
+      // v0.16.5 新增：维度匹配参与排名
+      // 用户在关联维度上的得分越高，该类别获得额外加成
+      const matchDims = DIM_MATCH[cat.categorySlug];
+      if (matchDims && matchDims.length > 0) {
+        const dimAvg = matchDims.reduce((s, d) => s + (dimScores[d] ?? 25), 0) / matchDims.length;
+        // 将维度匹配得分标准化到 0-100，然后与桶得分融合
+        const dimScore = Math.min(100, Math.max(0, dimAvg * 2.5));
+        score = score * (1 - DIM_MATCH_WEIGHT) + dimScore * DIM_MATCH_WEIGHT;
+      }
 
       // 维度修饰
       const topDims = getTopDimensions(dimScores, cat.buckets, 2);
