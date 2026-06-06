@@ -1,66 +1,66 @@
 {
-  "score": 98,
-  "defaultScore": 91,
-  "scoreImprovement": 7,
+  "score": 90,
+  "defaultScore": 86,
+  "scoreImprovement": 4,
   "params": {
-    "generalCount": 9,
-    "singleMainBranch": 4,
-    "leadGap": 6,
-    "highThreshold": 68,
-    "midThreshold": 66,
+    "generalCount": 11,
+    "singleMainBranch": 9,
+    "leadGap": 5,
+    "highThreshold": 58,
+    "midThreshold": 60,
     "rawWeight": 0.4,
-    "dimWeight": 0.5,
-    "recommendThreshold": 45,
-    "optionalThreshold": 45,
-    "riskPenaltyMultiplier": 2.25,
+    "dimWeight": 0.55,
+    "recommendThreshold": 50,
+    "optionalThreshold": 25,
+    "riskPenaltyMultiplier": 1.75,
     "maxRecommended": 7,
     "diversityBonus": 15
   },
   "paramDiff": {
     "generalCount": {
       "before": 8,
-      "after": 9,
-      "delta": "+1.00"
+      "after": 11,
+      "delta": "+3.00"
     },
     "singleMainBranch": {
       "before": 6,
-      "after": 4,
-      "delta": "-2.00"
+      "after": 9,
+      "delta": "+3.00"
     },
     "leadGap": {
       "before": 8,
-      "after": 6,
-      "delta": "-2.00"
+      "after": 5,
+      "delta": "-3.00"
     },
     "highThreshold": {
       "before": 62,
-      "after": 68,
-      "delta": "+6.00"
+      "after": 58,
+      "delta": "-4.00"
     },
     "midThreshold": {
       "before": 55,
-      "after": 66,
-      "delta": "+11.00"
+      "after": 60,
+      "delta": "+5.00"
     },
     "dimWeight": {
       "before": 0.6,
-      "after": 0.5,
-      "delta": "-0.10"
+      "after": 0.55,
+      "delta": "-0.05"
     },
     "recommendThreshold": {
       "before": 55,
-      "after": 45,
-      "delta": "-10.00"
+      "after": 50,
+      "delta": "-5.00"
     },
     "optionalThreshold": {
       "before": 35,
-      "after": 45,
-      "delta": "+10.00"
+      "after": 25,
+      "delta": "-10.00"
     },
     "riskPenaltyMultiplier": {
       "before": 1,
-      "after": 2.25,
-      "delta": "+1.25"
+      "after": 1.75,
+      "delta": "+0.75"
     },
     "maxRecommended": {
       "before": 5,
@@ -73,9 +73,9 @@
       "delta": "+15.00"
     }
   },
-  "generationBorn": 1,
-  "generations": 10,
-  "population": 20,
+  "generationBorn": 3,
+  "generations": 5,
+  "population": 15,
   "runsPerCandidate": 50,
   "seed": 4023,
   "note": "⚠️ 此文件为自动生成的候选参数，仅供人工审核，不直接覆盖线上参数。"
