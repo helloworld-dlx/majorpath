@@ -508,7 +508,7 @@ export const majorDetails: MajorDetailMap = {
     updatedAt: '2026-06-07',
     reviewStatus: 'draft',
     videos: [],
-    contributors: [{ name: 'dlx', role: '内容共建' }],
+    contributors: [],
   },
 
   // ============================================================
@@ -586,7 +586,7 @@ export const majorDetails: MajorDetailMap = {
     updatedAt: '2026-06-07',
     reviewStatus: 'draft',
     videos: [],
-    contributors: [{ name: 'dlx', role: '内容共建' }],
+    contributors: [],
   },
 
 };
