@@ -127,7 +127,20 @@
     const perBucket = Math.ceil(branchCount / buckets.length);
     const branchQs = [];
     for (const bucket of buckets) {
-      const pool = bank.questions.filter(q => q.type === 'branch' && q.targetBuckets.includes(bucket) && !usedIds.has(q.id));
+      var pool = bank.questions.filter(q => q.type === 'branch' && q.targetBuckets.includes(bucket) && !usedIds.has(q.id));
+      // v0.18 选科过滤：选了历史(无物理)则过滤纯STEM题，交叉方向保留
+      if (userSubjects && userSubjects.selected) {
+        var hasPhysics = userSubjects.selected.indexOf('物理') >= 0;
+        var hasHistory = userSubjects.selected.indexOf('历史') >= 0;
+        if (!hasPhysics && hasHistory) {
+          // 文科轨道：过滤掉只标记 stem 的纯理工题，保留 stem+其他桶的交叉题
+          pool = pool.filter(function(q) {
+            var tb = q.targetBuckets || [];
+            if (tb.length === 1 && tb[0] === 'stem') return false;
+            return true;
+          });
+        }
+      }
       const picks = shuffle(pool).slice(0, perBucket);
       picks.forEach(q => { usedIds.add(q); branchQs.push(q); });
     }
