@@ -477,6 +477,40 @@ export const majorDetails: MajorDetailMap = {
     videos: [],
     contributors: [{ name: '待确认', role: '内容共建' }],
   },
+  // ============================================================
+  // 电子信息工程 — 由用户共建
+  // ============================================================
+  'engineering/electronic-information/electronic-info-eng': {
+    categorySlug: 'electronic-info-eng',
+    gateSlug: 'engineering',
+    oneLiner: '结合数学、物理、编程与硬件，为智能设备打造底层神经系统。',
+    whatYouLearn: [
+      '数学与物理基础：电路靠微积分和大学物理打底。',
+      '硬核电路：模电和数电是饭碗。',
+      '编程控制：把代码写进芯片。',
+      '综合知识：通信、AI基础。',
+    ],
+    vsHighSchool: [
+      '与物理羁绊最深——大学面对上百个元件的电路网络。',
+      '与数学不可分割——元件大小、电流强弱全靠数学推导。',
+      '学习模式从刷题到高压锅式同时学硬件和敲代码。',
+    ],
+    suitableFor: ['爱拆东西的小能手', '数理逻辑狂魔', '抗压王者', '想软硬通吃的人'],
+    notSuitableFor: ['怕物理电学的人', '想轻松读大学的人', '手残怕焊电路的人', '三分钟热度的人'],
+    commonMisconceptions: ['学电子的不是修理工是设计电路', '电子也要编程', '通信+AI全要学'],
+    realScenes: ['上电路课面对电路图', '实验课拿电烙铁焊零件', '期末在实验室泡很久'],
+    futurePaths: ['硬件工程师', '嵌入式开发', '考研读微电子', '转行纯软件开发'],
+    pitfalls: ['名字高大上但辛苦', '模电数电极难', '多参加电子设计竞赛', '学校侧重不同、报志愿前看课程表'],
+    relatedMajors: [
+      { name: '计算机科学与技术', slug: 'computer-science', gateSlug: 'engineering', diff: '计科做App；电信做硬件。' },
+      { name: '电气工程及其自动化', slug: 'electrical', gateSlug: 'engineering', diff: '电气管强电；电信管弱电。' },
+    ],
+    updatedAt: '2026-06-07',
+    reviewStatus: 'draft',
+    videos: [],
+    contributors: [{ name: 'D老师', role: '内容共建' }],
+  },
+
 };
 
 export default majorDetails;
