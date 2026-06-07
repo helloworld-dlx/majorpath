@@ -126,7 +126,7 @@ export const majorDetails: MajorDetailMap = {
     ],
 
     updatedAt: '2026-06-04',
-    reviewStatus: 'draft',
+    reviewStatus: 'reviewed',
     videos: [],
     contributors: [{ name: '佚名贡献者', role: '内容贡献者' }],
   },
@@ -473,7 +473,7 @@ export const majorDetails: MajorDetailMap = {
     ],
 
     updatedAt: '2026-06-05',
-    reviewStatus: 'draft',
+    reviewStatus: 'reviewed',
     videos: [],
     contributors: [{ name: '待确认', role: '内容共建' }],
   },
@@ -506,7 +506,7 @@ export const majorDetails: MajorDetailMap = {
       { name: '电气工程及其自动化', slug: 'electrical', gateSlug: 'engineering', diff: '电气管强电；电信管弱电。' },
     ],
     updatedAt: '2026-06-07',
-    reviewStatus: 'draft',
+    reviewStatus: 'reviewed',
     videos: [],
     contributors: [],
   },
@@ -584,7 +584,7 @@ export const majorDetails: MajorDetailMap = {
     ],
 
     updatedAt: '2026-06-07',
-    reviewStatus: 'draft',
+    reviewStatus: 'reviewed',
     videos: [],
     contributors: [],
   },

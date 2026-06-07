@@ -443,7 +443,7 @@ export const catalog: Catalog = {
           majorCount: 18,
           description: '和计算机类专业经常混淆——电子偏硬件底层，计算机偏软件',
           majors: [
-            { code: '080701', name: '电子信息工程', slug: 'electronic-info-eng', status: 'todo', tags: ['热门'], summary: '软硬结合，学电路+信号+编程' },
+            { code: '080701', name: '电子信息工程', slug: 'electronic-info-eng', status: 'building', tags: ['热门'], summary: '软硬结合，学电路+信号+编程' },
             { code: '080702', name: '电子科学与技术', slug: 'electronic-science', status: 'todo', tags: ['偏硬件'], summary: '更偏向物理和器件层面' },
             { code: '080703', name: '通信工程', slug: 'communication-eng', status: 'todo', tags: ['热门'], summary: '信息怎么从一端传到另一端' },
             { code: '080710T', name: '集成电路设计与集成系统', slug: 'ic-design', status: 'completed', tags: ['国家战略', '特设'], summary: '芯片设计全流程——从晶体管到系统，软硬件贯通' },
