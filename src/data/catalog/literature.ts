@@ -40,7 +40,7 @@ export const literatureGate: Gate = {
           name: '外国语言文学类',
           slug: 'foreign-languages',
           status: 'building',
-          majorCount: 62,
+          majorCount: 57,
           description: '学一门语言，打开一个世界的窗户——全球主要语种都有覆盖',
           majors: [
             { code: '050201', name: '英语', slug: 'english', status: 'todo', tags: ['最热门'], summary: '最常见的语种，但竞争最激烈——听说读写译全都要练' },

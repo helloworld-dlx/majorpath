@@ -32,7 +32,7 @@ export const medicineGate: Gate = {
           name: '临床医学类',
           slug: 'clinical-medicine',
           status: 'building',
-          majorCount: 7,
+          majorCount: 3,
           description: '学制通常5年+规培3年+专培，是投入时间最长的本科专业之一，选之前要明白这意味着什么',
           majors: [
             { code: '100201K', name: '临床医学', slug: 'clinical-medicine-major', status: 'todo', tags: ['国控', '五年制'], summary: '学看病，一个病人接一个病人地学' },

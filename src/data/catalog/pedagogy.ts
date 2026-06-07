@@ -19,7 +19,7 @@ export const pedagogyGate: Gate = {
           name: '教育学类',
           slug: 'education',
           status: 'building',
-          majorCount: 17,
+          majorCount: 14,
           description: '研究怎么教、怎么育——从幼儿园到大学，从学校教育到终身学习，教育学关注人成长的规律',
           majors: [
             { code: '040101', name: '教育学', slug: 'pedagogy-study', status: 'todo', tags: ['核心', '理论'], summary: '教育基本理论、课程教学论、教育心理学——教育学的基础学科' },

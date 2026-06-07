@@ -11,7 +11,7 @@ export const interdisciplinaryGate: Gate = {
   icon: '🔗',
   status: 'building',
   categoryCount: 1,
-  majorCount: 15,
+  majorCount: 6,
   description: '2026 年首次设立的学科门类，面向国家战略急需，融合多学科前沿',
   categories: [
     {

@@ -19,7 +19,7 @@ export const economicsGate: Gate = {
           name: '经济学类',
           slug: 'economics-class',
           status: 'building',
-          majorCount: 11,
+          majorCount: 4,
           description: '经济学是文理交叉的典型学科，需要数学思维也能发挥文科优势',
           majors: [
             { code: '020101', name: '经济学', slug: 'economics', status: 'todo', tags: ['文理兼收'], summary: '研究社会如何分配稀缺资源' },

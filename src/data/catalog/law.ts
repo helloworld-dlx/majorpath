@@ -19,7 +19,7 @@ export const lawGate: Gate = {
           name: '法学类',
           slug: 'law-class',
           status: 'building',
-          majorCount: 12,
+          majorCount: 3,
           description: '不是背法条，而是学法律思维——这套思维方式可以迁移到很多领域',
           majors: [
             { code: '030101K', name: '法学', slug: 'law', status: 'todo', tags: ['文理兼收', '国控'], summary: '系统学习法律，培养法律思维' },
