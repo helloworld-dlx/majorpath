@@ -1,0 +1,153 @@
+/**
+ * 12 管理学 — 学科门类数据
+ */
+
+import type { Gate } from '../../types/catalog';
+
+export const managementGate: Gate = {
+      code: '12',
+      name: '管理学',
+      slug: 'management',
+      icon: '📋',
+      status: 'building',
+      categoryCount: 9,
+      majorCount: 63,
+      description: '管理学不是"学怎么管人"，而是学怎么高效组织资源达成目标',
+      categories: [
+        {
+          code: '1201',
+          name: '管理科学与工程类',
+          slug: 'management-science',
+          status: 'building',
+          majorCount: 7,
+          description: '用数据模型优化管理——数学+计算机+管理的交叉，就业面最广的管理方向',
+          majors: [
+            { code: '120101', name: '管理科学', slug: 'management-science-major', status: 'todo', tags: ['偏理'], summary: '用数学和模型分析管理问题——定量决策的科学' },
+            { code: '120102', name: '信息管理与信息系统', slug: 'info-management', status: 'todo', tags: ['偏计算机'], summary: 'IT+管理——企业信息系统规划与数据分析' },
+            { code: '120103', name: '工程管理', slug: 'engineering-management', status: 'todo', tags: ['交叉'], summary: '工程项目管理——工期、成本、质量的平衡术' },
+            { code: '120104', name: '房地产开发与管理', slug: 'real-estate', status: 'todo', tags: ['行业'], summary: '地产项目策划与管理——从拿地到销售全流程' },
+            { code: '120105', name: '工程造价', slug: 'cost-engineering', status: 'todo', tags: ['实践强'], summary: '算工程量、做预算——一个项目到底要花多少钱' },
+            { code: '120106T', name: '大数据管理与应用', slug: 'big-data-management', status: 'todo', tags: ['新兴', '热门', '特设'], summary: '用大数据做管理决策——数据驱动的管理新时代' },
+            { code: '120107T', name: '工程审计', slug: 'engineering-audit', status: 'todo', tags: ['特设'], summary: '工程项目财务和合规审查——工程领域的审计师' },
+          ],
+        },
+        {
+          code: '1202',
+          name: '工商管理类',
+          slug: 'business-administration',
+          status: 'building',
+          majorCount: 16,
+          description: '名字被误解最多的专业类之一——工商管理 ≠ 毕业就当老板',
+          majors: [
+            { code: '120201K', name: '工商管理', slug: 'business-admin', status: 'todo', tags: ['国控'], summary: '学企业怎么运作，不是学怎么当老板' },
+            { code: '120203K', name: '会计学', slug: 'accounting', status: 'todo', tags: ['国控'], summary: '看懂企业的账，是商业世界的通用语言' },
+            { code: '120204', name: '财务管理', slug: 'financial-management', status: 'todo', summary: '管钱、融资、投资决策' },
+          ],
+        },
+        {
+          code: '1203',
+          name: '农业经济管理类',
+          slug: 'agri-economics',
+          status: 'building',
+          majorCount: 3,
+          description: '管理+农业——农产品的生产、流通和农村发展',
+          majors: [
+            { code: '120301', name: '农林经济管理', slug: 'agri-forestry-economics', status: 'todo', tags: ['行业'], summary: '农业生产、农产品贸易管理——让农产品从田间到餐桌' },
+            { code: '120302', name: '农村区域发展', slug: 'rural-development', status: 'todo', tags: ['行业'], summary: '农村发展规划与政策——乡村振兴需要管理人才' },
+            { code: '120303T', name: '乡村治理', slug: 'rural-governance', status: 'todo', tags: ['新兴', '特设'], summary: '农村基层治理与服务——让乡村更宜居宜业' },
+          ],
+        },
+        {
+          code: '1204',
+          name: '公共管理类',
+          slug: 'public-administration',
+          status: 'building',
+          majorCount: 14,
+          description: '管理公共事务——政府、事业单位、非营利组织的管理学科',
+          majors: [
+            { code: '120401', name: '公共事业管理', slug: 'public-affairs', status: 'todo', tags: ['核心'], summary: '教育、卫生、社保等公共服务管理——公共领域的管理通才' },
+            { code: '120402', name: '行政管理', slug: 'public-admin', status: 'todo', tags: ['核心'], summary: '政府机关管理——学怎么让公共部门高效运转' },
+            { code: '120403', name: '劳动与社会保障', slug: 'labor-social-security', status: 'todo', tags: ['应用'], summary: '社保制度设计与管理——养老、医疗、失业保险' },
+            { code: '120404', name: '土地资源管理', slug: 'land-resource-management', status: 'todo', tags: ['行业'], summary: '土地利用规划与管理——每一寸土地怎么用' },
+            { code: '120405', name: '城市管理', slug: 'urban-management', status: 'todo', tags: ['应用'], summary: '城市运行管理——市容市貌、城管执法、公共服务' },
+            { code: '120406T', name: '海关管理', slug: 'customs-management', status: 'todo', tags: ['特设'], summary: '海关通关监管——国门的第一道关口' },
+            { code: '120407T', name: '交通管理', slug: 'traffic-management', status: 'todo', tags: ['特设'], summary: '交通运输行政管理——管好路上跑的' },
+            { code: '120408T', name: '海事管理', slug: 'maritime-management', status: 'todo', tags: ['特设'], summary: '水上交通和船舶安全监管——管好水上漂的' },
+            { code: '120409T', name: '公共关系学', slug: 'public-relations', status: 'todo', tags: ['特设'], summary: '组织形象管理——怎么让公众认可你' },
+            { code: '120410T', name: '健康服务与管理', slug: 'health-service-management', status: 'todo', tags: ['特设', '热门'], summary: '医院管理、健康管理——医疗机构的运营管理' },
+            { code: '120411T', name: '养老服务管理', slug: 'elderly-care-management', status: 'todo', tags: ['新兴', '特设'], summary: '养老机构运营管理——服务老龄化社会' },
+            { code: '120412T', name: '医疗保险', slug: 'medical-insurance', status: 'todo', tags: ['特设'], summary: '医保制度设计与管理——看病报销背后的学问' },
+            { code: '120413T', name: '国际经济发展合作', slug: 'intl-dev-cooperation', status: 'todo', tags: ['特设'], summary: '国际援助与发展项目管理——帮助发展中国家' },
+            { code: '120414T', name: '海关检验检疫安全', slug: 'customs-quarantine', status: 'todo', tags: ['特设'], summary: '进出口商品检验检疫——守护国门生物安全' },
+          ],
+        },
+        {
+          code: '1205',
+          name: '图书情报与档案管理类',
+          slug: 'library-science',
+          status: 'building',
+          majorCount: 3,
+          description: '管理知识和信息——从图书馆到大数据情报分析，信息素养的核心',
+          majors: [
+            { code: '120501', name: '图书馆学', slug: 'library-science-major', status: 'todo', tags: ['传统'], summary: '图书分类、信息服务、阅读推广——知识海洋的导航员' },
+            { code: '120502', name: '档案学', slug: 'archival-science', status: 'todo', tags: ['传统'], summary: '档案的收集整理和数字化——保存历史的真实记录' },
+            { code: '120503', name: '信息资源管理', slug: 'information-resource', status: 'todo', tags: ['应用'], summary: '信息组织和检索——大数据时代的信息管理者' },
+          ],
+        },
+        {
+          code: '1206',
+          name: '物流管理与工程类',
+          slug: 'logistics',
+          status: 'building',
+          majorCount: 4,
+          description: '从仓库到你手中——供应链管理，电商时代的关键环节',
+          majors: [
+            { code: '120601', name: '物流管理', slug: 'logistics-management', status: 'todo', tags: ['核心'], summary: '仓储、运输、配送——让货快准稳地到达' },
+            { code: '120602', name: '物流工程', slug: 'logistics-eng', status: 'todo', tags: ['偏工'], summary: '物流系统设计与优化——自动化仓库和分拣系统' },
+            { code: '120603T', name: '采购管理', slug: 'procurement', status: 'todo', tags: ['特设'], summary: '企业采购和供应商管理——买东西也是一门学问' },
+            { code: '120604T', name: '供应链管理', slug: 'supply-chain', status: 'todo', tags: ['新兴', '热门', '特设'], summary: '端到端的供应链设计与运营——从原材料到消费者' },
+          ],
+        },
+        {
+          code: '1207',
+          name: '工业工程类',
+          slug: 'industrial-engineering',
+          status: 'building',
+          majorCount: 2,
+          description: '优化生产和服务系统——让效率最高、浪费最少',
+          majors: [
+            { code: '120701', name: '工业工程', slug: 'industrial-eng-major', status: 'todo', tags: ['交叉'], summary: '生产流程优化、质量控制——让工厂更高效更省钱' },
+            { code: '120702T', name: '标准化工程', slug: 'standardization-eng', status: 'todo', tags: ['特设'], summary: '技术标准的制定与实施——标准是质量的基准线' },
+          ],
+        },
+        {
+          code: '1208',
+          name: '电子商务类',
+          slug: 'e-commerce',
+          status: 'building',
+          majorCount: 3,
+          description: '线上生意怎么做——电商运营、跨境贸易、网店管理',
+          majors: [
+            { code: '120801', name: '电子商务', slug: 'e-commerce-major', status: 'todo', tags: ['热门'], summary: '电商平台运营、网络营销——从淘宝到抖音的生意经' },
+            { code: '120802T', name: '电子商务及法律', slug: 'e-commerce-law', status: 'todo', tags: ['交叉', '特设'], summary: '电商的法律合规问题——网络交易中的权利和义务' },
+            { code: '120803T', name: '跨境电子商务', slug: 'cross-border-ecommerce', status: 'todo', tags: ['热门', '特设'], summary: '把货卖到国外去——跨境电商的运营和管理' },
+          ],
+        },
+        {
+          code: '1209',
+          name: '旅游管理类',
+          slug: 'tourism-management',
+          status: 'building',
+          majorCount: 4,
+          description: '不只是当导游——酒店、景区、会展，旅游产业链的管理',
+          majors: [
+            { code: '120901K', name: '旅游管理', slug: 'tourism-major', status: 'todo', tags: ['国控', '行业'], summary: '景区管理、旅行社运营——让旅行更美好的管理学科' },
+            { code: '120902', name: '酒店管理', slug: 'hotel-management', status: 'todo', tags: ['行业'], summary: '酒店运营和服务管理——不只是前台和客房' },
+            { code: '120903', name: '会展经济与管理', slug: 'event-management', status: 'todo', tags: ['行业'], summary: '展览、会议、赛事的策划运营——大型活动的操盘手' },
+            { code: '120904T', name: '旅游管理与服务教育', slug: 'tourism-education', status: 'todo', tags: ['特设'], summary: '旅游专业的师资培养——教别人怎么做好旅游服务' },
+          ],
+        },
+      ],
+    };
+
+export default managementGate;

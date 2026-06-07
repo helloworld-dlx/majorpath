@@ -1,0 +1,123 @@
+/**
+ * 03 法学 — 学科门类数据
+ */
+
+import type { Gate } from '../../types/catalog';
+
+export const lawGate: Gate = {
+      code: '03',
+      name: '法学',
+      slug: 'law',
+      icon: '⚖️',
+      status: 'building',
+      categoryCount: 6,
+      majorCount: 52,
+      description: '研究法律、政治、社会运行规则，文理兼收，认知偏差较大',
+      categories: [
+        {
+          code: '0301',
+          name: '法学类',
+          slug: 'law-class',
+          status: 'building',
+          majorCount: 12,
+          description: '不是背法条，而是学法律思维——这套思维方式可以迁移到很多领域',
+          majors: [
+            { code: '030101K', name: '法学', slug: 'law', status: 'todo', tags: ['文理兼收', '国控'], summary: '系统学习法律，培养法律思维' },
+            { code: '030102T', name: '知识产权', slug: 'intellectual-property', status: 'todo', tags: ['文理交叉'] },
+            { code: '030109TK', name: '国际法', slug: 'international-law', status: 'todo', tags: ['国控', '特设'] },
+          ],
+        },
+        {
+          code: '0302',
+          name: '政治学类',
+          slug: 'political-science',
+          status: 'building',
+          majorCount: 7,
+          description: '研究权力、政治制度和国际关系——不为当官，为理解政治运行逻辑',
+          majors: [
+            { code: '030201', name: '政治学与行政学', slug: 'politics-admin', status: 'todo', tags: ['核心'], summary: '政治理论和公共管理——从古希腊到当代政府的运作逻辑' },
+            { code: '030202', name: '国际政治', slug: 'international-politics', status: 'todo', tags: ['国际'], summary: '国家间的政治关系——为什么国家会合作也会冲突' },
+            { code: '030203', name: '外交学', slug: 'diplomacy', status: 'todo', tags: ['国际'], summary: '外交理论与实务——大使馆、外交部、国际谈判' },
+            { code: '030204T', name: '国际事务与国际关系', slug: 'intl-affairs', status: 'todo', tags: ['特设', '国际'], summary: '全球化背景下的国际事务——国际组织、跨国问题' },
+            { code: '030205T', name: '政治学、经济学与哲学', slug: 'ppe', status: 'todo', tags: ['特设', '精英'], summary: '三大社科撞在一起——国内顶尖高校的精英培养模式' },
+            { code: '030206T', name: '国际组织与全球治理', slug: 'intl-organization', status: 'todo', tags: ['新兴', '特设'], summary: '联合国等国际组织怎么运作——参与全球治理' },
+            { code: '030207T', name: '国家安全学', slug: 'national-security', status: 'todo', tags: ['新兴', '特设'], summary: '综合研究国家安全问题——政治、军事、经济、科技安全' },
+          ],
+        },
+        {
+          code: '0303',
+          name: '社会学类',
+          slug: 'sociology',
+          status: 'building',
+          majorCount: 6,
+          description: '研究社会和人的行为——从家庭到组织，从阶层到文化',
+          majors: [
+            { code: '030301', name: '社会学', slug: 'sociology-major', status: 'todo', tags: ['核心'], summary: '社会调查、社会理论——看清社会怎么运转的科学' },
+            { code: '030302', name: '社会工作', slug: 'social-work', status: 'todo', tags: ['实践'], summary: '帮助弱势群体、社区发展——把社会学用在解决问题上' },
+            { code: '030303T', name: '人类学', slug: 'anthropology', status: 'todo', tags: ['特设'], summary: '研究人类文化和多样性——从原始部落到都市白领' },
+            { code: '030304T', name: '女性学', slug: 'womens-studies', status: 'todo', tags: ['特设'], summary: '性别研究、女性权益——理解性别平等' },
+            { code: '030305T', name: '家政学', slug: 'home-science', status: 'todo', tags: ['特设'], summary: '家庭生活管理科学——从营养到家庭教育' },
+            { code: '030306T', name: '老年学', slug: 'gerontology', status: 'todo', tags: ['新兴', '特设'], summary: '老龄化社会的研究——怎么让老年人过得好' },
+          ],
+        },
+        {
+          code: '0304',
+          name: '民族学类',
+          slug: 'ethnology',
+          status: 'building',
+          majorCount: 1,
+          description: '研究各民族文化和发展——中国56个民族的学问',
+          majors: [
+            { code: '030401', name: '民族学', slug: 'ethnology-major', status: 'todo', tags: ['核心'], summary: '民族文化、民族政策——理解多民族国家的多样性' },
+          ],
+        },
+        {
+          code: '0305',
+          name: '马克思主义理论类',
+          slug: 'marxism',
+          status: 'building',
+          majorCount: 5,
+          description: '学习马克思主义理论——思想政治教育和理论研究的核心方向',
+          majors: [
+            { code: '030501', name: '科学社会主义', slug: 'scientific-socialism', status: 'todo', tags: ['理论'], summary: '社会主义理论和实践——马克思主义的当代发展' },
+            { code: '030502', name: '中国共产党历史', slug: 'cpc-history', status: 'todo', tags: ['理论'], summary: '党的历史和党的建设——了解百年的奋斗历程' },
+            { code: '030503', name: '思想政治教育', slug: 'ideological-education', status: 'todo', tags: ['核心'], summary: '思想教育和政治宣传——思政课老师就是学这个的' },
+            { code: '030504T', name: '马克思主义理论', slug: 'marxist-theory', status: 'todo', tags: ['特设'], summary: '马克思主义基本原理——从经典到现代的系统学习' },
+            { code: '030505T', name: '工会学', slug: 'trade-union-studies', status: 'todo', tags: ['特设'], summary: '工人运动和工会工作——维护劳动者权益' },
+          ],
+        },
+        {
+          code: '0306',
+          name: '公安学类',
+          slug: 'public-security',
+          status: 'building',
+          majorCount: 21,
+          description: '培养人民警察——侦查、治安、禁毒、经侦，守护社会的专业力量',
+          majors: [
+            { code: '030601K', name: '治安学', slug: 'public-order', status: 'todo', tags: ['国控'], summary: '治安管理、社区警务——维护社会秩序的第一线' },
+            { code: '030602K', name: '侦查学', slug: 'criminal-investigation', status: 'todo', tags: ['国控'], summary: '刑事案件侦破——讯问取证、抓捕罪犯' },
+            { code: '030603K', name: '边防管理', slug: 'border-management', status: 'todo', tags: ['国控'], summary: '出入境管理和边境安全——守护国门第一关' },
+            { code: '030604K', name: '禁毒学', slug: 'drug-control', status: 'todo', tags: ['国控'], summary: '毒品犯罪的预防和打击——跟毒品斗争到底' },
+            { code: '030605K', name: '警犬技术', slug: 'police-dog-tech', status: 'todo', tags: ['国控'], summary: '警犬训练和使用——人类最好的战友在警队' },
+            { code: '030606K', name: '经济犯罪侦查', slug: 'economic-crime', status: 'todo', tags: ['国控'], summary: '侦破经济犯罪案件——追查洗钱、诈骗、偷税漏税' },
+            { code: '030607K', name: '边防指挥', slug: 'border-command', status: 'todo', tags: ['国控'], summary: '边防部队的指挥管理——边境安全的指挥中枢' },
+            { code: '030608K', name: '消防指挥', slug: 'fire-command', status: 'todo', tags: ['国控'], summary: '消防队伍的指挥调度——火灾现场的决策者' },
+            { code: '030609K', name: '警卫学', slug: 'security-guard', status: 'todo', tags: ['国控'], summary: '重要人物的安全保卫——贴身保护是门技术活' },
+            { code: '030610K', name: '公安情报学', slug: 'police-intelligence', status: 'todo', tags: ['国控'], summary: '公安情报搜集分析——在信息中发现线索' },
+            { code: '030611K', name: '犯罪学', slug: 'criminology', status: 'todo', tags: ['国控'], summary: '犯罪原因、犯罪预防——为什么人会犯罪' },
+            { code: '030612K', name: '公安管理学', slug: 'police-management', status: 'todo', tags: ['国控'], summary: '公安机关的管理——警察队伍怎么高效运转' },
+            { code: '030613K', name: '涉外警务', slug: 'foreign-police', status: 'todo', tags: ['国控'], summary: '涉外案件处理、国际警务合作——跨国的执法协作' },
+            { code: '030614K', name: '国内安全保卫', slug: 'domestic-security', status: 'todo', tags: ['国控'], summary: '维护国内政治和社会大局稳定——隐蔽战线的卫士' },
+            { code: '030615K', name: '警务指挥与战术', slug: 'police-tactics', status: 'todo', tags: ['国控'], summary: '警务行动的组织指挥——从现场处置到大规模行动' },
+            { code: '030616TK', name: '技术侦查学', slug: 'technical-investigation', status: 'todo', tags: ['国控', '特设'], summary: '运用技术手段侦查——电子监听、定位追踪等' },
+            { code: '030617TK', name: '海警执法', slug: 'coast-guard-law', status: 'todo', tags: ['国控', '特设'], summary: '海上执法维权——管理我国海域和海警力量' },
+            { code: '030618TK', name: '移民管理', slug: 'immigration-management', status: 'todo', tags: ['国控', '特设'], summary: '外国人出入境管理——管好谁进谁出' },
+            { code: '030619TK', name: '铁路警务', slug: 'railway-police', status: 'todo', tags: ['国控', '特设'], summary: '铁路沿线治安管理——保护旅客和列车安全' },
+            { code: '030620TK', name: '反恐警务', slug: 'counter-terrorism-police', status: 'todo', tags: ['国控', '特设'], summary: '反恐情报、处置、预防——恐怖主义的克星' },
+            { code: '030621TK', name: '消防救援指挥', slug: 'fire-rescue-command', status: 'todo', tags: ['国控', '特设'], summary: '消防救援现场的指挥管理——组织生命救援' },
+          ],
+        },
+      ],
+    };
+
+export default lawGate;

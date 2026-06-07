@@ -1,0 +1,182 @@
+/**
+ * 07 理学 — 学科门类数据
+ */
+
+import type { Gate } from '../../types/catalog';
+
+export const scienceGate: Gate = {
+      code: '07',
+      name: '理学',
+      slug: 'science',
+      icon: '🔬',
+      status: 'building',
+      categoryCount: 12,
+      majorCount: 46,
+      description: '研究自然现象和基础科学规律，重理论推导和实验验证，很多方向可衔接工科',
+      categories: [
+        {
+          code: '0701',
+          name: '数学类',
+          slug: 'mathematics',
+          status: 'building',
+          majorCount: 4,
+          description: '数学是一切理工科的基础，也是转行最灵活的专业之一',
+          majors: [
+            { code: '070101', name: '数学与应用数学', slug: 'math-applied', status: 'todo', tags: ['基础学科'], summary: '学数学本身的规律，也学怎么用它解决现实问题' },
+            { code: '070102', name: '信息与计算科学', slug: 'info-computing', status: 'todo', tags: ['偏计算机'], summary: '数学+计算机交叉，容易转 CS' },
+            { code: '070103', name: '数理基础科学', slug: 'math-foundation', status: 'todo', tags: ['基础学科', '学术'], summary: '纯数学理论研究，为继续深造打基础' },
+            { code: '070104T', name: '数据计算及应用', slug: 'data-computing', status: 'todo', tags: ['新兴', '应用'], summary: '统计学+计算机，大数据时代的数学应用' },
+          ],
+        },
+        {
+          code: '0702',
+          name: '物理学类',
+          slug: 'physics',
+          status: 'building',
+          majorCount: 4,
+          description: '研究物质世界最基本的规律——从夸克到宇宙，万物皆物理',
+          majors: [
+            { code: '070201', name: '物理学', slug: 'physics-major', status: 'todo', tags: ['核心', '基础'], summary: '力学、电磁学、量子力学——理解宇宙运行的基本法则' },
+            { code: '070202', name: '应用物理学', slug: 'applied-physics', status: 'todo', tags: ['应用'], summary: '把物理原理用在工程和产业中——从实验室到产品' },
+            { code: '070203', name: '核物理', slug: 'nuclear-physics', status: 'todo', tags: ['前沿'], summary: '原子核的结构和反应——核能、核医学的物理基础' },
+            { code: '070204T', name: '声学', slug: 'acoustics', status: 'todo', tags: ['特设'], summary: '声音的物理——从耳机音质到潜艇声纳' },
+          ],
+        },
+        {
+          code: '0703',
+          name: '化学类',
+          slug: 'chemistry',
+          status: 'building',
+          majorCount: 4,
+          description: '研究分子和物质变化——从新材料到药物，化学是物质世界的魔法',
+          majors: [
+            { code: '070301', name: '化学', slug: 'chemistry-major', status: 'todo', tags: ['核心', '基础'], summary: '有机、无机、分析、物化——化学的四大基础' },
+            { code: '070302', name: '应用化学', slug: 'applied-chemistry', status: 'todo', tags: ['应用'], summary: '化学在各个行业的应用——从化妆品到新材料' },
+            { code: '070303T', name: '化学生物学', slug: 'chemical-biology', status: 'todo', tags: ['交叉', '特设'], summary: '用化学工具研究生物问题——生命过程的化学密码' },
+            { code: '070304T', name: '能源化学', slug: 'energy-chemistry', status: 'todo', tags: ['新兴', '特设'], summary: '化学在能源领域的应用——电池、催化、新能源材料' },
+          ],
+        },
+        {
+          code: '0704',
+          name: '天文学类',
+          slug: 'astronomy',
+          status: 'building',
+          majorCount: 1,
+          description: '探索宇宙的奥秘——从恒星演化到黑洞，仰望星空的科学',
+          majors: [
+            { code: '070401', name: '天文学', slug: 'astronomy-major', status: 'todo', tags: ['小众', '基础'], summary: '天体物理、宇宙学——用望远镜和理论探索宇宙' },
+          ],
+        },
+        {
+          code: '0705',
+          name: '地理科学类',
+          slug: 'geography',
+          status: 'building',
+          majorCount: 4,
+          description: '研究地球表面——自然和人文的交汇，从地图到GIS的演变',
+          majors: [
+            { code: '070501', name: '地理科学', slug: 'geography-major', status: 'todo', tags: ['综合'], summary: '自然地理+人文地理——从地貌气候到人口城市' },
+            { code: '070502', name: '自然地理与资源环境', slug: 'physical-geography', status: 'todo', tags: ['偏理'], summary: '山水林田湖草——研究地球表面的自然环境' },
+            { code: '070503', name: '人文地理与城乡规划', slug: 'human-geography', status: 'todo', tags: ['偏文'], summary: '城市和区域发展——人为什么聚集、城市怎么生长' },
+            { code: '070504', name: '地理信息科学', slug: 'gis', status: 'todo', tags: ['偏计算机'], summary: '用计算机分析地理数据——高德地图背后的技术' },
+          ],
+        },
+        {
+          code: '0706',
+          name: '大气科学类',
+          slug: 'atmospheric-science',
+          status: 'building',
+          majorCount: 3,
+          description: '研究大气运动和变化——天气预报、气候变化的科学基础',
+          majors: [
+            { code: '070601', name: '大气科学', slug: 'atmospheric-science-major', status: 'todo', tags: ['核心'], summary: '天气动力学、数值预报——为什么天气预报越来越准' },
+            { code: '070602', name: '应用气象学', slug: 'applied-meteorology', status: 'todo', tags: ['应用'], summary: '气象服务农业、航空、海洋——天气怎么影响各行各业' },
+            { code: '070603T', name: '气象技术与工程', slug: 'weather-tech', status: 'todo', tags: ['特设'], summary: '气象观测设备和信息系统——天气预报背后的技术装备' },
+          ],
+        },
+        {
+          code: '0707',
+          name: '海洋科学类',
+          slug: 'ocean-science',
+          status: 'building',
+          majorCount: 4,
+          description: '认识海洋——地球上最广阔也最未知的领域',
+          majors: [
+            { code: '070701', name: '海洋科学', slug: 'ocean-science-major', status: 'todo', tags: ['核心'], summary: '海洋物理、化学、生物——全方位认识海洋' },
+            { code: '070702', name: '海洋技术', slug: 'ocean-technology', status: 'todo', tags: ['应用'], summary: '海洋探测、海洋资源开发——技术装备怎么下海' },
+            { code: '070703T', name: '海洋资源与环境', slug: 'ocean-resources-env', status: 'todo', tags: ['特设'], summary: '海洋资源的开发和保护——可持续利用海洋' },
+            { code: '070704T', name: '军事海洋学', slug: 'military-oceanography', status: 'todo', tags: ['特设', '国防'], summary: '海洋环境对军事的影响——海战怎么打要看天看海' },
+          ],
+        },
+        {
+          code: '0708',
+          name: '地球物理学类',
+          slug: 'geophysics',
+          status: 'building',
+          majorCount: 3,
+          description: '给地球做CT——用物理方法探测地球内部结构和演化',
+          majors: [
+            { code: '070801', name: '地球物理学', slug: 'geophysics-major', status: 'todo', tags: ['核心'], summary: '地震波、重力、地磁——用物理手段探究地球内部' },
+            { code: '070802', name: '空间科学与技术', slug: 'space-science', status: 'todo', tags: ['前沿'], summary: '太阳活动、空间天气——从地球到太阳系的物理' },
+            { code: '070803T', name: '防灾减灾科学与工程', slug: 'disaster-prevention', status: 'todo', tags: ['特设'], summary: '自然灾害的监测预警——地震、滑坡怎么提前知道' },
+          ],
+        },
+        {
+          code: '0709',
+          name: '地质学类',
+          slug: 'geology',
+          status: 'building',
+          majorCount: 4,
+          description: '读懂地球的历史——化石、岩石和地层中藏着46亿年的故事',
+          majors: [
+            { code: '070901', name: '地质学', slug: 'geology-major', status: 'todo', tags: ['核心', '基础'], summary: '岩石、矿物、构造——地球物质组成和演化' },
+            { code: '070902', name: '地球化学', slug: 'geochemistry', status: 'todo', tags: ['偏理'], summary: '用化学方法研究地球——元素在地球各圈层怎么循环' },
+            { code: '070903T', name: '地球信息科学与技术', slug: 'geo-informatics', status: 'todo', tags: ['特设'], summary: '地质大数据、3D建模——数字化的地质学' },
+            { code: '070904T', name: '古生物学', slug: 'paleontology', status: 'todo', tags: ['小众', '特设'], summary: '化石研究——从三叶虫到恐龙，探寻生命演化' },
+          ],
+        },
+        {
+          code: '0710',
+          name: '生物科学类',
+          slug: 'biology',
+          status: 'building',
+          majorCount: 6,
+          description: '探索生命的奥秘——从DNA到生态系统，21世纪是生物的世纪',
+          majors: [
+            { code: '071001', name: '生物科学', slug: 'biology-major', status: 'todo', tags: ['核心', '基础'], summary: '细胞、遗传、进化——生命科学的根基' },
+            { code: '071002', name: '生物技术', slug: 'biotechnology', status: 'todo', tags: ['应用'], summary: '基因工程、细胞培养——把生物学变成技术' },
+            { code: '071003', name: '生物信息学', slug: 'bioinformatics', status: 'todo', tags: ['交叉', '热门'], summary: '用计算机分析基因数据——生物+计算机的黄金交叉' },
+            { code: '071004', name: '生态学', slug: 'ecology', status: 'todo', tags: ['偏宏观'], summary: '生物与环境的关系——从个体到生态系统的规律' },
+            { code: '071005T', name: '整合科学', slug: 'integrated-science', status: 'todo', tags: ['特设', '精英'], summary: '数理化生的融合培养——顶尖高校的精英模式' },
+            { code: '071006T', name: '神经科学', slug: 'neuroscience', status: 'todo', tags: ['前沿', '特设'], summary: '大脑怎么工作——神经元的连接和意识之谜' },
+          ],
+        },
+        {
+          code: '0711',
+          name: '心理学类',
+          slug: 'psychology',
+          status: 'building',
+          majorCount: 2,
+          description: '研究人的心智和行为——不是读心术，而是科学方法',
+          majors: [
+            { code: '071101', name: '心理学', slug: 'psychology-major', status: 'todo', tags: ['核心', '热门'], summary: '认知、情绪、人格——人的心理活动有什么规律' },
+            { code: '071102', name: '应用心理学', slug: 'applied-psychology', status: 'todo', tags: ['应用'], summary: '把心理学用在咨询、教育、管理中——从理论到实践' },
+          ],
+        },
+        {
+          code: '0712',
+          name: '统计学类',
+          slug: 'statistics',
+          status: 'building',
+          majorCount: 3,
+          description: '用数据说话——统计学是AI和大数据时代最值钱的基础学科',
+          majors: [
+            { code: '071201', name: '统计学', slug: 'statistics-major', status: 'todo', tags: ['核心', '热门'], summary: '数据收集、分析和推断——用数据发现规律' },
+            { code: '071202', name: '应用统计学', slug: 'applied-statistics', status: 'todo', tags: ['应用'], summary: '统计学在各行业的应用——经济、生物、工业统计' },
+            { code: '071203T', name: '生物统计学', slug: 'biostatistics', status: 'todo', tags: ['特设', '交叉'], summary: '临床试验、流行病的数据分析——医学研究的统计学方法' },
+          ],
+        },
+      ],
+    };
+
+export default scienceGate;

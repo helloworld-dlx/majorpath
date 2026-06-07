@@ -1,0 +1,133 @@
+/**
+ * 09 农学 — 学科门类数据
+ */
+
+import type { Gate } from '../../types/catalog';
+
+export const agronomyGate: Gate = {
+      code: '09',
+      name: '农学',
+      slug: 'agronomy',
+      icon: '🌾',
+      status: 'todo',
+      categoryCount: 7,
+      majorCount: 43,
+      description: '不只是种地——涉及现代生物技术、生态保护、食品安全的交叉学科',
+      categories: [
+        {
+          code: '0901',
+          name: '植物生产类',
+          slug: 'plant-production',
+          status: 'building',
+          majorCount: 12,
+          description: '从种子到粮食——农作物生产、育种和保护，饭碗里的科技含量',
+          majors: [
+            { code: '090101', name: '农学', slug: 'agronomy-major', status: 'todo', tags: ['核心'], summary: '作物栽培、育种——怎么让庄稼高产优质' },
+            { code: '090102', name: '园艺', slug: 'horticulture', status: 'todo', tags: ['应用'], summary: '蔬菜、果树、花卉——不只是侍弄花草' },
+            { code: '090103', name: '植物保护', slug: 'plant-protection', status: 'todo', tags: ['核心'], summary: '植物病虫害防治——给庄稼看病' },
+            { code: '090104', name: '植物科学与技术', slug: 'plant-science-tech', status: 'todo', tags: ['交叉'], summary: '用生物技术改造作物——分子育种、基因编辑' },
+            { code: '090105', name: '种子科学与工程', slug: 'seed-science', status: 'todo', tags: ['重要'], summary: '种子是农业的芯片——好种子才有好收成' },
+            { code: '090106', name: '设施农业科学与工程', slug: 'facility-agriculture', status: 'todo', tags: ['新兴'], summary: '温室大棚、植物工厂——不受天气影响的农业' },
+            { code: '090107T', name: '茶学', slug: 'tea-science', status: 'todo', tags: ['特色', '特设'], summary: '种茶、制茶、评茶——从茶园到茶杯' },
+            { code: '090108T', name: '烟草', slug: 'tobacco-science', status: 'todo', tags: ['特设'], summary: '烟叶种植与加工——一个特殊的农产品方向' },
+            { code: '090109T', name: '应用生物科学', slug: 'applied-bioscience', status: 'todo', tags: ['特设', '交叉'], summary: '生物技术在农业中的应用——让农业高科技化' },
+            { code: '090110T', name: '农艺教育', slug: 'agronomy-education', status: 'todo', tags: ['特设'], summary: '农业技术推广与教育——让农民学到新技术' },
+            { code: '090111T', name: '智慧农业', slug: 'smart-agriculture', status: 'todo', tags: ['前沿', '特设'], summary: 'AI+农业、无人机植保——科技让种地变酷' },
+            { code: '090112T', name: '菌物科学与工程', slug: 'mycology', status: 'todo', tags: ['新兴', '特设'], summary: '食用菌、药用菌的栽培——蘑菇产业背后的科学' },
+          ],
+        },
+        {
+          code: '0902',
+          name: '自然保护与环境生态类',
+          slug: 'environmental-ecology',
+          status: 'building',
+          majorCount: 6,
+          description: '保护自然生态——从野生动植物到自然保护区，绿水青山的守护者',
+          majors: [
+            { code: '090201', name: '农业资源与环境', slug: 'agri-resources', status: 'todo', tags: ['核心'], summary: '土壤、水资源和农业环境的保护——让土地可持续' },
+            { code: '090202', name: '野生动物与自然保护区管理', slug: 'wildlife-management', status: 'todo', tags: ['行业'], summary: '保护珍稀动物和自然保护区——大熊猫、东北虎的守护者' },
+            { code: '090203', name: '水土保持与荒漠化防治', slug: 'soil-water-conservation', status: 'todo', tags: ['重要'], summary: '防止水土流失和沙漠化——让荒漠变绿洲' },
+            { code: '090204T', name: '生物质科学与工程', slug: 'biomass-science', status: 'todo', tags: ['特设', '新兴'], summary: '用生物质材料替代化石资源——秸秆、木材的新用途' },
+            { code: '090205T', name: '土地科学与技术', slug: 'land-science', status: 'todo', tags: ['特设'], summary: '土地利用的科学技术——从土壤质量到土地规划' },
+            { code: '090206T', name: '生态修复学', slug: 'eco-restoration', status: 'todo', tags: ['新兴', '特设'], summary: '修复被破坏的生态系统——矿山、污染地的重生' },
+          ],
+        },
+        {
+          code: '0903',
+          name: '动物生产类',
+          slug: 'animal-production',
+          status: 'building',
+          majorCount: 3,
+          description: '养好动物——从畜禽养殖到饲料科学，畜牧业的科技升级',
+          majors: [
+            { code: '090301', name: '动物科学', slug: 'animal-science', status: 'todo', tags: ['核心'], summary: '畜牧养殖、饲料营养——怎么让猪长得快蛋下得多' },
+            { code: '090302T', name: '蚕学', slug: 'sericulture', status: 'todo', tags: ['特色', '特设'], summary: '养蚕、缫丝——中国几千年历史的特色学科' },
+            { code: '090303T', name: '蜂学', slug: 'apiculture', status: 'todo', tags: ['特色', '特设'], summary: '养蜂、蜂产品——蜜蜂不只是产蜜' },
+          ],
+        },
+        {
+          code: '0904',
+          name: '动物医学类',
+          slug: 'veterinary',
+          status: 'building',
+          majorCount: 6,
+          description: '给动物看病——从宠物医生到畜牧业兽医，热度大增',
+          majors: [
+            { code: '090401', name: '动物医学', slug: 'veterinary-medicine', status: 'todo', tags: ['核心', '五年制'], summary: '兽医——不只是猫狗，还有猪牛羊的诊疗' },
+            { code: '090402', name: '动物药学', slug: 'veterinary-pharmacy', status: 'todo', tags: ['行业'], summary: '动物专用的药品研发——兽药的研制' },
+            { code: '090403T', name: '动植物检疫', slug: 'animal-plant-quarantine', status: 'todo', tags: ['特设'], summary: '出入境动植物检疫——把有害生物挡在国门之外' },
+            { code: '090404T', name: '实验动物学', slug: 'lab-animal-science', status: 'todo', tags: ['特设'], summary: '实验动物的管理和福利——科研中的动物伙伴' },
+            { code: '090405T', name: '中兽医学', slug: 'tcm-veterinary', status: 'todo', tags: ['特色', '特设'], summary: '用中医方法治疗动物——针灸治马病' },
+            { code: '090406T', name: '兽医公共卫生', slug: 'veterinary-public-health', status: 'todo', tags: ['新兴', '特设'], summary: '人畜共患病防控——动物健康关系人类健康' },
+          ],
+        },
+        {
+          code: '0905',
+          name: '林学类',
+          slug: 'forestry',
+          status: 'building',
+          majorCount: 4,
+          description: '经营森林——从植树造林到森林保护，绿水青山的建设者',
+          majors: [
+            { code: '090501', name: '林学', slug: 'forestry-major', status: 'todo', tags: ['核心'], summary: '森林培育、经营和管理——让森林健康成长' },
+            { code: '090502', name: '园林', slug: 'landscape-gardening', status: 'todo', tags: ['应用'], summary: '园林规划设计——公园、庭院、道路绿化的设计' },
+            { code: '090503', name: '森林保护', slug: 'forest-protection', status: 'todo', tags: ['核心'], summary: '森林防火、病虫害防治——保护好每一棵树' },
+            { code: '090504T', name: '经济林', slug: 'economic-forest', status: 'todo', tags: ['特设'], summary: '果树、茶树等经济林木——森林也能产生经济效益' },
+          ],
+        },
+        {
+          code: '0906',
+          name: '水产类',
+          slug: 'aquaculture',
+          status: 'building',
+          majorCount: 4,
+          description: '水里养出来的蛋白质——从鱼塘到远洋，水产业的科技',
+          majors: [
+            { code: '090601', name: '水产养殖学', slug: 'aquaculture-major', status: 'todo', tags: ['核心'], summary: '养鱼、养虾、养贝——怎么提高水产品产量和品质' },
+            { code: '090602', name: '海洋渔业科学与技术', slug: 'marine-fishery', status: 'todo', tags: ['行业'], summary: '海洋捕捞和资源管理——大海里的渔业' },
+            { code: '090603T', name: '水族科学与技术', slug: 'aquarium-science', status: 'todo', tags: ['特设'], summary: '观赏鱼养殖和水族馆——不只是家里的小鱼缸' },
+            { code: '090604T', name: '水生动物医学', slug: 'aquatic-animal-medicine', status: 'todo', tags: ['特设'], summary: '给鱼虾看病——水产养殖中的疾病防控' },
+          ],
+        },
+        {
+          code: '0907',
+          name: '草学类',
+          slug: 'grassland-science',
+          status: 'building',
+          majorCount: 8,
+          description: '小草大学问——草原生态、草坪管理、饲草生产',
+          majors: [
+            { code: '090701', name: '草业科学', slug: 'grassland-science-major', status: 'todo', tags: ['核心'], summary: '草原管理和草种培育——小草里有大产业' },
+            { code: '090702T', name: '草坪科学与工程', slug: 'turf-science', status: 'todo', tags: ['特设'], summary: '高尔夫球场、足球场草坪——让草长得又绿又密' },
+            { code: '090703T', name: '智慧牧业科学与工程', slug: 'smart-grazing', status: 'todo', tags: ['新兴', '特设'], summary: '用科技放牧——智能化牧场管理' },
+            { code: '090704T', name: '草地农业', slug: 'grassland-agriculture', status: 'todo', tags: ['特设'], summary: '草地上的综合农业——不是传统放牧' },
+            { code: '090705T', name: '饲草生产与利用', slug: 'forage-production', status: 'todo', tags: ['特设'], summary: '优质牧草种植——好草养好畜' },
+            { code: '090706T', name: '水土保持与荒漠化防治', slug: 'grassland-conservation', status: 'todo', tags: ['特设'], summary: '草原生态修复——让退化的草原重新绿起来' },
+            { code: '090707T', name: '生物质能源', slug: 'grass-biomass', status: 'todo', tags: ['新兴', '特设'], summary: '用草生产能源——草不只是拿来喂牛的' },
+            { code: '090708T', name: '草原保护', slug: 'grassland-protection', status: 'todo', tags: ['特设'], summary: '草原生态系统的保护——草原退化了怎么救' },
+          ],
+        },
+      ],
+    };
+
+export default agronomyGate;
