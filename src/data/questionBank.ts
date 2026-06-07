@@ -2,7 +2,7 @@
  * 方向测试题库数据
  * 对齐 ALGORITHM_SPEC.md v0.3 六桶体系
  *
- * 题目统计：通用 20 + 方向 58 + 校验 13 + 避坑 8 + 主观 4 = 103 题
+ * 题目统计：通用 20 + 方向 65 + 校验 13 + 避坑 8 + 主观 4 = 110 题
  *
  * 命名规则：
  *   gen_xxx   = general 通用粗筛题
@@ -382,6 +382,45 @@ export const questionBank: QuestionBank = {
       { id: 'br_stem_012_a', label: 'A', text: '发了一篇论文、证明了一个定理', scoreEffects: [{ target: 'stem', points: 8 }, { target: 'science_basic', points: 5 }, { target: 'math_logic', points: 6 }] },
       { id: 'br_stem_012_b', label: 'B', text: '写了一个开源项目被很多人使用', scoreEffects: [{ target: 'stem', points: 8 }, { target: 'cs_info', points: 5 }, { target: 'info_systems', points: 6 }] },
       { id: 'br_stem_012_c', label: 'C', text: '设计的产品被生产出来，人们在使用它', scoreEffects: [{ target: 'stem', points: 8 }, { target: 'engineering_manufacturing', points: 5 }, { target: 'engineering_practice', points: 6 }] },
+    ]},
+
+    // ============================================================
+    // B4 补充：冷门/小众理工方向探测（7 题）
+    // 覆盖：天文/地质/海洋/大气/矿业/核/交叉工程
+    // ============================================================
+    { id: 'br_stem_013', type: 'branch', title: '仰望星空的时候，你在想什么？', targetBuckets: ['stem'], subDirection: 'science_basic', priority: 8, options: [
+      { id: 'br_stem_013_a', label: 'A', text: '宇宙到底有多大、黑洞里面是什么——我想探索最根本的物理规律', scoreEffects: [{ target: 'stem', points: 6 }, { target: 'science_basic', points: 5 }, { target: 'abstract_theory', points: 8 }] },
+      { id: 'br_stem_013_b', label: 'B', text: '挺好看的，但没想过把它当专业——我更喜欢脚踏实地的方向', scoreEffects: [{ target: 'stem', points: 2 }] },
+      { id: 'br_stem_013_c', label: 'C', text: '如果我们能去其他星球、开发太空资源——那会是人类的下一个篇章', scoreEffects: [{ target: 'stem', points: 6 }, { target: 'engineering_manufacturing', points: 4 }, { target: 'info_systems', points: 4 }] },
+    ]},
+    { id: 'br_stem_014', type: 'branch', title: '你喜欢在户外、和大自然亲近的场景吗？', targetBuckets: ['stem', 'life_health'], subDirection: 'science_basic', priority: 8, options: [
+      { id: 'br_stem_014_a', label: 'A', text: '非常喜欢——观察石头、采集标本、在野外工作对我来说是享受', scoreEffects: [{ target: 'stem', points: 6 }, { target: 'science_basic', points: 5 }, { target: 'life_health_interest', points: 6 }] },
+      { id: 'br_stem_014_b', label: 'B', text: '偶尔可以，但长时间户外、恶劣天气就受不了了', scoreEffects: [{ target: 'stem', points: 3 }] },
+      { id: 'br_stem_014_c', label: 'C', text: '不太喜欢——我更喜欢在室内、实验室或电脑前工作', scoreEffects: [{ target: 'stem', points: 3 }, { target: 'cs_info', points: 4 }, { target: 'info_systems', points: 4 }] },
+    ]},
+    { id: 'br_stem_015', type: 'branch', title: '对于地球上的自然资源，你的态度是？', targetBuckets: ['stem'], subDirection: 'science_basic', priority: 8, options: [
+      { id: 'br_stem_015_a', label: 'A', text: '怎么更高效、更安全地开采和利用——这是一门技术活', scoreEffects: [{ target: 'stem', points: 6 }, { target: 'engineering_manufacturing', points: 4 }, { target: 'stable_path', points: 4 }] },
+      { id: 'br_stem_015_b', label: 'B', text: '怎么合理保护地球，减少资源消耗——我更关注可持续', scoreEffects: [{ target: 'stem', points: 6 }, { target: 'life_health_interest', points: 6 }, { target: 'agriculture_ecology', points: 4 }] },
+      { id: 'br_stem_015_c', label: 'C', text: '没太想过这个问题', scoreEffects: [{ target: 'stem', points: 1 }] },
+    ]},
+    { id: 'br_stem_016', type: 'branch', title: '你对天气预报、气候变化、大气现象好奇吗？', targetBuckets: ['stem'], subDirection: 'science_basic', priority: 8, options: [
+      { id: 'br_stem_016_a', label: 'A', text: '很着迷——天气系统的复杂性和预报的挑战性很吸引我', scoreEffects: [{ target: 'stem', points: 6 }, { target: 'science_basic', points: 5 }, { target: 'abstract_theory', points: 6 }, { target: 'info_systems', points: 4 }] },
+      { id: 'br_stem_016_b', label: 'B', text: '有用但不会作为专业方向', scoreEffects: [{ target: 'stem', points: 2 }] },
+    ]},
+    { id: 'br_stem_017', type: 'branch', title: '海洋对你来说意味着什么？', targetBuckets: ['stem', 'life_health'], subDirection: 'science_basic', priority: 8, options: [
+      { id: 'br_stem_017_a', label: 'A', text: '一个巨大的未知世界——深海探测、海洋生物、海洋资源都很吸引我', scoreEffects: [{ target: 'stem', points: 6 }, { target: 'science_basic', points: 5 }, { target: 'life_health_interest', points: 6 }] },
+      { id: 'br_stem_017_b', label: 'B', text: '造船、海上平台、海洋工程——我更关注怎么在上面造东西', scoreEffects: [{ target: 'stem', points: 6 }, { target: 'engineering_manufacturing', points: 5 }, { target: 'engineering_practice', points: 6 }] },
+      { id: 'br_stem_017_c', label: 'C', text: '没太多感觉——我的兴趣不在海洋', scoreEffects: [{ target: 'stem', points: 1 }] },
+    ]},
+    { id: 'br_stem_018', type: 'branch', title: '提到"核"这个字，你的感觉是？', targetBuckets: ['stem'], subDirection: 'science_basic', priority: 8, options: [
+      { id: 'br_stem_018_a', label: 'A', text: '核能发电、核技术应用——这是一个高技术壁垒的方向，很酷', scoreEffects: [{ target: 'stem', points: 6 }, { target: 'science_basic', points: 4 }, { target: 'engineering_manufacturing', points: 4 }, { target: 'stable_path', points: 4 }] },
+      { id: 'br_stem_018_b', label: 'B', text: '有点怕——安全和辐射的问题让我不太想碰', scoreEffects: [{ target: 'stem', points: 1 }] },
+      { id: 'br_stem_018_c', label: 'C', text: '基础科学层面挺有意思的——原子核物理、粒子物理', scoreEffects: [{ target: 'stem', points: 6 }, { target: 'science_basic', points: 5 }, { target: 'abstract_theory', points: 8 }] },
+    ]},
+    { id: 'br_stem_019', type: 'branch', title: '你更愿意选"很多人都在学"的专业，还是"很少人但很特别"的方向？', targetBuckets: ['stem', 'humanities', 'social_science'], subDirection: 'science_basic', priority: 8, options: [
+      { id: 'br_stem_019_a', label: 'A', text: '多人学的路更宽、更安全，我倾向于主流方向', scoreEffects: [{ target: 'stem', points: 4 }, { target: 'cs_info', points: 4 }, { target: 'stable_path', points: 6 }] },
+      { id: 'br_stem_019_b', label: 'B', text: '我想做点不一样的——小众但独特的领域可能更适合我', scoreEffects: [{ target: 'stem', points: 6 }, { target: 'science_basic', points: 5 }, { target: 'abstract_theory', points: 4 }] },
+      { id: 'br_stem_019_c', label: 'C', text: '我不在乎人多不多——我只在乎我自己是不是真的感兴趣', scoreEffects: [{ target: 'stem', points: 5 }, { target: 'humanities', points: 3 }] },
     ]},
 
     // ============================================================

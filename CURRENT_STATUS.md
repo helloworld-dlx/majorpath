@@ -51,6 +51,9 @@
 | 专业画像扩展 | ✅ 已完成 | majorProfiles.ts 39→61（新增 22 个冷门/细分专业类） |
 | oneLiner 风格恢复 | ✅ 已完成 | p 段落 → h1 标题（20-40 字短句） |
 | 自适应抽题引擎 | ✅ 已完成 | src/utils/adaptiveQuestioning.ts（9 函数 + AdaptiveConfig + 文科保护） |
+| 选科硬关卡 | ✅ 已完成 | 测试页第0步 + SUBJECT_REQUIREMENTS(93类) + checkSubjectEligibility + renderSubjectBlocked |
+| 小众探索层 | ✅ 已完成 | computeNicheExplorations + renderNicheExploration（v0.5） |
+| 93类权重 v0.4 | ✅ 已完成 | 权重3-22 + 7非权重字段 + CATEGORY_FIELDS |
 | 共建入口 | ✅ 已完成 | 三个共建入口（补充内容/纠错/题目优化）+ 隐私声明 + 审核说明 |
 | 反馈入口 | ✅ 已完成 | 报告页底部独立隐私声明 + 外部问卷链接跳转 + 问卷链接占位符 |
 | AI 报告解释 | ✅ 已完成 | src/pages/api/explain.ts（DeepSeek Flash）+ 服务端安全调用 + 模板回退 + 限流 |

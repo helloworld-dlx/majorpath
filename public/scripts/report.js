@@ -33,9 +33,9 @@
   };
 
   var RISK_LABELS = {
-    trend_chasing: '热门跟风', salary_misconception: '薪资预期偏差', info_bubble: '信息茧房',
-    long_cycle: '长周期高投入', reading_writing_aversion: '排斥大量读写',
-    rule_detail_aversion: '排斥规则细节', hands_on_aversion: '排斥动手操作',
+    trend_chasing: '热门跟风风险', salary_misconception: '薪资预期提醒', info_bubble: '信息茧房提醒',
+    long_cycle: '长学习周期提醒', reading_writing_aversion: '大量读写提醒',
+    rule_detail_aversion: '规则细节提醒', hands_on_aversion: '动手实践提醒',
     name_misconception: '名字误解', surface_interest: '表面兴趣', arts_science_mismatch: '文理不匹配',
   };
 
@@ -142,16 +142,16 @@
   };
 
   var RISK_CATEGORY_PENALTIES = {
-    trend_chasing: { slugs: ['computer-science', 'electronic-information', 'finance', 'business-administration'], penalty: 15, reason: '你可能因为热门才关注这个方向，建议先看看它到底学什么' },
-    salary_misconception: { slugs: ['computer-science', 'finance', 'business-administration'], penalty: 10, reason: '高薪不等于适合你，建议先了解真实学习内容和压力' },
-    info_bubble: { slugs: [], penalty: 0, reason: '你可能只接触到少数几个专业方向，建议拓宽了解范围' },
-    long_cycle: { slugs: ['clinical-medicine', 'stomatology', 'law-class'], penalty: 20, reason: '这个方向学习周期很长（5-8年），需要做好心理准备' },
-    reading_writing_aversion: { slugs: ['law-class', 'chinese-literature', 'journalism', 'history-class', 'sociology'], penalty: 25, reason: '你似乎不太喜欢大量读写，但这个方向需要很多阅读和写作' },
-    rule_detail_aversion: { slugs: ['law-class', 'finance', 'public-administration', 'clinical-medicine'], penalty: 20, reason: '这个方向需要和大量规则、细节打交道' },
-    hands_on_aversion: { slugs: ['mechanical', 'electrical', 'electronic-information', 'civil-engineering', 'plant-production'], penalty: 20, reason: '你似乎不太喜欢动手操作，但这个方向有不少实验和实践' },
-    name_misconception: { slugs: ['business-administration', 'public-administration'], penalty: 10, reason: '你可能对这个专业的名字有误解，建议先看看详情页' },
-    surface_interest: { slugs: [], penalty: 0, reason: '你对这个方向的兴趣可能来自表面印象，建议深入了解再做判断' },
-    arts_science_mismatch: { slugs: ['computer-science', 'electronic-information', 'automation', 'electrical'], penalty: 30, reason: '你的选科背景和这个方向不太匹配' },
+    trend_chasing: { slugs: ['computer-science', 'electronic-information', 'finance', 'business-administration'], penalty: 15, reason: '以上方向中有的专业报考热度很高——热度不等于适合你，建议点进详情页看看大学实际学什么、未来做什么' },
+    salary_misconception: { slugs: ['computer-science', 'finance', 'business-administration'], penalty: 10, reason: '不要只因为"听说薪资高"就选一个专业——高薪的背后是具体的技能和行业门槛，建议先了解真实学习内容和职业压力' },
+    info_bubble: { slugs: [], penalty: 0, reason: '你的专业认知可能集中在少数热门方向，建议在"可以继续看看"区逛逛，也许会发现意料之外的方向' },
+    long_cycle: { slugs: ['clinical-medicine', 'stomatology', 'law-class'], penalty: 20, reason: '这个方向学习的周期可能比一般专业长（本科5年+规培/考证等），需要做好长期投入的心理和物质准备' },
+    reading_writing_aversion: { slugs: ['law-class', 'chinese-literature', 'journalism', 'history-class', 'sociology'], penalty: 25, reason: '以下方向的学习和工作中需要大量阅读、分析文本和写作——如果你比较排斥这类任务，建议更深入地了解再决定' },
+    rule_detail_aversion: { slugs: ['law-class', 'finance', 'public-administration', 'clinical-medicine'], penalty: 20, reason: '这些方向需要和大量法律条文、规章制度、诊疗规范打交道，如果比较排斥规则细节类工作，需要留意' },
+    hands_on_aversion: { slugs: ['mechanical', 'electrical', 'electronic-information', 'civil-engineering', 'plant-production'], penalty: 20, reason: '你似乎不太喜欢动手操作，但这类方向有不少实验、实训和实践环节' },
+    name_misconception: { slugs: ['business-administration', 'public-administration'], penalty: 10, reason: '"工商管理"不是毕业就当管理层、"公共管理"不等于一定进体制——建议点进详情页看看大一到大四实际在学什么' },
+    surface_interest: { slugs: [], penalty: 0, reason: '你对某些方向的兴趣可能来自影视、传闻或表面印象，建议点进详情页看看真实的学习内容' },
+    arts_science_mismatch: { slugs: ['computer-science', 'electronic-information', 'automation', 'electrical'], penalty: 30, reason: '你目前的选科组合可能不满足这些方向通常的报考要求，建议先核对各省考试院的选科限制' },
   };
 
   var PROFILE_TEMPLATES = {
@@ -647,15 +647,29 @@
       cat.nicheCaution = cauts.join('；') || '建议进一步了解再做判断';
       niche.push(cat);
     });
-    niche.sort(function(a, b) { return b.nicheScore - a.nicheScore; });
-    return niche.slice(0, 2);
+    niche.sort(function(a, b) {
+      // hiOnly categories first, then by nicheScore
+      var aHi = CATEGORY_FIELDS[a.slug] && CATEGORY_FIELDS[a.slug].hi ? 1 : 0;
+      var bHi = CATEGORY_FIELDS[b.slug] && CATEGORY_FIELDS[b.slug].hi ? 1 : 0;
+      if (aHi !== bHi) return bHi - aHi;
+      return b.nicheScore - a.nicheScore;
+    });
+    return niche.slice(0, 3);
   }
 
-  function generateRiskResults(riskTags) {
+  function generateRiskResults(riskTags, recommended, cautious) {
+    // Only show risks relevant to the user's actual recommendations
+    var allCats = [].concat(recommended || [], cautious || []);
+    var catSlugs = {};
+    allCats.forEach(function(c) { catSlugs[c.slug] = true; });
     return riskTags.map(function (tag) {
       var rule = RISK_CATEGORY_PENALTIES[tag] || { slugs: [], reason: '' };
-      return { tag: tag, label: RISK_LABELS[tag] || tag, description: rule.reason || '', affectedCategories: rule.slugs || [] };
-    });
+      // Skip if risk doesn't affect any category the user actually sees
+      var relevant = rule.slugs.some(function(s) { return catSlugs[s]; });
+      if (!relevant) return null;
+      var affected = rule.slugs.filter(function(s) { return catSlugs[s]; }).slice(0, 3).map(function(s) { return CAT_NAME_MAP[s] || s; });
+      return { tag: tag, label: RISK_LABELS[tag] || tag, description: rule.reason + '（涉及：' + affected.join('、') + '）', affectedCategories: rule.slugs || [] };
+    }).filter(function(r) { return r !== null; });
   }
 
   function determineConfidence(bucketScores, userType) {
@@ -720,7 +734,7 @@
     var refined = computeRefinedBucketScores(raw, dim);
     var disc = generateDisciplineRecommendations(refined);
     var cats = generateCategoryRecommendations(refined, dim, riskTags, disc);
-    var risks = generateRiskResults(riskTags);
+    var risks = generateRiskResults(riskTags, cats.recommended, cats.cautious);
     var conf = determineConfidence(refined, userType);
     var prof = generateProfile(refined, userType);
     var dims = generateDimensionProfile(dim);
