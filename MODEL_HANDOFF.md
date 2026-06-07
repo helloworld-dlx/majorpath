@@ -29,6 +29,16 @@
 | 9 | `REVIEW_CHECKLIST.md` | 审核专业详情内容时 |
 | 10 | `PROMPT_LIBRARY.md` | 需要参考常用 Prompt 模板时 |
 | 11 | `MODEL_HANDOFF.md` | 当前文件，了解协作流程 |
+| 12 | `MAINTENANCE.md` | 执行审核/新建/修改/调参等维护操作时，已适配拆分后的文件结构 |
+
+## 重要文件结构提醒（v0.18.6+）
+
+- **专业详情内容已拆分**：从单文件 `src/data/major-details.ts` 拆为 `src/data/major-details/` 目录
+  - `index.ts` — 聚合导出
+  - `engineering.ts` — 工学门类（计算机/电子/机械/集成电路）
+  - 新增门类时加新文件 + 在 index.ts 中合并
+- **专业目录数据**：仍在单文件 `src/data/catalog.ts`（1067行，92专业类）
+- **飞书审核表**：https://ycnezy29ruly.feishu.cn/base/AyOpbl0JzasP8esltKncqm3Mnxf（投稿跟踪）
 
 ---
 

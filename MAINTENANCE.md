@@ -26,7 +26,8 @@
 ### 流程
 
 ```
-1. 打开 src/data/major-details.ts，找到对应 entry
+1. 确定专业所属学科门类 → 打开对应文件 src/data/major-details/<门类>.ts
+   （目前 ed：src/data/major-details/engineering.ts）
 2. 打开 REVIEW_CHECKLIST.md，逐条对照
 3. 有问题就改内容，没问题就改 reviewStatus
 4. npm run build → 通过 → git commit
@@ -36,15 +37,16 @@
 
 | 文件 | 改什么 |
 |------|--------|
-| `src/data/major-details.ts` | 修改内容 + 改 `reviewStatus: 'draft'` → `'reviewed'` |
+| `src/data/major-details/<门类>.ts` | 修改内容 + 改 `reviewStatus: 'draft'` → `'reviewed'` |
+| `src/data/major-details/index.ts` | 新增门类时在此合并导出 |
 | `src/data/catalog.ts` | 如果该专业类所有 major 都审核完，改 status |
 | `CATALOG_STATUS.md` | 更新对应条目状态 |
 
 ### 示例：用户说「审核计算机类」
 
 ```bash
-# 1. 找到 entry
-grep -n "engineering/computer-science" src/data/major-details.ts
+# 1. 计算机类在工学门类 → src/data/major-details/engineering.ts
+grep -n "engineering/computer-science" src/data/major-details/engineering.ts
 
 # 2. 读 REVIEW_CHECKLIST.md 的初审 8 条 + 复审 6 条
 # 3. 逐条检查内容
@@ -106,11 +108,15 @@ grep "专业名" src/data/catalog.ts
 
 **第 3 步：写详情内容**
 
-编辑 `src/data/major-details.ts`，在 `majorDetails` 对象里新增一个 entry。key 格式：
+编辑 `src/data/major-details/<门类>.ts`（如工学→engineering.ts，医学→medicine.ts），
+在对应门类的 DetailMap 里新增 entry。key 格式：
 
 ```
 '{门类slug}/{专业类slug}'
 ```
+
+如果该门类的文件还不存在，需先创建新文件（复制 engineering.ts 为模板），
+然后在 `src/data/major-details/index.ts` 中合并导出。
 
 如：
 ```
