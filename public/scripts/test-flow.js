@@ -133,10 +133,10 @@
         var hasPhysics = userSubjects.selected.indexOf('物理') >= 0;
         var hasHistory = userSubjects.selected.indexOf('历史') >= 0;
         if (!hasPhysics && hasHistory) {
-          // 文科轨道：过滤掉只标记 stem 的纯理工题，保留 stem+其他桶的交叉题
+          // 文科轨道：过滤所有包含 stem 桶的题（单桶+交叉桶都过滤）
           pool = pool.filter(function(q) {
             var tb = q.targetBuckets || [];
-            if (tb.length === 1 && tb[0] === 'stem') return false;
+            if (tb.indexOf('stem') >= 0) return false;
             return true;
           });
         }
@@ -260,15 +260,27 @@
     window._selectedSecond = [];
     window._onSubjModeChange = function() {
       var mode = document.getElementById('subj-mode').value;
-      document.getElementById('subj-312').style.display = mode === '312' ? '' : 'none';
-      document.getElementById('subj-33').style.display = mode === '33' ? '' : 'none';
-      if (mode === 'unknown') {
-        document.getElementById('subj-312').style.display = 'none';
-        document.getElementById('subj-33').style.display = 'none';
-        document.getElementById('btn-subj-continue').textContent = '继续（不确定选科）→';
+      var el312 = document.getElementById('subj-312');
+      var el33 = document.getElementById('subj-33');
+      if (mode === '312') {
+        el312.style.display = '';
+        el312.classList.remove('hidden');
+        el33.style.display = 'none';
+        el33.classList.add('hidden');
+      } else if (mode === '33') {
+        el312.style.display = 'none';
+        el312.classList.add('hidden');
+        el33.style.display = '';
+        el33.classList.remove('hidden');
       } else {
-        document.getElementById('btn-subj-continue').textContent = '继续 →';
+        el312.style.display = 'none';
+        el312.classList.add('hidden');
+        el33.style.display = 'none';
+        el33.classList.add('hidden');
+        document.getElementById('btn-subj-continue').textContent = '继续（不确定选科）→';
+        return;
       }
+      document.getElementById('btn-subj-continue').textContent = '继续 →';
     };
     window._selectFirst = function(el) {
       document.querySelectorAll('.subj-312-first').forEach(function(b) { b.classList.remove('bg-primary','text-white'); b.classList.add('border-slate-200'); });
