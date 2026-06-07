@@ -152,7 +152,7 @@ npm run evolve -- --generations 20 --population 30 --runs-per-candidate 100 --se
 
 ---
 
-## v0.5 当前基线（2026-06-07）
+## v0.5 当前基线（2026-06-07 15:00）
 
 | 指标 | 值 |
 |------|:--:|
@@ -163,3 +163,19 @@ npm run evolve -- --generations 20 --population 30 --runs-per-candidate 100 --se
 | audit 主+探索总覆盖 | 50/93 (54%) |
 | A_CROWDED（竞争出局，正常） | 34 类 |
 | 需人工复核 | 6 类 |
+
+## v0.18 新增功能（2026-06-07）
+
+- **选科硬关卡**：测试第0步选科 → SUBJECT_REQUIREMENTS(93类) → checkSubjectEligibility → renderSubjectBlocked
+- **选科桶惩罚**：未选物理→STEM-40, 未选化学→STEM-15, 未选生物→生命健康-20, 未选历史→人文-30
+- **选科过滤branch题**：历史轨道过滤所有含stem桶的题目
+- **选科数量限制**：3+3最多3项, 3+1+2再选最多2项
+- **避坑优化**：只显示与用户推荐方向相关的风险 + 文案精确化 + 温和标签
+- **niche槽位**：2→3, hiOnly优先排序, 入口分52→45
+- **题库**：+7道冷门STEM方向branch题(br_stem_013~019)
+
+## 已知问题（2026-06-07）
+
+- 模拟器与网页使用不同评分公式，模拟结果不代表网页真实体验
+- 模拟器公式 bucket×0.45 高估冷门类（水产/草学29%）
+- 4个hiOnly类(A_CROWDED_HI)因niche槽位竞争偶尔被挤出
