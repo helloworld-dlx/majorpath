@@ -290,12 +290,15 @@
     };
     window._toggleSubject = function(el) {
       var val = el.getAttribute('data-val');
+      var mode = document.getElementById('subj-mode').value;
+      var max = mode === '33' ? 3 : 2;
       var idx = window._selectedSecond.indexOf(val);
       if (idx >= 0) {
         window._selectedSecond.splice(idx, 1);
         el.classList.remove('bg-primary','text-white');
         el.classList.add('border-slate-200');
       } else {
+        if (window._selectedSecond.length >= max) return;
         window._selectedSecond.push(val);
         el.classList.add('bg-primary','text-white');
         el.classList.remove('border-slate-200');
