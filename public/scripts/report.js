@@ -635,7 +635,7 @@
       if (cat.dimScore < 68 && cat.interestSignal < 70 && cat.bucketMatch < 75) return;
       if (cat.mismatchPenalty >= 15) return;
       var ns = cat.bucketMatch * 0.30 + cat.dimScore * 0.45 + cat.interestSignal * 0.20 + (bw / 22 * 100) * 0.05 - cat.mismatchPenalty;
-      if (ns < 52) return;
+      if (ns < 45) return;
       cat.nicheScore = Math.round(ns);
       cat.nicheReasons = [];
       cat.nicheReasons.push(cat.dimScore >= 68 ? '你的学习风格和这个方向有匹配' : '你的方向偏好和这个专业有微弱交集');
@@ -731,6 +731,17 @@
   function generateResult(bank, responses, riskTags, userType) {
     var raw = computeBucketScores(bank, responses);
     var dim = computeDimensionScores(bank, responses);
+    var userSubjects = window.__USER_SUBJECTS__;
+    // v0.18 选科惩罚：未选物理→理工桶-30，未选历史→人文桶-30
+    if (userSubjects && userSubjects.selected && userSubjects.mode !== 'unknown') {
+      var has = {};
+      userSubjects.selected.forEach(function(s) { has[s] = true; });
+      if (!has['物理']) { raw.stem = Math.max(0, (raw.stem || 0) - 40); }
+      if (!has['化学']) { raw.stem = Math.max(0, (raw.stem || 0) - 15); raw.life_health = Math.max(0, (raw.life_health || 0) - 15); }
+      if (!has['生物']) { raw.life_health = Math.max(0, (raw.life_health || 0) - 20); }
+      if (!has['历史']) { raw.humanities = Math.max(0, (raw.humanities || 0) - 30); }
+      if (!has['思想政治']) { raw.social_science = Math.max(0, (raw.social_science || 0) - 10); }
+    }
     var refined = computeRefinedBucketScores(raw, dim);
     var disc = generateDisciplineRecommendations(refined);
     var cats = generateCategoryRecommendations(refined, dim, riskTags, disc);
