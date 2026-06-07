@@ -1,0 +1,572 @@
+{
+  "runs": 100,
+  "seed": 2026,
+  "coverage": "30.1",
+  "recCounts": [
+    [
+      "电气类",
+      45
+    ],
+    [
+      "机械类",
+      45
+    ],
+    [
+      "能源动力类",
+      45
+    ],
+    [
+      "计算机类",
+      41
+    ],
+    [
+      "电子信息类",
+      39
+    ],
+    [
+      "法学类",
+      27
+    ],
+    [
+      "教育学类",
+      24
+    ],
+    [
+      "政治学类",
+      23
+    ],
+    [
+      "社会学类",
+      22
+    ],
+    [
+      "马克思主义理论类",
+      20
+    ],
+    [
+      "艺术学理论类",
+      18
+    ],
+    [
+      "美术学类",
+      16
+    ],
+    [
+      "音乐与舞蹈学类",
+      16
+    ],
+    [
+      "戏剧与影视学类",
+      16
+    ],
+    [
+      "中国语言文学类",
+      14
+    ],
+    [
+      "外国语言文学类",
+      12
+    ],
+    [
+      "哲学类",
+      12
+    ],
+    [
+      "历史学类",
+      11
+    ],
+    [
+      "临床医学类",
+      7
+    ],
+    [
+      "建筑类",
+      6
+    ],
+    [
+      "自动化类",
+      5
+    ],
+    [
+      "动物医学类",
+      4
+    ],
+    [
+      "中医学类",
+      4
+    ],
+    [
+      "植物生产类",
+      4
+    ],
+    [
+      "药学类",
+      3
+    ],
+    [
+      "数学类",
+      2
+    ],
+    [
+      "经济学类",
+      2
+    ],
+    [
+      "金融学类",
+      2
+    ]
+  ],
+  "results": [
+    {
+      "profile": "stem_nerd",
+      "topBuckets": [
+        "stem",
+        "business"
+      ],
+      "recommended": [
+        "电气类",
+        "机械类",
+        "计算机类",
+        "电子信息类",
+        "能源动力类"
+      ],
+      "optional": [
+        "生物科学类",
+        "统计学类",
+        "心理学类",
+        "环境科学与工程类"
+      ],
+      "cautious": []
+    },
+    {
+      "profile": "humanities_lover",
+      "topBuckets": [
+        "humanities",
+        "social_science"
+      ],
+      "recommended": [
+        "中国语言文学类",
+        "外国语言文学类",
+        "哲学类",
+        "历史学类"
+      ],
+      "optional": [
+        "新闻传播学类"
+      ],
+      "cautious": []
+    },
+    {
+      "profile": "social_care",
+      "topBuckets": [
+        "social_science",
+        "life_health"
+      ],
+      "recommended": [
+        "法学类",
+        "教育学类",
+        "政治学类",
+        "社会学类",
+        "马克思主义理论类"
+      ],
+      "optional": [
+        "公共管理类"
+      ],
+      "cautious": [
+        "工商管理类",
+        "电子商务类",
+        "管理科学与工程类"
+      ]
+    },
+    {
+      "profile": "business_minded",
+      "topBuckets": [
+        "business",
+        "social_science"
+      ],
+      "recommended": [
+        "法学类",
+        "教育学类",
+        "政治学类",
+        "社会学类",
+        "马克思主义理论类"
+      ],
+      "optional": [
+        "电气类",
+        "机械类",
+        "能源动力类",
+        "自动化类"
+      ],
+      "cautious": [
+        "工商管理类",
+        "电子商务类"
+      ]
+    },
+    {
+      "profile": "life_science",
+      "topBuckets": [
+        "life_health",
+        "stem"
+      ],
+      "recommended": [
+        "电气类",
+        "能源动力类",
+        "自动化类",
+        "机械类",
+        "数学类"
+      ],
+      "optional": [
+        "管理科学与工程类",
+        "体育学类",
+        "设计学类",
+        "公共管理类"
+      ],
+      "cautious": []
+    },
+    {
+      "profile": "artist",
+      "topBuckets": [
+        "art_creative",
+        "humanities"
+      ],
+      "recommended": [
+        "艺术学理论类",
+        "美术学类",
+        "音乐与舞蹈学类",
+        "戏剧与影视学类"
+      ],
+      "optional": [
+        "设计学类"
+      ],
+      "cautious": []
+    },
+    {
+      "profile": "balanced",
+      "topBuckets": [
+        "stem",
+        "humanities"
+      ],
+      "recommended": [
+        "电气类",
+        "机械类",
+        "计算机类",
+        "电子信息类",
+        "能源动力类"
+      ],
+      "optional": [
+        "生物科学类",
+        "统计学类",
+        "建筑类",
+        "环境科学与工程类"
+      ],
+      "cautious": []
+    },
+    {
+      "profile": "low_math_creative",
+      "topBuckets": [
+        "art_creative",
+        "humanities"
+      ],
+      "recommended": [
+        "艺术学理论类",
+        "美术学类",
+        "音乐与舞蹈学类",
+        "戏剧与影视学类",
+        "建筑类"
+      ],
+      "optional": [
+        "设计学类",
+        "临床医学类",
+        "生物科学类",
+        "能源动力类"
+      ],
+      "cautious": [
+        "管理科学与工程类",
+        "心理学类",
+        "工商管理类",
+        "基础医学类"
+      ]
+    },
+    {
+      "profile": "engineering_hands",
+      "topBuckets": [
+        "stem",
+        "art_creative"
+      ],
+      "recommended": [
+        "电气类",
+        "机械类",
+        "电子信息类",
+        "计算机类",
+        "能源动力类"
+      ],
+      "optional": [
+        "医学技术类",
+        "统计学类",
+        "环境科学与工程类",
+        "生物工程类"
+      ],
+      "cautious": [
+        "临床医学类",
+        "中医学类",
+        "药学类",
+        "口腔医学类"
+      ]
+    },
+    {
+      "profile": "med_aspirant",
+      "topBuckets": [
+        "life_health",
+        "stem"
+      ],
+      "recommended": [
+        "艺术学理论类",
+        "中国语言文学类",
+        "美术学类",
+        "音乐与舞蹈学类",
+        "戏剧与影视学类"
+      ],
+      "optional": [
+        "电气类",
+        "机械类",
+        "设计学类",
+        "法学类"
+      ],
+      "cautious": [
+        "基础医学类"
+      ]
+    },
+    {
+      "profile": "tech_creative",
+      "topBuckets": [
+        "stem",
+        "art_creative"
+      ],
+      "recommended": [
+        "计算机类",
+        "电气类",
+        "机械类",
+        "电子信息类",
+        "能源动力类"
+      ],
+      "optional": [
+        "生物科学类",
+        "物流管理与工程类",
+        "工业工程类",
+        "心理学类"
+      ],
+      "cautious": [
+        "工商管理类",
+        "公共管理类",
+        "电子商务类"
+      ]
+    },
+    {
+      "profile": "rule_lover",
+      "topBuckets": [
+        "social_science",
+        "business"
+      ],
+      "recommended": [
+        "法学类",
+        "教育学类",
+        "政治学类",
+        "社会学类",
+        "马克思主义理论类"
+      ],
+      "optional": [
+        "新闻传播学类",
+        "中国语言文学类",
+        "外国语言文学类",
+        "公共管理类"
+      ],
+      "cautious": [
+        "工商管理类",
+        "管理科学与工程类",
+        "电子商务类"
+      ]
+    },
+    {
+      "profile": "popular_chaser",
+      "topBuckets": [
+        "stem",
+        "business"
+      ],
+      "recommended": [
+        "电气类",
+        "机械类",
+        "计算机类",
+        "电子信息类",
+        "能源动力类"
+      ],
+      "optional": [
+        "生物科学类",
+        "统计学类",
+        "中国语言文学类",
+        "心理学类"
+      ],
+      "cautious": [
+        "新闻传播学类"
+      ]
+    },
+    {
+      "profile": "stable_learner",
+      "topBuckets": [
+        "social_science",
+        "business"
+      ],
+      "recommended": [
+        "法学类",
+        "教育学类",
+        "政治学类",
+        "社会学类",
+        "马克思主义理论类"
+      ],
+      "optional": [
+        "能源动力类",
+        "自动化类",
+        "数学类",
+        "计算机类"
+      ],
+      "cautious": [
+        "管理科学与工程类",
+        "工商管理类",
+        "电子商务类"
+      ]
+    },
+    {
+      "profile": "lit_stem",
+      "topBuckets": [
+        "stem",
+        "business"
+      ],
+      "recommended": [
+        "计算机类",
+        "电气类",
+        "机械类",
+        "电子信息类",
+        "能源动力类"
+      ],
+      "optional": [
+        "统计学类",
+        "建筑类",
+        "生物科学类",
+        "环境科学与工程类"
+      ],
+      "cautious": []
+    },
+    {
+      "profile": "stem_nerd",
+      "topBuckets": [
+        "stem",
+        "business"
+      ],
+      "recommended": [
+        "电气类",
+        "机械类",
+        "计算机类",
+        "电子信息类",
+        "能源动力类"
+      ],
+      "optional": [
+        "统计学类",
+        "生物科学类",
+        "心理学类",
+        "环境科学与工程类"
+      ],
+      "cautious": []
+    },
+    {
+      "profile": "humanities_lover",
+      "topBuckets": [
+        "humanities",
+        "social_science"
+      ],
+      "recommended": [
+        "中国语言文学类",
+        "外国语言文学类",
+        "哲学类",
+        "历史学类"
+      ],
+      "optional": [
+        "新闻传播学类"
+      ],
+      "cautious": []
+    },
+    {
+      "profile": "social_care",
+      "topBuckets": [
+        "social_science",
+        "life_health"
+      ],
+      "recommended": [
+        "法学类",
+        "教育学类",
+        "政治学类",
+        "社会学类",
+        "马克思主义理论类"
+      ],
+      "optional": [
+        "临床医学类",
+        "公共管理类",
+        "中医学类",
+        "药学类"
+      ],
+      "cautious": [
+        "计算机类",
+        "工商管理类",
+        "电子信息类",
+        "管理科学与工程类"
+      ]
+    },
+    {
+      "profile": "business_minded",
+      "topBuckets": [
+        "business",
+        "social_science"
+      ],
+      "recommended": [
+        "动物医学类",
+        "临床医学类",
+        "中医学类",
+        "植物生产类",
+        "药学类"
+      ],
+      "optional": [
+        "数学类",
+        "电子信息类",
+        "仪器类",
+        "公共卫生与预防医学类"
+      ],
+      "cautious": [
+        "公共管理类",
+        "电子商务类"
+      ]
+    },
+    {
+      "profile": "life_science",
+      "topBuckets": [
+        "life_health",
+        "stem"
+      ],
+      "recommended": [
+        "艺术学理论类",
+        "建筑类",
+        "机械类",
+        "电气类",
+        "能源动力类"
+      ],
+      "optional": [
+        "临床医学类",
+        "生物科学类",
+        "核工程类",
+        "公安技术类"
+      ],
+      "cautious": [
+        "中医学类",
+        "药学类",
+        "口腔医学类",
+        "中西医结合类"
+      ]
+    }
+  ]
+}

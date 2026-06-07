@@ -104,10 +104,10 @@
 
   var BUCKET_TO_DISCIPLINES = {
     humanities: [{ gateCode: '05', weight: 40 }, { gateCode: '01', weight: 30 }, { gateCode: '06', weight: 30 }],
-    social_science: [{ gateCode: '03', weight: 50 }, { gateCode: '04', weight: 30 }, { gateCode: '12', weight: 20 }],
+    social_science: [{ gateCode: '03', weight: 50 }, { gateCode: '04', weight: 30 }, { gateCode: '12', weight: 20 }, { gateCode: '07', weight: 15 }],
     business: [{ gateCode: '02', weight: 45 }, { gateCode: '12', weight: 55 }],
-    stem: [{ gateCode: '08', weight: 60 }, { gateCode: '07', weight: 40 }],
-    life_health: [{ gateCode: '10', weight: 60 }, { gateCode: '09', weight: 25 }, { gateCode: '07', weight: 15 }],
+    stem: [{ gateCode: '08', weight: 60 }, { gateCode: '07', weight: 40 }, { gateCode: '14', weight: 40 }],
+    life_health: [{ gateCode: '10', weight: 60 }, { gateCode: '09', weight: 25 }, { gateCode: '07', weight: 15 }, { gateCode: '14', weight: 60 }, { gateCode: '04', weight: 15 }],
     art_creative: [{ gateCode: '13', weight: 100 }],
   };
 
@@ -126,19 +126,19 @@
   };
 
   var GATE_PRIORITY_CATEGORIES = {
-    '01': [{ categorySlug: 'philosophy-class', buckets: ['humanities'], weight: 100 }],
-    '02': [{ categorySlug: 'economics-class', buckets: ['business'], weight: 50 }, { categorySlug: 'finance', buckets: ['business'], weight: 30 }, { categorySlug: 'international-trade', buckets: ['business'], weight: 20 }],
-    '03': [{ categorySlug: 'law-class', buckets: ['social_science'], weight: 50 }, { categorySlug: 'political-science', buckets: ['social_science'], weight: 25 }, { categorySlug: 'sociology', buckets: ['social_science'], weight: 25 }],
-    '04': [{ categorySlug: 'education', buckets: ['social_science'], weight: 60 }, { categorySlug: 'physical-education', buckets: ['social_science'], weight: 40 }],
-    '05': [{ categorySlug: 'chinese-literature', buckets: ['humanities'], weight: 40 }, { categorySlug: 'foreign-languages', buckets: ['humanities'], weight: 30 }, { categorySlug: 'journalism', buckets: ['humanities', 'social_science'], weight: 30 }],
-    '06': [{ categorySlug: 'history-class', buckets: ['humanities'], weight: 100 }],
-    '07': [{ categorySlug: 'mathematics', buckets: ['stem'], weight: 25 }, { categorySlug: 'physics', buckets: ['stem'], weight: 20 }, { categorySlug: 'chemistry', buckets: ['stem'], weight: 15 }, { categorySlug: 'biology', buckets: ['stem', 'life_health'], weight: 20 }, { categorySlug: 'statistics', buckets: ['stem', 'business'], weight: 20 }],
-    '08': [{ categorySlug: 'computer-science', buckets: ['stem'], weight: 15 }, { categorySlug: 'electronic-information', buckets: ['stem'], weight: 12 }, { categorySlug: 'automation', buckets: ['stem'], weight: 8 }, { categorySlug: 'mechanical', buckets: ['stem'], weight: 8 }, { categorySlug: 'electrical', buckets: ['stem'], weight: 6 }, { categorySlug: 'civil-engineering', buckets: ['stem'], weight: 5 }, { categorySlug: 'materials', buckets: ['stem'], weight: 5 }, { categorySlug: 'architecture', buckets: ['stem', 'art_creative'], weight: 5 }, { categorySlug: 'aerospace', buckets: ['stem'], weight: 4 }, { categorySlug: 'biomedical-eng', buckets: ['stem', 'life_health'], weight: 4 }],
-    '09': [{ categorySlug: 'plant-production', buckets: ['life_health'], weight: 30 }, { categorySlug: 'environmental-ecology', buckets: ['life_health', 'stem'], weight: 25 }, { categorySlug: 'veterinary', buckets: ['life_health'], weight: 25 }, { categorySlug: 'animal-production', buckets: ['life_health'], weight: 20 }],
-    '10': [{ categorySlug: 'clinical-medicine', buckets: ['life_health'], weight: 30 }, { categorySlug: 'pharmacy', buckets: ['life_health'], weight: 20 }, { categorySlug: 'nursing', buckets: ['life_health'], weight: 15 }, { categorySlug: 'stomatology', buckets: ['life_health'], weight: 10 }, { categorySlug: 'public-health', buckets: ['life_health', 'social_science'], weight: 15 }, { categorySlug: 'medical-technology', buckets: ['life_health', 'stem'], weight: 10 }],
-    '12': [{ categorySlug: 'business-administration', buckets: ['business'], weight: 35 }, { categorySlug: 'public-administration', buckets: ['business', 'social_science'], weight: 20 }, { categorySlug: 'management-science', buckets: ['business', 'stem'], weight: 15 }, { categorySlug: 'e-commerce', buckets: ['business'], weight: 15 }, { categorySlug: 'tourism-management', buckets: ['business'], weight: 15 }],
-    '13': [{ categorySlug: 'design', buckets: ['art_creative', 'stem'], weight: 30 }, { categorySlug: 'fine-arts', buckets: ['art_creative'], weight: 25 }, { categorySlug: 'drama-film', buckets: ['art_creative'], weight: 20 }, { categorySlug: 'music-dance', buckets: ['art_creative'], weight: 25 }],
-    '14': [{ categorySlug: 'interdisciplinary-class', buckets: ['stem', 'life_health'], weight: 100 }],
+    '01': [{ categorySlug: 'philosophy-class', buckets: ['humanities'], weight: 11 }],
+    '02': [{ categorySlug: 'economics-class', buckets: ['business'], weight: 20 }, { categorySlug: 'finance', buckets: ['business'], weight: 17 }, { categorySlug: 'international-trade', buckets: ['business'], weight: 8 }],
+    '03': [{ categorySlug: 'law-class', buckets: ['social_science'], weight: 20 }, { categorySlug: 'political-science', buckets: ['social_science'], weight: 8 }, { categorySlug: 'sociology', buckets: ['social_science'], weight: 8 }],
+    '04': [{ categorySlug: 'education', buckets: ['social_science'], weight: 20 }, { categorySlug: 'physical-education', buckets: ['social_science', 'life_health'], weight: 7 }],
+    '05': [{ categorySlug: 'chinese-literature', buckets: ['humanities'], weight: 19 }, { categorySlug: 'foreign-languages', buckets: ['humanities'], weight: 15 }, { categorySlug: 'journalism', buckets: ['humanities', 'social_science'], weight: 13 }],
+    '06': [{ categorySlug: 'history-class', buckets: ['humanities'], weight: 11 }],
+    '07': [{ categorySlug: 'mathematics', buckets: ['stem'], weight: 9 }, { categorySlug: 'physics', buckets: ['stem'], weight: 7 }, { categorySlug: 'chemistry', buckets: ['stem'], weight: 6 }, { categorySlug: 'biology', buckets: ['stem', 'life_health'], weight: 12 }, { categorySlug: 'statistics', buckets: ['stem', 'business'], weight: 16 }],
+    '08': [{ categorySlug: 'computer-science', buckets: ['stem'], weight: 16 }, { categorySlug: 'electronic-information', buckets: ['stem'], weight: 14 }, { categorySlug: 'automation', buckets: ['stem'], weight: 11 }, { categorySlug: 'mechanical', buckets: ['stem'], weight: 10 }, { categorySlug: 'electrical', buckets: ['stem'], weight: 11 }, { categorySlug: 'civil-engineering', buckets: ['stem'], weight: 7 }, { categorySlug: 'materials', buckets: ['stem'], weight: 7 }, { categorySlug: 'architecture', buckets: ['stem', 'art_creative'], weight: 6 }, { categorySlug: 'aerospace', buckets: ['stem'], weight: 5 }, { categorySlug: 'biomedical-eng', buckets: ['stem', 'life_health'], weight: 6 }],
+    '09': [{ categorySlug: 'plant-production', buckets: ['life_health'], weight: 10 }, { categorySlug: 'environmental-ecology', buckets: ['life_health', 'stem'], weight: 9 }, { categorySlug: 'veterinary', buckets: ['life_health'], weight: 14 }, { categorySlug: 'animal-production', buckets: ['life_health'], weight: 9 }],
+    '10': [{ categorySlug: 'clinical-medicine', buckets: ['life_health'], weight: 20 }, { categorySlug: 'pharmacy', buckets: ['life_health'], weight: 12 }, { categorySlug: 'nursing', buckets: ['life_health'], weight: 12 }, { categorySlug: 'stomatology', buckets: ['life_health'], weight: 14 }, { categorySlug: 'public-health', buckets: ['life_health', 'social_science'], weight: 9 }, { categorySlug: 'medical-technology', buckets: ['life_health', 'stem'], weight: 8 }],
+    '12': [{ categorySlug: 'business-administration', buckets: ['business'], weight: 14 }, { categorySlug: 'public-administration', buckets: ['business', 'social_science'], weight: 10 }, { categorySlug: 'management-science', buckets: ['business', 'stem'], weight: 9 }, { categorySlug: 'e-commerce', buckets: ['business'], weight: 9 }, { categorySlug: 'tourism-management', buckets: ['business'], weight: 8 }],
+    '13': [{ categorySlug: 'design', buckets: ['art_creative', 'stem'], weight: 11 }, { categorySlug: 'fine-arts', buckets: ['art_creative'], weight: 9 }, { categorySlug: 'drama-film', buckets: ['art_creative'], weight: 8 }, { categorySlug: 'music-dance', buckets: ['art_creative'], weight: 9 }],
+    '14': [{ categorySlug: 'interdisciplinary-class', buckets: ['stem', 'life_health'], weight: 6 }],
   };
 
   var RISK_CATEGORY_PENALTIES = {
@@ -200,6 +200,200 @@
     '13': { name: '艺术学', slug: 'art', icon: '🎨' },
     '14': { name: '交叉学科', slug: 'interdisciplinary', icon: '🔗' },
   };
+
+  var CATEGORY_FIELDS = {
+    'philosophy-class': { rd:'low', bc:'low', sc:false, hi:true, lp:'low', ts:false, cm:'low', bw:11 },
+    'history-class': { rd:'low', bc:'low', sc:false, hi:true, lp:'low', ts:false, cm:'low', bw:11 },
+    'interdisciplinary-class': { rd:'high', bc:'low', sc:false, hi:true, lp:'low', ts:true, cm:'low', bw:6 },
+    'economics-class': { rd:'low', bc:'medium', sc:false, hi:false, lp:'low', ts:false, cm:'medium', bw:20 },
+    'finance': { rd:'low', bc:'high', sc:false, hi:false, lp:'low', ts:true, cm:'high', bw:17 },
+    'international-trade': { rd:'low', bc:'high', sc:false, hi:false, lp:'low', ts:false, cm:'low', bw:8 },
+    'public-finance': { rd:'low', bc:'low', sc:false, hi:false, lp:'low', ts:false, cm:'low', bw:8 },
+    'law-class': { rd:'low', bc:'high', sc:false, hi:false, lp:'high', ts:true, cm:'low', bw:20 },
+    'political-science': { rd:'low', bc:'medium', sc:false, hi:false, lp:'low', ts:false, cm:'low', bw:8 },
+    'sociology': { rd:'low', bc:'medium', sc:false, hi:false, lp:'low', ts:false, cm:'medium', bw:8 },
+    'marxism': { rd:'low', bc:'low', sc:false, hi:false, lp:'low', ts:false, cm:'low', bw:7 },
+    'public-security': { rd:'low', bc:'low', sc:true, hi:false, lp:'low', ts:false, cm:'low', bw:4 },
+    'ethnology': { rd:'low', bc:'low', sc:false, hi:true, lp:'low', ts:false, cm:'low', bw:3 },
+    'education': { rd:'low', bc:'low', sc:false, hi:false, lp:'medium', ts:false, cm:'low', bw:20 },
+    'physical-education': { rd:'low', bc:'low', sc:true, hi:false, lp:'low', ts:false, cm:'low', bw:7 },
+    'chinese-literature': { rd:'low', bc:'medium', sc:false, hi:false, lp:'low', ts:false, cm:'low', bw:19 },
+    'foreign-languages': { rd:'low', bc:'low', sc:false, hi:false, lp:'low', ts:false, cm:'low', bw:15 },
+    'journalism': { rd:'low', bc:'high', sc:false, hi:false, lp:'low', ts:true, cm:'high', bw:13 },
+    'mathematics': { rd:'medium', bc:'low', sc:false, hi:false, lp:'low', ts:false, cm:'low', bw:9 },
+    'physics': { rd:'medium', bc:'low', sc:false, hi:false, lp:'low', ts:false, cm:'low', bw:7 },
+    'chemistry': { rd:'medium', bc:'low', sc:false, hi:false, lp:'low', ts:false, cm:'low', bw:6 },
+    'biology': { rd:'medium', bc:'low', sc:false, hi:false, lp:'low', ts:false, cm:'low', bw:12 },
+    'statistics': { rd:'medium', bc:'medium', sc:false, hi:false, lp:'low', ts:false, cm:'medium', bw:16 },
+    'psychology': { rd:'high', bc:'high', sc:false, hi:false, lp:'high', ts:true, cm:'high', bw:11 },
+    'geography': { rd:'medium', bc:'low', sc:false, hi:false, lp:'low', ts:false, cm:'low', bw:7 },
+    'astronomy': { rd:'high', bc:'low', sc:false, hi:true, lp:'low', ts:false, cm:'low', bw:3 },
+    'atmospheric-science': { rd:'high', bc:'low', sc:false, hi:true, lp:'low', ts:false, cm:'low', bw:3 },
+    'ocean-science': { rd:'high', bc:'low', sc:false, hi:true, lp:'low', ts:false, cm:'low', bw:3 },
+    'geophysics': { rd:'high', bc:'low', sc:false, hi:true, lp:'low', ts:false, cm:'low', bw:3 },
+    'geology': { rd:'high', bc:'low', sc:false, hi:true, lp:'low', ts:false, cm:'low', bw:3 },
+    'computer-science': { rd:'high', bc:'high', sc:false, hi:false, lp:'low', ts:true, cm:'high', bw:16 },
+    'electronic-information': { rd:'high', bc:'high', sc:false, hi:false, lp:'low', ts:true, cm:'high', bw:14 },
+    'energy-power': { rd:'medium', bc:'medium', sc:false, hi:false, lp:'low', ts:false, cm:'medium', bw:11 },
+    'automation': { rd:'medium', bc:'medium', sc:false, hi:false, lp:'low', ts:false, cm:'high', bw:11 },
+    'instrumentation': { rd:'medium', bc:'low', sc:false, hi:false, lp:'low', ts:false, cm:'low', bw:8 },
+    'mechanical': { rd:'medium', bc:'medium', sc:false, hi:false, lp:'low', ts:false, cm:'high', bw:10 },
+    'chemical-pharma': { rd:'medium', bc:'low', sc:false, hi:false, lp:'low', ts:false, cm:'low', bw:7 },
+    'transportation': { rd:'medium', bc:'low', sc:false, hi:false, lp:'low', ts:false, cm:'low', bw:7 },
+    'environmental': { rd:'medium', bc:'high', sc:false, hi:false, lp:'low', ts:false, cm:'high', bw:7 },
+    'bioengineering': { rd:'medium', bc:'high', sc:false, hi:false, lp:'low', ts:false, cm:'high', bw:7 },
+    'food-science': { rd:'medium', bc:'medium', sc:false, hi:false, lp:'low', ts:false, cm:'medium', bw:6 },
+    'electrical': { rd:'medium', bc:'medium', sc:false, hi:false, lp:'low', ts:false, cm:'medium', bw:11 },
+    'water-resources': { rd:'medium', bc:'low', sc:false, hi:false, lp:'low', ts:false, cm:'low', bw:5 },
+    'civil-engineering': { rd:'medium', bc:'medium', sc:false, hi:false, lp:'low', ts:false, cm:'low', bw:7 },
+    'materials': { rd:'medium', bc:'medium', sc:false, hi:false, lp:'low', ts:false, cm:'low', bw:7 },
+    'architecture': { rd:'high', bc:'medium', sc:false, hi:false, lp:'medium', ts:true, cm:'medium', bw:6 },
+    'aerospace': { rd:'high', bc:'low', sc:false, hi:false, lp:'low', ts:true, cm:'low', bw:5 },
+    'biomedical-eng': { rd:'high', bc:'low', sc:false, hi:false, lp:'low', ts:true, cm:'low', bw:6 },
+    'mechanics': { rd:'medium', bc:'low', sc:false, hi:false, lp:'low', ts:false, cm:'low', bw:4 },
+    'surveying': { rd:'medium', bc:'low', sc:false, hi:false, lp:'low', ts:false, cm:'low', bw:4 },
+    'safety-eng': { rd:'medium', bc:'low', sc:false, hi:false, lp:'low', ts:false, cm:'low', bw:4 },
+    'geological-eng': { rd:'high', bc:'low', sc:false, hi:false, lp:'low', ts:false, cm:'low', bw:3 },
+    'nuclear': { rd:'high', bc:'low', sc:true, hi:true, lp:'low', ts:true, cm:'low', bw:3 },
+    'ocean-engineering': { rd:'high', bc:'low', sc:false, hi:false, lp:'low', ts:false, cm:'low', bw:3 },
+    'agricultural-eng': { rd:'medium', bc:'low', sc:false, hi:true, lp:'low', ts:false, cm:'low', bw:3 },
+    'light-industry': { rd:'medium', bc:'low', sc:false, hi:true, lp:'low', ts:false, cm:'low', bw:3 },
+    'public-security-tech': { rd:'low', bc:'low', sc:true, hi:false, lp:'low', ts:false, cm:'low', bw:3 },
+    'mining': { rd:'high', bc:'low', sc:false, hi:true, lp:'low', ts:false, cm:'low', bw:3 },
+    'textile': { rd:'medium', bc:'low', sc:false, hi:true, lp:'low', ts:false, cm:'low', bw:3 },
+    'ordnance': { rd:'high', bc:'low', sc:true, hi:true, lp:'low', ts:true, cm:'low', bw:3 },
+    'forestry-eng': { rd:'medium', bc:'low', sc:false, hi:true, lp:'low', ts:false, cm:'low', bw:3 },
+    'plant-production': { rd:'medium', bc:'low', sc:false, hi:false, lp:'low', ts:false, cm:'low', bw:10 },
+    'environmental-ecology': { rd:'low', bc:'low', sc:false, hi:false, lp:'low', ts:false, cm:'low', bw:9 },
+    'veterinary': { rd:'medium', bc:'low', sc:false, hi:false, lp:'medium', ts:false, cm:'low', bw:14 },
+    'animal-production': { rd:'medium', bc:'low', sc:false, hi:false, lp:'low', ts:false, cm:'low', bw:9 },
+    'forestry': { rd:'medium', bc:'low', sc:false, hi:true, lp:'low', ts:false, cm:'low', bw:5 },
+    'aquaculture': { rd:'medium', bc:'low', sc:false, hi:true, lp:'low', ts:false, cm:'low', bw:3 },
+    'grassland-science': { rd:'medium', bc:'low', sc:false, hi:true, lp:'low', ts:false, cm:'low', bw:3 },
+    'clinical-medicine': { rd:'high', bc:'high', sc:false, hi:false, lp:'high', ts:true, cm:'medium', bw:20 },
+    'pharmacy': { rd:'high', bc:'medium', sc:false, hi:false, lp:'high', ts:false, cm:'medium', bw:12 },
+    'tcm': { rd:'medium', bc:'medium', sc:false, hi:false, lp:'high', ts:false, cm:'medium', bw:11 },
+    'nursing': { rd:'medium', bc:'medium', sc:false, hi:false, lp:'medium', ts:false, cm:'medium', bw:12 },
+    'public-health': { rd:'medium', bc:'low', sc:false, hi:false, lp:'low', ts:false, cm:'low', bw:9 },
+    'stomatology': { rd:'high', bc:'high', sc:false, hi:false, lp:'high', ts:true, cm:'low', bw:14 },
+    'integrated-medicine': { rd:'medium', bc:'low', sc:false, hi:false, lp:'high', ts:false, cm:'low', bw:7 },
+    'chinese-pharmacy': { rd:'medium', bc:'low', sc:false, hi:false, lp:'high', ts:false, cm:'low', bw:7 },
+    'medical-technology': { rd:'medium', bc:'low', sc:false, hi:false, lp:'medium', ts:false, cm:'low', bw:8 },
+    'basic-medicine': { rd:'medium', bc:'low', sc:false, hi:false, lp:'high', ts:false, cm:'low', bw:6 },
+    'forensic-medicine': { rd:'medium', bc:'low', sc:false, hi:false, lp:'medium', ts:false, cm:'low', bw:5 },
+    'business-administration': { rd:'low', bc:'high', sc:false, hi:false, lp:'low', ts:true, cm:'high', bw:14 },
+    'public-administration': { rd:'low', bc:'high', sc:false, hi:false, lp:'low', ts:false, cm:'high', bw:10 },
+    'management-science': { rd:'low', bc:'high', sc:false, hi:false, lp:'low', ts:false, cm:'medium', bw:9 },
+    'e-commerce': { rd:'low', bc:'high', sc:false, hi:false, lp:'low', ts:false, cm:'high', bw:9 },
+    'tourism-management': { rd:'medium', bc:'low', sc:false, hi:false, lp:'low', ts:false, cm:'medium', bw:8 },
+    'logistics': { rd:'low', bc:'low', sc:false, hi:false, lp:'low', ts:false, cm:'low', bw:7 },
+    'industrial-engineering': { rd:'low', bc:'low', sc:false, hi:false, lp:'low', ts:false, cm:'low', bw:7 },
+    'library-science': { rd:'low', bc:'low', sc:false, hi:false, lp:'low', ts:false, cm:'low', bw:5 },
+    'agri-economics': { rd:'low', bc:'low', sc:false, hi:false, lp:'low', ts:false, cm:'low', bw:3 },
+    'design': { rd:'medium', bc:'medium', sc:true, hi:false, lp:'low', ts:false, cm:'medium', bw:11 },
+    'fine-arts': { rd:'medium', bc:'low', sc:true, hi:false, lp:'low', ts:false, cm:'low', bw:9 },
+    'drama-film': { rd:'medium', bc:'low', sc:true, hi:false, lp:'low', ts:false, cm:'low', bw:8 },
+    'music-dance': { rd:'medium', bc:'low', sc:true, hi:false, lp:'low', ts:false, cm:'low', bw:9 },
+    'art-theory': { rd:'low', bc:'low', sc:false, hi:true, lp:'low', ts:false, cm:'low', bw:4 },
+  };
+
+  var SUBJECT_REQUIREMENTS = {
+  'philosophy-class': { rfs:null, rsa:[], rec:[], note:'哲学类通常不限选科。' },
+  'economics-class': { rfs:null, rsa:[], rec:['思想政治'], note:'经济学类多数院校不限选科。' },
+  'finance': { rfs:null, rsa:[], rec:['物理'], note:'金融学类多数不限选科，部分院校要求物理。' },
+  'international-trade': { rfs:null, rsa:[], rec:[], note:'经济与贸易类通常不限选科。' },
+  'public-finance': { rfs:null, rsa:[], rec:['思想政治'], note:'财政学类通常不限选科。' },
+  'law-class': { rfs:null, rsa:[], rec:['思想政治'], note:'普通法学类多数不限选科。' },
+  'political-science': { rfs:null, rsa:[], rec:['思想政治'], note:'政治学类通常不限选科，建议选思想政治。' },
+  'sociology': { rfs:null, rsa:[], rec:[], note:'社会学类通常不限选科。' },
+  'marxism': { rfs:null, rsa:[], rec:['思想政治'], note:'马克思主义理论类通常不限选科。' },
+  'public-security': { rfs:null, rsa:[], rec:['思想政治'], note:'公安学类多数不限选科。' },
+  'ethnology': { rfs:null, rsa:[], rec:[], note:'民族学类通常不限选科。' },
+  'education': { rfs:null, rsa:[], rec:[], note:'教育学类多数不限选科。' },
+  'physical-education': { rfs:null, rsa:[], rec:[], note:'体育学类通常不限选科。' },
+  'chinese-literature': { rfs:null, rsa:[], rec:[], note:'中国语言文学类通常不限选科。' },
+  'foreign-languages': { rfs:null, rsa:[], rec:[], note:'外国语言文学类通常不限选科。' },
+  'journalism': { rfs:null, rsa:[], rec:[], note:'新闻传播学类通常不限选科。' },
+  'history-class': { rfs:null, rsa:[], rec:['历史'], note:'历史学类通常不限选科，建议选历史。' },
+  'mathematics': { rfs:'物理', rsa:['物理','化学'], rec:[], note:'数学类多数要求物理和化学。' },
+  'physics': { rfs:'物理', rsa:['物理','化学'], rec:[], note:'物理学类多数要求物理和化学。' },
+  'chemistry': { rfs:'物理', rsa:['物理','化学'], rec:['化学'], note:'化学类多数要求物理和化学。' },
+  'biology': { rfs:'物理', rsa:['物理','化学'], rec:['生物'], note:'生物科学类多数要求物理和化学，部分院校对生物有额外要求。' },
+  'statistics': { rfs:'物理', rsa:['物理','化学'], rec:[], note:'统计学类多数要求物理和化学。' },
+  'psychology': { rfs:null, rsa:[], rec:['物理','生物'], note:'心理学类多数不限选科，部分院校要求物理或生物。' },
+  'geography': { rfs:null, rsa:[], rec:['地理'], note:'地理科学类多数不限选科，部分要求地理。' },
+  'astronomy': { rfs:'物理', rsa:['物理','化学'], rec:[], note:'天文学类要求物理和化学。' },
+  'atmospheric-science': { rfs:'物理', rsa:['物理','化学'], rec:[], note:'大气科学类多数要求物理和化学。' },
+  'ocean-science': { rfs:'物理', rsa:['物理','化学'], rec:[], note:'海洋科学类多数要求物理和化学。' },
+  'geophysics': { rfs:'物理', rsa:['物理','化学'], rec:[], note:'地球物理学类要求物理和化学。' },
+  'geology': { rfs:'物理', rsa:['物理','化学'], rec:[], note:'地质学类多数要求物理和化学。' },
+  'computer-science': { rfs:'物理', rsa:['物理','化学'], rec:[], note:'计算机类多数要求物理和化学。' },
+  'electronic-information': { rfs:'物理', rsa:['物理','化学'], rec:[], note:'电子信息类多数要求物理和化学。' },
+  'energy-power': { rfs:'物理', rsa:['物理','化学'], rec:[], note:'能源动力类多数要求物理和化学。' },
+  'automation': { rfs:'物理', rsa:['物理','化学'], rec:[], note:'自动化类多数要求物理和化学。' },
+  'instrumentation': { rfs:'物理', rsa:['物理','化学'], rec:[], note:'仪器类多数要求物理和化学。' },
+  'mechanical': { rfs:'物理', rsa:['物理','化学'], rec:[], note:'机械类多数要求物理和化学。' },
+  'chemical-pharma': { rfs:'物理', rsa:['物理','化学'], rec:['化学'], note:'化工与制药类多数要求物理和化学。' },
+  'transportation': { rfs:'物理', rsa:['物理','化学'], rec:[], note:'交通运输类多数要求物理和化学。' },
+  'environmental': { rfs:'物理', rsa:['物理','化学'], rec:['生物'], note:'环境科学与工程类多数要求物理和化学。' },
+  'bioengineering': { rfs:'物理', rsa:['物理','化学'], rec:['生物'], note:'生物工程类多数要求物理和化学。' },
+  'food-science': { rfs:'物理', rsa:['物理','化学'], rec:[], note:'食品科学与工程类多数要求物理和化学。' },
+  'electrical': { rfs:'物理', rsa:['物理','化学'], rec:[], note:'电气类多数要求物理和化学。' },
+  'water-resources': { rfs:'物理', rsa:['物理','化学'], rec:[], note:'水利类多数要求物理和化学。' },
+  'civil-engineering': { rfs:'物理', rsa:['物理','化学'], rec:[], note:'土木类多数要求物理和化学。' },
+  'materials': { rfs:'物理', rsa:['物理','化学'], rec:[], note:'材料类多数要求物理和化学。' },
+  'architecture': { rfs:null, rsa:[], rec:['物理'], note:'建筑类多数不限选科，部分院校要求物理。' },
+  'aerospace': { rfs:'物理', rsa:['物理','化学'], rec:[], note:'航空航天类多数要求物理和化学。' },
+  'biomedical-eng': { rfs:'物理', rsa:['物理','化学'], rec:['生物'], note:'生物医学工程类多数要求物理和化学。' },
+  'mechanics': { rfs:'物理', rsa:['物理','化学'], rec:[], note:'力学类多数要求物理和化学。' },
+  'surveying': { rfs:'物理', rsa:['物理','化学'], rec:[], note:'测绘类多数要求物理和化学。' },
+  'safety-eng': { rfs:'物理', rsa:['物理','化学'], rec:[], note:'安全科学与工程类多数要求物理和化学。' },
+  'geological-eng': { rfs:'物理', rsa:['物理','化学'], rec:[], note:'地质类多数要求物理和化学。' },
+  'nuclear': { rfs:'物理', rsa:['物理','化学'], rec:[], note:'核工程类多数要求物理和化学。' },
+  'ocean-engineering': { rfs:'物理', rsa:['物理','化学'], rec:[], note:'海洋工程类多数要求物理和化学。' },
+  'agricultural-eng': { rfs:'物理', rsa:['物理','化学'], rec:[], note:'农业工程类多数要求物理和化学。' },
+  'light-industry': { rfs:'物理', rsa:['物理','化学'], rec:[], note:'轻工类多数要求物理和化学。' },
+  'public-security-tech': { rfs:'物理', rsa:['物理','化学'], rec:[], note:'公安技术类多数要求物理和化学。' },
+  'mining': { rfs:'物理', rsa:['物理','化学'], rec:[], note:'矿业类多数要求物理和化学。' },
+  'textile': { rfs:'物理', rsa:['物理','化学'], rec:[], note:'纺织类多数要求物理和化学。' },
+  'ordnance': { rfs:'物理', rsa:['物理','化学'], rec:[], note:'兵器类多数要求物理和化学。' },
+  'forestry-eng': { rfs:'物理', rsa:['物理','化学'], rec:[], note:'林业工程类多数要求物理和化学。' },
+  'plant-production': { rfs:'物理', rsa:['物理','化学'], rec:['生物'], note:'植物生产类多数要求物理和化学。' },
+  'environmental-ecology': { rfs:'物理', rsa:['物理','化学'], rec:['生物'], note:'自然保护与环境生态类多数要求物理和化学。' },
+  'veterinary': { rfs:'物理', rsa:['物理','化学'], rec:['生物'], note:'动物医学类多数要求物理和化学。' },
+  'animal-production': { rfs:'物理', rsa:['物理','化学'], rec:[], note:'动物生产类多数要求物理和化学。' },
+  'forestry': { rfs:'物理', rsa:['物理','化学'], rec:['生物'], note:'林学类多数要求物理和化学。' },
+  'aquaculture': { rfs:'物理', rsa:['物理','化学'], rec:['生物'], note:'水产类多数要求物理和化学。' },
+  'grassland-science': { rfs:'物理', rsa:['物理','化学'], rec:[], note:'草学类多数要求物理和化学。' },
+  'clinical-medicine': { rfs:'物理', rsa:['物理','化学'], rec:['生物'], note:'临床医学类多数要求物理和化学，部分院校建议选生物。' },
+  'pharmacy': { rfs:'物理', rsa:['物理','化学'], rec:['化学'], note:'药学类多数要求物理和化学。' },
+  'tcm': { rfs:'物理', rsa:['物理','化学'], rec:['生物'], note:'中医学类多数要求物理和化学。' },
+  'nursing': { rfs:null, rsa:[], rec:['生物','化学'], note:'护理学类多数不限选科，部分院校要求化学或生物。' },
+  'public-health': { rfs:'物理', rsa:['物理','化学'], rec:[], note:'公共卫生与预防医学类多数要求物理和化学。' },
+  'stomatology': { rfs:'物理', rsa:['物理','化学'], rec:['生物'], note:'口腔医学类多数要求物理和化学。' },
+  'integrated-medicine': { rfs:'物理', rsa:['物理','化学'], rec:[], note:'中西医结合类多数要求物理和化学。' },
+  'chinese-pharmacy': { rfs:'物理', rsa:['物理','化学'], rec:[], note:'中药学类多数要求物理和化学。' },
+  'medical-technology': { rfs:'物理', rsa:['物理','化学'], rec:[], note:'医学技术类多数要求物理和化学。' },
+  'basic-medicine': { rfs:'物理', rsa:['物理','化学'], rec:['生物'], note:'基础医学类多数要求物理和化学。' },
+  'forensic-medicine': { rfs:'物理', rsa:['物理','化学'], rec:[], note:'法医学类多数要求物理和化学。' },
+  'business-administration': { rfs:null, rsa:[], rec:[], note:'工商管理类通常不限选科。' },
+  'public-administration': { rfs:null, rsa:[], rec:[], note:'公共管理类通常不限选科。' },
+  'management-science': { rfs:null, rsa:[], rec:['物理'], note:'管理科学与工程类多数不限选科，部分要求物理。' },
+  'e-commerce': { rfs:null, rsa:[], rec:[], note:'电子商务类通常不限选科。' },
+  'tourism-management': { rfs:null, rsa:[], rec:[], note:'旅游管理类通常不限选科。' },
+  'logistics': { rfs:null, rsa:[], rec:[], note:'物流管理与工程类通常不限选科。' },
+  'industrial-engineering': { rfs:null, rsa:[], rec:['物理'], note:'工业工程类多数不限选科，部分要求物理。' },
+  'library-science': { rfs:null, rsa:[], rec:[], note:'图书情报与档案管理类通常不限选科。' },
+  'agri-economics': { rfs:null, rsa:[], rec:[], note:'农业经济管理类通常不限选科。' },
+  'design': { rfs:null, rsa:[], rec:[], note:'设计学类通常不限选科，需艺术类专业考试。' },
+  'fine-arts': { rfs:null, rsa:[], rec:[], note:'美术学类通常不限选科，需艺术类专业考试。' },
+  'drama-film': { rfs:null, rsa:[], rec:[], note:'戏剧与影视学类通常不限选科，需艺术类专业考试。' },
+  'music-dance': { rfs:null, rsa:[], rec:[], note:'音乐与舞蹈学类通常不限选科，需艺术类专业考试。' },
+  'art-theory': { rfs:null, rsa:[], rec:[], note:'艺术学理论类通常不限选科。' },
+  'interdisciplinary-class': { rfs:'物理', rsa:['物理','化学'], rec:[], note:'交叉学科类多数偏理工方向，要求物理和化学。' },
+};
+
+
 
   // ─── 评分引擎 ───
 
@@ -303,6 +497,32 @@
       .slice(0, n);
   }
 
+  function checkSubjectEligibility(slug, userSubjects) {
+    if (!userSubjects || !userSubjects.selected || userSubjects.mode === 'unknown') return 'eligible';
+    var req = SUBJECT_REQUIREMENTS[slug];
+    if (!req) return 'eligible';
+    var has = userSubjects.selected || [];
+    var hasSet = {};
+    has.forEach(function(s) { hasSet[s] = true; });
+    if (req.rfs && !hasSet[req.rfs]) return 'blocked';
+    for (var i = 0; i < req.rsa.length; i++) { if (!hasSet[req.rsa[i]]) return 'blocked'; }
+    if (req.rec && req.rec.length > 0) {
+      for (var i = 0; i < req.rec.length; i++) { if (!hasSet[req.rec[i]]) return 'softRisk'; }
+    }
+    return 'eligible';
+  }
+
+  function getSubjectBlockNote(slug, userSubjects) {
+    var req = SUBJECT_REQUIREMENTS[slug];
+    if (!req) return '';
+    var has = (userSubjects && userSubjects.selected) || [];
+    var missing = [];
+    if (req.rfs && has.indexOf(req.rfs) < 0) missing.push(req.rfs);
+    req.rsa.forEach(function(s) { if (has.indexOf(s) < 0) missing.push(s); });
+    if (missing.length === 0) return '';
+    return '该专业通常要求选考 ' + (req.rfs?req.rfs+'、':'') + req.rsa.join('、') + '，你缺少 ' + missing.join('、') + '。';
+  }
+
   function generateCategoryRecommendations(bucketScores, dimScores, riskTags, topDisciplines) {
     var scored = [];
     var gateCodes = {};
@@ -311,6 +531,10 @@
     Object.keys(GATE_PRIORITY_CATEGORIES).forEach(function (gateCode) {
       if (!gateCodes[gateCode]) return;
       var cats = GATE_PRIORITY_CATEGORIES[gateCode];
+      var gateMaxWeight = 1;
+      for (var gi = 0; gi < cats.length; gi++) {
+        if (cats[gi].weight > gateMaxWeight) gateMaxWeight = cats[gi].weight;
+      }
       cats.forEach(function (cat) {
         var score = 0, totalWeight = 0;
         cat.buckets.forEach(function (bucket) {
@@ -318,8 +542,14 @@
           score += bs * cat.weight;
           totalWeight += cat.weight;
         });
-        if (totalWeight > 0) score = score / totalWeight;
+        var baseScore = totalWeight > 0 ? score / totalWeight : 0;
+        score = baseScore * (cat.weight / gateMaxWeight);
+        score = Math.round(score);
         var topDims = getTopDimensions(dimScores, cat.buckets, 2);
+        var dimScore = 25;
+        if (topDims.length > 0) { var dimSum = 0; topDims.forEach(function(d) { dimSum += (dimScores[d] || 25); }); dimScore = Math.min(100, Math.round(dimSum / topDims.length * 1.6)); }
+        var interestSignal = 50;
+        var bucketMatchScore = Math.round(baseScore);
         scored.push({
           name: CAT_NAME_MAP[cat.categorySlug] || cat.categorySlug,
           gate: (GATE_META[gateCode] || {}).name || gateCode,
@@ -328,6 +558,10 @@
           code: gateCode,
           score: Math.round(score),
           reason: topDims.length > 0 ? '你的「' + topDims.map(function (d) { return DIMENSION_LABELS[d]; }).join('、') + '」维度得分较高' : '与你的方向偏好匹配',
+          bucketMatch: bucketMatchScore,
+          dimScore: dimScore,
+          interestSignal: interestSignal,
+          mismatchPenalty: 0,
           topDimensions: topDims.map(function (d) { return DIMENSION_LABELS[d]; }),
           cautions: [],
         });
@@ -348,6 +582,20 @@
     });
 
     var recommended = [], optional = [], cautious = [];
+        var userSubjects = window.__USER_SUBJECTS__;
+    var subjectBlockedCats = [];
+    scored = scored.filter(function(cat) {
+      var eligibility = checkSubjectEligibility(cat.slug, userSubjects);
+      cat.subjectEligibility = eligibility;
+      if (eligibility === 'blocked') {
+        cat.subjectBlockReason = getSubjectBlockNote(cat.slug, userSubjects);
+        subjectBlockedCats.push(cat);
+        return false;
+      }
+      if (eligibility === 'softRisk') cat.softRisk = true;
+      return true;
+    });
+
     scored.sort(function (a, b) { return b.score - a.score; });
 
     scored.forEach(function (cat) {
@@ -367,7 +615,40 @@
       recommended: recommended.slice(0, 5),
       optional: optional.slice(0, 4),
       cautious: cautious.slice(0, 4),
+      scored: scored,
     };
+  }
+
+  // v0.5 小众探索引擎
+  function computeNicheExplorations(scored, recommended, cautious, dimScores) {
+    var niche = [];
+    var used = {};
+    recommended.forEach(function(c) { used[c.slug] = true; });
+    cautious.forEach(function(c) { used[c.slug] = true; });
+    scored.forEach(function(cat) {
+      if (used[cat.slug]) return;
+      var f = CATEGORY_FIELDS[cat.slug] || {};
+      var hiOnly = f.hi || false;
+      var isSpecial = f.sc || false;
+      var bw = f.bw || 4;
+      if (!hiOnly && bw > 3 && !isSpecial) return;
+      if (cat.dimScore < 68 && cat.interestSignal < 70 && cat.bucketMatch < 75) return;
+      if (cat.mismatchPenalty >= 15) return;
+      var ns = cat.bucketMatch * 0.30 + cat.dimScore * 0.45 + cat.interestSignal * 0.20 + (bw / 22 * 100) * 0.05 - cat.mismatchPenalty;
+      if (ns < 52) return;
+      cat.nicheScore = Math.round(ns);
+      cat.nicheReasons = [];
+      cat.nicheReasons.push(cat.dimScore >= 68 ? '你的学习风格和这个方向有匹配' : '你的方向偏好和这个专业有微弱交集');
+      cat.nicheCaution = '';
+      var cauts = [];
+      if (hiOnly) cauts.push('这是一个比较专门的方向');
+      if (isSpecial) cauts.push('该方向可能有特殊招生条件');
+      if (bw <= 3) cauts.push('这是非常小众的方向');
+      cat.nicheCaution = cauts.join('；') || '建议进一步了解再做判断';
+      niche.push(cat);
+    });
+    niche.sort(function(a, b) { return b.nicheScore - a.nicheScore; });
+    return niche.slice(0, 2);
   }
 
   function generateRiskResults(riskTags) {
@@ -444,6 +725,7 @@
     var prof = generateProfile(refined, userType);
     var dims = generateDimensionProfile(dim);
     var steps = buildNextSteps(prof.name, cats.recommended, cats.cautious, conf.level);
+    var niche = computeNicheExplorations(cats.scored, cats.recommended, cats.cautious, dim);
 
     return {
       profileName: prof.name, profileSummary: prof.summary, topBuckets: prof.topBuckets,
@@ -1049,6 +1331,56 @@
       });
   }
 
+  function renderSubjectBlocked(result) {
+    var blocked = result.subjectBlockedCategories;
+    if (!blocked || blocked.length === 0) return el('div', {});
+    var children = [];
+    children.push(el('div', { className: 'text-center mb-3' },
+      el('h2', { className: 'text-base font-bold text-slate-700' }, '⚠️ 兴趣可能相关，但选科受限'),
+      el('p', { className: 'text-xs text-slate-400 mt-1' }, '以下方向与你的兴趣有交集，但选考科目不满足要求。最终以本省考试院公布为准。')
+    ));
+    blocked.slice(0, 3).forEach(function(cat) {
+      var detailUrl = '/majors/' + cat.gateSlug + '/' + cat.slug;
+      children.push(el('div', { className: 'bg-amber-50 border border-amber-200 rounded-xl p-4 mb-2' },
+        el('div', { className: 'flex items-center justify-between mb-1' },
+          el('span', { className: 'text-sm font-semibold text-slate-600' }, cat.name),
+          el('span', { className: 'text-[10px] text-amber-600 bg-amber-100 px-2 py-0.5 rounded-full shrink-0' }, '选科受限')
+        ),
+        cat.subjectBlockReason ? el('p', { className: 'text-[11px] text-slate-500 mb-1' }, cat.subjectBlockReason) : el('div', {}),
+        el('a', { href: detailUrl, className: 'text-xs text-primary hover:underline' }, '查看专业详情 →')
+      ));
+    });
+    return el('div', { className: 'mb-6' }, children);
+  }
+
+  function renderNicheExploration(result) {
+    var niche = result.nicheExplorationCategories;
+    if (!niche || niche.length === 0) {
+      return el('div', { className: 'mb-6 text-center bg-slate-50 rounded-xl p-4' },
+        el('h2', { className: 'text-base font-bold text-slate-500' }, '🔍 你也可以顺手了解的小众方向'),
+        el('p', { className: 'text-xs text-slate-400 mt-1' }, '本次测试未触发小众方向信号——这很正常，说明你的兴趣方向比较明确。')
+      );
+    }
+    var children = [];
+    children.push(el('div', { className: 'text-center mb-3' },
+      el('h2', { className: 'text-lg font-bold text-slate-700' }, '\ud83d\udd0d 你也可以顺手了解的小众方向'),
+      el('p', { className: 'text-xs text-slate-400 mt-1' }, '这些方向不是主推荐，只是因为你某些兴趣维度上有信号。小众多半对条件有要求，建议先看介绍。')
+    ));
+    niche.forEach(function(cat) {
+      var detailUrl = '/majors/' + cat.gateSlug + '/' + cat.slug;
+      var card = el('div', { className: 'bg-purple-50 border border-purple-200 rounded-xl p-4 mb-3' });
+      card.appendChild(el('div', { className: 'flex items-center justify-between mb-2' },
+        el('div', {}, el('span', { className: 'text-sm font-semibold text-slate-700' }, cat.name), el('span', { className: 'text-[11px] text-slate-400 ml-2' }, cat.gate)),
+        el('span', { className: 'text-[10px] text-purple-600 bg-purple-100 px-2 py-0.5 rounded-full shrink-0' }, '小众探索')
+      ));
+      if (cat.nicheReasons && cat.nicheReasons.length) card.appendChild(el('p', { className: 'text-xs text-slate-500 mb-1' }, cat.nicheReasons.join('；')));
+      if (cat.nicheCaution) card.appendChild(el('p', { className: 'text-[11px] text-amber-700 bg-amber-100 rounded-lg p-2' }, cat.nicheCaution));
+      card.appendChild(el('a', { href: detailUrl, className: 'text-xs text-primary hover:underline mt-1' }, '查看专业介绍 \u2192'));
+      children.push(card);
+    });
+    return el('div', { className: 'mb-6' }, children);
+  }
+
   function renderFullReport(result) {
     _reportResult = result;
     var r = rootEl();
@@ -1073,6 +1405,8 @@
     wrapper.appendChild(renderCategorySection(result, 'recommendedCategories', { icon: '\ud83c\udfaf', title: TXT.recommendedTitle, sub: TXT.recommendedSub, tier: 'recommended' }));
     wrapper.appendChild(renderCategorySection(result, 'optionalCategories', { icon: '\ud83d\udc40', title: TXT.optionalTitle, sub: TXT.optionalSub, tier: 'optional' }));
     wrapper.appendChild(renderCategorySection(result, 'cautiousCategories', { icon: '\u26a0\ufe0f', title: TXT.cautiousTitle, sub: TXT.cautiousSub, tier: 'cautious' }));
+    wrapper.appendChild(renderSubjectBlocked(result));
+    wrapper.appendChild(renderNicheExploration(result));
     wrapper.appendChild(renderRiskTags(result));
     wrapper.appendChild(renderNextSteps(result));
     // 下载/复制按钮（在反馈区之前，方便先复制再填问卷）
@@ -1105,6 +1439,7 @@
     }
 
     try {
+      window.__USER_SUBJECTS__ = stored.userSubjects || null;
       var result = generateResult(bank, stored.responses, stored.riskTags || [], stored.userType || 'exploratory');
       renderFullReport(result);
     } catch (e) {

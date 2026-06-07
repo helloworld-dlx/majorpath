@@ -22,7 +22,8 @@
 
   // ─── state ───
   let bank = null;
-  let phase = 'start'; // start | general | adaptive | subjective | done
+  let phase = 'start'; // start | subjects | general | adaptive | subjective | done
+  let userSubjects = null; // v0.5 选科数据
   let idx = 0;
   let responses = {};
   let generalQ = [];
@@ -189,11 +190,110 @@
         </div>
       </div>
     `);
-    document.getElementById('btn-start').onclick = startTest;
+    document.getElementById('btn-start').onclick = function() {
+      renderSubjectSelection();
+    };
+  }
+
+  // v0.5 选科选择
+  function renderSubjectSelection() {
+    phase = 'subjects';
+    var html = '<div class="max-w-xl mx-auto px-4 py-8">';
+    html += '<div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6">';
+    html += '<h2 class="text-lg font-bold text-slate-800 mb-4">📋 你的高考选科情况</h2>';
+    html += '<div class="space-y-4">';
+
+    // 省份
+    html += '<div><label class="text-sm font-medium text-slate-700">省份/地区（选填）</label>';
+    html += '<select id="subj-province" class="w-full mt-1 p-2 border border-slate-200 rounded-lg text-sm">';
+    html += '<option value="">暂不选择</option>';
+    ['北京','上海','广东','江苏','浙江','山东','湖北','湖南','四川','河南','河北','福建','安徽','辽宁','重庆','天津','山西','吉林','黑龙江','江西','广西','云南','贵州','陕西','甘肃','内蒙古','新疆','海南','宁夏','青海','西藏'].forEach(function(p) {
+      html += '<option value="' + p + '">' + p + '</option>';
+    });
+    html += '</select></div>';
+
+    // 模式
+    html += '<div><label class="text-sm font-medium text-slate-700">高考模式</label>';
+    html += '<select id="subj-mode" class="w-full mt-1 p-2 border border-slate-200 rounded-lg text-sm" onchange="window._onSubjModeChange()">';
+    html += '<option value="312">3+1+2（大部分省份）</option>';
+    html += '<option value="33">3+3（浙江/上海/北京等）</option>';
+    html += '<option value="unknown">不确定</option>';
+    html += '</select></div>';
+
+    // 312 subjects
+    html += '<div id="subj-312"><label class="text-sm font-medium text-slate-700">首选科目</label>';
+    html += '<div class="flex gap-2 mt-1"><button class="subj-312-first px-4 py-2 border rounded-lg text-sm" data-val="物理" onclick="window._selectFirst(this)">物理</button>';
+    html += '<button class="subj-312-first px-4 py-2 border rounded-lg text-sm" data-val="历史" onclick="window._selectFirst(this)">历史</button></div>';
+    html += '<label class="text-sm font-medium text-slate-700 mt-3">再选科目（1-2项）</label>';
+    html += '<div class="flex flex-wrap gap-2 mt-1" id="subj-312-second">';
+    html += ['化学','生物','思想政治','地理'].map(function(s) { return '<button class="subj-second px-3 py-1.5 border rounded-lg text-sm" data-val="'+s+'" onclick="window._toggleSubject(this)">'+s+'</button>'; }).join('');
+    html += '</div></div>';
+
+    // 33 subjects
+    html += '<div id="subj-33" class="hidden"><label class="text-sm font-medium text-slate-700">选考科目（最多3项）</label>';
+    html += '<div class="flex flex-wrap gap-2 mt-1" id="subj-33-opts">';
+    html += ['物理','化学','生物','思想政治','历史','地理','技术'].map(function(s) { return '<button class="subj-second px-3 py-1.5 border rounded-lg text-sm" data-val="'+s+'" onclick="window._toggleSubject(this)">'+s+'</button>'; }).join('');
+    html += '</div></div>';
+
+    // Continue button
+    html += '<button id="btn-subj-continue" class="w-full mt-4 py-3 bg-primary text-white rounded-xl font-medium hover:bg-primary/90" onclick="window._confirmSubjects()">继续 →</button>';
+    html += '<p class="text-[10px] text-slate-400 mt-2 text-center">选科信息仅用于判断专业报考资格，不会保存到服务器。最终以本省考试院公布为准。</p>';
+    html += '</div></div></div>';
+
+    document.getElementById(ROOT_ID).innerHTML = html;
+    
+    // Setup global handlers
+    window._selectedFirst = null;
+    window._selectedSecond = [];
+    window._onSubjModeChange = function() {
+      var mode = document.getElementById('subj-mode').value;
+      document.getElementById('subj-312').style.display = mode === '312' ? '' : 'none';
+      document.getElementById('subj-33').style.display = mode === '33' ? '' : 'none';
+      if (mode === 'unknown') {
+        document.getElementById('subj-312').style.display = 'none';
+        document.getElementById('subj-33').style.display = 'none';
+        document.getElementById('btn-subj-continue').textContent = '继续（不确定选科）→';
+      } else {
+        document.getElementById('btn-subj-continue').textContent = '继续 →';
+      }
+    };
+    window._selectFirst = function(el) {
+      document.querySelectorAll('.subj-312-first').forEach(function(b) { b.classList.remove('bg-primary','text-white'); b.classList.add('border-slate-200'); });
+      el.classList.add('bg-primary','text-white');
+      el.classList.remove('border-slate-200');
+      window._selectedFirst = el.getAttribute('data-val');
+    };
+    window._toggleSubject = function(el) {
+      var val = el.getAttribute('data-val');
+      var idx = window._selectedSecond.indexOf(val);
+      if (idx >= 0) {
+        window._selectedSecond.splice(idx, 1);
+        el.classList.remove('bg-primary','text-white');
+        el.classList.add('border-slate-200');
+      } else {
+        window._selectedSecond.push(val);
+        el.classList.add('bg-primary','text-white');
+        el.classList.remove('border-slate-200');
+      }
+    };
+    window._confirmSubjects = function() {
+      var mode = document.getElementById('subj-mode').value;
+      var province = document.getElementById('subj-province').value;
+      var selected = [];
+      if (mode === '312') {
+        if (window._selectedFirst) selected.push(window._selectedFirst);
+        selected = selected.concat(window._selectedSecond.slice(0, 2));
+      } else if (mode === '33') {
+        selected = window._selectedSecond.slice(0, 3);
+      }
+      userSubjects = { mode: mode, province: province, selected: selected };
+      // Store for report
+      window.__USER_SUBJECTS__ = userSubjects;
+      startTest();
+    };
   }
 
   function startTest() {
-    // 从 20 道通用题库中随机抽取 8 道，保证每次轮换不同题目
     const pool = bank.questions.filter(q => q.type === 'general');
     const selected = shuffle(pool).slice(0, 9);
     generalQ = selected.map((q, i) => ({ question: q, phase: 'general', order: i + 1 }));
@@ -215,6 +315,8 @@
     var progress = total > 0 ? Math.round((idx / total) * 100) : 0;
     var ansId = responses[q.question.id];
     var isLast = idx === total - 1;
+    var isLastGen = phase === 'general' && idx === generalQ.length - 1;
+    var isLastAdaptive = phase === 'adaptive' && idx === allQ.length - 1;
 
     var html = '<div class="max-w-xl mx-auto px-4 py-8">';
 
@@ -239,7 +341,7 @@
       html += '</div>';
 
       // next button（主观题始终可点）
-      html += '<div class="flex justify-end"><button id="btn-next" class="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl font-medium text-sm transition-all bg-primary text-white hover:bg-primary/90 shadow-sm">' + (isLast ? '查看结果' : '下一题') + '<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></button></div>';
+      html += '<div class="flex justify-end"><button id="btn-next" class="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl font-medium text-sm transition-all bg-primary text-white hover:bg-primary/90 shadow-sm">' + (isLastGen || isLastAdaptive ? '下一题' : isLast ? '查看结果' : '下一题') + '<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></button></div>';
 
       if (idx === allQ.length - subjectiveQ.length) {
         html += '<div class="mt-4 text-center"><p class="text-xs text-slate-400">最后两步了——随便聊两句，帮报告更了解你</p></div>';
@@ -284,7 +386,7 @@
       } else {
         html += '<div></div>';
       }
-      html += '<button id="btn-next" class="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl font-medium text-sm transition-all ' + nextCls + '" ' + (nextDisabled ? 'disabled' : '') + '>' + (isLast ? '查看结果' : '下一题') + '<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></button></div>';
+      html += '<button id="btn-next" class="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl font-medium text-sm transition-all ' + nextCls + '" ' + (nextDisabled ? 'disabled' : '') + '>' + (isLastGen || isLastAdaptive ? '下一题' : isLast ? '查看结果' : '下一题') + '<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></button></div>';
 
       if (phase === 'adaptive' && idx === generalQ.length) {
         html += '<div class="mt-4 text-center"><p class="text-xs text-slate-400">接下来会问你一些更具体的问题，帮你缩小方向</p></div>';
@@ -390,6 +492,7 @@
         riskTags: tags,
         responses,
         subjectiveNotes: subjText,
+        userSubjects: userSubjects,
         generalCount: generalQ.length,
         totalCount: allQ.length,
       };
@@ -416,6 +519,7 @@
         riskTags: tags2,
         responses,
         subjectiveNotes: subjText2,
+        userSubjects: userSubjects,
         generalCount: generalQ.length,
         totalCount: allQ.length,
       };

@@ -1,0 +1,839 @@
+{
+  "philosophy-class": {
+    "resourceDependency": "low",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": true,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "history-class": {
+    "resourceDependency": "low",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": true,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "interdisciplinary-class": {
+    "resourceDependency": "high",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": true,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": true,
+    "commonMisunderstandingRisk": "low"
+  },
+  "economics-class": {
+    "resourceDependency": "low",
+    "blindChoiceRisk": "medium",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "medium"
+  },
+  "finance": {
+    "resourceDependency": "low",
+    "blindChoiceRisk": "high",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": true,
+    "commonMisunderstandingRisk": "high"
+  },
+  "international-trade": {
+    "resourceDependency": "low",
+    "blindChoiceRisk": "high",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "public-finance": {
+    "resourceDependency": "low",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "law-class": {
+    "resourceDependency": "low",
+    "blindChoiceRisk": "high",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "high",
+    "schoolTierSensitive": true,
+    "commonMisunderstandingRisk": "low"
+  },
+  "political-science": {
+    "resourceDependency": "low",
+    "blindChoiceRisk": "medium",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "sociology": {
+    "resourceDependency": "low",
+    "blindChoiceRisk": "medium",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "medium"
+  },
+  "marxism": {
+    "resourceDependency": "low",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "public-security": {
+    "resourceDependency": "low",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": true,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "ethnology": {
+    "resourceDependency": "low",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": true,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "education": {
+    "resourceDependency": "low",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "medium",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "physical-education": {
+    "resourceDependency": "low",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": true,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "chinese-literature": {
+    "resourceDependency": "low",
+    "blindChoiceRisk": "medium",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "foreign-languages": {
+    "resourceDependency": "low",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "journalism": {
+    "resourceDependency": "low",
+    "blindChoiceRisk": "high",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": true,
+    "commonMisunderstandingRisk": "high"
+  },
+  "mathematics": {
+    "resourceDependency": "medium",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "physics": {
+    "resourceDependency": "medium",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "chemistry": {
+    "resourceDependency": "medium",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "biology": {
+    "resourceDependency": "medium",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "statistics": {
+    "resourceDependency": "medium",
+    "blindChoiceRisk": "medium",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "medium"
+  },
+  "psychology": {
+    "resourceDependency": "high",
+    "blindChoiceRisk": "high",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "high",
+    "schoolTierSensitive": true,
+    "commonMisunderstandingRisk": "high"
+  },
+  "geography": {
+    "resourceDependency": "medium",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "astronomy": {
+    "resourceDependency": "high",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": true,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "atmospheric-science": {
+    "resourceDependency": "high",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": true,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "ocean-science": {
+    "resourceDependency": "high",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": true,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "geophysics": {
+    "resourceDependency": "high",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": true,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "geology": {
+    "resourceDependency": "high",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": true,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "computer-science": {
+    "resourceDependency": "high",
+    "blindChoiceRisk": "high",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": true,
+    "commonMisunderstandingRisk": "high"
+  },
+  "electronic-information": {
+    "resourceDependency": "high",
+    "blindChoiceRisk": "high",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": true,
+    "commonMisunderstandingRisk": "high"
+  },
+  "energy-power": {
+    "resourceDependency": "medium",
+    "blindChoiceRisk": "medium",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "medium"
+  },
+  "automation": {
+    "resourceDependency": "medium",
+    "blindChoiceRisk": "medium",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "high"
+  },
+  "instrumentation": {
+    "resourceDependency": "medium",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "mechanical": {
+    "resourceDependency": "medium",
+    "blindChoiceRisk": "medium",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "high"
+  },
+  "chemical-pharma": {
+    "resourceDependency": "medium",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "transportation": {
+    "resourceDependency": "medium",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "environmental": {
+    "resourceDependency": "medium",
+    "blindChoiceRisk": "high",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "high"
+  },
+  "bioengineering": {
+    "resourceDependency": "medium",
+    "blindChoiceRisk": "high",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "high"
+  },
+  "food-science": {
+    "resourceDependency": "medium",
+    "blindChoiceRisk": "medium",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "medium"
+  },
+  "electrical": {
+    "resourceDependency": "medium",
+    "blindChoiceRisk": "medium",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "medium"
+  },
+  "water-resources": {
+    "resourceDependency": "medium",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "civil-engineering": {
+    "resourceDependency": "medium",
+    "blindChoiceRisk": "medium",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "materials": {
+    "resourceDependency": "medium",
+    "blindChoiceRisk": "medium",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "architecture": {
+    "resourceDependency": "high",
+    "blindChoiceRisk": "medium",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "medium",
+    "schoolTierSensitive": true,
+    "commonMisunderstandingRisk": "medium"
+  },
+  "aerospace": {
+    "resourceDependency": "high",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": true,
+    "commonMisunderstandingRisk": "low"
+  },
+  "biomedical-eng": {
+    "resourceDependency": "high",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": true,
+    "commonMisunderstandingRisk": "low"
+  },
+  "mechanics": {
+    "resourceDependency": "medium",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "surveying": {
+    "resourceDependency": "medium",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "safety-eng": {
+    "resourceDependency": "medium",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "geological-eng": {
+    "resourceDependency": "high",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "nuclear": {
+    "resourceDependency": "high",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": true,
+    "recommendedOnlyIfHighInterest": true,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": true,
+    "commonMisunderstandingRisk": "low"
+  },
+  "ocean-engineering": {
+    "resourceDependency": "high",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "agricultural-eng": {
+    "resourceDependency": "medium",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": true,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "light-industry": {
+    "resourceDependency": "medium",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": true,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "public-security-tech": {
+    "resourceDependency": "low",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": true,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "mining": {
+    "resourceDependency": "high",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": true,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "textile": {
+    "resourceDependency": "medium",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": true,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "ordnance": {
+    "resourceDependency": "high",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": true,
+    "recommendedOnlyIfHighInterest": true,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": true,
+    "commonMisunderstandingRisk": "low"
+  },
+  "forestry-eng": {
+    "resourceDependency": "medium",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": true,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "plant-production": {
+    "resourceDependency": "medium",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "environmental-ecology": {
+    "resourceDependency": "low",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "veterinary": {
+    "resourceDependency": "medium",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "medium",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "animal-production": {
+    "resourceDependency": "medium",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "forestry": {
+    "resourceDependency": "medium",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": true,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "aquaculture": {
+    "resourceDependency": "medium",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": true,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "grassland-science": {
+    "resourceDependency": "medium",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": true,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "clinical-medicine": {
+    "resourceDependency": "high",
+    "blindChoiceRisk": "high",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "high",
+    "schoolTierSensitive": true,
+    "commonMisunderstandingRisk": "medium"
+  },
+  "pharmacy": {
+    "resourceDependency": "high",
+    "blindChoiceRisk": "medium",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "high",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "medium"
+  },
+  "tcm": {
+    "resourceDependency": "medium",
+    "blindChoiceRisk": "medium",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "high",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "medium"
+  },
+  "nursing": {
+    "resourceDependency": "medium",
+    "blindChoiceRisk": "medium",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "medium",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "medium"
+  },
+  "public-health": {
+    "resourceDependency": "medium",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "stomatology": {
+    "resourceDependency": "high",
+    "blindChoiceRisk": "high",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "high",
+    "schoolTierSensitive": true,
+    "commonMisunderstandingRisk": "low"
+  },
+  "integrated-medicine": {
+    "resourceDependency": "medium",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "high",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "chinese-pharmacy": {
+    "resourceDependency": "medium",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "high",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "medical-technology": {
+    "resourceDependency": "medium",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "medium",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "basic-medicine": {
+    "resourceDependency": "medium",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "high",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "forensic-medicine": {
+    "resourceDependency": "medium",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "medium",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "business-administration": {
+    "resourceDependency": "low",
+    "blindChoiceRisk": "high",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": true,
+    "commonMisunderstandingRisk": "high"
+  },
+  "public-administration": {
+    "resourceDependency": "low",
+    "blindChoiceRisk": "high",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "high"
+  },
+  "management-science": {
+    "resourceDependency": "low",
+    "blindChoiceRisk": "high",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "medium"
+  },
+  "e-commerce": {
+    "resourceDependency": "low",
+    "blindChoiceRisk": "high",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "high"
+  },
+  "tourism-management": {
+    "resourceDependency": "medium",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "medium"
+  },
+  "logistics": {
+    "resourceDependency": "low",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "industrial-engineering": {
+    "resourceDependency": "low",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "library-science": {
+    "resourceDependency": "low",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "agri-economics": {
+    "resourceDependency": "low",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "design": {
+    "resourceDependency": "medium",
+    "blindChoiceRisk": "medium",
+    "requiresSpecialCondition": true,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "medium"
+  },
+  "fine-arts": {
+    "resourceDependency": "medium",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": true,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "drama-film": {
+    "resourceDependency": "medium",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": true,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "music-dance": {
+    "resourceDependency": "medium",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": true,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "art-theory": {
+    "resourceDependency": "low",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": true,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  }
+}

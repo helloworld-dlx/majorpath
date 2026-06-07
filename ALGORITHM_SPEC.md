@@ -386,6 +386,151 @@ B6 艺术创作                  B6           B6
 
 ---
 
+## 12. 参数附录
+
+### 12.1 桶→门类权重表（BUCKET_TO_DISCIPLINES）
+
+| 桶 | 门类 | 权重 |
+|----|------|:----:|
+| humanities | 哲学（05） | 40 |
+| humanities | 文学（01） | 30 |
+| humanities | 历史学（06） | 30 |
+| social_science | 法学（03） | 50 |
+| social_science | 教育学（04） | 30 |
+| social_science | 管理学（12） | 20 |
+| business | 经济学（02） | 45 |
+| business | 管理学（12） | 55 |
+| stem | 工学（08） | 60 |
+| stem | 理学（07） | 40 |
+| life_health | 医学（10） | 60 |
+| life_health | 农学（09） | 25 |
+| life_health | 理学（07） | 15 |
+| art_creative | 艺术学（13） | 100 |
+
+### 12.2 门类→专业类权重表（GATE_PRIORITY_CATEGORIES）
+
+> 权重越高，该专业类在推荐结果中出现概率越大、排序越靠前。
+> 权重为相对值，非绝对分数，乘以桶得分后参与排序。
+
+| 门类代码 | 门类名称 | 专业类 slug | 专业类名称 | 命中桶 | 权重 |
+|:--------:|----------|------------|------------|--------|:----:|
+| 01 | 哲学 | philosophy-class | 哲学类 | 人文 | 100 |
+| 02 | 经济学 | economics-class | 经济学类 | 商科 | 50 |
+| 02 | 经济学 | finance | 金融学类 | 商科 | 30 |
+| 02 | 经济学 | international-trade | 经济与贸易类 | 商科 | 20 |
+| 03 | 法学 | law-class | 法学类 | 社科 | 50 |
+| 03 | 法学 | political-science | 政治学类 | 社科 | 25 |
+| 03 | 法学 | sociology | 社会学类 | 社科 | 25 |
+| 04 | 教育学 | education | 教育学类 | 社科 | 60 |
+| 04 | 教育学 | physical-education | 体育学类 | 社科 | 40 |
+| 05 | 文学 | chinese-literature | 中国语言文学类 | 人文 | 40 |
+| 05 | 文学 | foreign-languages | 外国语言文学类 | 人文 | 30 |
+| 05 | 文学 | journalism | 新闻传播学类 | 人文/社科 | 30 |
+| 06 | 历史学 | history-class | 历史学类 | 人文 | 100 |
+| 07 | 理学 | mathematics | 数学类 | 理工 | 10 |
+| 07 | 理学 | physics | 物理学类 | 理工 | 8 |
+| 07 | 理学 | chemistry | 化学类 | 理工 | 6 |
+| 07 | 理学 | biology | 生物科学类 | 理工/生命健康 | 20 |
+| 07 | 理学 | statistics | 统计学类 | 理工/商科 | 20 |
+| 08 | 工学 | computer-science | 计算机类 | 理工 | 15 |
+| 08 | 工学 | electronic-information | 电子信息类 | 理工 | 12 |
+| 08 | 工学 | automation | 自动化类 | 理工 | 8 |
+| 08 | 工学 | mechanical | 机械类 | 理工 | 8 |
+| 08 | 工学 | electrical | 电气类 | 理工 | 6 |
+| 08 | 工学 | civil-engineering | 土木类 | 理工 | 5 |
+| 08 | 工学 | materials | 材料类 | 理工 | 5 |
+| 08 | 工学 | architecture | 建筑类 | 理工/艺术创作 | 5 |
+| 08 | 工学 | aerospace | 航空航天类 | 理工 | 4 |
+| 08 | 工学 | biomedical-eng | 生物医学工程类 | 理工/生命健康 | 4 |
+| 09 | 农学 | plant-production | 植物生产类 | 生命健康 | 30 |
+| 09 | 农学 | environmental-ecology | 自然保护与环境生态类 | 生命健康/理工 | 25 |
+| 09 | 农学 | veterinary | 动物医学类 | 生命健康 | 25 |
+| 09 | 农学 | animal-production | 动物生产类 | 生命健康 | 20 |
+| 10 | 医学 | clinical-medicine | 临床医学类 | 生命健康 | 30 |
+| 10 | 医学 | pharmacy | 药学类 | 生命健康 | 20 |
+| 10 | 医学 | nursing | 护理学类 | 生命健康 | 15 |
+| 10 | 医学 | stomatology | 口腔医学类 | 生命健康 | 10 |
+| 10 | 医学 | public-health | 公共卫生与预防医学类 | 生命健康/社科 | 15 |
+| 10 | 医学 | medical-technology | 医学技术类 | 生命健康/理工 | 10 |
+| 12 | 管理学 | business-administration | 工商管理类 | 商科 | 35 |
+| 12 | 管理学 | public-administration | 公共管理类 | 商科/社科 | 20 |
+| 12 | 管理学 | management-science | 管理科学与工程类 | 商科/理工 | 15 |
+| 12 | 管理学 | e-commerce | 电子商务类 | 商科 | 15 |
+| 12 | 管理学 | tourism-management | 旅游管理类 | 商科 | 15 |
+| 13 | 艺术学 | design | 设计学类 | 艺术创作/理工 | 30 |
+| 13 | 艺术学 | fine-arts | 美术学类 | 艺术创作 | 25 |
+| 13 | 艺术学 | drama-film | 戏剧与影视学类 | 艺术创作 | 20 |
+| 13 | 艺术学 | music-dance | 音乐与舞蹈学类 | 艺术创作 | 25 |
+| 14 | 交叉学科 | interdisciplinary-class | 交叉学科类 | 理工/生命健康 | 100 |
+
+### 12.3 避坑惩罚表（RISK_CATEGORY_PENALTIES）
+
+| 标签 | 涉及专业类 | 惩罚值 | 提示文案 |
+|------|------------|:------:|----------|
+| 热门跟风 | 计算机类、电子信息、金融、工商管理 | 15 | 你可能因为热门才关注这个方向，建议先看看它到底学什么 |
+| 薪资预期偏差 | 计算机类、金融、工商管理 | 10 | 高薪不等于适合你，建议先了解真实学习内容和压力 |
+| 信息茧房 | — | 0 | 你可能只接触到少数几个专业方向，建议拓宽了解范围 |
+| 长周期高投入 | 临床医学、口腔医学、法学 | 20 | 这个方向学习周期很长（5-8年），需要做好心理准备 |
+| 大量阅读写作排斥 | 法学、中文、历史、新闻、社会学 | 25 | 你似乎不太喜欢大量读写，但这个方向需要很多阅读和写作 |
+| 规则与细节排斥 | 法学、金融、公共管理、临床医学 | 20 | 这个方向需要和大量规则、细节打交道 |
+| 动手实验排斥 | 机械、电气、电子信息、土木、植物生产 | 20 | 你似乎不太喜欢动手操作，但这个方向有不少实验和实践 |
+| 名字误解 | 工商管理、公共管理 | 10 | 你可能对这个专业的名字有误解，建议先看看详情页 |
+| 表面兴趣 | — | 0 | 你对这个方向的兴趣可能来自表面印象，建议深入了解再做判断 |
+| 文理认知偏差 | 计算机、电子信息、自动化、电气 | 30 | 你的选科背景和这个方向不太匹配 |
+
+### 12.4 专业画像名称映射（CAT_NAME_MAP）
+
+| slug | 中文名 |
+|------|--------|
+| philosophy-class | 哲学类 |
+| economics-class | 经济学类 |
+| finance | 金融学类 |
+| international-trade | 经济与贸易类 |
+| law-class | 法学类 |
+| political-science | 政治学类 |
+| sociology | 社会学类 |
+| education | 教育学类 |
+| physical-education | 体育学类 |
+| chinese-literature | 中国语言文学类 |
+| foreign-languages | 外国语言文学类 |
+| journalism | 新闻传播学类 |
+| history-class | 历史学类 |
+| mathematics | 数学类 |
+| physics | 物理学类 |
+| chemistry | 化学类 |
+| biology | 生物科学类 |
+| statistics | 统计学类 |
+| computer-science | 计算机类 |
+| electronic-information | 电子信息类 |
+| automation | 自动化类 |
+| mechanical | 机械类 |
+| electrical | 电气类 |
+| civil-engineering | 土木类 |
+| materials | 材料类 |
+| architecture | 建筑类 |
+| aerospace | 航空航天类 |
+| biomedical-eng | 生物医学工程类 |
+| plant-production | 植物生产类 |
+| environmental-ecology | 自然保护与环境生态类 |
+| veterinary | 动物医学类 |
+| animal-production | 动物生产类 |
+| clinical-medicine | 临床医学类 |
+| pharmacy | 药学类 |
+| nursing | 护理学类 |
+| stomatology | 口腔医学类 |
+| public-health | 公共卫生与预防医学类 |
+| medical-technology | 医学技术类 |
+| business-administration | 工商管理类 |
+| public-administration | 公共管理类 |
+| management-science | 管理科学与工程类 |
+| e-commerce | 电子商务类 |
+| tourism-management | 旅游管理类 |
+| design | 设计学类 |
+| fine-arts | 美术学类 |
+| drama-film | 戏剧与影视学类 |
+| music-dance | 音乐与舞蹈学类 |
+| interdisciplinary-class | 交叉学科类 |
+
 ## 12. 版本记录
 
 | 版本 | 日期 | 变更 |
@@ -394,3 +539,4 @@ B6 艺术创作                  B6           B6
 | v0.2 | 2026-06-04 | 细化抽题逻辑、阈值、避坑规则 |
 | v0.3 | 2026-06-04 | 重构为 6 桶两阶段粗筛体系、三层推荐输出、三大避坑类别、文科保护硬规则 |
 | v0.3.1 | 2026-06-05 | 选项随机排列已实现（test-flow.js Fisher-Yates）。通用题选项禁用学科名称。题库覆盖漏缺已修复 |
+| v0.3.2 | 2026-06-07 | GATE_PRIORITY 权重表同步进文档。理学类权重调整：数学 25→10，物理 20→8，化学 15→6（降低冷门理学专业的推荐优先级）。问卷链接互换（补充内容↔纠错）。通用题最后一题按钮修复（"查看结果"→"下一题"）。 |

@@ -728,6 +728,23 @@ const CAT_NAME_MAP: Record<string, string> = {
   'drama-film': '戏剧与影视学类',
   'music-dance': '音乐与舞蹈学类',
   'interdisciplinary-class': '交叉学科类',
+  // v0.17.1 新增
+  'public-finance': '财政学类', 'marxism': '马克思主义理论类', 'public-security': '公安学类',
+  'ethnology': '民族学类', 'psychology': '心理学类', 'geography': '地理科学类',
+  'astronomy': '天文学类', 'atmospheric-science': '大气科学类', 'ocean-science': '海洋科学类',
+  'geophysics': '地球物理学类', 'geology': '地质学类', 'energy-power': '能源动力类',
+  'instrumentation': '仪器类', 'chemical-pharma': '化工与制药类', 'transportation': '交通运输类',
+  'environmental': '环境科学与工程类', 'bioengineering': '生物工程类', 'food-science': '食品科学与工程类',
+  'water-resources': '水利类', 'mechanics': '力学类', 'surveying': '测绘类',
+  'safety-eng': '安全科学与工程类', 'geological-eng': '地质类', 'nuclear': '核工程类',
+  'ocean-engineering': '海洋工程类', 'agricultural-eng': '农业工程类', 'light-industry': '轻工类',
+  'public-security-tech': '公安技术类', 'mining': '矿业类', 'textile': '纺织类',
+  'ordnance': '兵器类', 'forestry-eng': '林业工程类', 'forestry': '林学类',
+  'aquaculture': '水产类', 'grassland-science': '草学类', 'tcm': '中医学类',
+  'integrated-medicine': '中西医结合类', 'chinese-pharmacy': '中药学类', 'basic-medicine': '基础医学类',
+  'forensic-medicine': '法医学类', 'logistics': '物流管理与工程类', 'industrial-engineering': '工业工程类',
+  'library-science': '图书情报与档案管理类', 'agri-economics': '农业经济管理类',
+  'art-theory': '艺术学理论类',
 };
 
 const GATE_NAME_MAP: Record<string, string> = {

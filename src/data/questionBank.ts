@@ -364,7 +364,7 @@ export const questionBank: QuestionBank = {
     { id: 'br_stem_008', type: 'branch', title: '学东西的时候，哪种内容让你觉得最费劲？', targetBuckets: ['stem'], subDirection: 'science_basic', priority: 10, options: [
       { id: 'br_stem_008_a', label: 'A', text: '理论和推理类——我更喜欢看得见摸得着的东西', scoreEffects: [{ target: 'science_basic', points: -3 }, { target: 'cs_info', points: 4 }] },
       { id: 'br_stem_008_b', label: 'B', text: '记忆和操作类——我不喜欢大量记背和重复操作', scoreEffects: [{ target: 'science_basic', points: -3 }, { target: 'engineering_manufacturing', points: 4 }] },
-      { id: 'br_stem_008_c', label: 'C', text: '都想继续——理科对我来说都挺有意思', scoreEffects: [{ target: 'stem', points: 6 }, { target: 'science_basic', points: 5 }] },
+      { id: 'br_stem_008_c', label: 'C', text: '都还好，没有特别费劲的——理科对我来说都挺有意思', scoreEffects: [{ target: 'stem', points: 6 }, { target: 'science_basic', points: 5 }] },
     ]},
     { id: 'br_stem_009', type: 'branch', title: '你更喜欢哪种"创造"？', targetBuckets: ['stem'], subDirection: 'engineering_manufacturing', priority: 10, options: [
       { id: 'br_stem_009_a', label: 'A', text: '创造无形的——算法、软件、数据结构', scoreEffects: [{ target: 'stem', points: 8 }, { target: 'cs_info', points: 5 }, { target: 'info_systems', points: 6 }] },
