@@ -1,26 +1,26 @@
 {
-  "score": 90,
+  "score": 95,
   "defaultScore": 86,
-  "scoreImprovement": 4,
+  "scoreImprovement": 9,
   "params": {
-    "generalCount": 11,
+    "generalCount": 7,
     "singleMainBranch": 9,
-    "leadGap": 5,
-    "highThreshold": 58,
-    "midThreshold": 60,
-    "rawWeight": 0.4,
-    "dimWeight": 0.55,
-    "recommendThreshold": 50,
-    "optionalThreshold": 25,
-    "riskPenaltyMultiplier": 1.75,
-    "maxRecommended": 7,
-    "diversityBonus": 15
+    "leadGap": 9,
+    "highThreshold": 64,
+    "midThreshold": 66,
+    "rawWeight": 0.55,
+    "dimWeight": 0.5,
+    "recommendThreshold": 45,
+    "optionalThreshold": 35,
+    "riskPenaltyMultiplier": 1.5,
+    "maxRecommended": 6,
+    "diversityBonus": 10
   },
   "paramDiff": {
     "generalCount": {
       "before": 8,
-      "after": 11,
-      "delta": "+3.00"
+      "after": 7,
+      "delta": "-1.00"
     },
     "singleMainBranch": {
       "before": 6,
@@ -29,54 +29,54 @@
     },
     "leadGap": {
       "before": 8,
-      "after": 5,
-      "delta": "-3.00"
+      "after": 9,
+      "delta": "+1.00"
     },
     "highThreshold": {
       "before": 62,
-      "after": 58,
-      "delta": "-4.00"
+      "after": 64,
+      "delta": "+2.00"
     },
     "midThreshold": {
       "before": 55,
-      "after": 60,
-      "delta": "+5.00"
+      "after": 66,
+      "delta": "+11.00"
+    },
+    "rawWeight": {
+      "before": 0.4,
+      "after": 0.55,
+      "delta": "+0.15"
     },
     "dimWeight": {
       "before": 0.6,
-      "after": 0.55,
-      "delta": "-0.05"
+      "after": 0.5,
+      "delta": "-0.10"
     },
     "recommendThreshold": {
       "before": 55,
-      "after": 50,
-      "delta": "-5.00"
-    },
-    "optionalThreshold": {
-      "before": 35,
-      "after": 25,
+      "after": 45,
       "delta": "-10.00"
     },
     "riskPenaltyMultiplier": {
       "before": 1,
-      "after": 1.75,
-      "delta": "+0.75"
+      "after": 1.5,
+      "delta": "+0.50"
     },
     "maxRecommended": {
       "before": 5,
-      "after": 7,
-      "delta": "+2.00"
+      "after": 6,
+      "delta": "+1.00"
     },
     "diversityBonus": {
       "before": 0,
-      "after": 15,
-      "delta": "+15.00"
+      "after": 10,
+      "delta": "+10.00"
     }
   },
   "generationBorn": 3,
-  "generations": 5,
-  "population": 15,
-  "runsPerCandidate": 50,
-  "seed": 4023,
+  "generations": 20,
+  "population": 30,
+  "runsPerCandidate": 100,
+  "seed": 7074,
   "note": "⚠️ 此文件为自动生成的候选参数，仅供人工审核，不直接覆盖线上参数。"
 }
