@@ -39,7 +39,7 @@
 |------|--------|
 | `src/data/major-details/<门类>.ts` | 修改内容 + 改 `reviewStatus: 'draft'` → `'reviewed'` |
 | `src/data/major-details/index.ts` | 新增门类时在此合并导出 |
-| `src/data/catalog.ts` | 如果该专业类所有 major 都审核完，改 status |
+| `src/data/catalog/<门类>.ts` | 如果该专业类所有 major 都审核完，改 status；同时检查 aliases/keywords 是否已填写 |
 | `CATALOG_STATUS.md` | 更新对应条目状态 |
 
 ### 示例：用户说「审核计算机类」
@@ -84,11 +84,11 @@ grep "专业名" src/data/catalog.ts
 
 **第 1 步：确定放在哪个专业类下**
 
-查看 `src/data/catalog.ts`，找到对应的门类和专业类。参考教育部目录。
+查看 `src/data/catalog/<门类>.ts`（目录数据已按门类拆分），找到对应的门类和专业类。参考教育部目录。
 
 **第 2 步：添加到目录数据**
 
-编辑 `src/data/catalog.ts`，在对应专业类的 `majors` 数组里插入：
+编辑 `src/data/catalog/<门类>.ts`，在对应专业类的 `majors` 数组里插入：
 
 ```typescript
 {
@@ -97,9 +97,17 @@ grep "专业名" src/data/catalog.ts
   slug: 'english-slug',   // 英文短横线命名
   status: 'building',     // 新建内容→building；仅骨架→todo
   tags: ['标签'],
+  aliases: ['常用简称', '常见叫法'],  // ⚠️ 搜索用，见下方说明
+  keywords: ['关键词1', '关键词2'],   // ⚠️ 搜索用
   summary: '一句话解释（面向高中生）',
 }
 ```
+
+**⚠️ aliases 和 keywords 字段说明（必须填）**：
+- `aliases`：用户可能输入的专业简称/别名。如计算机→["计算机","CS","计科"]，会计→["会计","财会"]
+- `keywords`：用户可能搜索的方向关键词。如计算机→["代码","编程","算法","软件"]，会计→["稳定","财务","证书","数字"]
+- 这两个字段直接影响搜索功能是否能搜到该专业。**新建时必须填写**，至少填 2-3 个 aliases 和 3-5 个 keywords
+- 关键词不要放专业名称本身（名称已自动覆盖），放"用户会怎么搜这个专业"的词
 
 命名规则：
 - `slug`：英文小写 + 短横线，如 `ic-design`、`artificial-intelligence`

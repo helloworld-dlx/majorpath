@@ -9,6 +9,7 @@
 **专业不迷路**是一个公益型专业认知小站，帮助高中生从 800+ 个本科专业中缩小范围，建立对专业学习内容的真实认知。
 
 - ✅ 专业目录浏览：13 个学科门类 → 92 个专业类 → 具体专业详情
+- ✅ 专业搜索：输入关键词（如“计算机”“电路”“代码”）实时模糊搜索
 - ✅ 方向小测试：8 道通用题 + 自适应抽题 → 三层推荐报告
 - ✅ AI 报告解释：DeepSeek Flash 把推荐结果翻译成大白话
 - ✅ 避坑提醒：温和提示可能的误解和不适合的情况
@@ -115,19 +116,23 @@ majorpath/
 │       └── report.js       # 报告引擎（含 AI 解释调用）
 ├── src/
 │   ├── components/          # 通用 UI 组件
+│   │   ├── ui/              # 基础 UI（Button/Card/Section/StatusBadge）
+│   │   └── SearchBox.tsx    # 专业搜索组件（React）
 │   ├── data/                # 题库、专业目录、推荐权重
+│   │   ├── catalog/         # 专业目录数据（按门类拆分，14 个文件）
+│   │   └── major-details/   # 专业详情内容（按门类拆分）
 │   ├── layouts/             # 页面布局
 │   ├── pages/
 │   │   ├── api/
 │   │   │   └── explain.ts   # DeepSeek Flash API 端点
-│   │   ├── index.astro      # 首页
+│   │   ├── index.astro      # 首页（含搜索入口）
 │   │   ├── test.astro       # 测试页
 │   │   ├── report.astro     # 报告页
 │   │   ├── about.astro      # 关于项目
 │   │   ├── contribute.astro # 共建入口
 │   │   └── majors/          # 专业目录（三级路由）
 │   ├── types/               # TypeScript 类型定义
-│   └── utils/               # 评分引擎、抽题引擎
+│   └── utils/               # 评分引擎、抽题引擎、搜索索引
 ├── astro.config.mjs         # Astro 配置
 ├── package.json
 ├── tsconfig.json
@@ -139,8 +144,10 @@ majorpath/
 
 | 文件 | 内容 |
 |------|------|
-| `src/data/questionBank.ts` | 99 道测试题（通用 20 + 方向 58 + 校验 13 + 避坑 8） |
-| `src/data/catalog.ts` | 13 门类、92 专业类、40+ 重点专业数据 |
+| `src/data/catalog/` | 专业目录数据（按门类拆分，14 个文件） |
+| `src/data/major-details/` | 专业详情内容（按门类拆分） |
+| `src/utils/searchIndex.ts` | 搜索索引构建 + 搜索函数（纯前端） |
+| `src/components/SearchBox.tsx` | 专业搜索 React 组件 |
 | `src/data/recommendationWeights.ts` | 桶→门类→专业类权重映射 + 避坑规则 |
 | `src/types/result.ts` | 推荐结果类型定义 |
 | `src/types/test.ts` | 题库类型定义 |

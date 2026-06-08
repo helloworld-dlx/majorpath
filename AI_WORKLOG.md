@@ -1064,3 +1064,141 @@
   3. 推送 Git
 - **当前版本状态**：v0.18.7 — 目录空壳补全完成，92/92专业类就绪
 
+---
+
+### 2026-06-08 19:42 — 搜索功能代码审查 + 修复
+
+- **使用模型**：DeepSeek V4 Pro
+- **任务类型**：审查 / 修复
+- **审查清单（10 项）**：
+  1. ✅ 数据结构清晰：Major 已扩展 aliases/keywords，buildIndex() 遍历全量 catalog，SearchEntry 接口完备
+  2. ✅ 匹配逻辑可靠：normalize+matches+scoreEntry 纯函数，得分分级合理（名称100>包含50>别名40>关键词20>门类15>简介5）
+  3. ✅ TS 类型无问题
+  4. 🔴 修复：pl-13 不是有效 Tailwind v4 class（→ pl-12），Placeholder 偏移
+  5. 🟡 修复：tokenMatches() 函数定义但从未调用（已删除）
+  6. ✅ 状态区分：SearchBox 内嵌 StatusBadge（绿/黄/灰三色+圆点），searchIndex scoreEntry 中 completed +3 / building +1
+  7. ✅ 手机端：flex-col/flex-row 自适应，输入框 w-full，结果卡片 sm 以下自然换行
+  8. ✅ 空状态友好：「暂时没找到相关专业」+ 建议换关键词 + 「查看全部专业目录」按钮
+  9. 🔴 修复：首页搜索框下方的「热门：」标签改为「试试：」——没有搜索量追踪数据，称"热门"不诚实
+  10. 🔴 修复：document mousedown 事件监听器与 fixed inset-0 overlay 点击关闭功能完全重复（已删除冗余监听器）
+  - 🟡 注意：仅 5/800+ 专业有 aliases/keywords 元数据，搜索覆盖率偏低（非代码 bug，数据缺口）
+  - 🟡 注意：SearchBox.tsx 内嵌的 StatusBadge 与 StatusBadge.astro 文案不一致（"已完善" vs "已完成"），建议后续统一
+  - ✅ 构建通过（115 页面）
+  - ✅ 不误导用户：搜索框标注「输入专业名或关键词」非"推荐"，无 AI 参与，纯前文本地匹配
+- **修改的文件**：
+  - `/home/xyzlh/majorpath/src/components/SearchBox.tsx` — pl-13→pl-12 / 「热门」→「试试」/ 删除冗余 mousedown 监听器
+  - `/home/xyzlh/majorpath/src/utils/searchIndex.ts` — 删除未使用的 tokenMatches() 函数
+  - `/home/xyzlh/majorpath/AI_WORKLOG.md` — 追加记录
+  - `/home/xyzlh/majorpath/CURRENT_STATUS.md` — 版本更新
+- **关键决策**：
+  1. 透明遮罩（fixed inset-0）替代 mousedown 事件监听作为唯一点击外部关闭机制，更简洁且无事件冲突
+  2. "热门"→"试试" 遵循"不制造焦虑"铁律——没有数据支撑的标签不用
+  3. 不扩大修改范围：搜索覆盖率是数据问题不是代码问题，不在此次改动中补齐
+- **遗留问题**：
+  - 仅 5 个专业有 aliases/keywords，建议后续补内容时顺手加
+  - SearchBox StatusBadge "已完善" vs StatusBadge.astro "已完成" 文案不一致
+- **下次建议**：
+  1. 补充更多专业的 aliases/keywords（建议至少 P0/P1 专业类包含搜索元数据）
+  2. 统一两处 StatusBadge 的文案
+- **当前版本状态**：v0.19.1 — 搜索功能审查通过，3 处修复
+
+---
+
+### 2026-06-08 19:51 — 搜索假阳性 bug 修复 + 维护流程更新
+
+- **使用模型**：DeepSeek V4 Pro
+- **任务类型**：修复 / 文档
+- **完成内容**：
+  - **搜索假阳性修复**：根因是 `scoreEntry()` 中的状态加分（building:+1, completed:+3）在所有内容匹配之前就加上，导致 status=building 但无任何语义匹配的条目（如哲学类）在搜索"电路"时也能以 score=1 通过 filter。修复：状态加分仅在 `s > 0`（已有内容匹配）时才生效
+  - 验证：修复后搜索"电路"从 20 条假阳性结果 → 4 条精确结果（集成电路×2 + 电子信息 + 微电子）
+  - 验证热门搜索词："计算机"→5条合理 / "会计"→2条合理 / "医学"→5条合理 / "设计"→5条合理
+  - **维护流程更新**：MAINTENANCE.md 新增 aliases/keywords 必填说明
+    - 新建专业详情（情况B）→ 第2步模板加入 aliases/keywords 字段 + 填写规范
+    - 审核专业详情 → 文件表增加"检查 aliases/keywords 是否已填写"
+  - `npm run build` ✅ 通过（115 页面）
+- **修改的文件**：
+  - `/home/xyzlh/majorpath/src/utils/searchIndex.ts` — scoreEntry 状态加分条件化（s>0 时才加）
+  - `/home/xyzlh/majorpath/MAINTENANCE.md` — 新建/审核流程加入 aliases/keywords 要求
+  - `/home/xyzlh/majorpath/AI_WORKLOG.md` — 追加记录
+  - `/home/xyzlh/majorpath/CURRENT_STATUS.md` — 版本更新
+- **关键决策**：
+  1. 状态加分改为 conditional 而非完全移除——保留"已完成的专业在同等匹配下优先展示"的设计意图
+  2. aliases/keywords 写入 MAINTENANCE.md 作为必填项，从流程上杜绝"新建专业不可搜索"
+- **遗留问题**：
+  - "稳定"等泛化关键词在 summary 中匹配到的结果质量一般（如"小学教育"summary 含"稳定"），属于数据质量而非代码问题
+  - MAINTENANCE.md 中部分文件路径仍引用旧结构（catalog.ts→catalog/），已顺手修正
+- **下次建议**：
+  1. 为热门搜索词（计算机/电路/会计等）对应的目标专业补齐 aliases/keywords
+  2. 考虑为 summary 匹配设置最低分数阈值（当前+5可能太低）
+- **当前版本状态**：v0.19.2 — 搜索假阳性修复 + 维护流程更新
+
+---
+
+### 2026-06-08 19:58 — 搜索 UI 增强：高亮匹配词 + summary 降权 + 空状态建议
+
+- **使用模型**：DeepSeek V4 Pro
+- **任务类型**：功能开发
+- **完成内容**：
+  1. **匹配高亮**：SearchBox.tsx 新增 `highlightText()` 工具函数，搜索结果的名称和简介中，匹配到的关键词用琥珀色高亮标记（`<mark>`），用户一眼看到匹配原因
+  2. **summary 降权**：searchIndex.ts `scoreEntry()` 简介匹配从 +5 降到 +2，泛化词（如"稳定"匹配到核工程类的"需求稳定"）权重更低，减少低质量结果
+  3. **空状态建议**：SearchBox.tsx 新增 `SUGGESTIONS` 词典 + `getSuggestions()` 函数。无结果时显示"换个思路，你是不是想找："+ 关联建议词（如搜"代码"建议"计算机""软件"，搜"电路"建议"电子信息""集成电路"）。无匹配建议时保留原提示文案
+  - `npm run build` ✅ 通过（115 页面）
+- **修改的文件**：
+  - `/home/xyzlh/majorpath/src/components/SearchBox.tsx` — +highlightText / +SUGGESTIONS +getSuggestions / ResultCard 加 query prop / EmptyState 加 suggestions 逻辑
+  - `/home/xyzlh/majorpath/src/utils/searchIndex.ts` — 简介匹配 +5→+2
+  - `/home/xyzlh/majorpath/AI_WORKLOG.md` — 追加记录
+  - `/home/xyzlh/majorpath/CURRENT_STATUS.md` — 版本更新
+- **关键决策**：
+  1. 高亮用琥珀色（amber-100/800）而非蓝色，避免和链接/状态色混淆
+  2. SUGGESTIONS 词典用手工维护（非动态生成），确保建议质量可控
+  3. summary 降权到 +2 保留（非移除），因为有时 summary 匹配仍有价值（如搜"芯片"匹配到"芯片设计全流程"的 summary）
+- **遗留问题**：
+  - 高亮仅在 hero 模式下有效（compact 模式不显示简介，仅名称高亮）
+  - SUGGESTIONS 词典覆盖有限，冷门词（如"书法"）无建议
+- **当前版本状态**：v0.19.3 — 搜索 UI 增强完成
+
+---
+
+### 2026-06-08 16:18 — 专业/方向模糊搜索功能开发
+
+- **使用模型**：MiniMax M2.7
+- **任务类型**：功能开发
+- **完成内容**：
+  - 扩展 `src/types/catalog.ts` 的 `Major` 接口，新增 `aliases` 和 `keywords` 可选字段
+  - 为 5 个重点专业添加搜索元数据：
+    - 计算机科学与技术（building）：aliases=[计算机, CS, 计科, 计算机技术]，keywords=[代码, 编程, 算法, 软件, 互联网...]
+    - 电子信息工程（building）：aliases=[电子信息, 电信]，keywords=[电路, 信号, 通信, 硬件, 芯片...]
+    - 集成电路设计与集成系统（completed）：aliases=[集成电路, IC设计, 芯片设计]，keywords=[芯片, 晶体管, 半导体, EDA, Verilog]
+    - 机械设计制造及其自动化（building）：aliases=[机械设计, 机械制造, 机电一体化]，keywords=[机器, 设计, 制造, 自动化...]
+    - 给排水科学与工程（building）：aliases=[给排水, 市政给排水, 水处理]，keywords=[水, 管道, 市政, 建筑...]
+  - 创建 `src/utils/searchIndex.ts`：搜索索引构建工具，含 normalize/tokenize/matches/scoreEntry/buildIndex/searchMajors
+  - 创建 `src/components/SearchBox.tsx`：React 搜索组件，含实时防抖（250ms）、结果卡片、空状态、点击外部关闭、Escape 关闭
+  - 首页 `index.astro`：在 hero 下方新增搜索入口 Section（`client:load`）
+  - 目录页 `majors/index.astro`：在顶部标题区新增搜索框
+  - `npm run build` ✅ 通过（115 页面）
+  - 局域网预览已启动：`http://192.168.31.138:4321/`
+  - 更新 CURRENT_STATUS.md（v0.18.8 → v0.19.0）
+- **修改的文件**：
+  - `/home/xyzlh/majorpath/src/types/catalog.ts` — Major 接口扩展 aliases/keywords
+  - `/home/xyzlh/majorpath/src/data/catalog/engineering.ts` — 5个重点专业添加搜索元数据
+  - `/home/xyzlh/majorpath/src/utils/searchIndex.ts` — 新建（搜索索引+搜索函数）
+  - `/home/xyzlh/majorpath/src/components/SearchBox.tsx` — 新建（React 搜索组件）
+  - `/home/xyzlh/majorpath/src/pages/index.astro` — 新增搜索入口
+  - `/home/xyzlh/majorpath/src/pages/majors/index.astro` — 新增搜索框
+  - `/home/xyzlh/majorpath/CURRENT_STATUS.md` — 版本更新+模块记录
+  - `/home/xyzlh/majorpath/AI_WORKLOG.md` — 追加记录
+- **关键决策**：
+  - 搜索索引数据直接构建自 catalog（不额外请求 API），纯前端计算
+  - 得分排序：名称完全匹配(100) > 名称包含(50) > 别名精确(40) > 别名包含(30) > 关键词(20) > 门类/专业类名(15/10) > 简介(5)
+  - 搜索同时覆盖专业类（一级分类）和具体专业（二级叶子节点），路径分别为 /majors/{gate}/{cat} 和 /majors/{gate}/{cat}/{major}
+  - 使用 `client:load` 让 SearchBox 在页面加载时立即可用
+  - 搜索函数通过动态 import 懒加载，避免影响首屏性能
+- **遗留问题**：
+  - 大部分专业尚未添加 aliases/keywords，搜索覆盖面有限（仅5个专业有完整搜索元数据）
+  - 未推送 Git
+- **下次建议**：
+  1. 后续补充专业详情内容时，同步添加 aliases 和 keywords 字段
+  2. 考虑为更多 building/completed 状态的专业补充搜索元数据
+  3. 推送代码到 GitHub
+- **当前版本状态**：v0.19.0 — 专业/方向模糊搜索功能完成
+

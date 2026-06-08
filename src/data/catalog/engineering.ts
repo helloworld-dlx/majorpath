@@ -35,7 +35,7 @@ export const engineeringGate: Gate = {
           majorCount: 18,
           majors: [
             { code: '080201', name: '机械工程', slug: 'mechanical-eng', status: 'todo', summary: '机械设计、制造、运行的全面基础' },
-            { code: '080202', name: '机械设计制造及其自动化', slug: 'mechanical-design', status: 'building', tags: ['传统工科', '核心'], summary: '学怎么设计、制造和运行机器设备——从零件图纸到生产线' },
+            { code: '080202', name: '机械设计制造及其自动化', slug: 'mechanical-design', status: 'building', tags: ['传统工科', '核心'], aliases: ['机械设计', '机械制造', '机电一体化'], keywords: ['机器', '设计', '制造', '自动化', '机械', '零件', '生产线', '数控'], summary: '学怎么设计、制造和运行机器设备——从零件图纸到生产线' },
             { code: '080203', name: '材料成型及控制工程', slug: 'material-forming', status: 'todo', summary: '铸造、锻造、焊接工艺和模具设计' },
             { code: '080204', name: '机械电子工程', slug: 'mechatronics', status: 'todo', summary: '机械+电子+控制，机电一体化' },
             { code: '080205', name: '工业设计', slug: 'industrial-design', status: 'todo', summary: '产品的外观和人机交互设计' },
@@ -133,7 +133,7 @@ export const engineeringGate: Gate = {
           majorCount: 18,
           description: '和计算机类专业经常混淆——电子偏硬件底层，计算机偏软件',
           majors: [
-            { code: '080701', name: '电子信息工程', slug: 'electronic-info-eng', status: 'building', tags: ['热门'], summary: '软硬结合，学电路+信号+编程' },
+            { code: '080701', name: '电子信息工程', slug: 'electronic-info-eng', status: 'building', tags: ['热门'], aliases: ['电子信息', '电信'], keywords: ['电路', '信号', '通信', '硬件', '芯片', '电子', '无线电'], summary: '软硬结合，学电路+信号+编程' },
             { code: '080702', name: '电子科学与技术', slug: 'electronic-science', status: 'todo', tags: ['偏硬件'], summary: '更偏向物理和器件层面' },
             { code: '080703', name: '通信工程', slug: 'communication-eng', status: 'todo', tags: ['热门'], summary: '信息怎么从一端传到另一端' },
             { code: '080704', name: '微电子科学与工程', slug: 'microelectronics', status: 'todo', summary: '半导体和芯片的底层科学，从晶体管到集成电路' },
@@ -142,7 +142,7 @@ export const engineeringGate: Gate = {
             { code: '080707T', name: '广播电视工程', slug: 'broadcasting-eng', status: 'todo', tags: ['特设'], summary: '电视信号制作、发射和传输技术' },
             { code: '080708T', name: '水声工程', slug: 'underwater-acoustics', status: 'todo', tags: ['特设'], summary: '水下声学探测和水下通信技术' },
             { code: '080709T', name: '电子封装技术', slug: 'electronic-packaging', status: 'todo', tags: ['特设'], summary: '芯片制造后的封装保护与互联技术' },
-            { code: '080710T', name: '集成电路设计与集成系统', slug: 'ic-design', status: 'completed', tags: ['国家战略', '特设'], summary: '芯片设计全流程——从晶体管到系统，软硬件贯通' },
+            { code: '080710T', name: '集成电路设计与集成系统', slug: 'ic-design', status: 'completed', tags: ['国家战略', '特设'], aliases: ['集成电路', 'IC设计', '芯片设计'], keywords: ['芯片', '晶体管', '半导体', '集成电路', 'IC', '硬件', 'EDA', 'Verilog'], summary: '芯片设计全流程——从晶体管到系统，软硬件贯通' },
             { code: '080711T', name: '医学信息工程', slug: 'medical-info', status: 'todo', tags: ['特设'], summary: '医疗设备和医学数据处理技术' },
             { code: '080712T', name: '电磁场与无线技术', slug: 'electromagnetic', status: 'todo', tags: ['特设'], summary: '天线、雷达、射频技术的工程应用' },
             { code: '080713T', name: '电波传播与天线', slug: 'radio-wave', status: 'todo', tags: ['特设'], summary: '电磁波传播规律和天线设计' },
@@ -178,7 +178,7 @@ export const engineeringGate: Gate = {
           majorCount: 18,
           description: '高考关注度最高的专业类之一，但误解也最多 —— 不是写了代码就能进大厂',
           majors: [
-            { code: '080901', name: '计算机科学与技术', slug: 'computer-science-tech', status: 'building', tags: ['热门', '核心'], summary: '学计算机的工作原理，从底层到应用都涉及' },
+            { code: '080901', name: '计算机科学与技术', slug: 'computer-science-tech', status: 'building', tags: ['热门', '核心'], aliases: ['计算机', 'CS', '计科', '计算机技术'], keywords: ['代码', '编程', '算法', '软件', '互联网', '计算机', 'Java', 'Python', 'C语言', '自学', '算法'], summary: '学计算机的工作原理，从底层到应用都涉及' },
             { code: '080902', name: '软件工程', slug: 'software-engineering', status: 'todo', tags: ['热门'], summary: '偏工程实践，学怎么做软件项目' },
             { code: '080903', name: '网络工程', slug: 'network-engineering', status: 'todo', summary: '学网络怎么搭建和维护' },
             { code: '080904K', name: '信息安全', slug: 'info-security', status: 'todo', tags: ['国控'], summary: '学怎么保护信息系统不被攻破' },
@@ -207,7 +207,7 @@ export const engineeringGate: Gate = {
           description: '不只是盖房子——从桥梁隧道到城市地下空间，土木是"基础设施"的底层学科',
           majors: [
             { code: '081001', name: '土木工程', slug: 'civil-eng', status: 'todo', tags: ['传统工科', '基础广'], summary: '结构设计、施工管理、地基基础——土木类最核心的方向' },
-            { code: '081003', name: '给排水科学与工程', slug: 'water-supply', status: 'building', tags: ['已有人共建'], summary: '水怎么来、怎么走——城市供水排水和建筑给排水' },
+            { code: '081003', name: '给排水科学与工程', slug: 'water-supply', status: 'building', tags: ['已有人共建'], aliases: ['给排水', '市政给排水', '水处理'], keywords: ['水', '管道', '市政', '建筑', '环境', '城市', '供水', '排水', '环保'], summary: '水怎么来、怎么走——城市供水排水和建筑给排水' },
             { code: '081002', name: '建筑环境与能源应用工程', slug: 'building-env', status: 'todo', summary: '暖通空调、建筑节能、室内环境调控' },
             { code: '081004', name: '建筑电气与智能化', slug: 'building-electrical', status: 'todo', summary: '建筑里电气系统和智能控制的设计' },
             { code: '081005T', name: '城市地下空间工程', slug: 'urban-underground', status: 'todo', tags: ['新兴'], summary: '地铁、地下管廊、地下商业空间等地下工程' },

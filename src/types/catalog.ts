@@ -30,6 +30,10 @@ export interface Major {
   detailSlug?: string;
   /** 一句话简介（待建设时可留空） */
   summary?: string;
+  /** 搜索别名，如 ["计算机", "CS", "计科"] */
+  aliases?: string[];
+  /** 搜索关键词，如 ["代码", "编程", "算法", "软件"] */
+  keywords?: string[];
 }
 
 /**

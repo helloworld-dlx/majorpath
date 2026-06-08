@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import StatusBadge from '../../components/ui/StatusBadge.astro';
+import SearchBox from '../../components/SearchBox';
 import { catalog } from '../../data/catalog';
 import { countActualMajors } from '../../types/catalog';
 
@@ -8,16 +9,22 @@ const actualMajors = countActualMajors(catalog);
 ---
 
 <Layout title="专业目录" description="按学科门类浏览本科专业，了解每个专业的学习内容、适合人群和避坑提醒">
-  <section class="py-10 px-4">
+  <section class="py-6 sm:py-8 px-4">
     <div class="max-w-4xl mx-auto">
-      <div class="text-center mb-6">
-        <h1 class="text-2xl font-bold text-slate-900 mb-2">本科专业目录</h1>
-        <p class="text-slate-500 text-sm">
-          官方目录共 {catalog.totalGates} 个门类 · {catalog.totalCategories} 个专业类 · {catalog.totalMajors} 个专业
-        </p>
-        <p class="text-xs text-slate-400 mt-1">
-          数据来源：教育部 2026 年目录 · 本站已收录 {actualMajors} 个专业信息（持续建设中）
-        </p>
+      <!-- 标题 + 搜索 同行 -->
+      <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-6">
+        <div>
+          <h1 class="text-xl sm:text-2xl font-bold text-slate-900">本科专业目录</h1>
+          <p class="text-slate-500 text-sm mt-0.5">
+            官方目录共 {catalog.totalGates} 个门类 · {catalog.totalCategories} 个专业类 · {catalog.totalMajors} 个专业
+          </p>
+          <p class="text-xs text-slate-400 mt-0.5">
+            数据来源：教育部 2026 年目录 · 本站已收录 {actualMajors} 个专业信息（持续建设中）
+          </p>
+        </div>
+        <div class="w-full sm:w-80 flex-shrink-0">
+          <SearchBox variant="compact" client:load />
+        </div>
       </div>
 
       <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
@@ -41,7 +48,7 @@ const actualMajors = countActualMajors(catalog);
         ))}
       </div>
 
-      <div class="mt-8 text-center">
+      <div class="mt-6 text-center">
         <p class="text-xs text-slate-400">
           详细内容正在逐步完善中，部分专业类页面标注"建设中"或"待补充"状态
         </p>
