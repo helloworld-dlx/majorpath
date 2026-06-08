@@ -251,7 +251,7 @@ export default function SearchBox({ variant = 'hero', placeholder }: SearchBoxPr
           onChange={handleInput}
           onKeyDown={handleKeyDown}
           onFocus={() => query.trim() && results.length > 0 && setOpen(true)}
-          placeholder={placeholder ?? (isHero ? '输入专业名或关键词，比如：计算机、电路、代码、稳定、会计' : '输入专业名或关键词搜索')}
+          placeholder={placeholder ?? '输入专业名或关键词搜索'}
           className={`w-full bg-white border transition-all duration-200
             placeholder:text-slate-400 focus:outline-none
             ${isHero
