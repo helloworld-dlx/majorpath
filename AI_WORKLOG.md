@@ -1159,6 +1159,35 @@
 
 ---
 
+### 2026-06-08 21:41 — Header 搜索居中 + Hero 文案优化
+
+- **使用模型**：DeepSeek V4 Pro
+- **任务类型**：UI 调整 / 文案
+- **完成内容**：
+  - **Header 重构**：搜索框从右侧移至居中（absolute + left-1/2 + translate-x），四个导航链接全部移至右侧，Logo 在左侧。桌面端 `w-72` 搜索框，移动端搜索图标+汉堡菜单在右侧
+  - **HeaderSearch 组件**：新建 `src/components/HeaderSearch.tsx`，搜索图标按钮（胶囊形，桌面端显示“搜索”文字）+ 点击展开搜索面板（全宽下拉，紧贴 Header 下方），`client:idle` 加载不阻塞首屏
+  - **首页 Hero 搜索框移除**：搜索框从 Hero 区域移出收进 Header，Hero 只保留标题+副标题+免责
+  - **Hero 文案优化**：
+    - 副标题：“用说大白话的方式，帮你搞清楚：” → “来自在读生和毕业生的真实介绍：”（去除 AI 文案腔，强调内容来源）
+    - 免责：“不是志愿填报工具，不预测录取概率，不替代正式建议” → “在填报志愿之前，你总得知道专业是干什么的”（正向表达，不强调“不做什么”）
+  - **Footer 快速入口**：移动端改为 2 列网格（grid-cols-2），桌面端恢复单列
+  - `npm run build` ✅ 通过（115 页面）
+- **修改的文件**：
+  - `/home/xyzlh/majorpath/src/components/HeaderSearch.tsx` — 新建
+  - `/home/xyzlh/majorpath/src/layouts/Layout.astro` — Header 重构（搜索居中+导航分两侧）
+  - `/home/xyzlh/majorpath/src/pages/index.astro` — Hero 文案优化+搜索框移除
+  - `/home/xyzlh/majorpath/src/components/SearchBox.tsx` — placeholder 统一缩短
+  - `/home/xyzlh/majorpath/AI_WORKLOG.md` — 追加记录
+  - `/home/xyzlh/majorpath/CURRENT_STATUS.md` — 版本更新
+- **关键决策**：
+  1. 搜索用 `client:idle` 而非 `client:load`，避免阻塞首屏渲染
+  2. Header 搜索面板用 `fixed left-0 right-0 top-16` 全宽，而非绝对定位在 Header 内部，保证结果面板不被裁切
+  3. Hero 文案改为正向表达，遵循用户反馈“只需要强调网站作用是什么”
+- **遗留问题**：无
+- **当前版本状态**：v0.19.4 — Header 搜索居中 + Hero 文案优化
+
+---
+
 ### 2026-06-08 16:18 — 专业/方向模糊搜索功能开发
 
 - **使用模型**：MiniMax M2.7
