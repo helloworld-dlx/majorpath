@@ -279,30 +279,6 @@ export default function SearchBox({ variant = 'hero', placeholder }: SearchBoxPr
         )}
       </div>
 
-      {/* ── 热门搜索词（hero 模式，无输入时展示） ── */}
-      {isHero && !query && !open && (
-        <div className="flex flex-wrap items-center gap-2 mt-3 justify-center">
-          <span className="text-xs text-slate-400">热门：</span>
-          {['计算机', '电路', '会计', '医学', '设计', '人工智能'].map((tag) => (
-            <button
-              key={tag}
-              onClick={() => {
-                setQuery(tag);
-                const fn = searchFnRef.current;
-                if (fn) {
-                  const res = fn(tag, 6);
-                  setResults(res);
-                  setOpen(true);
-                }
-              }}
-              className="px-3 py-1 text-xs text-slate-500 bg-slate-50 rounded-full border border-slate-100 hover:border-primary/30 hover:text-primary hover:bg-primary-light/50 transition-all"
-            >
-              {tag}
-            </button>
-          ))}
-        </div>
-      )}
-
       {/* ── 下拉结果面板 ── */}
       {open && (
         <>
