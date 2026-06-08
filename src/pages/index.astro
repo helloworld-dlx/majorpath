@@ -2,13 +2,12 @@
 import Layout from '../layouts/Layout.astro';
 import Card from '../components/ui/Card.astro';
 import Section from '../components/ui/Section.astro';
-import SearchBox from '../components/SearchBox';
 ---
 
 <Layout title="首页" description="用说大白话的方式，帮高中生看懂大学专业、找到方向，少一点盲选">
 
-  <!-- Hero + 搜索 -->
-  <Section spacing="md" background="default">
+  <!-- Hero -->
+  <Section spacing="lg" background="default">
     <div class="max-w-3xl mx-auto text-center">
       <!-- Badge -->
       <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary-light/60 border border-primary-border text-primary text-xs font-medium mb-4">
@@ -18,20 +17,15 @@ import SearchBox from '../components/SearchBox';
         永久免费 · 学生共建
       </div>
 
-      <h1 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-3 leading-tight">
+      <h1 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-4 leading-tight">
         志愿填报前，<br class="hidden sm:block" />先来看看专业长什么样
       </h1>
-      <p class="text-base sm:text-lg text-slate-500 mb-6 leading-relaxed max-w-xl mx-auto">
-        用说大白话的方式，帮你搞清楚这个专业到底学什么、适不适合你。
+      <p class="text-lg text-slate-600 mb-2 leading-relaxed">
+        用说大白话的方式，帮你搞清楚：<br />
+        这个专业到底学什么、适不适合你、有哪些坑要避开。
       </p>
-
-      <!-- 搜索框 → Hero 内嵌 -->
-      <div class="max-w-2xl mx-auto">
-        <SearchBox variant="hero" client:load />
-      </div>
-
-      <p class="text-xs text-slate-400 mt-4">
-        不是志愿填报工具，不预测录取概率，不替代正式建议
+      <p class="text-sm text-slate-400">
+        在填报志愿之前，你总得知道专业是干什么的
       </p>
     </div>
   </Section>
