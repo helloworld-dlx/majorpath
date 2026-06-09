@@ -1231,3 +1231,48 @@
   3. 推送代码到 GitHub
 - **当前版本状态**：v0.19.0 — 专业/方向模糊搜索功能完成
 
+---
+
+### 2026-06-09 22:56 — v0.19.5 checkpoint：算法保护规则 + 前后端规则对齐
+
+- **使用模型**：DeepSeek V4 Pro
+- **任务类型**：修复 / 同步
+- **完成内容**：
+  - **数学保护修复**：低数学（<20）→ STEM ×0.5（有编程/工程信号 ×0.75），<35 → ×0.85
+  - **生命健康保护**：低 life_health（<20）→ life_health ×0.3
+  - **门类阈值**：20 → 8
+  - **临床医学惩罚**：×0.65，不轻易进 recommended
+  - **口腔医学惩罚**：×0.70
+  - **热门跟风替代惩罚**：缺乏编程/工程信号时，高强工科（机械/电气/土木/自动化/能源动力）额外 penalty 25
+  - **CS 降级保护**：有编程兴趣（info_systems ≥40）时 penalty 25→15
+  - **商科恢复**：移除 finance/business-admin 的热门跟风惩罚 + 新增 accounting(13)/financial-management(12)/auditing(10) + 三类画像
+  - **去重逻辑**：seenSlugs Set，同一专业类只属于一个层级
+  - **领域感知 fallback**：getCategoryDomain + inferPrimaryDomain，推荐为空时从同领域可选项中提升
+  - **report.js 同步**：+116 行，与 scoring.ts 全部规则对齐
+  - `npm run build` ✅ 115 页面
+  - 100 用户模拟验收：空推荐 0%，overlapCount 0，趋势冲突 0，商科恢复，临床医学不被强推，领域感知 fallback 生效
+- **修改的文件**：
+  - `public/scripts/report.js` — +116 行（规则同步）
+  - `src/utils/scoring.ts` — +156 行（数学/生命健康保护 + 领域感知 fallback）
+  - `src/data/recommendationWeights.ts` — +7/-2（商科恢复 + 新增 3 类）
+  - `src/data/categoryDimProfiles.ts` — +42 行（accounting/financial-management/auditing 画像）
+  - `scripts/simulate_v05.ts` — +32 行（模拟器同步新规则）
+  - `simulation-results/v04_weights_raw.json` — +3 商科权重
+  - `simulation-results/v04_fields.json` — +27 商科风险字段
+  - `simulation-results/summary_v05_audit.md` — 更新
+  - `simulation-results/summary_v05_realistic.md` — 更新
+  - `CURRENT_STATUS.md` — v0.19.4→0.19.5
+  - `AI_WORKLOG.md` — 追加记录
+- **关键决策**：
+  1. 数学保护从直接砍 STEM（×0.4）改为分级降权（×0.5 / ×0.75 / ×0.85），保留编程/工程信号用户的机会
+  2. 热门跟风惩罚只保留 computer-science + electronic-information，金融/工商管理恢复自由竞争
+  3. 临床医学/口腔医学不通过权重调整，而是在评分阶段乘 0.65/0.70，确保不会被轻易强推但保留医学兴趣用户的通道
+  4. 领域感知 fallback 解决探索型用户推荐为空的问题：从同领域可选类别中至少提升一个
+- **遗留问题**：无
+- **下次建议**：
+  1. 合并 rescue-2026-06-09 → main
+  2. 推送 GitHub
+  3. EdgeOne Pages 部署新版本
+  4. 如有条件，真人走一遍测试→报告流程验证前端 report.js 行为
+- **当前版本状态**：v0.19.5 — 算法保护规则 + 前后端规则对齐完成
+
