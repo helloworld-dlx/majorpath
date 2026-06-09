@@ -1,0 +1,818 @@
+diff --git a/public/scripts/report.js b/public/scripts/report.js
+index 9fac8a3..cc4066a 100644
+--- a/public/scripts/report.js
++++ b/public/scripts/report.js
+@@ -452,6 +452,19 @@
+     BUCKETS.forEach(function (k) {
+       refined[k] = Math.round(rawBucketScores[k] * 0.4 + dimBucketScores[k] * 0.6);
+     });
++    // v0.19.5: 数学保护（考虑工程/编程信号）
++    var mathScore = dimScores['math_logic'] || 50;
++    if (mathScore < 20) {
++      var engBoost = (dimScores['engineering_practice'] || 0) >= 25 || (dimScores['info_systems'] || 0) >= 25;
++      refined.stem = Math.round(refined.stem * (engBoost ? 0.75 : 0.5));
++    } else if (mathScore < 35) {
++      refined.stem = Math.round(refined.stem * 0.85);
++    }
++    // v0.19.5: 生命健康保护
++    var lifeScore = dimScores['life_health_interest'] || 0;
++    if (lifeScore < 20) {
++      refined.life_health = Math.round(refined.life_health * 0.3);
++    }
+     return normalizeScores(refined);
+   }
+ 
+@@ -482,7 +495,7 @@
+         score: Math.round(info.score),
+         reason: '你的「' + bl + '」方向偏好较高，' + meta.name + '是该方向的核心门类',
+       };
+-    }).filter(function (d) { return d.score >= 20; });
++    }).filter(function (d) { return d.score >= 8; });
+   }
+ 
+   function getTopDimensions(dimScores, buckets, n) {
+@@ -550,6 +563,9 @@
+         if (topDims.length > 0) { var dimSum = 0; topDims.forEach(function(d) { dimSum += (dimScores[d] || 25); }); dimScore = Math.min(100, Math.round(dimSum / topDims.length * 1.6)); }
+         var interestSignal = 50;
+         var bucketMatchScore = Math.round(baseScore);
++        // v0.19.5: 临床医学/口腔医学乘法惩罚
++        if (cat.categorySlug === 'clinical-medicine') score = Math.round(score * 0.65);
++        if (cat.categorySlug === 'stomatology') score = Math.round(score * 0.70);
+         scored.push({
+           name: CAT_NAME_MAP[cat.categorySlug] || cat.categorySlug,
+           gate: (GATE_META[gateCode] || {}).name || gateCode,
+@@ -581,6 +597,25 @@
+       });
+     });
+ 
++    // v0.19.5: hotTrendRisk 后处理
++    var hasHotTrend = riskTags.indexOf('trend_chasing') >= 0;
++    var hasProgramming = (dimScores['info_systems'] || 0) >= 40;
++    var hasEngineering = (dimScores['engineering_practice'] || 0) >= 30;
++    if (hasHotTrend) {
++      if (!hasProgramming && !hasEngineering) {
++        ['mechanical','electrical','civil-engineering','automation','energy-power'].forEach(function(s) {
++          var ex = penalized.get(s);
++          if (!ex) penalized.set(s, { penalty: 25, reason: '热门跟风降级——不要盲目换一个高强度专业' });
++        });
++      }
++      if (hasProgramming) {
++        var cs = penalized.get('computer-science');
++        if (cs && cs.penalty >= 25) {
++          penalized.set('computer-science', { penalty: 15, reason: cs.reason + '（但你有一定的编程兴趣，可以进一步了解）' });
++        }
++      }
++    }
++
+     var recommended = [], optional = [], cautious = [];
+         var userSubjects = window.__USER_SUBJECTS__;
+     var subjectBlockedCats = [];
+@@ -603,7 +638,13 @@
+       if (penalty) {
+         cat.score = Math.max(0, cat.score - penalty.penalty);
+         cat.cautions.push(penalty.reason);
+-        cautious.push(cat);
++        // v0.19.5: hotTrend 替代惩罚不强制进 cautious
++        var isSubstitute = penalty.reason.indexOf('热门跟风降级') >= 0;
++        if (isSubstitute && cat.score >= 35) {
++          optional.push(cat);
++        } else {
++          cautious.push(cat);
++        }
+       } else if (cat.score >= 55) {
+         recommended.push(cat);
+       } else if (cat.score >= 35) {
+@@ -611,14 +652,64 @@
+       }
+     });
+ 
++    // v0.19.5 去重：同一专业类只能属于一个层级
++    var seenSlugs = {};
++    var dedupedCautious = cautious.filter(function(c) {
++      if (seenSlugs[c.slug]) return false;
++      seenSlugs[c.slug] = true;
++      return true;
++    });
++    var dedupedRecommended = recommended.filter(function(c) {
++      if (seenSlugs[c.slug]) return false;
++      seenSlugs[c.slug] = true;
++      return true;
++    });
++    var dedupedOptional = optional.filter(function(c) {
++      if (seenSlugs[c.slug]) return false;
++      seenSlugs[c.slug] = true;
++      return true;
++    });
++
+     return {
+-      recommended: recommended.slice(0, 5),
+-      optional: optional.slice(0, 4),
+-      cautious: cautious.slice(0, 4),
++      recommended: dedupedRecommended.slice(0, 5),
++      optional: dedupedOptional.slice(0, 4),
++      cautious: dedupedCautious.slice(0, 4),
+       scored: scored,
+     };
+   }
+ 
++  // v0.19.5: 主兴趣领域推断
++  var CATEGORY_DOMAIN = {};
++  (function() {
++    var elec = ['computer-science','electronic-information','automation','mechanical','electrical','civil-engineering','energy-power','instrumentation','aerospace','materials','transportation','chemical-pharma','safety-eng','environmental','bioengineering','food-science','biomedical-eng','architecture','mathematics','physics','chemistry','statistics'];
++    var med = ['clinical-medicine','pharmacy','nursing','stomatology','public-health','medical-technology','basic-medicine','tcm','integrated-medicine','chinese-pharmacy','forensic-medicine','veterinary','biology','plant-production','animal-production','environmental-ecology','forestry','aquaculture','grassland-science'];
++    var biz = ['economics-class','finance','international-trade','public-finance','business-administration','accounting','financial-management','auditing','public-administration','management-science','e-commerce','tourism-management','logistics','industrial-engineering','agri-economics','library-science'];
++    var art = ['design','fine-arts','music-dance','drama-film','art-theory'];
++    elec.forEach(function(s) { CATEGORY_DOMAIN[s] = 'stem'; });
++    med.forEach(function(s) { CATEGORY_DOMAIN[s] = 'life_health'; });
++    biz.forEach(function(s) { CATEGORY_DOMAIN[s] = 'business'; });
++    art.forEach(function(s) { CATEGORY_DOMAIN[s] = 'art_creative'; });
++  })();
++  function getCategoryDomain(slug) { return CATEGORY_DOMAIN[slug] || 'humanities'; }
++  function inferPrimaryDomain(dimScores, bucketScores) {
++    var strongElec = (dimScores['engineering_practice'] || 0) >= 30 || (dimScores['info_systems'] || 0) >= 30;
++    var strongMed = (dimScores['life_health_interest'] || 0) >= 30;
++    var strongBiz = (dimScores['business_sense'] || 0) >= 50;
++    var strongHum = (dimScores['reading_expression'] || 0) >= 40 || (dimScores['abstract_theory'] || 0) >= 40;
++    if (strongElec) return 'stem';
++    if (strongMed) return 'life_health';
++    if (strongBiz) return 'business';
++    if (strongHum) return 'humanities';
++    var topBucket = null, topScore = 0;
++    Object.keys(bucketScores).forEach(function(k) { if (bucketScores[k] > topScore) { topScore = bucketScores[k]; topBucket = k; } });
++    if (topScore > 40) {
++      if (topBucket === 'business') return 'business';
++      if (topBucket === 'stem') return 'stem';
++      if (topBucket === 'life_health') return 'life_health';
++    }
++    return 'unknown';
++  }
++
+   // v0.5 小众探索引擎
+   function computeNicheExplorations(scored, recommended, cautious, dimScores) {
+     var niche = [];
+@@ -745,6 +836,21 @@
+     var refined = computeRefinedBucketScores(raw, dim);
+     var disc = generateDisciplineRecommendations(refined);
+     var cats = generateCategoryRecommendations(refined, dim, riskTags, disc);
++
++    // v0.19.5: 领域感知 fallback — 尊重主兴趣领域
++    if (cats.recommended.length === 0 && cats.optional.length > 0) {
++      var primaryDomain = inferPrimaryDomain(dim, refined);
++      var sameDomain = cats.optional.filter(function(c) {
++        return getCategoryDomain(c.slug) === primaryDomain;
++      });
++      if (sameDomain.length > 0) {
++        cats.recommended = [sameDomain[0]];
++        cats.optional = cats.optional.filter(function(c) { return c.slug !== sameDomain[0].slug; });
++      } else {
++        cats.recommended = [cats.optional.shift()];
++      }
++    }
++
+     var risks = generateRiskResults(riskTags, cats.recommended, cats.cautious);
+     var conf = determineConfidence(refined, userType);
+     var prof = generateProfile(refined, userType);
+diff --git a/scripts/simulate_v05.ts b/scripts/simulate_v05.ts
+index 2c3c926..b141793 100644
+--- a/scripts/simulate_v05.ts
++++ b/scripts/simulate_v05.ts
+@@ -72,7 +72,7 @@ function dimFromHints(h: any): Record<string,number> {
+ function scoreGates(bs: Record<string,number>) {
+   const gs = new Map<string,number>();
+   Object.entries(B2D).forEach(([b, discs]) => { const s = bs[b]||0; discs.forEach(d => { const c = s*d.weight/100; const ex = gs.get(d.gateCode)||0; gs.set(d.gateCode, Math.max(ex,c)+(ex>0?c*0.3:0)); }); });
+-  return Array.from(gs.entries()).filter(([,s]) => s>=12).sort((a,b)=>b[1]-a[1]).map(([c,s])=>({code:c,score:s}));
++  return Array.from(gs.entries()).filter(([,s]) => s>=8).sort((a,b)=>b[1]-a[1]).map(([c,s])=>({code:c,score:s}));
+ }
+ 
+ function scoreCategory(slug:string, weight:number, bs:Record<string,number>, dimScores:Record<string,number>, gateMaxW:number) {
+@@ -80,7 +80,15 @@ function scoreCategory(slug:string, weight:number, bs:Record<string,number>, dim
+   const f = (fieldsRaw as any)[slug] || {};
+   const profile = CATEGORY_DIM_PROFILES[slug];
+   let bScore=0,bCount=0; buckets.forEach((b:string) => { bScore+=bs[b]||0; bCount++; });
+-  const bucketMatch = bCount>0?bScore/bCount:0;
++  let bucketMatch = bCount>0?bScore/bCount:0;
++  // 数学保护：对 STEM-heavy 专业类，低数学用户降权（而非砍掉）
++  const isStemCat = buckets.includes('stem');
++  if (isStemCat && dimScores.math_logic < 20) {
++    const engBoost = dimScores.engineering_practice >= 25 || dimScores.info_systems >= 25;
++    bucketMatch = engBoost ? bucketMatch * 0.75 : bucketMatch * 0.5;
++  } else if (isStemCat && dimScores.math_logic < 35) {
++    bucketMatch = bucketMatch * 0.85;
++  }
+   // Dim score from profile
+   let dimAvg = 25;
+   if (profile?.positiveDims?.length) {
+@@ -119,9 +127,20 @@ function runSimPersona(persona: any, allSlugs: string[]) {
+   const aff = persona.sixBucketAffinity || {};
+   ['stem','life_health','business','social_science','humanities','art_creative'].forEach(b => { bsInput[b] = aff[b] !== undefined ? aff[b] : 10; });
+   const dimScores = dimFromHints(persona.answerStyleHints || {});
+-  const gates = scoreGates(bsInput);
+-  const gateSet = new Set(gates.map(g=>g.code));
++  let gates = scoreGates(bsInput);
+   const gateScores: Record<string,number> = {}; gates.forEach(g => gateScores[g.code] = g.score);
++  // 探索型兜底：若无任何门类通过阈值，用最高桶得分生成 fallback gate
++  if (gates.length === 0) {
++    const sorted = Object.entries(bsInput).sort(([,a],[,b]) => b-a);
++    const [topBucket, topScore] = sorted[0];
++    const fallbackDiscs = B2D[topBucket] || [];
++    if (fallbackDiscs.length > 0 && topScore > 0) {
++      const best = fallbackDiscs.reduce((a, b) => a.weight > b.weight ? a : b);
++      gates = [{ code: best.gateCode, score: Math.round(topScore * best.weight / 100) }];
++      gates.forEach(g => gateScores[g.code] = g.score);
++    }
++  }
++  const gateSet = new Set(gates.map(g=>g.code));
+   
+   const allCats: any[] = []; allSlugs.forEach(slug => {
+     const gate = catToGate[slug];
+@@ -136,8 +155,13 @@ function runSimPersona(persona: any, allSlugs: string[]) {
+   });
+   
+   allCats.sort((a,b) => b.score - a.score);
++  // 探索型降低门槛：若仍无推荐，从 optional 中补 1-2 个
+   const recommended = allCats.filter(c => c.score >= 55 && c.passTopGate).slice(0, 5);
+   const optional = allCats.filter(c => c.score >= 35 && !recommended.includes(c)).slice(0, 4);
++  // fallback: 若推荐为空但有可选项，提升最高可选项为推荐
++  if (recommended.length === 0 && optional.length > 0) {
++    recommended.push(optional.shift()!);
++  }
+   const cautious = allCats.filter(c => {
+     return !recommended.includes(c) && !optional.includes(c) && (c.fields.blindChoiceRisk === 'high' || c.fields.longCyclePressure === 'high' || c.fields.requiresSpecialCondition || c.fields.schoolTierSensitive || c.fields.commonMisunderstandingRisk === 'high');
+   }).slice(0, 4);
+diff --git a/simulation-results/summary_v05_audit.md b/simulation-results/summary_v05_audit.md
+index 501cd1a..35ff72e 100644
+--- a/simulation-results/summary_v05_audit.md
++++ b/simulation-results/summary_v05_audit.md
+@@ -4,80 +4,42 @@
+ 
+ ## 覆盖率
+ 
+-- 主推荐覆盖: 29/93 (31.2%)
+-- 主推荐+探索总覆盖: 36/93 (38.7%)
++- 主推荐覆盖: 27/93 (29.0%)
++- 主推荐+探索总覆盖: 29/93 (31.2%)
+ 
+-## 未出现诊断 (57 类)
++## 未出现诊断 (19 类)
+ 
+ ## 未出现原因分类
+ 
+-### 需人工复核（37 类）
++### 需人工复核（18 类）
+ 
+-交叉学科类、经济与贸易类、体育学类、新闻传播学类、数学类、物理学类、化学类、生物科学类、统计学类、心理学类、地理科学类、仪器类、机械类、化工与制药类、交通运输类、环境科学与工程类、生物工程类、食品科学与工程类、土木类、材料类、生物医学工程类、植物生产类、自然保护与环境生态类、动物生产类、药学类、中医学类、公共卫生与预防医学类、口腔医学类、中西医结合类、中药学类、医学技术类、基础医学类、公共管理类、管理科学与工程类、旅游管理类、物流管理与工程类、工业工程类
++经济与贸易类、体育学类、数学类、物理学类、化学类、生物科学类、统计学类、机械类、土木类、材料类、生物医学工程类、自然保护与环境生态类、动物生产类、公共卫生与预防医学类、口腔医学类、医学技术类、公共管理类、管理科学与工程类
+ 
+-### 合理低频（冷门专业）（20 类）
++### 合理低频（冷门专业）（1 类）
+ 
+-大气科学类、海洋科学类、地质学类、水利类、航空航天类、力学类、测绘类、安全科学与工程类、地质类、核工程类、海洋工程类、轻工类、公安技术类、矿业类、纺织类、兵器类、林业工程类、法医学类、图书情报与档案管理类、农业经济管理类
++航空航天类
+ 
+ 
+-总计：57 类未出现
++总计：19 类未出现
+ 
+ ## 未出现详情
+ 
+-- **交叉学科类** (weight=6, hiOnly=false): needs_review → 需人工复核：可能画像和权重都合理但分数刚好不够。建议检查 DIM_MATCH 映射或阈值。
+ - **经济与贸易类** (weight=8, hiOnly=false): needs_review → 需人工复核：可能画像和权重都合理但分数刚好不够。建议检查 DIM_MATCH 映射或阈值。
+ - **体育学类** (weight=7, hiOnly=false): needs_review → 需人工复核：可能画像和权重都合理但分数刚好不够。建议检查 DIM_MATCH 映射或阈值。
+-- **新闻传播学类** (weight=13, hiOnly=false): needs_review → 需人工复核：可能画像和权重都合理但分数刚好不够。建议检查 DIM_MATCH 映射或阈值。
+ - **数学类** (weight=9, hiOnly=false): needs_review → 需人工复核：可能画像和权重都合理但分数刚好不够。建议检查 DIM_MATCH 映射或阈值。
+ - **物理学类** (weight=7, hiOnly=false): needs_review → 需人工复核：可能画像和权重都合理但分数刚好不够。建议检查 DIM_MATCH 映射或阈值。
+ - **化学类** (weight=6, hiOnly=false): needs_review → 需人工复核：可能画像和权重都合理但分数刚好不够。建议检查 DIM_MATCH 映射或阈值。
+ - **生物科学类** (weight=12, hiOnly=false): needs_review → 需人工复核：可能画像和权重都合理但分数刚好不够。建议检查 DIM_MATCH 映射或阈值。
+ - **统计学类** (weight=16, hiOnly=false): needs_review → 需人工复核：可能画像和权重都合理但分数刚好不够。建议检查 DIM_MATCH 映射或阈值。
+-- **心理学类** (weight=11, hiOnly=false): needs_review → 需人工复核：可能画像和权重都合理但分数刚好不够。建议检查 DIM_MATCH 映射或阈值。
+-- **地理科学类** (weight=7, hiOnly=false): needs_review → 需人工复核：可能画像和权重都合理但分数刚好不够。建议检查 DIM_MATCH 映射或阈值。
+-- **大气科学类** (weight=3, hiOnly=true): reasonable_low_frequency → 极冷门专业，低频出现是正常的。coverage-audit 模式中应能出现。
+-- **海洋科学类** (weight=3, hiOnly=true): reasonable_low_frequency → 极冷门专业，低频出现是正常的。coverage-audit 模式中应能出现。
+-- **地质学类** (weight=3, hiOnly=true): reasonable_low_frequency → 极冷门专业，低频出现是正常的。coverage-audit 模式中应能出现。
+-- **仪器类** (weight=8, hiOnly=false): needs_review → 需人工复核：可能画像和权重都合理但分数刚好不够。建议检查 DIM_MATCH 映射或阈值。
+ - **机械类** (weight=10, hiOnly=false): needs_review → 需人工复核：可能画像和权重都合理但分数刚好不够。建议检查 DIM_MATCH 映射或阈值。
+-- **化工与制药类** (weight=7, hiOnly=false): needs_review → 需人工复核：可能画像和权重都合理但分数刚好不够。建议检查 DIM_MATCH 映射或阈值。
+-- **交通运输类** (weight=7, hiOnly=false): needs_review → 需人工复核：可能画像和权重都合理但分数刚好不够。建议检查 DIM_MATCH 映射或阈值。
+-- **环境科学与工程类** (weight=7, hiOnly=false): needs_review → 需人工复核：可能画像和权重都合理但分数刚好不够。建议检查 DIM_MATCH 映射或阈值。
+-- **生物工程类** (weight=7, hiOnly=false): needs_review → 需人工复核：可能画像和权重都合理但分数刚好不够。建议检查 DIM_MATCH 映射或阈值。
+-- **食品科学与工程类** (weight=6, hiOnly=false): needs_review → 需人工复核：可能画像和权重都合理但分数刚好不够。建议检查 DIM_MATCH 映射或阈值。
+-- **水利类** (weight=5, hiOnly=false): reasonable_low_frequency → 极冷门专业，低频出现是正常的。coverage-audit 模式中应能出现。
+ - **土木类** (weight=7, hiOnly=false): needs_review → 需人工复核：可能画像和权重都合理但分数刚好不够。建议检查 DIM_MATCH 映射或阈值。
+ - **材料类** (weight=7, hiOnly=false): needs_review → 需人工复核：可能画像和权重都合理但分数刚好不够。建议检查 DIM_MATCH 映射或阈值。
+ - **航空航天类** (weight=5, hiOnly=false): reasonable_low_frequency → 极冷门专业，低频出现是正常的。coverage-audit 模式中应能出现。
+ - **生物医学工程类** (weight=6, hiOnly=false): needs_review → 需人工复核：可能画像和权重都合理但分数刚好不够。建议检查 DIM_MATCH 映射或阈值。
+-- **力学类** (weight=4, hiOnly=false): reasonable_low_frequency → 极冷门专业，低频出现是正常的。coverage-audit 模式中应能出现。
+-- **测绘类** (weight=4, hiOnly=false): reasonable_low_frequency → 极冷门专业，低频出现是正常的。coverage-audit 模式中应能出现。
+-- **安全科学与工程类** (weight=4, hiOnly=false): reasonable_low_frequency → 极冷门专业，低频出现是正常的。coverage-audit 模式中应能出现。
+-- **地质类** (weight=3, hiOnly=false): reasonable_low_frequency → 极冷门专业，低频出现是正常的。coverage-audit 模式中应能出现。
+-- **核工程类** (weight=3, hiOnly=true): reasonable_low_frequency → 极冷门专业，低频出现是正常的。coverage-audit 模式中应能出现。
+-- **海洋工程类** (weight=3, hiOnly=false): reasonable_low_frequency → 极冷门专业，低频出现是正常的。coverage-audit 模式中应能出现。
+-- **轻工类** (weight=3, hiOnly=true): reasonable_low_frequency → 极冷门专业，低频出现是正常的。coverage-audit 模式中应能出现。
+-- **公安技术类** (weight=3, hiOnly=false): reasonable_low_frequency → 极冷门专业，低频出现是正常的。coverage-audit 模式中应能出现。
+-- **矿业类** (weight=3, hiOnly=true): reasonable_low_frequency → 极冷门专业，低频出现是正常的。coverage-audit 模式中应能出现。
+-- **纺织类** (weight=3, hiOnly=true): reasonable_low_frequency → 极冷门专业，低频出现是正常的。coverage-audit 模式中应能出现。
+-- **兵器类** (weight=3, hiOnly=true): reasonable_low_frequency → 极冷门专业，低频出现是正常的。coverage-audit 模式中应能出现。
+-- **林业工程类** (weight=3, hiOnly=true): reasonable_low_frequency → 极冷门专业，低频出现是正常的。coverage-audit 模式中应能出现。
+-- **植物生产类** (weight=10, hiOnly=false): needs_review → 需人工复核：可能画像和权重都合理但分数刚好不够。建议检查 DIM_MATCH 映射或阈值。
+ - **自然保护与环境生态类** (weight=9, hiOnly=false): needs_review → 需人工复核：可能画像和权重都合理但分数刚好不够。建议检查 DIM_MATCH 映射或阈值。
+ - **动物生产类** (weight=9, hiOnly=false): needs_review → 需人工复核：可能画像和权重都合理但分数刚好不够。建议检查 DIM_MATCH 映射或阈值。
+-- **药学类** (weight=12, hiOnly=false): needs_review → 需人工复核：可能画像和权重都合理但分数刚好不够。建议检查 DIM_MATCH 映射或阈值。
+-- **中医学类** (weight=11, hiOnly=false): needs_review → 需人工复核：可能画像和权重都合理但分数刚好不够。建议检查 DIM_MATCH 映射或阈值。
+ - **公共卫生与预防医学类** (weight=9, hiOnly=false): needs_review → 需人工复核：可能画像和权重都合理但分数刚好不够。建议检查 DIM_MATCH 映射或阈值。
+ - **口腔医学类** (weight=14, hiOnly=false): needs_review → 需人工复核：可能画像和权重都合理但分数刚好不够。建议检查 DIM_MATCH 映射或阈值。
+-- **中西医结合类** (weight=7, hiOnly=false): needs_review → 需人工复核：可能画像和权重都合理但分数刚好不够。建议检查 DIM_MATCH 映射或阈值。
+-- **中药学类** (weight=7, hiOnly=false): needs_review → 需人工复核：可能画像和权重都合理但分数刚好不够。建议检查 DIM_MATCH 映射或阈值。
+ - **医学技术类** (weight=8, hiOnly=false): needs_review → 需人工复核：可能画像和权重都合理但分数刚好不够。建议检查 DIM_MATCH 映射或阈值。
+-- **基础医学类** (weight=6, hiOnly=false): needs_review → 需人工复核：可能画像和权重都合理但分数刚好不够。建议检查 DIM_MATCH 映射或阈值。
+-- **法医学类** (weight=5, hiOnly=false): reasonable_low_frequency → 极冷门专业，低频出现是正常的。coverage-audit 模式中应能出现。
+ - **公共管理类** (weight=10, hiOnly=false): needs_review → 需人工复核：可能画像和权重都合理但分数刚好不够。建议检查 DIM_MATCH 映射或阈值。
+ - **管理科学与工程类** (weight=9, hiOnly=false): needs_review → 需人工复核：可能画像和权重都合理但分数刚好不够。建议检查 DIM_MATCH 映射或阈值。
+-- **旅游管理类** (weight=8, hiOnly=false): needs_review → 需人工复核：可能画像和权重都合理但分数刚好不够。建议检查 DIM_MATCH 映射或阈值。
+-- **物流管理与工程类** (weight=7, hiOnly=false): needs_review → 需人工复核：可能画像和权重都合理但分数刚好不够。建议检查 DIM_MATCH 映射或阈值。
+-- **工业工程类** (weight=7, hiOnly=false): needs_review → 需人工复核：可能画像和权重都合理但分数刚好不够。建议检查 DIM_MATCH 映射或阈值。
+-- **图书情报与档案管理类** (weight=5, hiOnly=false): reasonable_low_frequency → 极冷门专业，低频出现是正常的。coverage-audit 模式中应能出现。
+-- **农业经济管理类** (weight=3, hiOnly=false): reasonable_low_frequency → 极冷门专业，低频出现是正常的。coverage-audit 模式中应能出现。
+diff --git a/simulation-results/summary_v05_realistic.md b/simulation-results/summary_v05_realistic.md
+index 070e2e0..ca4a072 100644
+--- a/simulation-results/summary_v05_realistic.md
++++ b/simulation-results/summary_v05_realistic.md
+@@ -1,61 +1,61 @@
+ # v0.5 realistic 模式
+ 
+-> runs=500 seed=1303
++> runs=200 seed=606
+ 
+-## 主推荐覆盖率: 36/93 (38.7%)
++## 主推荐覆盖率: 32/93 (34.4%)
+ 
+ ## 主推荐 Top20
+ 
+ | # | 专业类 | 次数 | % |
+ |---|--------|:--:|:--:|
+-| 1 | 计算机类 | 168 | 34% |
+-| 2 | 电子信息类 | 168 | 34% |
+-| 3 | 能源动力类 | 168 | 34% |
+-| 4 | 自动化类 | 168 | 34% |
+-| 5 | 临床医学类 | 160 | 32% |
+-| 6 | 动物医学类 | 160 | 32% |
+-| 7 | 护理学类 | 156 | 31% |
+-| 8 | 水产类 | 143 | 29% |
+-| 9 | 草学类 | 143 | 29% |
+-| 10 | 电气类 | 129 | 26% |
+-| 11 | 经济学类 | 76 | 15% |
+-| 12 | 金融学类 | 73 | 15% |
+-| 13 | 工商管理类 | 73 | 15% |
+-| 14 | 财政学类 | 73 | 15% |
+-| 15 | 电子商务类 | 54 | 11% |
+-| 16 | 教育学类 | 51 | 10% |
+-| 17 | 法学类 | 51 | 10% |
+-| 18 | 政治学类 | 51 | 10% |
+-| 19 | 社会学类 | 51 | 10% |
+-| 20 | 马克思主义理论类 | 51 | 10% |
++| 1 | 计算机类 | 70 | 35% |
++| 2 | 电子信息类 | 69 | 35% |
++| 3 | 自动化类 | 69 | 35% |
++| 4 | 电气类 | 69 | 35% |
++| 5 | 临床医学类 | 51 | 26% |
++| 6 | 动物医学类 | 51 | 26% |
++| 7 | 护理学类 | 51 | 26% |
++| 8 | 植物生产类 | 50 | 25% |
++| 9 | 数学类 | 50 | 25% |
++| 10 | 经济学类 | 37 | 19% |
++| 11 | 金融学类 | 35 | 18% |
++| 12 | 工商管理类 | 35 | 18% |
++| 13 | 口腔医学类 | 34 | 17% |
++| 14 | 旅游管理类 | 33 | 17% |
++| 15 | 电子商务类 | 29 | 14% |
++| 16 | 教育学类 | 24 | 12% |
++| 17 | 美术学类 | 21 | 11% |
++| 18 | 戏剧与影视学类 | 21 | 11% |
++| 19 | 音乐与舞蹈学类 | 21 | 11% |
++| 20 | 机械类 | 19 | 10% |
+ 
+ ## 热门检查
+-- 计算机类: 168次(34%) ✅
+-- 金融学类: 73次(15%) ✅
+-- 法学类: 51次(10%) ✅
+-- 临床医学类: 160次(32%) ✅
+-- 哲学类: 24次(5%) ✅
+-- 历史学类: 24次(5%) ✅
++- 计算机类: 70次(35%) ✅
++- 金融学类: 35次(18%) ✅
++- 法学类: 18次(9%) ✅
++- 临床医学类: 51次(26%) ✅
++- 哲学类: 6次(3%) ✅
++- 历史学类: 6次(3%) ✅
+ 
+-## 未出现类 (57)
++## 未出现类 (61)
+ - 交叉学科类
+-- 经济与贸易类
+-- 公安学类
+-- 民族学类
++- public-finance
++- marxism
++- public-security
++- ethnology
+ - 体育学类
+-- 数学类
+ - 物理学类
+ - 化学类
+ - 生物科学类
+-- 心理学类
+-- 地理科学类
+-- 天文学类
+-- 大气科学类
+-- 海洋科学类
+-- 地球物理学类
+-- 地质学类
+-- 仪器类
+-- 化工与制药类
+-- 交通运输类
+-- 环境科学与工程类
+-- ... 共 57 类
++- psychology
++- geography
++- astronomy
++- atmospheric-science
++- ocean-science
++- geophysics
++- geology
++- energy-power
++- instrumentation
++- chemical-pharma
++- transportation
++- ... 共 61 类
+diff --git a/simulation-results/v04_fields.json b/simulation-results/v04_fields.json
+index 576440f..6591b03 100644
+--- a/simulation-results/v04_fields.json
++++ b/simulation-results/v04_fields.json
+@@ -835,5 +835,32 @@
+     "longCyclePressure": "low",
+     "schoolTierSensitive": false,
+     "commonMisunderstandingRisk": "low"
++  },
++  "accounting": {
++    "resourceDependency": "low",
++    "blindChoiceRisk": "low",
++    "requiresSpecialCondition": false,
++    "recommendedOnlyIfHighInterest": false,
++    "longCyclePressure": "low",
++    "schoolTierSensitive": false,
++    "commonMisunderstandingRisk": "low"
++  },
++  "financial-management": {
++    "resourceDependency": "low",
++    "blindChoiceRisk": "low",
++    "requiresSpecialCondition": false,
++    "recommendedOnlyIfHighInterest": false,
++    "longCyclePressure": "low",
++    "schoolTierSensitive": false,
++    "commonMisunderstandingRisk": "low"
++  },
++  "auditing": {
++    "resourceDependency": "low",
++    "blindChoiceRisk": "low",
++    "requiresSpecialCondition": false,
++    "recommendedOnlyIfHighInterest": false,
++    "longCyclePressure": "low",
++    "schoolTierSensitive": false,
++    "commonMisunderstandingRisk": "low"
+   }
+ }
+\ No newline at end of file
+diff --git a/simulation-results/v04_weights_raw.json b/simulation-results/v04_weights_raw.json
+index ecd5e6c..bd9e1d8 100644
+--- a/simulation-results/v04_weights_raw.json
++++ b/simulation-results/v04_weights_raw.json
+@@ -91,5 +91,8 @@
+   "fine-arts": 9,
+   "drama-film": 8,
+   "music-dance": 9,
+-  "art-theory": 4
++  "art-theory": 4,
++  "accounting": 13,
++  "financial-management": 12,
++  "auditing": 10
+ }
+\ No newline at end of file
+diff --git a/src/data/categoryDimProfiles.ts b/src/data/categoryDimProfiles.ts
+index 828d874..04085be 100644
+--- a/src/data/categoryDimProfiles.ts
++++ b/src/data/categoryDimProfiles.ts
+@@ -58,6 +58,48 @@ export const CATEGORY_DIM_PROFILES: Record<string, CategoryDimProfile> = {
+     nicheExplorationTriggers: ['math_logic', 'engineering_practice'],
+   // 无需人工校准
+   },
++  'accounting': {
++    categorySlug: 'accounting',
++    categoryName: '会计学',
++    positiveDims: ['business_sense', 'rule_detail', 'math_logic'],
++    strongPositiveDims: ['business_sense', 'rule_detail'],
++    weakPositiveDims: ['stable_path'],
++    negativeDims: [],
++    strongNegativeDims: [],
++    interestSignals: ['对商业/管理/经济方向有兴趣', '对数字/财务/报表有兴趣'],
++    learningStyleSignals: ['能接受规则细节/数据核对/耐心'],
++    gateBypassDims: ['business_sense', 'rule_detail'],
++    nicheExplorationTriggers: ['business_sense', 'rule_detail'],
++    notes: '会计学需要规则感和细致耐心，适合喜欢和数字打交道的用户',
++  },
++  'financial-management': {
++    categorySlug: 'financial-management',
++    categoryName: '财务管理',
++    positiveDims: ['business_sense', 'math_logic', 'rule_detail'],
++    strongPositiveDims: ['business_sense', 'math_logic'],
++    weakPositiveDims: ['stable_path'],
++    negativeDims: [],
++    strongNegativeDims: [],
++    interestSignals: ['对商业/管理/经济方向有兴趣', '对财务/投资/融资有兴趣'],
++    learningStyleSignals: ['能接受数据分析/财务建模/决策'],
++    gateBypassDims: ['business_sense', 'math_logic'],
++    nicheExplorationTriggers: ['business_sense', 'math_logic'],
++    notes: '财务管理需要商业敏感度和数据分析能力',
++  },
++  'auditing': {
++    categorySlug: 'auditing',
++    categoryName: '审计学',
++    positiveDims: ['rule_detail', 'business_sense', 'math_logic'],
++    strongPositiveDims: ['rule_detail', 'business_sense'],
++    weakPositiveDims: ['stable_path'],
++    negativeDims: [],
++    strongNegativeDims: [],
++    interestSignals: ['对商业/管理/经济方向有兴趣', '对规则/合规/审查有兴趣'],
++    learningStyleSignals: ['能接受规则细节/数据核对/耐心'],
++    gateBypassDims: ['rule_detail', 'business_sense'],
++    nicheExplorationTriggers: ['rule_detail', 'business_sense'],
++    notes: '审计学需要极强的规则感和细致耐心',
++  },
+   'agri-economics': {
+     categorySlug: 'agri-economics',
+     categoryName: '农业经济管理类',
+diff --git a/src/data/recommendationWeights.ts b/src/data/recommendationWeights.ts
+index bbfcdae..4d21926 100644
+--- a/src/data/recommendationWeights.ts
++++ b/src/data/recommendationWeights.ts
+@@ -170,6 +170,9 @@ export const GATE_PRIORITY_CATEGORIES: Record<
+   ],
+   '12': [ // 管理学
+     { categorySlug: 'business-administration', buckets: ['business'], weight: 14 },
++    { categorySlug: 'accounting', buckets: ['business'], weight: 13 },
++    { categorySlug: 'financial-management', buckets: ['business'], weight: 12 },
++    { categorySlug: 'auditing', buckets: ['business'], weight: 10 },
+     { categorySlug: 'public-administration', buckets: ['business', 'social_science'], weight: 10 },
+     { categorySlug: 'management-science', buckets: ['business', 'stem'], weight: 9 },
+     { categorySlug: 'e-commerce', buckets: ['business'], weight: 9 },
+@@ -196,12 +199,12 @@ export const GATE_PRIORITY_CATEGORIES: Record<
+ /** 风险标签 → 受影响的专业类 slug */
+ export const RISK_CATEGORY_PENALTIES: Record<RiskTag, { slugs: string[]; penalty: number; reason: string }> = {
+   trend_chasing: {
+-    slugs: ['computer-science', 'electronic-information', 'finance', 'business-administration'],
++    slugs: ['computer-science', 'electronic-information'],
+     penalty: 30,
+     reason: '你可能因为热门才关注这个方向，建议先看看它到底学什么',
+   },
+   salary_misconception: {
+-    slugs: ['computer-science', 'finance', 'business-administration'],
++    slugs: ['computer-science'],
+     penalty: 10,
+     reason: '高薪不等于适合你，建议先了解真实学习内容和压力',
+   },
+diff --git a/src/utils/scoring.ts b/src/utils/scoring.ts
+index 23d9ea3..80b306e 100644
+--- a/src/utils/scoring.ts
++++ b/src/utils/scoring.ts
+@@ -140,12 +140,19 @@ export function computeRefinedBucketScores(
+     refined[key] = Math.round(rawBucketScores[key] * 0.4 + dimBucketScores[key] * 0.6);
+   }
+ 
+-  // 数学保护：低数学用户不应被强推 STEM（v0.16.1）
++  // 数学保护：低数学用户降权 STEM（v0.16.1, v0.19.5 修复）
+   const mathScore = dimScores['math_logic'] ?? 50;
+   if (mathScore < 20) {
+-    refined.stem = Math.round(refined.stem * 0.4); // 减 60%
++    const engBoost = (dimScores['engineering_practice'] ?? 0) >= 25 || (dimScores['info_systems'] ?? 0) >= 25;
++    refined.stem = Math.round(refined.stem * (engBoost ? 0.75 : 0.5));
+   } else if (mathScore < 35) {
+-    refined.stem = Math.round(refined.stem * 0.7); // 减 30%
++    refined.stem = Math.round(refined.stem * 0.85);
++  }
++
++  // 生命健康保护：低 life_health 用户降权医学方向（v0.19.5 新增）
++  const lifeScore = dimScores['life_health_interest'] ?? 0;
++  if (lifeScore < 20) {
++    refined.life_health = Math.round(refined.life_health * 0.3);
+   }
+ 
+   return normalizeScores(refined);
+@@ -210,7 +217,7 @@ export function generateDisciplineRecommendations(
+       };
+     });
+ 
+-  return sorted.filter((d) => d.score >= 20);
++  return sorted.filter((d) => d.score >= 8);
+ }
+ 
+ function buildGateReason(bucket: DirectionBucket, gateName: string): string {
+@@ -265,6 +272,9 @@ const DIM_MATCH: Record<string, Dimension[]> = {
+ 
+   // 管理学
+   'business-administration': ['business_sense', 'interpersonal'],
++  'accounting': ['business_sense', 'rule_detail', 'math_logic'],
++  'financial-management': ['business_sense', 'math_logic', 'rule_detail'],
++  'auditing': ['rule_detail', 'business_sense', 'math_logic'],
+   'public-administration': ['interpersonal', 'stable_path', 'rule_detail'],
+   'management-science': ['business_sense', 'math_logic', 'info_systems'],
+   'e-commerce': ['business_sense', 'info_systems', 'interpersonal'],
+@@ -384,6 +394,10 @@ export function generateCategoryRecommendations(
+         score = score * (1 - DIM_MATCH_WEIGHT) + dimScore * DIM_MATCH_WEIGHT;
+       }
+ 
++      // 临床医学/口腔医学乘法惩罚：不轻易进 recommended（v0.19.5 新增）
++      if (cat.categorySlug === 'clinical-medicine') score *= 0.65;
++      if (cat.categorySlug === 'stomatology') score *= 0.70;
++
+       // 维度修饰
+       const topDims = getTopDimensions(dimScores, cat.buckets, 2);
+ 
+@@ -415,6 +429,37 @@ export function generateCategoryRecommendations(
+     }
+   }
+ 
++  // v0.19.5: hotTrendRisk 后处理
++  const hasHotTrend = riskTags.includes('trend_chasing');
++  const hasProgramming = (dimScores['info_systems'] ?? 0) >= 40;
++  const hasEngineering = (dimScores['engineering_practice'] ?? 0) >= 30;
++
++  if (hasHotTrend) {
++    // 若缺乏编程/工程信号，高强工科不得作为计算机降级后的替代
++    if (!hasProgramming && !hasEngineering) {
++      const substituteSlugs = ['mechanical', 'electrical', 'civil-engineering', 'automation', 'energy-power'];
++      for (const slug of substituteSlugs) {
++        const existing = penalized.get(slug);
++        if (!existing) {
++          penalized.set(slug, {
++            penalty: 25,
++            reason: '热门跟风降级——不要盲目换一个高强度专业',
++          });
++        }
++      }
++    }
++    // 若具备编程兴趣/自学能力，计算机类降为 possible 而非 cautious
++    if (hasProgramming) {
++      const csPenalty = penalized.get('computer-science');
++      if (csPenalty && csPenalty.penalty >= 25) {
++        penalized.set('computer-science', {
++          penalty: 15,
++          reason: csPenalty.reason + '（但你有一定的编程兴趣，可以进一步了解）',
++        });
++      }
++    }
++  }
++
+   // 分级
+   const recommended: CategoryRecommendation[] = [];
+   const optional: CategoryRecommendation[] = [];
+@@ -427,7 +472,13 @@ export function generateCategoryRecommendations(
+     if (penalty) {
+       cat.score = Math.max(0, cat.score - penalty.penalty);
+       cat.cautions.push(penalty.reason);
+-      cautious.push(cat);
++      // v0.19.5: hotTrend 替代惩罚不强制进 cautious，按调整后分数分级
++      const isSubstitute = penalty.reason.includes('热门跟风降级');
++      if (isSubstitute && cat.score >= 35) {
++        optional.push(cat);
++      } else {
++        cautious.push(cat);
++      }
+     } else if (cat.score >= 55) {
+       recommended.push(cat);
+     } else if (cat.score >= 35) {
+@@ -435,11 +486,30 @@ export function generateCategoryRecommendations(
+     }
+   }
+ 
++  // 去重后处理（v0.19.5）：同一专业类只能属于一个层级
++  // 优先级：cautious > recommended > optional
++  const seenSlugs = new Set<string>();
++  const dedupedCautious = cautious.filter((c) => {
++    if (seenSlugs.has(c.slug)) return false;
++    seenSlugs.add(c.slug);
++    return true;
++  });
++  const dedupedRecommended = recommended.filter((c) => {
++    if (seenSlugs.has(c.slug)) return false;
++    seenSlugs.add(c.slug);
++    return true;
++  });
++  const dedupedOptional = optional.filter((c) => {
++    if (seenSlugs.has(c.slug)) return false;
++    seenSlugs.add(c.slug);
++    return true;
++  });
++
+   // 限制数量：推荐 3-5，可选 2-4，谨慎 2-4
+   return {
+-    recommended: recommended.slice(0, 5),
+-    optional: optional.slice(0, 4),
+-    cautious: cautious.slice(0, 4),
++    recommended: dedupedRecommended.slice(0, 5),
++    optional: dedupedOptional.slice(0, 4),
++    cautious: dedupedCautious.slice(0, 4),
+   };
+ }
+ 
+@@ -581,6 +651,54 @@ function generateDimensionProfile(
+   }));
+ }
+ 
++// ───── 主兴趣领域推断（v0.19.5）─────
++
++/** 专业类 slug → 主兴趣领域 */
++function getCategoryDomain(slug: string): string {
++  const electronicsSlugs = ['computer-science', 'electronic-information', 'automation', 'mechanical', 'electrical', 'civil-engineering', 'energy-power', 'instrumentation', 'aerospace', 'materials', 'transportation', 'chemical-pharma', 'safety-eng', 'environmental', 'bioengineering', 'food-science', 'biomedical-eng', 'architecture'];
++  const medicalSlugs = ['clinical-medicine', 'pharmacy', 'nursing', 'stomatology', 'public-health', 'medical-technology', 'basic-medicine', 'tcm', 'integrated-medicine', 'chinese-pharmacy', 'forensic-medicine', 'veterinary', 'biology', 'plant-production', 'animal-production', 'environmental-ecology', 'forestry', 'aquaculture', 'grassland-science'];
++  const businessSlugs = ['economics-class', 'finance', 'international-trade', 'public-finance', 'business-administration', 'accounting', 'financial-management', 'auditing', 'public-administration', 'management-science', 'e-commerce', 'tourism-management', 'logistics', 'industrial-engineering', 'agri-economics', 'library-science'];
++  const artSlugs = ['design', 'fine-arts', 'music-dance', 'drama-film', 'art-theory'];
++  if (electronicsSlugs.includes(slug)) return 'stem';
++  if (medicalSlugs.includes(slug)) return 'life_health';
++  if (businessSlugs.includes(slug)) return 'business';
++  if (artSlugs.includes(slug)) return 'art_creative';
++  return 'humanities';
++}
++
++/** 从维度和桶得分推断用户主兴趣领域 */
++function inferPrimaryInterestDomain(
++  dimScores: Record<Dimension, number>,
++  bucketScores: BucketScore,
++): string {
++  // 强信号检测（维度得分高于阈值）
++  const strongElectronics = (dimScores['engineering_practice'] ?? 0) >= 30 ||
++    (dimScores['info_systems'] ?? 0) >= 30;
++  const strongMedical = (dimScores['life_health_interest'] ?? 0) >= 30;
++  const strongBusiness = (dimScores['business_sense'] ?? 0) >= 50;
++  const strongHumanities = (dimScores['reading_expression'] ?? 0) >= 40 ||
++    (dimScores['abstract_theory'] ?? 0) >= 40;
++  const strongArt = (dimScores['aesthetic_creation'] ?? 0) >= 40;
++
++  // 桶得分辅助
++  const topBucket = (Object.entries(bucketScores) as [DirectionBucket, number][])
++    .sort(([, a], [, b]) => b - a)[0];
++
++  if (strongElectronics) return 'stem';
++  if (strongMedical) return 'life_health';
++  if (strongBusiness) return 'business';
++  if (strongHumanities && topBucket[0] === 'humanities') return 'humanities';
++  if (strongArt) return 'art_creative';
++
++  // 无强信号时，以最高桶为准
++  if (topBucket[1] > 40) {
++    if (topBucket[0] === 'business') return 'business';
++    if (topBucket[0] === 'stem') return 'stem';
++    if (topBucket[0] === 'life_health') return 'life_health';
++  }
++  return 'unknown';
++}
++
+ // ───── 主流程 ─────
+ 
+ /**
+@@ -612,10 +730,27 @@ export function generateResult(
+   const topDisciplines = generateDisciplineRecommendations(refinedBuckets, userType);
+ 
+   // 4. 专业类推荐
+-  const { recommended, optional, cautious } = generateCategoryRecommendations(
++  let { recommended, optional, cautious } = generateCategoryRecommendations(
+     refinedBuckets, dimScores, riskTags, humanitiesProtected, topDisciplines,
+   );
+ 
++  // 4.5 探索型兜底：若无推荐但从可选中提升一个
++  // v0.19.5 修复：尊重主兴趣领域，不让经济学类成为通用兜底
++  if (recommended.length === 0 && optional.length > 0) {
++    // 推断主兴趣领域
++    const primaryDomain = inferPrimaryInterestDomain(dimScores, refinedBuckets);
++    // 优先从同领域可选类别中提升
++    const sameDomain = optional.filter((c) =>
++      getCategoryDomain(c.slug) === primaryDomain
++    );
++    if (sameDomain.length > 0) {
++      recommended = [sameDomain[0]];
++      optional = optional.filter((c) => c.slug !== sameDomain[0].slug);
++    } else {
++      recommended = [optional.shift()!];
++    }
++  }
++
+   // 5. 避坑
+   const riskResults = generateRiskResults(riskTags, refinedBuckets);
+ 
+@@ -719,6 +854,9 @@ const CAT_NAME_MAP: Record<string, string> = {
+   'public-health': '公共卫生与预防医学类',
+   'medical-technology': '医学技术类',
+   'business-administration': '工商管理类',
++  'accounting': '会计学',
++  'financial-management': '财务管理',
++  'auditing': '审计学',
+   'public-administration': '公共管理类',
+   'management-science': '管理科学与工程类',
+   'e-commerce': '电子商务类',

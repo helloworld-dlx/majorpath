@@ -140,12 +140,19 @@ export function computeRefinedBucketScores(
     refined[key] = Math.round(rawBucketScores[key] * 0.4 + dimBucketScores[key] * 0.6);
   }
 
-  // 数学保护：低数学用户不应被强推 STEM（v0.16.1）
+  // 数学保护：低数学用户降权 STEM（v0.16.1, v0.19.5 修复）
   const mathScore = dimScores['math_logic'] ?? 50;
   if (mathScore < 20) {
-    refined.stem = Math.round(refined.stem * 0.4); // 减 60%
+    const engBoost = (dimScores['engineering_practice'] ?? 0) >= 25 || (dimScores['info_systems'] ?? 0) >= 25;
+    refined.stem = Math.round(refined.stem * (engBoost ? 0.75 : 0.5));
   } else if (mathScore < 35) {
-    refined.stem = Math.round(refined.stem * 0.7); // 减 30%
+    refined.stem = Math.round(refined.stem * 0.85);
+  }
+
+  // 生命健康保护：低 life_health 用户降权医学方向（v0.19.5 新增）
+  const lifeScore = dimScores['life_health_interest'] ?? 0;
+  if (lifeScore < 20) {
+    refined.life_health = Math.round(refined.life_health * 0.3);
   }
 
   return normalizeScores(refined);
@@ -210,7 +217,7 @@ export function generateDisciplineRecommendations(
       };
     });
 
-  return sorted.filter((d) => d.score >= 20);
+  return sorted.filter((d) => d.score >= 8);
 }
 
 function buildGateReason(bucket: DirectionBucket, gateName: string): string {
@@ -265,6 +272,9 @@ const DIM_MATCH: Record<string, Dimension[]> = {
 
   // 管理学
   'business-administration': ['business_sense', 'interpersonal'],
+  'accounting': ['business_sense', 'rule_detail', 'math_logic'],
+  'financial-management': ['business_sense', 'math_logic', 'rule_detail'],
+  'auditing': ['rule_detail', 'business_sense', 'math_logic'],
   'public-administration': ['interpersonal', 'stable_path', 'rule_detail'],
   'management-science': ['business_sense', 'math_logic', 'info_systems'],
   'e-commerce': ['business_sense', 'info_systems', 'interpersonal'],
@@ -384,6 +394,10 @@ export function generateCategoryRecommendations(
         score = score * (1 - DIM_MATCH_WEIGHT) + dimScore * DIM_MATCH_WEIGHT;
       }
 
+      // 临床医学/口腔医学乘法惩罚：不轻易进 recommended（v0.19.5 新增）
+      if (cat.categorySlug === 'clinical-medicine') score *= 0.65;
+      if (cat.categorySlug === 'stomatology') score *= 0.70;
+
       // 维度修饰
       const topDims = getTopDimensions(dimScores, cat.buckets, 2);
 
@@ -415,6 +429,37 @@ export function generateCategoryRecommendations(
     }
   }
 
+  // v0.19.5: hotTrendRisk 后处理
+  const hasHotTrend = riskTags.includes('trend_chasing');
+  const hasProgramming = (dimScores['info_systems'] ?? 0) >= 40;
+  const hasEngineering = (dimScores['engineering_practice'] ?? 0) >= 30;
+
+  if (hasHotTrend) {
+    // 若缺乏编程/工程信号，高强工科不得作为计算机降级后的替代
+    if (!hasProgramming && !hasEngineering) {
+      const substituteSlugs = ['mechanical', 'electrical', 'civil-engineering', 'automation', 'energy-power'];
+      for (const slug of substituteSlugs) {
+        const existing = penalized.get(slug);
+        if (!existing) {
+          penalized.set(slug, {
+            penalty: 25,
+            reason: '热门跟风降级——不要盲目换一个高强度专业',
+          });
+        }
+      }
+    }
+    // 若具备编程兴趣/自学能力，计算机类降为 possible 而非 cautious
+    if (hasProgramming) {
+      const csPenalty = penalized.get('computer-science');
+      if (csPenalty && csPenalty.penalty >= 25) {
+        penalized.set('computer-science', {
+          penalty: 15,
+          reason: csPenalty.reason + '（但你有一定的编程兴趣，可以进一步了解）',
+        });
+      }
+    }
+  }
+
   // 分级
   const recommended: CategoryRecommendation[] = [];
   const optional: CategoryRecommendation[] = [];
@@ -427,7 +472,13 @@ export function generateCategoryRecommendations(
     if (penalty) {
       cat.score = Math.max(0, cat.score - penalty.penalty);
       cat.cautions.push(penalty.reason);
-      cautious.push(cat);
+      // v0.19.5: hotTrend 替代惩罚不强制进 cautious，按调整后分数分级
+      const isSubstitute = penalty.reason.includes('热门跟风降级');
+      if (isSubstitute && cat.score >= 35) {
+        optional.push(cat);
+      } else {
+        cautious.push(cat);
+      }
     } else if (cat.score >= 55) {
       recommended.push(cat);
     } else if (cat.score >= 35) {
@@ -435,11 +486,30 @@ export function generateCategoryRecommendations(
     }
   }
 
+  // 去重后处理（v0.19.5）：同一专业类只能属于一个层级
+  // 优先级：cautious > recommended > optional
+  const seenSlugs = new Set<string>();
+  const dedupedCautious = cautious.filter((c) => {
+    if (seenSlugs.has(c.slug)) return false;
+    seenSlugs.add(c.slug);
+    return true;
+  });
+  const dedupedRecommended = recommended.filter((c) => {
+    if (seenSlugs.has(c.slug)) return false;
+    seenSlugs.add(c.slug);
+    return true;
+  });
+  const dedupedOptional = optional.filter((c) => {
+    if (seenSlugs.has(c.slug)) return false;
+    seenSlugs.add(c.slug);
+    return true;
+  });
+
   // 限制数量：推荐 3-5，可选 2-4，谨慎 2-4
   return {
-    recommended: recommended.slice(0, 5),
-    optional: optional.slice(0, 4),
-    cautious: cautious.slice(0, 4),
+    recommended: dedupedRecommended.slice(0, 5),
+    optional: dedupedOptional.slice(0, 4),
+    cautious: dedupedCautious.slice(0, 4),
   };
 }
 
@@ -581,6 +651,54 @@ function generateDimensionProfile(
   }));
 }
 
+// ───── 主兴趣领域推断（v0.19.5）─────
+
+/** 专业类 slug → 主兴趣领域 */
+function getCategoryDomain(slug: string): string {
+  const electronicsSlugs = ['computer-science', 'electronic-information', 'automation', 'mechanical', 'electrical', 'civil-engineering', 'energy-power', 'instrumentation', 'aerospace', 'materials', 'transportation', 'chemical-pharma', 'safety-eng', 'environmental', 'bioengineering', 'food-science', 'biomedical-eng', 'architecture'];
+  const medicalSlugs = ['clinical-medicine', 'pharmacy', 'nursing', 'stomatology', 'public-health', 'medical-technology', 'basic-medicine', 'tcm', 'integrated-medicine', 'chinese-pharmacy', 'forensic-medicine', 'veterinary', 'biology', 'plant-production', 'animal-production', 'environmental-ecology', 'forestry', 'aquaculture', 'grassland-science'];
+  const businessSlugs = ['economics-class', 'finance', 'international-trade', 'public-finance', 'business-administration', 'accounting', 'financial-management', 'auditing', 'public-administration', 'management-science', 'e-commerce', 'tourism-management', 'logistics', 'industrial-engineering', 'agri-economics', 'library-science'];
+  const artSlugs = ['design', 'fine-arts', 'music-dance', 'drama-film', 'art-theory'];
+  if (electronicsSlugs.includes(slug)) return 'stem';
+  if (medicalSlugs.includes(slug)) return 'life_health';
+  if (businessSlugs.includes(slug)) return 'business';
+  if (artSlugs.includes(slug)) return 'art_creative';
+  return 'humanities';
+}
+
+/** 从维度和桶得分推断用户主兴趣领域 */
+function inferPrimaryInterestDomain(
+  dimScores: Record<Dimension, number>,
+  bucketScores: BucketScore,
+): string {
+  // 强信号检测（维度得分高于阈值）
+  const strongElectronics = (dimScores['engineering_practice'] ?? 0) >= 30 ||
+    (dimScores['info_systems'] ?? 0) >= 30;
+  const strongMedical = (dimScores['life_health_interest'] ?? 0) >= 30;
+  const strongBusiness = (dimScores['business_sense'] ?? 0) >= 50;
+  const strongHumanities = (dimScores['reading_expression'] ?? 0) >= 40 ||
+    (dimScores['abstract_theory'] ?? 0) >= 40;
+  const strongArt = (dimScores['aesthetic_creation'] ?? 0) >= 40;
+
+  // 桶得分辅助
+  const topBucket = (Object.entries(bucketScores) as [DirectionBucket, number][])
+    .sort(([, a], [, b]) => b - a)[0];
+
+  if (strongElectronics) return 'stem';
+  if (strongMedical) return 'life_health';
+  if (strongBusiness) return 'business';
+  if (strongHumanities && topBucket[0] === 'humanities') return 'humanities';
+  if (strongArt) return 'art_creative';
+
+  // 无强信号时，以最高桶为准
+  if (topBucket[1] > 40) {
+    if (topBucket[0] === 'business') return 'business';
+    if (topBucket[0] === 'stem') return 'stem';
+    if (topBucket[0] === 'life_health') return 'life_health';
+  }
+  return 'unknown';
+}
+
 // ───── 主流程 ─────
 
 /**
@@ -612,9 +730,26 @@ export function generateResult(
   const topDisciplines = generateDisciplineRecommendations(refinedBuckets, userType);
 
   // 4. 专业类推荐
-  const { recommended, optional, cautious } = generateCategoryRecommendations(
+  let { recommended, optional, cautious } = generateCategoryRecommendations(
     refinedBuckets, dimScores, riskTags, humanitiesProtected, topDisciplines,
   );
+
+  // 4.5 探索型兜底：若无推荐但从可选中提升一个
+  // v0.19.5 修复：尊重主兴趣领域，不让经济学类成为通用兜底
+  if (recommended.length === 0 && optional.length > 0) {
+    // 推断主兴趣领域
+    const primaryDomain = inferPrimaryInterestDomain(dimScores, refinedBuckets);
+    // 优先从同领域可选类别中提升
+    const sameDomain = optional.filter((c) =>
+      getCategoryDomain(c.slug) === primaryDomain
+    );
+    if (sameDomain.length > 0) {
+      recommended = [sameDomain[0]];
+      optional = optional.filter((c) => c.slug !== sameDomain[0].slug);
+    } else {
+      recommended = [optional.shift()!];
+    }
+  }
 
   // 5. 避坑
   const riskResults = generateRiskResults(riskTags, refinedBuckets);
@@ -719,6 +854,9 @@ const CAT_NAME_MAP: Record<string, string> = {
   'public-health': '公共卫生与预防医学类',
   'medical-technology': '医学技术类',
   'business-administration': '工商管理类',
+  'accounting': '会计学',
+  'financial-management': '财务管理',
+  'auditing': '审计学',
   'public-administration': '公共管理类',
   'management-science': '管理科学与工程类',
   'e-commerce': '电子商务类',

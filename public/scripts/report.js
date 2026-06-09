@@ -452,6 +452,19 @@
     BUCKETS.forEach(function (k) {
       refined[k] = Math.round(rawBucketScores[k] * 0.4 + dimBucketScores[k] * 0.6);
     });
+    // v0.19.5: 数学保护（考虑工程/编程信号）
+    var mathScore = dimScores['math_logic'] || 50;
+    if (mathScore < 20) {
+      var engBoost = (dimScores['engineering_practice'] || 0) >= 25 || (dimScores['info_systems'] || 0) >= 25;
+      refined.stem = Math.round(refined.stem * (engBoost ? 0.75 : 0.5));
+    } else if (mathScore < 35) {
+      refined.stem = Math.round(refined.stem * 0.85);
+    }
+    // v0.19.5: 生命健康保护
+    var lifeScore = dimScores['life_health_interest'] || 0;
+    if (lifeScore < 20) {
+      refined.life_health = Math.round(refined.life_health * 0.3);
+    }
     return normalizeScores(refined);
   }
 
@@ -482,7 +495,7 @@
         score: Math.round(info.score),
         reason: '你的「' + bl + '」方向偏好较高，' + meta.name + '是该方向的核心门类',
       };
-    }).filter(function (d) { return d.score >= 20; });
+    }).filter(function (d) { return d.score >= 8; });
   }
 
   function getTopDimensions(dimScores, buckets, n) {
@@ -550,6 +563,9 @@
         if (topDims.length > 0) { var dimSum = 0; topDims.forEach(function(d) { dimSum += (dimScores[d] || 25); }); dimScore = Math.min(100, Math.round(dimSum / topDims.length * 1.6)); }
         var interestSignal = 50;
         var bucketMatchScore = Math.round(baseScore);
+        // v0.19.5: 临床医学/口腔医学乘法惩罚
+        if (cat.categorySlug === 'clinical-medicine') score = Math.round(score * 0.65);
+        if (cat.categorySlug === 'stomatology') score = Math.round(score * 0.70);
         scored.push({
           name: CAT_NAME_MAP[cat.categorySlug] || cat.categorySlug,
           gate: (GATE_META[gateCode] || {}).name || gateCode,
@@ -581,6 +597,25 @@
       });
     });
 
+    // v0.19.5: hotTrendRisk 后处理
+    var hasHotTrend = riskTags.indexOf('trend_chasing') >= 0;
+    var hasProgramming = (dimScores['info_systems'] || 0) >= 40;
+    var hasEngineering = (dimScores['engineering_practice'] || 0) >= 30;
+    if (hasHotTrend) {
+      if (!hasProgramming && !hasEngineering) {
+        ['mechanical','electrical','civil-engineering','automation','energy-power'].forEach(function(s) {
+          var ex = penalized.get(s);
+          if (!ex) penalized.set(s, { penalty: 25, reason: '热门跟风降级——不要盲目换一个高强度专业' });
+        });
+      }
+      if (hasProgramming) {
+        var cs = penalized.get('computer-science');
+        if (cs && cs.penalty >= 25) {
+          penalized.set('computer-science', { penalty: 15, reason: cs.reason + '（但你有一定的编程兴趣，可以进一步了解）' });
+        }
+      }
+    }
+
     var recommended = [], optional = [], cautious = [];
         var userSubjects = window.__USER_SUBJECTS__;
     var subjectBlockedCats = [];
@@ -603,7 +638,13 @@
       if (penalty) {
         cat.score = Math.max(0, cat.score - penalty.penalty);
         cat.cautions.push(penalty.reason);
-        cautious.push(cat);
+        // v0.19.5: hotTrend 替代惩罚不强制进 cautious
+        var isSubstitute = penalty.reason.indexOf('热门跟风降级') >= 0;
+        if (isSubstitute && cat.score >= 35) {
+          optional.push(cat);
+        } else {
+          cautious.push(cat);
+        }
       } else if (cat.score >= 55) {
         recommended.push(cat);
       } else if (cat.score >= 35) {
@@ -611,12 +652,62 @@
       }
     });
 
+    // v0.19.5 去重：同一专业类只能属于一个层级
+    var seenSlugs = {};
+    var dedupedCautious = cautious.filter(function(c) {
+      if (seenSlugs[c.slug]) return false;
+      seenSlugs[c.slug] = true;
+      return true;
+    });
+    var dedupedRecommended = recommended.filter(function(c) {
+      if (seenSlugs[c.slug]) return false;
+      seenSlugs[c.slug] = true;
+      return true;
+    });
+    var dedupedOptional = optional.filter(function(c) {
+      if (seenSlugs[c.slug]) return false;
+      seenSlugs[c.slug] = true;
+      return true;
+    });
+
     return {
-      recommended: recommended.slice(0, 5),
-      optional: optional.slice(0, 4),
-      cautious: cautious.slice(0, 4),
+      recommended: dedupedRecommended.slice(0, 5),
+      optional: dedupedOptional.slice(0, 4),
+      cautious: dedupedCautious.slice(0, 4),
       scored: scored,
     };
+  }
+
+  // v0.19.5: 主兴趣领域推断
+  var CATEGORY_DOMAIN = {};
+  (function() {
+    var elec = ['computer-science','electronic-information','automation','mechanical','electrical','civil-engineering','energy-power','instrumentation','aerospace','materials','transportation','chemical-pharma','safety-eng','environmental','bioengineering','food-science','biomedical-eng','architecture','mathematics','physics','chemistry','statistics'];
+    var med = ['clinical-medicine','pharmacy','nursing','stomatology','public-health','medical-technology','basic-medicine','tcm','integrated-medicine','chinese-pharmacy','forensic-medicine','veterinary','biology','plant-production','animal-production','environmental-ecology','forestry','aquaculture','grassland-science'];
+    var biz = ['economics-class','finance','international-trade','public-finance','business-administration','accounting','financial-management','auditing','public-administration','management-science','e-commerce','tourism-management','logistics','industrial-engineering','agri-economics','library-science'];
+    var art = ['design','fine-arts','music-dance','drama-film','art-theory'];
+    elec.forEach(function(s) { CATEGORY_DOMAIN[s] = 'stem'; });
+    med.forEach(function(s) { CATEGORY_DOMAIN[s] = 'life_health'; });
+    biz.forEach(function(s) { CATEGORY_DOMAIN[s] = 'business'; });
+    art.forEach(function(s) { CATEGORY_DOMAIN[s] = 'art_creative'; });
+  })();
+  function getCategoryDomain(slug) { return CATEGORY_DOMAIN[slug] || 'humanities'; }
+  function inferPrimaryDomain(dimScores, bucketScores) {
+    var strongElec = (dimScores['engineering_practice'] || 0) >= 30 || (dimScores['info_systems'] || 0) >= 30;
+    var strongMed = (dimScores['life_health_interest'] || 0) >= 30;
+    var strongBiz = (dimScores['business_sense'] || 0) >= 50;
+    var strongHum = (dimScores['reading_expression'] || 0) >= 40 || (dimScores['abstract_theory'] || 0) >= 40;
+    if (strongElec) return 'stem';
+    if (strongMed) return 'life_health';
+    if (strongBiz) return 'business';
+    if (strongHum) return 'humanities';
+    var topBucket = null, topScore = 0;
+    Object.keys(bucketScores).forEach(function(k) { if (bucketScores[k] > topScore) { topScore = bucketScores[k]; topBucket = k; } });
+    if (topScore > 40) {
+      if (topBucket === 'business') return 'business';
+      if (topBucket === 'stem') return 'stem';
+      if (topBucket === 'life_health') return 'life_health';
+    }
+    return 'unknown';
   }
 
   // v0.5 小众探索引擎
@@ -745,6 +836,21 @@
     var refined = computeRefinedBucketScores(raw, dim);
     var disc = generateDisciplineRecommendations(refined);
     var cats = generateCategoryRecommendations(refined, dim, riskTags, disc);
+
+    // v0.19.5: 领域感知 fallback — 尊重主兴趣领域
+    if (cats.recommended.length === 0 && cats.optional.length > 0) {
+      var primaryDomain = inferPrimaryDomain(dim, refined);
+      var sameDomain = cats.optional.filter(function(c) {
+        return getCategoryDomain(c.slug) === primaryDomain;
+      });
+      if (sameDomain.length > 0) {
+        cats.recommended = [sameDomain[0]];
+        cats.optional = cats.optional.filter(function(c) { return c.slug !== sameDomain[0].slug; });
+      } else {
+        cats.recommended = [cats.optional.shift()];
+      }
+    }
+
     var risks = generateRiskResults(riskTags, cats.recommended, cats.cautious);
     var conf = determineConfidence(refined, userType);
     var prof = generateProfile(refined, userType);

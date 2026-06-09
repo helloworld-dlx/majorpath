@@ -835,5 +835,32 @@
     "longCyclePressure": "low",
     "schoolTierSensitive": false,
     "commonMisunderstandingRisk": "low"
+  },
+  "accounting": {
+    "resourceDependency": "low",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "financial-management": {
+    "resourceDependency": "low",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
+  },
+  "auditing": {
+    "resourceDependency": "low",
+    "blindChoiceRisk": "low",
+    "requiresSpecialCondition": false,
+    "recommendedOnlyIfHighInterest": false,
+    "longCyclePressure": "low",
+    "schoolTierSensitive": false,
+    "commonMisunderstandingRisk": "low"
   }
 }

@@ -170,6 +170,9 @@ export const GATE_PRIORITY_CATEGORIES: Record<
   ],
   '12': [ // 管理学
     { categorySlug: 'business-administration', buckets: ['business'], weight: 14 },
+    { categorySlug: 'accounting', buckets: ['business'], weight: 13 },
+    { categorySlug: 'financial-management', buckets: ['business'], weight: 12 },
+    { categorySlug: 'auditing', buckets: ['business'], weight: 10 },
     { categorySlug: 'public-administration', buckets: ['business', 'social_science'], weight: 10 },
     { categorySlug: 'management-science', buckets: ['business', 'stem'], weight: 9 },
     { categorySlug: 'e-commerce', buckets: ['business'], weight: 9 },
@@ -196,12 +199,12 @@ export const GATE_PRIORITY_CATEGORIES: Record<
 /** 风险标签 → 受影响的专业类 slug */
 export const RISK_CATEGORY_PENALTIES: Record<RiskTag, { slugs: string[]; penalty: number; reason: string }> = {
   trend_chasing: {
-    slugs: ['computer-science', 'electronic-information', 'finance', 'business-administration'],
+    slugs: ['computer-science', 'electronic-information'],
     penalty: 30,
     reason: '你可能因为热门才关注这个方向，建议先看看它到底学什么',
   },
   salary_misconception: {
-    slugs: ['computer-science', 'finance', 'business-administration'],
+    slugs: ['computer-science'],
     penalty: 10,
     reason: '高薪不等于适合你，建议先了解真实学习内容和压力',
   },

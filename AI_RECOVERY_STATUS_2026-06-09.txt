@@ -1,0 +1,12 @@
+ M public/scripts/report.js
+ M scripts/simulate_v05.ts
+ M simulation-results/summary_v05_audit.md
+ M simulation-results/summary_v05_realistic.md
+ M simulation-results/v04_fields.json
+ M simulation-results/v04_weights_raw.json
+ M src/data/categoryDimProfiles.ts
+ M src/data/recommendationWeights.ts
+ M src/utils/scoring.ts
+?? AI_RECOVERY_DIFF_2026-06-09.patch
+?? AI_RECOVERY_STATUS_2026-06-09.txt
+?? simulation-results/results_v05_fixed.csv

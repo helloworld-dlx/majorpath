@@ -72,7 +72,7 @@ function dimFromHints(h: any): Record<string,number> {
 function scoreGates(bs: Record<string,number>) {
   const gs = new Map<string,number>();
   Object.entries(B2D).forEach(([b, discs]) => { const s = bs[b]||0; discs.forEach(d => { const c = s*d.weight/100; const ex = gs.get(d.gateCode)||0; gs.set(d.gateCode, Math.max(ex,c)+(ex>0?c*0.3:0)); }); });
-  return Array.from(gs.entries()).filter(([,s]) => s>=12).sort((a,b)=>b[1]-a[1]).map(([c,s])=>({code:c,score:s}));
+  return Array.from(gs.entries()).filter(([,s]) => s>=8).sort((a,b)=>b[1]-a[1]).map(([c,s])=>({code:c,score:s}));
 }
 
 function scoreCategory(slug:string, weight:number, bs:Record<string,number>, dimScores:Record<string,number>, gateMaxW:number) {
@@ -80,7 +80,15 @@ function scoreCategory(slug:string, weight:number, bs:Record<string,number>, dim
   const f = (fieldsRaw as any)[slug] || {};
   const profile = CATEGORY_DIM_PROFILES[slug];
   let bScore=0,bCount=0; buckets.forEach((b:string) => { bScore+=bs[b]||0; bCount++; });
-  const bucketMatch = bCount>0?bScore/bCount:0;
+  let bucketMatch = bCount>0?bScore/bCount:0;
+  // 数学保护：对 STEM-heavy 专业类，低数学用户降权（而非砍掉）
+  const isStemCat = buckets.includes('stem');
+  if (isStemCat && dimScores.math_logic < 20) {
+    const engBoost = dimScores.engineering_practice >= 25 || dimScores.info_systems >= 25;
+    bucketMatch = engBoost ? bucketMatch * 0.75 : bucketMatch * 0.5;
+  } else if (isStemCat && dimScores.math_logic < 35) {
+    bucketMatch = bucketMatch * 0.85;
+  }
   // Dim score from profile
   let dimAvg = 25;
   if (profile?.positiveDims?.length) {
@@ -119,9 +127,20 @@ function runSimPersona(persona: any, allSlugs: string[]) {
   const aff = persona.sixBucketAffinity || {};
   ['stem','life_health','business','social_science','humanities','art_creative'].forEach(b => { bsInput[b] = aff[b] !== undefined ? aff[b] : 10; });
   const dimScores = dimFromHints(persona.answerStyleHints || {});
-  const gates = scoreGates(bsInput);
-  const gateSet = new Set(gates.map(g=>g.code));
+  let gates = scoreGates(bsInput);
   const gateScores: Record<string,number> = {}; gates.forEach(g => gateScores[g.code] = g.score);
+  // 探索型兜底：若无任何门类通过阈值，用最高桶得分生成 fallback gate
+  if (gates.length === 0) {
+    const sorted = Object.entries(bsInput).sort(([,a],[,b]) => b-a);
+    const [topBucket, topScore] = sorted[0];
+    const fallbackDiscs = B2D[topBucket] || [];
+    if (fallbackDiscs.length > 0 && topScore > 0) {
+      const best = fallbackDiscs.reduce((a, b) => a.weight > b.weight ? a : b);
+      gates = [{ code: best.gateCode, score: Math.round(topScore * best.weight / 100) }];
+      gates.forEach(g => gateScores[g.code] = g.score);
+    }
+  }
+  const gateSet = new Set(gates.map(g=>g.code));
   
   const allCats: any[] = []; allSlugs.forEach(slug => {
     const gate = catToGate[slug];
@@ -136,8 +155,13 @@ function runSimPersona(persona: any, allSlugs: string[]) {
   });
   
   allCats.sort((a,b) => b.score - a.score);
+  // 探索型降低门槛：若仍无推荐，从 optional 中补 1-2 个
   const recommended = allCats.filter(c => c.score >= 55 && c.passTopGate).slice(0, 5);
   const optional = allCats.filter(c => c.score >= 35 && !recommended.includes(c)).slice(0, 4);
+  // fallback: 若推荐为空但有可选项，提升最高可选项为推荐
+  if (recommended.length === 0 && optional.length > 0) {
+    recommended.push(optional.shift()!);
+  }
   const cautious = allCats.filter(c => {
     return !recommended.includes(c) && !optional.includes(c) && (c.fields.blindChoiceRisk === 'high' || c.fields.longCyclePressure === 'high' || c.fields.requiresSpecialCondition || c.fields.schoolTierSensitive || c.fields.commonMisunderstandingRisk === 'high');
   }).slice(0, 4);
