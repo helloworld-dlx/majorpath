@@ -25,32 +25,33 @@ export const questionBank: QuestionBank = {
     // ============================================================
 
     // --- 任务场景偏好（gen_001 - gen_005）---
-    { id: 'gen_001', type: 'general', title: '你更喜欢以下哪种周末活动？', description: '想象一个完全由你自己支配的周末，你最想做什么？', targetBuckets: ['humanities', 'social_science', 'business', 'stem', 'life_health', 'art_creative'], priority: 1, options: [
-      { id: 'gen_001_a', label: 'A', text: '窝在角落读一本好书或写点东西', scoreEffects: [{ target: 'humanities', points: 12 }, { target: 'reading_expression', points: 8 }] },
-      { id: 'gen_001_b', label: 'B', text: '和朋友聊聊天，或者帮别人解决一个问题', scoreEffects: [{ target: 'social_science', points: 10 }, { target: 'interpersonal', points: 8 }, { target: 'business', points: 4 }] },
-      { id: 'gen_001_c', label: 'C', text: '捣鼓一个小项目：修东西、鼓捣设备、做手工都行', scoreEffects: [{ target: 'stem', points: 12 }, { target: 'engineering_practice', points: 8 }, { target: 'info_systems', points: 4 }] },
-      { id: 'gen_001_d', label: 'D', text: '去看展、听音乐会，或者自己画画 / 拍照', scoreEffects: [{ target: 'art_creative', points: 12 }, { target: 'aesthetic_creation', points: 8 }] },
-      { id: 'gen_001_e', label: 'E', text: '研究一个健康话题，或者去户外接触自然', scoreEffects: [{ target: 'life_health', points: 12 }, { target: 'life_health_interest', points: 8 }] },
+    { id: 'gen_001', type: 'general', title: '如果周末突然空出一整个下午，没人催你学习，也没有必须完成的任务，你更可能怎么安排？', targetBuckets: ['humanities', 'social_science', 'business', 'stem', 'life_health', 'art_creative'], priority: 1, options: [
+      { id: 'gen_001_a', label: 'A', text: '找个安静地方，把最近脑子里一个想法慢慢想清楚，最好还能写下来', scoreEffects: [{ target: 'humanities', points: 8 }, { target: 'reading_expression', points: 6 }, { target: 'abstract_theory', points: 4 }] },
+      { id: 'gen_001_b', label: 'B', text: '约朋友聊聊近况，顺手帮人捋一捋最近卡住的事', scoreEffects: [{ target: 'social_science', points: 6 }, { target: 'interpersonal', points: 6 }] },
+      { id: 'gen_001_c', label: 'C', text: '找点东西上手试试，哪怕一开始做得很丑，也想把它弄成"能用"的样子', scoreEffects: [{ target: 'stem', points: 8 }, { target: 'engineering_practice', points: 6 }, { target: 'info_systems', points: 4 }] },
+      { id: 'gen_001_d', label: 'D', text: '给自己留一段沉浸时间，用画面、声音、排版、镜头之类的方式表达点什么', scoreEffects: [{ target: 'art_creative', points: 8 }, { target: 'aesthetic_creation', points: 6 }] },
+      { id: 'gen_001_e', label: 'E', text: '去观察一个真实的东西怎么变化，比如身体状态、植物、天气、动物、生活里的小规律', scoreEffects: [{ target: 'life_health', points: 6 }, { target: 'stem', points: 4 }, { target: 'life_health_interest', points: 4 }] },
     ]},
-    { id: 'gen_002', type: 'general', title: '以下哪种任务会让你最有成就感？', targetBuckets: ['humanities', 'social_science', 'business', 'stem', 'life_health', 'art_creative'], priority: 2, options: [
-      { id: 'gen_002_a', label: 'A', text: '写出一篇打动人心的文章或分析报告', scoreEffects: [{ target: 'humanities', points: 10 }, { target: 'reading_expression', points: 8 }, { target: 'social_science', points: 4 }] },
-      { id: 'gen_002_b', label: 'B', text: '组织一场活动，让所有人配合得很好', scoreEffects: [{ target: 'social_science', points: 10 }, { target: 'business', points: 8 }, { target: 'interpersonal', points: 6 }] },
-      { id: 'gen_002_c', label: 'C', text: '算清楚一笔账或分析出一组数据背后的规律', scoreEffects: [{ target: 'business', points: 10 }, { target: 'math_logic', points: 8 }, { target: 'business_sense', points: 6 }, { target: 'stem', points: 4 }] },
-      { id: 'gen_002_d', label: 'D', text: '动手做出一个能实际运行的东西（程序 / 装置 / 模型）', scoreEffects: [{ target: 'stem', points: 10 }, { target: 'engineering_practice', points: 8 }, { target: 'info_systems', points: 6 }] },
-      { id: 'gen_002_e', label: 'E', text: '帮一个人恢复健康或解决一个实际困难', scoreEffects: [{ target: 'life_health', points: 10 }, { target: 'interpersonal', points: 6 }, { target: 'social_science', points: 4 }] },
-      { id: 'gen_002_f', label: 'F', text: '创作一件打动人的作品（画作、影像、音乐都算）', scoreEffects: [{ target: 'art_creative', points: 10 }, { target: 'aesthetic_creation', points: 8 }] },
+    { id: 'gen_002', type: 'general', title: '如果让你负责一件\'小但完整\'的事，你更想负责哪一部分？', targetBuckets: ['humanities', 'social_science', 'business', 'stem', 'life_health', 'art_creative'], priority: 2, options: [
+      { id: 'gen_002_a', label: 'A', text: '把一堆乱七八糟的信息整理清楚，最后讲得别人也能听懂', scoreEffects: [{ target: 'humanities', points: 6 }, { target: 'reading_expression', points: 6 }, { target: 'social_science', points: 4 }] },
+      { id: 'gen_002_b', label: 'B', text: '把几个人的想法和节奏对上，让事情别卡在沟通上', scoreEffects: [{ target: 'social_science', points: 6 }, { target: 'business', points: 6 }, { target: 'interpersonal', points: 6 }] },
+      { id: 'gen_002_c', label: 'C', text: '盯着数据、条件或线索，看看里面到底有没有规律', scoreEffects: [{ target: 'math_logic', points: 8 }, { target: 'business', points: 6 }, { target: 'stem', points: 4 }] },
+      { id: 'gen_002_d', label: 'D', text: '把想法拆成一步一步，先做个简陋版本试试看能不能跑通', scoreEffects: [{ target: 'stem', points: 8 }, { target: 'engineering_practice', points: 6 }, { target: 'info_systems', points: 4 }] },
+      { id: 'gen_002_e', label: 'E', text: '面对一个具体的人，听他说完问题，再帮他找到下一步该怎么办', scoreEffects: [{ target: 'life_health', points: 6 }, { target: 'interpersonal', points: 6 }, { target: 'social_science', points: 4 }] },
+      { id: 'gen_002_f', label: 'F', text: '把一种感觉做成别人能感受到的东西，比如氛围、节奏、画面或故事', scoreEffects: [{ target: 'art_creative', points: 8 }, { target: 'aesthetic_creation', points: 6 }, { target: 'reading_expression', points: 4 }] },
     ]},
-    { id: 'gen_003', type: 'general', title: '如果给你一笔不大的预算和一个周末，你最想做什么？', targetBuckets: ['humanities', 'social_science', 'business', 'stem', 'art_creative'], priority: 5, options: [
-      { id: 'gen_003_a', label: 'A', text: '买一批书或资料，泡在里面研究一个话题', scoreEffects: [{ target: 'humanities', points: 10 }, { target: 'reading_expression', points: 6 }, { target: 'abstract_theory', points: 4 }] },
-      { id: 'gen_003_b', label: 'B', text: '组织朋友一起做一件有意义的事', scoreEffects: [{ target: 'social_science', points: 10 }, { target: 'interpersonal', points: 8 }, { target: 'business', points: 4 }] },
-      { id: 'gen_003_c', label: 'C', text: '买材料自己做东西：烘焙、木工、电子套件之类', scoreEffects: [{ target: 'stem', points: 10 }, { target: 'engineering_practice', points: 8 }] },
-      { id: 'gen_003_d', label: 'D', text: '买画材、乐器或相机，专注创作一整天', scoreEffects: [{ target: 'art_creative', points: 10 }, { target: 'aesthetic_creation', points: 8 }] },
+    { id: 'gen_003', type: 'general', title: '如果给你一笔不多不少的钱，只能用来体验或学习一个新东西，你会更想花在哪？', targetBuckets: ['humanities', 'social_science', 'business', 'stem', 'life_health', 'art_creative'], priority: 5, options: [
+      { id: 'gen_003_a', label: 'A', text: '买课程、资料或会员，把一个一直好奇的话题系统补一补', scoreEffects: [{ target: 'humanities', points: 6 }, { target: 'reading_expression', points: 6 }, { target: 'abstract_theory', points: 4 }] },
+      { id: 'gen_003_b', label: 'B', text: '参加一个需要和别人配合完成的项目，看看大家怎么把事做成', scoreEffects: [{ target: 'social_science', points: 6 }, { target: 'interpersonal', points: 6 }, { target: 'business', points: 4 }] },
+      { id: 'gen_003_c', label: 'C', text: '买点材料、工具或零件，亲手折腾出一个看得见摸得着的东西', scoreEffects: [{ target: 'stem', points: 8 }, { target: 'engineering_practice', points: 6 }] },
+      { id: 'gen_003_d', label: 'D', text: '报一个沉浸式体验课，重点不是学会多少，而是做出一点自己的表达', scoreEffects: [{ target: 'art_creative', points: 8 }, { target: 'aesthetic_creation', points: 6 }] },
+      { id: 'gen_003_e', label: 'E', text: '去体验一个和身体、自然、健康或生命有关的活动，看看真实世界怎么运作', scoreEffects: [{ target: 'life_health', points: 6 }, { target: 'life_health_interest', points: 6 }, { target: 'science_basic', points: 4 }] },
     ]},
-    { id: 'gen_004', type: 'general', title: '在小组合作中，你通常扮演什么角色？', targetBuckets: ['humanities', 'social_science', 'business', 'stem', 'life_health'], priority: 6, options: [
-      { id: 'gen_004_a', label: 'A', text: '提出想法和框架的人，喜欢先想清楚再分工', scoreEffects: [{ target: 'humanities', points: 8 }, { target: 'abstract_theory', points: 6 }, { target: 'stem', points: 4 }] },
-      { id: 'gen_004_b', label: 'B', text: '协调者——确保大家沟通顺畅、进度正常', scoreEffects: [{ target: 'social_science', points: 8 }, { target: 'interpersonal', points: 8 }, { target: 'business', points: 6 }] },
-      { id: 'gen_004_c', label: 'C', text: '动手执行的人——别人出想法，我来落地', scoreEffects: [{ target: 'stem', points: 8 }, { target: 'engineering_practice', points: 8 }] },
-      { id: 'gen_004_d', label: 'D', text: '检查把关的人——确保每个细节都没问题', scoreEffects: [{ target: 'business', points: 6 }, { target: 'rule_detail', points: 8 }, { target: 'business_sense', points: 6 }, { target: 'life_health', points: 4 }] },
+    { id: 'gen_004', type: 'general', title: '小组作业快要开始了，你通常会自然滑到哪个位置？', targetBuckets: ['humanities', 'social_science', 'business', 'stem', 'life_health'], priority: 6, options: [
+      { id: 'gen_004_a', label: 'A', text: '先把大方向想清楚：这事到底要解决什么，先后顺序是什么', scoreEffects: [{ target: 'humanities', points: 6 }, { target: 'abstract_theory', points: 6 }, { target: 'stem', points: 4 }] },
+      { id: 'gen_004_b', label: 'B', text: '负责把大家拉到同一个频道：谁做什么、什么时候交、哪里有分歧', scoreEffects: [{ target: 'social_science', points: 8 }, { target: 'interpersonal', points: 6 }, { target: 'business', points: 4 }] },
+      { id: 'gen_004_c', label: 'C', text: '少说两句，直接开干。别人想方案，我负责把东西做出来', scoreEffects: [{ target: 'stem', points: 8 }, { target: 'engineering_practice', points: 6 }] },
+      { id: 'gen_004_d', label: 'D', text: '最后负责检查：格式、数据、逻辑、细节，哪里不对我会很难受', scoreEffects: [{ target: 'rule_detail', points: 8 }, { target: 'business', points: 6 }, { target: 'life_health', points: 4 }] },
     ]},
     { id: 'gen_005', type: 'general', title: '如果你有额外的一小时空闲，你最容易做什么？', targetBuckets: ['humanities', 'social_science', 'business', 'stem', 'life_health', 'art_creative'], priority: 7, options: [
       { id: 'gen_005_a', label: 'A', text: '拿起手边任何有字的东西读一读', scoreEffects: [{ target: 'humanities', points: 8 }, { target: 'reading_expression', points: 6 }] },
@@ -61,27 +62,27 @@ export const questionBank: QuestionBank = {
     ]},
 
     // --- 学科/学习偏好（gen_006 - gen_010）---
-    { id: 'gen_006', type: 'general', title: '以下哪种学习方式让你觉得最舒服？', targetBuckets: ['humanities', 'social_science', 'business', 'stem', 'life_health', 'art_creative'], priority: 8, options: [
-      { id: 'gen_006_a', label: 'A', text: '读大量的书和资料，自己梳理思路', scoreEffects: [{ target: 'humanities', points: 8 }, { target: 'social_science', points: 6 }, { target: 'reading_expression', points: 8 }] },
-      { id: 'gen_006_b', label: 'B', text: '和别人讨论、辩论，在交流中理清问题', scoreEffects: [{ target: 'social_science', points: 8 }, { target: 'business', points: 6 }, { target: 'interpersonal', points: 8 }] },
-      { id: 'gen_006_c', label: 'C', text: '看公式、画图、推导演算', scoreEffects: [{ target: 'stem', points: 8 }, { target: 'math_logic', points: 8 }] },
-      { id: 'gen_006_d', label: 'D', text: '上手试，做实验、搭东西、鼓捣设备', scoreEffects: [{ target: 'stem', points: 8 }, { target: 'engineering_practice', points: 8 }] },
-      { id: 'gen_006_e', label: 'E', text: '看案例、观察真实的人或事物', scoreEffects: [{ target: 'life_health', points: 6 }, { target: 'social_science', points: 4 }, { target: 'art_creative', points: 4 }] },
+    { id: 'gen_006', type: 'general', title: '遇到一个完全陌生的问题，你第一反应更像哪一种？', targetBuckets: ['humanities', 'social_science', 'business', 'stem', 'life_health', 'art_creative'], priority: 8, options: [
+      { id: 'gen_006_a', label: 'A', text: '先搜一圈资料，把不同说法拼起来，慢慢搭出一个框架', scoreEffects: [{ target: 'humanities', points: 6 }, { target: 'reading_expression', points: 6 }, { target: 'social_science', points: 4 }] },
+      { id: 'gen_006_b', label: 'B', text: '找几个想法不一样的人聊聊，听完之后再判断哪种更靠谱', scoreEffects: [{ target: 'social_science', points: 6 }, { target: 'interpersonal', points: 6 }, { target: 'business', points: 4 }] },
+      { id: 'gen_006_c', label: 'C', text: '先把已知条件列出来，一步一步推，看能不能推出一个更稳的答案', scoreEffects: [{ target: 'stem', points: 6 }, { target: 'math_logic', points: 6 }, { target: 'social_science', points: 4 }] },
+      { id: 'gen_006_d', label: 'D', text: '不想光想，先试一下。错了再改，改到能跑通为止', scoreEffects: [{ target: 'stem', points: 8 }, { target: 'engineering_practice', points: 6 }] },
+      { id: 'gen_006_e', label: 'E', text: '找真实发生过的例子，看别人当时是怎么处理的', scoreEffects: [{ target: 'social_science', points: 6 }, { target: 'life_health', points: 4 }, { target: 'business', points: 4 }, { target: 'art_creative', points: 4 }] },
     ]},
-    { id: 'gen_007', type: 'general', title: '高中阶段，你对哪类课程最有感觉？', targetBuckets: ['humanities', 'social_science', 'business', 'stem', 'life_health', 'art_creative'], priority: 9, options: [
-      { id: 'gen_007_a', label: 'A', text: '文字、阅读与写作——用语言表达想法让我兴奋', scoreEffects: [{ target: 'humanities', points: 10 }, { target: 'social_science', points: 6 }, { target: 'reading_expression', points: 6 }] },
-      { id: 'gen_007_b', label: 'B', text: '逻辑推演与证明——一步步推出来的结果让我有安全感', scoreEffects: [{ target: 'stem', points: 10 }, { target: 'math_logic', points: 10 }] },
-      { id: 'gen_007_c', label: 'C', text: '实验与观察——动手探究让我好奇', scoreEffects: [{ target: 'life_health', points: 8 }, { target: 'stem', points: 6 }, { target: 'science_basic', points: 6 }] },
-      { id: 'gen_007_d', label: 'D', text: '地理、社会实践——真实世界的运作让我感兴趣', scoreEffects: [{ target: 'social_science', points: 6 }, { target: 'business', points: 6 }, { target: 'life_health', points: 4 }] },
-      { id: 'gen_007_e', label: 'E', text: '创作与表达——画画、设计或跳舞让我沉浸', scoreEffects: [{ target: 'art_creative', points: 10 }, { target: 'aesthetic_creation', points: 8 }] },
+    { id: 'gen_007', type: 'general', title: '下面哪种瞬间，最容易让你觉得\'爽到了\'？', targetBuckets: ['humanities', 'social_science', 'business', 'stem', 'life_health', 'art_creative'], priority: 9, options: [
+      { id: 'gen_007_a', label: 'A', text: '一团说不清的想法，终于被你讲成了别人能听懂的话', scoreEffects: [{ target: 'humanities', points: 8 }, { target: 'reading_expression', points: 6 }, { target: 'social_science', points: 4 }] },
+      { id: 'gen_007_b', label: 'B', text: '原本乱糟糟的条件，被你一步步推到一个确定结果', scoreEffects: [{ target: 'stem', points: 8 }, { target: 'math_logic', points: 8 }] },
+      { id: 'gen_007_c', label: 'C', text: '反复试了好几次之后，终于看到某个变化真的发生了', scoreEffects: [{ target: 'stem', points: 6 }, { target: 'life_health', points: 6 }, { target: 'science_basic', points: 4 }] },
+      { id: 'gen_007_d', label: 'D', text: '你突然看懂了一个系统：原来这群人、这件事、这个环境是这样运转的', scoreEffects: [{ target: 'social_science', points: 6 }, { target: 'business', points: 6 }, { target: 'life_health', points: 4 }] },
+      { id: 'gen_007_e', label: 'E', text: '你把一种感觉做出来了，别人一看也能感受到那个味儿', scoreEffects: [{ target: 'art_creative', points: 8 }, { target: 'aesthetic_creation', points: 6 }] },
     ]},
-    { id: 'gen_008', type: 'general', title: '学一个新东西时，你更倾向于哪种路径？', targetBuckets: ['humanities', 'social_science', 'business', 'stem', 'life_health', 'art_creative'], priority: 10, options: [
-      { id: 'gen_008_a', label: 'A', text: '先了解背景和历史，从"为什么"开始', scoreEffects: [{ target: 'humanities', points: 8 }, { target: 'abstract_theory', points: 6 }, { target: 'history_philosophy', points: 4 }] },
-      { id: 'gen_008_b', label: 'B', text: '先看这套规则/方法是怎么运行的', scoreEffects: [{ target: 'social_science', points: 8 }, { target: 'business', points: 6 }, { target: 'rule_detail', points: 6 }] },
-      { id: 'gen_008_c', label: 'C', text: '先看公式、定律和底层原理', scoreEffects: [{ target: 'stem', points: 8 }, { target: 'math_logic', points: 8 }, { target: 'science_basic', points: 4 }] },
-      { id: 'gen_008_d', label: 'D', text: '直接上手试，边做边学', scoreEffects: [{ target: 'stem', points: 8 }, { target: 'engineering_practice', points: 8 }] },
-      { id: 'gen_008_e', label: 'E', text: '先感受和体验，从身体和感官出发', scoreEffects: [{ target: 'art_creative', points: 8 }, { target: 'life_health', points: 6 }] },
-      { id: 'gen_008_f', label: 'F', text: '先观察真实的人或场景，在生活里找答案', scoreEffects: [{ target: 'life_health', points: 8 }, { target: 'social_science', points: 6 }] },
+    { id: 'gen_008', type: 'general', title: '学一个新东西时，你通常最想先抓住什么？', targetBuckets: ['humanities', 'social_science', 'business', 'stem', 'life_health', 'art_creative'], priority: 10, options: [
+      { id: 'gen_008_a', label: 'A', text: '先搞清楚它为什么会出现，前因后果是什么', scoreEffects: [{ target: 'humanities', points: 6 }, { target: 'abstract_theory', points: 6 }, { target: 'social_science', points: 4 }] },
+      { id: 'gen_008_b', label: 'B', text: '先看规则：它怎么运行，什么能做，什么不能做', scoreEffects: [{ target: 'social_science', points: 6 }, { target: 'rule_detail', points: 6 }, { target: 'business', points: 4 }] },
+      { id: 'gen_008_c', label: 'C', text: '先找底层关键点：它靠哪几个条件撑起来', scoreEffects: [{ target: 'stem', points: 6 }, { target: 'math_logic', points: 6 }, { target: 'science_basic', points: 4 }] },
+      { id: 'gen_008_d', label: 'D', text: '先别讲太多，给我试一下，边做边懂', scoreEffects: [{ target: 'stem', points: 6 }, { target: 'engineering_practice', points: 6 }] },
+      { id: 'gen_008_e', label: 'E', text: '先感受它给人的体验，是舒服、冲突、震撼，还是哪里不对劲', scoreEffects: [{ target: 'art_creative', points: 6 }, { target: 'life_health', points: 4 }, { target: 'aesthetic_creation', points: 4 }] },
+      { id: 'gen_008_f', label: 'F', text: '先看真实场景里的人是怎么用它、怎么被它影响的', scoreEffects: [{ target: 'life_health', points: 6 }, { target: 'social_science', points: 6 }, { target: 'business', points: 4 }] },
     ]},
     { id: 'gen_009', type: 'general', title: '面对一道难题，你的第一反应更接近哪种？', targetBuckets: ['humanities', 'social_science', 'stem', 'business', 'life_health'], priority: 11, options: [
       { id: 'gen_009_a', label: 'A', text: '先查资料、阅读相关背景', scoreEffects: [{ target: 'humanities', points: 8 }, { target: 'reading_expression', points: 6 }, { target: 'abstract_theory', points: 4 }] },
@@ -89,13 +90,13 @@ export const questionBank: QuestionBank = {
       { id: 'gen_009_c', label: 'C', text: '先列出已知条件和可能的解法，一步一步推', scoreEffects: [{ target: 'stem', points: 8 }, { target: 'math_logic', points: 6 }, { target: 'business', points: 4 }] },
       { id: 'gen_009_d', label: 'D', text: '先看有没有现成的例子或案例可以参照', scoreEffects: [{ target: 'life_health', points: 6 }, { target: 'business', points: 6 }, { target: 'engineering_practice', points: 4 }] },
     ]},
-    { id: 'gen_010', type: 'general', title: '你更享受什么样的"思考时间"？', targetBuckets: ['humanities', 'stem', 'business', 'social_science', 'life_health', 'art_creative'], priority: 12, options: [
-      { id: 'gen_010_a', label: 'A', text: '围绕一个抽象概念反复咀嚼，直到清晰', scoreEffects: [{ target: 'humanities', points: 8 }, { target: 'abstract_theory', points: 6 }] },
-      { id: 'gen_010_b', label: 'B', text: '思考"为什么人和组织会这么行动"', scoreEffects: [{ target: 'social_science', points: 8 }, { target: 'business', points: 6 }, { target: 'interpersonal', points: 6 }] },
-      { id: 'gen_010_c', label: 'C', text: '在脑子里模拟一个过程或系统怎么运转', scoreEffects: [{ target: 'stem', points: 8 }, { target: 'engineering_practice', points: 6 }, { target: 'info_systems', points: 4 }] },
-      { id: 'gen_010_d', label: 'D', text: '思考"怎样让效率和结果更好"', scoreEffects: [{ target: 'business', points: 8 }, { target: 'math_logic', points: 6 }] },
-      { id: 'gen_010_e', label: 'E', text: '沉浸在画面、声音或身体表达的想象中', scoreEffects: [{ target: 'art_creative', points: 8 }, { target: 'aesthetic_creation', points: 6 }] },
-      { id: 'gen_010_f', label: 'F', text: '思考生命和自然的运作——从身体到生态系统', scoreEffects: [{ target: 'life_health', points: 8 }, { target: 'life_health_interest', points: 6 }] },
+    { id: 'gen_010', type: 'general', title: '你平时更容易被哪种问题勾住？', targetBuckets: ['humanities', 'stem', 'business', 'social_science', 'life_health', 'art_creative'], priority: 12, options: [
+      { id: 'gen_010_a', label: 'A', text: '一个词、一个观点、一个现象，总感觉背后还有没说透的东西', scoreEffects: [{ target: 'humanities', points: 6 }, { target: 'abstract_theory', points: 6 }] },
+      { id: 'gen_010_b', label: 'B', text: '为什么一群人明明想法不同，最后却会做出同一个选择', scoreEffects: [{ target: 'social_science', points: 8 }, { target: 'interpersonal', points: 4 }, { target: 'business', points: 4 }] },
+      { id: 'gen_010_c', label: 'C', text: '一件事如果拆成几步，每一步变化会把结果带到哪里', scoreEffects: [{ target: 'stem', points: 6 }, { target: 'math_logic', points: 6 }, { target: 'info_systems', points: 4 }] },
+      { id: 'gen_010_d', label: 'D', text: '有没有更好的做法：更省力、更清楚、更不容易出错', scoreEffects: [{ target: 'business', points: 6 }, { target: 'math_logic', points: 6 }, { target: 'rule_detail', points: 4 }] },
+      { id: 'gen_010_e', label: 'E', text: '一个画面、节奏、空间或声音，为什么会让人有某种感觉', scoreEffects: [{ target: 'art_creative', points: 6 }, { target: 'aesthetic_creation', points: 6 }] },
+      { id: 'gen_010_f', label: 'F', text: '一个活的东西，从里面到外面，为什么能这样配合着运转', scoreEffects: [{ target: 'life_health', points: 6 }, { target: 'life_health_interest', points: 4 }, { target: 'science_basic', points: 4 }] },
     ]},
 
     // --- 人与事倾向（gen_011 - gen_013）---
@@ -120,29 +121,29 @@ export const questionBank: QuestionBank = {
     ]},
 
     // --- 抽象与具体偏好（gen_014 - gen_016）---
-    { id: 'gen_014', type: 'general', title: '对于"规则"和"细节"，你最接近哪种态度？', targetBuckets: ['social_science', 'business', 'stem', 'humanities', 'art_creative'], priority: 16, options: [
-      { id: 'gen_014_a', label: 'A', text: '我觉得规则和流程让事情更清晰，不排斥按规矩来', scoreEffects: [{ target: 'social_science', points: 8 }, { target: 'business', points: 6 }, { target: 'rule_detail', points: 8 }] },
-      { id: 'gen_014_b', label: 'B', text: '我更看重灵活和创意，太细的规则让我不舒服', scoreEffects: [{ target: 'humanities', points: 6 }, { target: 'art_creative', points: 8 }, { target: 'rule_detail', points: -6 }] },
-      { id: 'gen_014_c', label: 'C', text: '看情况——工作中需要规则，但不必事事都框死', scoreEffects: [{ target: 'stem', points: 4 }, { target: 'business', points: 4 }] },
+    { id: 'gen_014', type: 'general', title: '你对规则和流程的感觉更接近哪一种？', targetBuckets: ['social_science', 'business', 'stem', 'humanities', 'art_creative'], priority: 16, options: [
+      { id: 'gen_014_a', label: 'A', text: '有规则我会安心很多，至少知道怎么做才不容易翻车', scoreEffects: [{ target: 'rule_detail', points: 8 }, { target: 'social_science', points: 6 }, { target: 'business', points: 4 }] },
+      { id: 'gen_014_b', label: 'B', text: '太细的规则会让我憋得慌，我更想留点发挥空间', scoreEffects: [{ target: 'rule_detail', points: -6 }, { target: 'art_creative', points: 6 }, { target: 'humanities', points: 4 }] },
+      { id: 'gen_014_c', label: 'C', text: '看情况。重要的事按规则来，小事没必要每一步都框死', scoreEffects: [{ target: 'stem', points: 4 }, { target: 'business', points: 4 }, { target: 'social_science', points: 4 }] },
     ]},
     { id: 'gen_015', type: 'general', title: '以下两种思维方式，你更偏向哪种？', targetBuckets: ['humanities', 'stem', 'social_science', 'business'], priority: 17, options: [
       { id: 'gen_015_a', label: 'A', text: '更习惯从具体的例子出发，慢慢归纳出规律', scoreEffects: [{ target: 'humanities', points: 6 }, { target: 'social_science', points: 6 }, { target: 'life_health', points: 4 }] },
       { id: 'gen_015_b', label: 'B', text: '更习惯从抽象的原理出发，推导到具体场景', scoreEffects: [{ target: 'stem', points: 8 }, { target: 'math_logic', points: 8 }, { target: 'abstract_theory', points: 6 }] },
       { id: 'gen_015_c', label: 'C', text: '两个都会用，看情况切换', scoreEffects: [{ target: 'business', points: 4 }, { target: 'stem', points: 4 }, { target: 'humanities', points: 4 }] },
     ]},
-    { id: 'gen_016', type: 'general', title: '你对"不确定性"的容忍度怎么样？', targetBuckets: ['social_science', 'business', 'stem', 'humanities', 'art_creative'], priority: 18, options: [
-      { id: 'gen_016_a', label: 'A', text: '低——我喜欢知道接下来会发生什么，有计划才安心', scoreEffects: [{ target: 'business', points: 6 }, { target: 'rule_detail', points: 6 }, { target: 'stable_path', points: 6 }] },
-      { id: 'gen_016_b', label: 'B', text: '中等——可以接受不确定性，但有大致方向比较好', scoreEffects: [{ target: 'stem', points: 4 }, { target: 'social_science', points: 4 }, { target: 'business', points: 4 }] },
-      { id: 'gen_016_c', label: 'C', text: '高——不确定才有意思，不喜欢被框死', scoreEffects: [{ target: 'humanities', points: 6 }, { target: 'art_creative', points: 6 }] },
+    { id: 'gen_016', type: 'general', title: '面对\'不确定\'的事情，你通常是什么状态？', targetBuckets: ['social_science', 'business', 'stem', 'humanities', 'art_creative'], priority: 18, options: [
+      { id: 'gen_016_a', label: 'A', text: '最好提前知道大概会发生什么，不然我会有点慌', scoreEffects: [{ target: 'stable_path', points: 6 }, { target: 'rule_detail', points: 4 }] },
+      { id: 'gen_016_b', label: 'B', text: '可以接受一点变化，但至少要有个大方向', scoreEffects: [] },
+      { id: 'gen_016_c', label: 'C', text: '不确定反而有意思，我不太喜欢所有事都被安排死', scoreEffects: [{ target: 'exploration_preference', points: 6 }] },
     ]},
 
     // --- 职业期待（gen_017 - gen_018）---
-    { id: 'gen_017', type: 'general', title: '未来工作中，你最看重什么？', targetBuckets: ['humanities', 'social_science', 'business', 'stem', 'life_health', 'art_creative'], priority: 3, options: [
-      { id: 'gen_017_a', label: 'A', text: '有意义——做对社会/他人有正面影响的事', scoreEffects: [{ target: 'social_science', points: 8 }, { target: 'life_health', points: 8 }, { target: 'humanities', points: 4 }] },
-      { id: 'gen_017_b', label: 'B', text: '有成长——能持续学到新东西，不被重复消耗', scoreEffects: [{ target: 'stem', points: 8 }, { target: 'business', points: 4 }, { target: 'humanities', points: 4 }] },
-      { id: 'gen_017_c', label: 'C', text: '有稳定——路径清晰、收入体面、生活有保障', scoreEffects: [{ target: 'business', points: 8 }, { target: 'stable_path', points: 8 }, { target: 'business_sense', points: 6 }, { target: 'social_science', points: 4 }] },
-      { id: 'gen_017_d', label: 'D', text: '有创造——能做出属于自己的作品或成果', scoreEffects: [{ target: 'art_creative', points: 10 }, { target: 'stem', points: 4 }, { target: 'aesthetic_creation', points: 6 }] },
-      { id: 'gen_017_e', label: 'E', text: '有掌控——自己做主，不是一直听别人安排', scoreEffects: [{ target: 'business', points: 6 }, { target: 'stem', points: 6 }, { target: 'humanities', points: 4 }] },
+    { id: 'gen_017', type: 'general', title: '想象以后工作很多年，你最怕哪种状态？', targetBuckets: ['humanities', 'social_science', 'business', 'stem', 'life_health', 'art_creative'], priority: 3, options: [
+      { id: 'gen_017_a', label: 'A', text: '做的事对别人没什么帮助，只是在机械完成任务', scoreEffects: [{ target: 'social_science', points: 6 }, { target: 'life_health', points: 6 }] },
+      { id: 'gen_017_b', label: 'B', text: '每天都在重复，学不到新东西，人慢慢钝掉', scoreEffects: [{ target: 'self_improvement_preference', points: 6 }] },
+      { id: 'gen_017_c', label: 'C', text: '路径太飘，收入和生活都没底，心里一直悬着', scoreEffects: [{ target: 'stable_path', points: 6 }, { target: 'business', points: 6 }, { target: 'rule_detail', points: 4 }] },
+      { id: 'gen_017_d', label: 'D', text: '永远只能照着别人安排做，没有自己的成果和表达', scoreEffects: [{ target: 'aesthetic_creation', points: 6 }, { target: 'art_creative', points: 6 }, { target: 'stem', points: 4 }] },
+      { id: 'gen_017_e', label: 'E', text: '所有选择都被别人推着走，自己没什么决定权', scoreEffects: [{ target: 'autonomy_preference', points: 6 }] },
     ]},
     { id: 'gen_018', type: 'general', title: '以下哪种职业描述最接近你理想的未来？', targetBuckets: ['humanities', 'social_science', 'business', 'stem', 'life_health', 'art_creative'], priority: 4, options: [
       { id: 'gen_018_a', label: 'A', text: '用文字/语言/思想影响人们对世界的理解', scoreEffects: [{ target: 'humanities', points: 10 }, { target: 'reading_expression', points: 8 }] },
@@ -161,11 +162,11 @@ export const questionBank: QuestionBank = {
       { id: 'gen_019_e', label: 'E', text: '被要求长时间照顾身体不适或行动不便的人', scoreEffects: [{ target: 'life_health', points: -8 }] },
       { id: 'gen_019_f', label: 'F', text: '被要求当众表演或展示自己的创作并接受评判', scoreEffects: [{ target: 'art_creative', points: -8 }, { target: 'aesthetic_creation', points: -6 }] },
     ]},
-    { id: 'gen_020', type: 'general', title: '如果有人对你说"你不太适合做某事"，你会怎么想？', targetBuckets: ['humanities', 'social_science', 'business', 'stem', 'art_creative'], priority: 20, options: [
-      { id: 'gen_020_a', label: 'A', text: '我会认真想想——可能是真的，也可能只是对方不了解我', scoreEffects: [{ target: 'stable_path', points: 12 }] },
-      { id: 'gen_020_b', label: 'B', text: '不太在意——我觉得兴趣比天赋更重要', scoreEffects: [{ target: 'humanities', points: 4 }, { target: 'art_creative', points: 4 }] },
-      { id: 'gen_020_c', label: 'C', text: '我会去求证——自己试试看是不是真的不适合', scoreEffects: [{ target: 'stem', points: 4 }, { target: 'business', points: 4 }] },
-      { id: 'gen_020_d', label: 'D', text: '如果很多人都这么说，我可能会调整方向', scoreEffects: [{ target: 'social_science', points: 4 }, { target: 'stable_path', points: 12 }] },
+    { id: 'gen_020', type: 'general', title: '如果有人认真地说"你可能不太适合这个方向"，你通常会怎么想？', targetBuckets: ['humanities', 'social_science', 'business', 'stem', 'art_creative'], priority: 20, options: [
+      { id: 'gen_020_a', label: 'A', text: '我会先听听理由，但不会马上被一句话劝退', scoreEffects: [{ target: 'feedback_reflection', points: 6 }] },
+      { id: 'gen_020_b', label: 'B', text: '我不太在意，喜欢和愿意投入比所谓天赋更重要', scoreEffects: [{ target: 'humanities', points: 4 }, { target: 'art_creative', points: 4 }] },
+      { id: 'gen_020_c', label: 'C', text: '我会自己找机会试一下，看看是真的不适合，还是只是没接触过', scoreEffects: [{ target: 'stem', points: 4 }, { target: 'business', points: 4 }] },
+      { id: 'gen_020_d', label: 'D', text: '如果很多人都这么说，我会认真考虑要不要换个方向', scoreEffects: [{ target: 'social_science', points: 4 }] },
     ]},
 
     // ============================================================
