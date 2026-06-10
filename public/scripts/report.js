@@ -50,6 +50,8 @@
   TXT.disclaimer1 = '本测试仅供初步了解专业方向，不构成志愿填报建议。最终选择请结合你的高考分数、位次、目标院校、家庭情况和个人规划综合判断。本站不提供院校推荐、分数位次分析和录取概率预测。';
   TXT.disclaimer2 = '本测试结果仅供了解专业方向的参考，不是志愿填报结论。测试不包含院校推荐、分数位次分析和录取概率预测。最终选择哪个专业，需要你结合高考成绩、目标院校、家庭情况和个人目标综合判断。我们建议你把这里的推荐当作一个探索起点，而不是最终答案。';
   TXT.disclaimer3 = '专业不迷路 · 公益项目 · 核心功能免费';
+  TXT.boundaryNote = '本测试用于帮助你发现值得了解和需要谨慎的方向，不替代正式志愿填报建议。';
+  TXT.subjectNote = '基于你的选科情况，部分方向已调整权重。最终专业选择请以本省考试院公布的选科要求为准。';
   TXT.profileTitle = '你的方向画像';
   TXT.profileSub = '基于你的答题偏好，勾勒出大致的方向轮廓';
   TXT.confidence = '置信度：';
@@ -409,6 +411,16 @@
       });
     });
     return scores;
+  }
+
+  // v1.0 滤波：仅保留通用题响应
+  function filterGeneralResponses(bank, responses) {
+    var filtered = {};
+    Object.keys(responses).forEach(function(qId) {
+      var q = bank.questions.find(function(x) { return x.id === qId; });
+      if (q && q.type === 'general') filtered[qId] = responses[qId];
+    });
+    return filtered;
   }
 
   function normalizeScores(scores) {
@@ -819,21 +831,55 @@
     return steps;
   }
 
-  function generateResult(bank, responses, riskTags, userType) {
+  function generateResult(bank, responses, riskTags, userType, genOnlyBucketScores, userSubjects) {
     var raw = computeBucketScores(bank, responses);
     var dim = computeDimensionScores(bank, responses);
-    var userSubjects = window.__USER_SUBJECTS__;
-    // v0.18 选科惩罚：未选物理→理工桶-30，未选历史→人文桶-30
-    if (userSubjects && userSubjects.selected && userSubjects.mode !== 'unknown') {
+
+    // v1.0 选科惩罚（对齐 scoring.ts）
+    if (userSubjects && userSubjects.selected && userSubjects.selected.length > 0) {
       var has = {};
       userSubjects.selected.forEach(function(s) { has[s] = true; });
-      if (!has['物理']) { raw.stem = Math.max(0, (raw.stem || 0) - 40); }
-      if (!has['化学']) { raw.stem = Math.max(0, (raw.stem || 0) - 15); raw.life_health = Math.max(0, (raw.life_health || 0) - 15); }
-      if (!has['生物']) { raw.life_health = Math.max(0, (raw.life_health || 0) - 20); }
-      if (!has['历史']) { raw.humanities = Math.max(0, (raw.humanities || 0) - 30); }
-      if (!has['思想政治']) { raw.social_science = Math.max(0, (raw.social_science || 0) - 10); }
+      if (!has['物理']) { raw.stem = Math.round(raw.stem * 0.6); }
+      if (!has['化学']) { raw.stem = Math.round(raw.stem * 0.85); }
+      if (!has['生物']) { raw.life_health = Math.round(raw.life_health * 0.7); }
+      if (!has['历史'] && !has['思想政治']) {
+        raw.humanities = Math.round(raw.humanities * 0.75);
+        raw.social_science = Math.round(raw.social_science * 0.85);
+      }
     }
-    var refined = computeRefinedBucketScores(raw, dim);
+
+    // v1.0 第一阶段 70% + 第二阶段 30% 加权混合
+    var finalBuckets;
+    if (genOnlyBucketScores) {
+      var genRaw = {};
+      for (var bk = 0; bk < BUCKETS.length; bk++) {
+        genRaw[BUCKETS[bk]] = (genOnlyBucketScores && genOnlyBucketScores[BUCKETS[bk]]) || 0;
+      }
+      // 对第一阶段也应用选科惩罚
+      if (userSubjects && userSubjects.selected && userSubjects.selected.length > 0) {
+        var h2 = {};
+        userSubjects.selected.forEach(function(s) { h2[s] = true; });
+        if (!h2['物理']) { for (var bk2 = 0; bk2 < BUCKETS.length; bk2++) if (BUCKETS[bk2] === 'stem') genRaw.stem = Math.round(genRaw.stem * 0.6); }
+        if (!h2['化学']) { genRaw.stem = Math.round(genRaw.stem * 0.85); }
+        if (!h2['生物']) { genRaw.life_health = Math.round(genRaw.life_health * 0.7); }
+        if (!h2['历史'] && !h2['思想政治']) {
+          genRaw.humanities = Math.round(genRaw.humanities * 0.75);
+          genRaw.social_science = Math.round(genRaw.social_science * 0.85);
+        }
+      }
+      var genDim = computeDimensionScores(bank, filterGeneralResponses(bank, responses));
+      var genRefined = computeRefinedBucketScores(genRaw, genDim);
+      var allRefined = computeRefinedBucketScores(raw, dim);
+      var mixed = {};
+      for (var bk3 = 0; bk3 < BUCKETS.length; bk3++) {
+        var b = BUCKETS[bk3];
+        mixed[b] = Math.round((genRefined[b] || 0) * 0.7 + (allRefined[b] || 0) * 0.3);
+      }
+      finalBuckets = normalizeBucketScores(mixed);
+    } else {
+      finalBuckets = computeRefinedBucketScores(raw, dim);
+    }
+    var refined = finalBuckets;
     var disc = generateDisciplineRecommendations(refined);
     var cats = generateCategoryRecommendations(refined, dim, riskTags, disc);
 
@@ -1026,6 +1072,28 @@
   function renderDisclaimer() {
     return el('div', { className: 'bg-amber-50 border border-amber-100 rounded-xl p-4 mb-6' },
       el('p', { className: 'text-xs text-amber-700 leading-relaxed' }, TXT.disclaimer1)
+    );
+  }
+
+  // v1.0 选科约束显示
+  function renderSubjectConstraint(userSubjects) {
+    if (!userSubjects || !userSubjects.selected || !userSubjects.selected.length) return null;
+    var subjects = userSubjects.selected;
+    var hasPhysics = subjects.indexOf('物理') >= 0;
+    var hasChemistry = subjects.indexOf('化学') >= 0;
+    var hasBiology = subjects.indexOf('生物') >= 0;
+    var notes = [];
+    if (!hasPhysics) notes.push('未选物理，理工科方向权重已下调');
+    if (!hasChemistry) notes.push('未选化学，部分工科/医学方向受限');
+    if (!hasBiology) notes.push('未选生物，医学/生命科学方向权重已下调');
+    if (notes.length === 0) return null;
+    var items = notes.map(function(n) {
+      return el('li', { className: 'text-xs text-slate-600' }, '• ' + n);
+    });
+    return el('div', { className: 'bg-slate-50 border border-slate-200 rounded-xl p-4 mb-6' },
+      el('p', { className: 'text-xs font-medium text-slate-700 mb-1' }, '📝 选科提醒（' + subjects.join('+') + '）'),
+      el('ul', { className: 'space-y-0.5' }, items[0], items[1], items[2]),
+      el('p', { className: 'text-[10px] text-slate-400 mt-2' }, TXT.subjectNote)
     );
   }
 
@@ -1512,7 +1580,7 @@
     return el('div', { className: 'mb-6' }, children);
   }
 
-  function renderFullReport(result) {
+  function renderFullReport(result, userSubjects) {
     _reportResult = result;
     var r = rootEl();
     r.innerHTML = '';
@@ -1525,6 +1593,16 @@
     ));
 
     wrapper.appendChild(renderDisclaimer());
+
+    // v1.0 选科约束说明
+    if (userSubjects && userSubjects.selected && userSubjects.selected.length > 0) {
+      wrapper.appendChild(renderSubjectConstraint(userSubjects));
+    }
+
+    // v1.0 边界声明
+    wrapper.appendChild(el('div', { className: 'bg-blue-50 border border-blue-100 rounded-xl p-3 mb-6 text-center' },
+      el('p', { className: 'text-xs text-blue-700 leading-relaxed' }, TXT.boundaryNote)
+    ));
     // AI 解释区域（初始为加载态，API 返回后替换）
     var aiSection = el('div', { id: 'ai-explain-section' },
       renderAIExplanationLoading()
@@ -1571,8 +1649,17 @@
 
     try {
       window.__USER_SUBJECTS__ = stored.userSubjects || null;
-      var result = generateResult(bank, stored.responses, stored.riskTags || [], stored.userType || 'exploratory');
-      renderFullReport(result);
+      var result = generateResult(
+        bank,
+        stored.responses,
+        stored.riskTags || [],
+        stored.userType || 'exploratory',
+        stored.humanitiesProtected || false,
+        stored.bucketScores || undefined,
+        stored.genOnlyBucketScores || undefined,
+        stored.userSubjects || undefined
+      );
+      renderFullReport(result, stored.userSubjects);
     } catch (e) {
       console.error('Report render error:', e);
       var r = rootEl();

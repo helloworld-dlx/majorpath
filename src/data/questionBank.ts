@@ -35,7 +35,7 @@ export const questionBank: QuestionBank = {
     { id: 'gen_002', type: 'general', title: '以下哪种任务会让你最有成就感？', targetBuckets: ['humanities', 'social_science', 'business', 'stem', 'life_health', 'art_creative'], priority: 2, options: [
       { id: 'gen_002_a', label: 'A', text: '写出一篇打动人心的文章或分析报告', scoreEffects: [{ target: 'humanities', points: 10 }, { target: 'reading_expression', points: 8 }, { target: 'social_science', points: 4 }] },
       { id: 'gen_002_b', label: 'B', text: '组织一场活动，让所有人配合得很好', scoreEffects: [{ target: 'social_science', points: 10 }, { target: 'business', points: 8 }, { target: 'interpersonal', points: 6 }] },
-      { id: 'gen_002_c', label: 'C', text: '算清楚一笔账或分析出一组数据背后的规律', scoreEffects: [{ target: 'business', points: 10 }, { target: 'math_logic', points: 8 }, { target: 'stem', points: 4 }] },
+      { id: 'gen_002_c', label: 'C', text: '算清楚一笔账或分析出一组数据背后的规律', scoreEffects: [{ target: 'business', points: 10 }, { target: 'math_logic', points: 8 }, { target: 'business_sense', points: 6 }, { target: 'stem', points: 4 }] },
       { id: 'gen_002_d', label: 'D', text: '动手做出一个能实际运行的东西（程序 / 装置 / 模型）', scoreEffects: [{ target: 'stem', points: 10 }, { target: 'engineering_practice', points: 8 }, { target: 'info_systems', points: 6 }] },
       { id: 'gen_002_e', label: 'E', text: '帮一个人恢复健康或解决一个实际困难', scoreEffects: [{ target: 'life_health', points: 10 }, { target: 'interpersonal', points: 6 }, { target: 'social_science', points: 4 }] },
       { id: 'gen_002_f', label: 'F', text: '创作一件打动人的作品（画作、影像、音乐都算）', scoreEffects: [{ target: 'art_creative', points: 10 }, { target: 'aesthetic_creation', points: 8 }] },
@@ -50,7 +50,7 @@ export const questionBank: QuestionBank = {
       { id: 'gen_004_a', label: 'A', text: '提出想法和框架的人，喜欢先想清楚再分工', scoreEffects: [{ target: 'humanities', points: 8 }, { target: 'abstract_theory', points: 6 }, { target: 'stem', points: 4 }] },
       { id: 'gen_004_b', label: 'B', text: '协调者——确保大家沟通顺畅、进度正常', scoreEffects: [{ target: 'social_science', points: 8 }, { target: 'interpersonal', points: 8 }, { target: 'business', points: 6 }] },
       { id: 'gen_004_c', label: 'C', text: '动手执行的人——别人出想法，我来落地', scoreEffects: [{ target: 'stem', points: 8 }, { target: 'engineering_practice', points: 8 }] },
-      { id: 'gen_004_d', label: 'D', text: '检查把关的人——确保每个细节都没问题', scoreEffects: [{ target: 'business', points: 6 }, { target: 'rule_detail', points: 8 }, { target: 'life_health', points: 4 }] },
+      { id: 'gen_004_d', label: 'D', text: '检查把关的人——确保每个细节都没问题', scoreEffects: [{ target: 'business', points: 6 }, { target: 'rule_detail', points: 8 }, { target: 'business_sense', points: 6 }, { target: 'life_health', points: 4 }] },
     ]},
     { id: 'gen_005', type: 'general', title: '如果你有额外的一小时空闲，你最容易做什么？', targetBuckets: ['humanities', 'social_science', 'business', 'stem', 'life_health', 'art_creative'], priority: 7, options: [
       { id: 'gen_005_a', label: 'A', text: '拿起手边任何有字的东西读一读', scoreEffects: [{ target: 'humanities', points: 8 }, { target: 'reading_expression', points: 6 }] },
@@ -140,7 +140,7 @@ export const questionBank: QuestionBank = {
     { id: 'gen_017', type: 'general', title: '未来工作中，你最看重什么？', targetBuckets: ['humanities', 'social_science', 'business', 'stem', 'life_health', 'art_creative'], priority: 3, options: [
       { id: 'gen_017_a', label: 'A', text: '有意义——做对社会/他人有正面影响的事', scoreEffects: [{ target: 'social_science', points: 8 }, { target: 'life_health', points: 8 }, { target: 'humanities', points: 4 }] },
       { id: 'gen_017_b', label: 'B', text: '有成长——能持续学到新东西，不被重复消耗', scoreEffects: [{ target: 'stem', points: 8 }, { target: 'business', points: 4 }, { target: 'humanities', points: 4 }] },
-      { id: 'gen_017_c', label: 'C', text: '有稳定——路径清晰、收入体面、生活有保障', scoreEffects: [{ target: 'business', points: 8 }, { target: 'stable_path', points: 8 }, { target: 'social_science', points: 4 }] },
+      { id: 'gen_017_c', label: 'C', text: '有稳定——路径清晰、收入体面、生活有保障', scoreEffects: [{ target: 'business', points: 8 }, { target: 'stable_path', points: 8 }, { target: 'business_sense', points: 6 }, { target: 'social_science', points: 4 }] },
       { id: 'gen_017_d', label: 'D', text: '有创造——能做出属于自己的作品或成果', scoreEffects: [{ target: 'art_creative', points: 10 }, { target: 'stem', points: 4 }, { target: 'aesthetic_creation', points: 6 }] },
       { id: 'gen_017_e', label: 'E', text: '有掌控——自己做主，不是一直听别人安排', scoreEffects: [{ target: 'business', points: 6 }, { target: 'stem', points: 6 }, { target: 'humanities', points: 4 }] },
     ]},

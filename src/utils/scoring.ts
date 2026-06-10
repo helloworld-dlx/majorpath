@@ -114,12 +114,16 @@ export function computeDimensionScores(
 // ───── 细化桶得分（融合维度矩阵） ─────
 
 /**
- * 在粗筛桶得分基础上，用维度矩阵加权修正
+ * 在粗筛桶得分基础上，用维度矩阵加权修正，并应用选科约束
  * 公式：refined = rawBucket * 0.4 + dimensionWeightedBucket * 0.6
+ * @param rawBucketScores 全部题目的桶得分
+ * @param dimScores 全部题目的维度得分
+ * @param userSubjects 用户选科（可选，用于推荐阶段过滤）
  */
 export function computeRefinedBucketScores(
   rawBucketScores: BucketScore,
   dimScores: Record<Dimension, number>,
+  userSubjects?: { mode: string; province: string; selected: string[] },
 ): BucketScore {
   const dimBucketScores: BucketScore = {
     humanities: 0, social_science: 0, business: 0,
@@ -153,6 +157,34 @@ export function computeRefinedBucketScores(
   const lifeScore = dimScores['life_health_interest'] ?? 0;
   if (lifeScore < 20) {
     refined.life_health = Math.round(refined.life_health * 0.3);
+  }
+
+  // v1.0 选科约束：根据用户真实选科降权不适配方向
+  if (userSubjects && userSubjects.selected && userSubjects.selected.length > 0) {
+    const subjects = new Set(userSubjects.selected);
+    const hasPhysics = subjects.has('物理');
+    const hasChemistry = subjects.has('化学');
+    const hasBiology = subjects.has('生物');
+    const hasHistory = subjects.has('历史');
+    const hasPolitics = subjects.has('思想政治') || subjects.has('政治');
+
+    // 未选物理 → STEM 桶降权 40%
+    if (!hasPhysics) {
+      refined.stem = Math.round(refined.stem * 0.6);
+    }
+    // 未选化学 → STEM 额外降权 15%
+    if (!hasChemistry) {
+      refined.stem = Math.round(refined.stem * 0.85);
+    }
+    // 未选生物 → 生命健康降权 30%
+    if (!hasBiology) {
+      refined.life_health = Math.round(refined.life_health * 0.7);
+    }
+    // 未选历史+未选政治 → 人文社科降权 25%
+    if (!hasHistory && !hasPolitics) {
+      refined.humanities = Math.round(refined.humanities * 0.75);
+      refined.social_science = Math.round(refined.social_science * 0.85);
+    }
   }
 
   return normalizeScores(refined);
@@ -699,6 +731,23 @@ function inferPrimaryInterestDomain(
   return 'unknown';
 }
 
+// ───── v1.0 辅助：过滤仅通用题响应 ─────
+
+/** 从全部响应中过滤出第一阶段通用题的响应 */
+function filterGeneralResponses(
+  bank: QuestionBank,
+  responses: UserResponses,
+): UserResponses {
+  const filtered: UserResponses = {};
+  for (const [qId, optId] of Object.entries(responses)) {
+    const q = bank.questions.find((x) => x.id === qId);
+    if (q && q.type === 'general') {
+      filtered[qId] = optId;
+    }
+  }
+  return filtered;
+}
+
 // ───── 主流程 ─────
 
 /**
@@ -710,6 +759,8 @@ function inferPrimaryInterestDomain(
  * @param riskTags     风险标签列表
  * @param userType     用户类型
  * @param humanitiesProtected  文科保护是否触发
+ * @param genOnlyBucketScores  第一阶段纯桶得分（v1.0 用于 70/30 加权）
+ * @param userSubjects  用户选科（v1.0 用于推荐阶段过滤）
  */
 export function generateResult(
   bank: QuestionBank,
@@ -718,27 +769,48 @@ export function generateResult(
   userType: UserType,
   humanitiesProtected: boolean,
   rawBucketScores?: BucketScore,
+  genOnlyBucketScores?: BucketScore,
+  userSubjects?: { mode: string; province: string; selected: string[] },
 ): RecommendationResult {
   // 1. 维度分数
   const dimScores = computeDimensionScores(bank, responses);
 
   // 2. 桶得分
   const rawBuckets = rawBucketScores ?? computeBucketScores(bank, responses);
-  const refinedBuckets = computeRefinedBucketScores(rawBuckets, dimScores);
+  const refinedBuckets = computeRefinedBucketScores(rawBuckets, dimScores, userSubjects);
+
+  // 2.5 v1.0 第一阶段 70% + 第二阶段 30% 加权混合
+  let finalBuckets: BucketScore;
+  if (genOnlyBucketScores) {
+    // 第一阶段纯桶得分归一化后 ×0.7，全量桶得分 ×0.3
+    const genDimScores = computeDimensionScores(
+      bank,
+      filterGeneralResponses(bank, responses),
+    );
+    const genRefined = computeRefinedBucketScores(genOnlyBucketScores, genDimScores, userSubjects);
+    const allRefined = computeRefinedBucketScores(rawBuckets, dimScores, userSubjects);
+    const mixed: BucketScore = { ...allRefined };
+    for (const key of Object.keys(mixed) as DirectionBucket[]) {
+      mixed[key] = Math.round(genRefined[key] * 0.7 + allRefined[key] * 0.3);
+    }
+    finalBuckets = normalizeScores(mixed);
+  } else {
+    finalBuckets = refinedBuckets;
+  }
 
   // 3. 门类推荐
-  const topDisciplines = generateDisciplineRecommendations(refinedBuckets, userType);
+  const topDisciplines = generateDisciplineRecommendations(finalBuckets, userType);
 
   // 4. 专业类推荐
   let { recommended, optional, cautious } = generateCategoryRecommendations(
-    refinedBuckets, dimScores, riskTags, humanitiesProtected, topDisciplines,
+    finalBuckets, dimScores, riskTags, humanitiesProtected, topDisciplines,
   );
 
   // 4.5 探索型兜底：若无推荐但从可选中提升一个
   // v0.19.5 修复：尊重主兴趣领域，不让经济学类成为通用兜底
   if (recommended.length === 0 && optional.length > 0) {
     // 推断主兴趣领域
-    const primaryDomain = inferPrimaryInterestDomain(dimScores, refinedBuckets);
+    const primaryDomain = inferPrimaryInterestDomain(dimScores, finalBuckets);
     // 优先从同领域可选类别中提升
     const sameDomain = optional.filter((c) =>
       getCategoryDomain(c.slug) === primaryDomain
@@ -752,13 +824,13 @@ export function generateResult(
   }
 
   // 5. 避坑
-  const riskResults = generateRiskResults(riskTags, refinedBuckets);
+  const riskResults = generateRiskResults(riskTags, finalBuckets);
 
   // 6. 置信度
-  const confidence = determineConfidenceLevel(refinedBuckets, userType);
+  const confidence = determineConfidenceLevel(finalBuckets, userType);
 
   // 7. 画像
-  const profile = generateProfile(refinedBuckets, userType);
+  const profile = generateProfile(finalBuckets, userType);
 
   // 8. 维度画像
   const dimensions = generateDimensionProfile(dimScores);

@@ -93,7 +93,7 @@ export interface AdaptiveConfig {
 
 /** 默认配置（对齐 ALGORITHM_SPEC v0.3 §6.1） */
 export const DEFAULT_CONFIG: AdaptiveConfig = {
-  generalCount: 9,
+  generalCount: 12,
   singleMainBranch: 4,
   singleSecondaryBranch: 2,
   dualPerBucket: 4,
@@ -136,13 +136,9 @@ function pickRandom(bank: QuestionBank, type: string, count: number, buckets?: D
   if (excludeIds && excludeIds.size > 0) {
     pool = pool.filter((q) => !excludeIds.has(q.id));
   }
-  // Fisher-Yates shuffle then take first N
-  const shuffled = [...pool];
-  for (let i = shuffled.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-  }
-  return shuffled.slice(0, Math.min(count, shuffled.length));
+  // v1.0 确定性选取：按 ID 排序取前 N 道
+  pool.sort((a, b) => a.id.localeCompare(b.id));
+  return pool.slice(0, Math.min(count, pool.length));
 }
 
 /** 按 priority 排序 */
@@ -154,20 +150,24 @@ function byPriority(a: Question, b: Question): number {
 
 /**
  * 第 1 步：抽取通用粗筛题
- * 从 bank 中选 generalCount 道 general 题（targetBuckets 覆盖全部 6 桶）
+ * v1.0 固定选题——从 bank 中按固定 ID 列表顺序提取，不再随机
  */
 export function selectGeneralQuestions(
   bank: QuestionBank,
-  config: AdaptiveConfig = DEFAULT_CONFIG,
+  _config: AdaptiveConfig = DEFAULT_CONFIG,
 ): Question[] {
-  const pool = bank.questions.filter((q) => q.type === 'general');
-  // 从 20 道通用题库中随机抽取，保证轮换避免刷题记忆
-  const shuffled = [...pool];
-  for (let i = shuffled.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  // v1.0 固定第一阶段 12 题（对应 test-flow.js 的 FIRST_STAGE_QUESTION_IDS）
+  const FIXED_IDS = [
+    'gen_001', 'gen_002', 'gen_003', 'gen_004', 'gen_006', 'gen_007',
+    'gen_008', 'gen_010', 'gen_014', 'gen_016', 'gen_017', 'gen_020',
+  ];
+  const qMap: Record<string, Question> = {};
+  for (const q of bank.questions) qMap[q.id] = q;
+  const selected: Question[] = [];
+  for (const id of FIXED_IDS) {
+    if (qMap[id]) selected.push(qMap[id]);
   }
-  return shuffled.slice(0, config.generalCount);
+  return selected;
 }
 
 /**
@@ -298,12 +298,9 @@ export function selectBranchQuestions(
     const pool = bank.questions.filter(
       (q) => q.type === 'branch' && q.targetBuckets.includes(bucket) && !usedIds.has(q.id),
     );
-    const shuffled = [...pool];
-    for (let i = shuffled.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-    }
-    const picks = shuffled.slice(0, perBucket);
+    // 确定性选取：按 ID 字母序取前 perBucket 道（v1.0 不再随机）
+    pool.sort((a, b) => a.id.localeCompare(b.id));
+    const picks = pool.slice(0, perBucket);
     picks.forEach((q) => { usedIds.add(q.id); selected.push(q); });
   }
 
@@ -337,12 +334,9 @@ export function selectCrossCheckQuestions(
     && q.targetBuckets.some((b) => adjacentSet.has(b))
     && !usedIds.has(q.id),
   );
-  const shuffled = [...pool];
-  for (let i = shuffled.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-  }
-  const picks = shuffled.slice(0, count);
+  // v1.0 确定性选取
+  pool.sort((a, b) => a.id.localeCompare(b.id));
+  const picks = pool.slice(0, count);
   picks.forEach((q) => usedIds.add(q));
   return picks;
 }
@@ -356,12 +350,9 @@ export function selectRiskQuestions(
   usedIds: Set<string> = new Set(),
 ): Question[] {
   const pool = bank.questions.filter((q) => q.type === 'risk' && !usedIds.has(q.id));
-  const shuffled = [...pool];
-  for (let i = shuffled.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-  }
-  const picks = shuffled.slice(0, count);
+  // v1.0 确定性选取
+  pool.sort((a, b) => a.id.localeCompare(b.id));
+  const picks = pool.slice(0, count);
   picks.forEach((q) => usedIds.add(q));
   return picks;
 }

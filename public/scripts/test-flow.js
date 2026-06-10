@@ -9,7 +9,14 @@
   'use strict';
 
   const ROOT_ID = 'major-test-root';
+  const FIRST_STAGE_VERSION = 'v1.0';
   const BUCKETS = ['humanities', 'social_science', 'business', 'stem', 'life_health', 'art_creative'];
+
+  // 固定第一阶段题库（12 题，按序排列）—— 每次测试完全一致，不可随机
+  var FIRST_STAGE_QUESTION_IDS = [
+    'gen_001', 'gen_002', 'gen_003', 'gen_004', 'gen_006', 'gen_007',
+    'gen_008', 'gen_010', 'gen_014', 'gen_016', 'gen_017', 'gen_020'
+  ];
 
   const ADJACENT = {
     humanities: ['social_science', 'art_creative'],
@@ -31,6 +38,7 @@
   let subjectiveQ = [];
   let allQ = [];
   let bucketScores = null;
+  let genOnlyBucketScores = null; // v1.0 第一阶段纯桶得分（用于 70/30 加权）
   let userType = null;
   let humanitiesProtected = false;
   let shuffledOptionsCache = {};
@@ -86,7 +94,7 @@
     const top = sorted[0][1], second = sorted[1][1];
     if (top >= 68 && top - second >= 6) return 'single';
     if (top < 58) return 'exploratory';
-    if (top >= 55 && second >= 55 && top - second < 8) return 'dual';
+    if (top >= 66 && second >= 66 && top - second < 6) return 'dual';
     return 'exploratory';
   }
 
@@ -128,38 +136,34 @@
     const branchQs = [];
     for (const bucket of buckets) {
       var pool = bank.questions.filter(q => q.type === 'branch' && q.targetBuckets.includes(bucket) && !usedIds.has(q.id));
-      // v0.18 选科过滤：选了历史(无物理)则过滤纯STEM题，交叉方向保留
-      if (userSubjects && userSubjects.selected) {
-        var hasPhysics = userSubjects.selected.indexOf('物理') >= 0;
-        var hasHistory = userSubjects.selected.indexOf('历史') >= 0;
-        if (!hasPhysics && hasHistory) {
-          // 文科轨道：过滤所有包含 stem 桶的题（单桶+交叉桶都过滤）
-          pool = pool.filter(function(q) {
-            var tb = q.targetBuckets || [];
-            if (tb.indexOf('stem') >= 0) return false;
-            return true;
-          });
-        }
-      }
-      const picks = shuffle(pool).slice(0, perBucket);
-      picks.forEach(q => { usedIds.add(q); branchQs.push(q); });
+      // 确定性选取：按 ID 字母序取前 perBucket 道，不再随机抽取
+      pool.sort(function(a, b) { return a.id.localeCompare(b.id); });
+      var picks = pool.slice(0, perBucket);
+      picks.forEach(function(q) { usedIds.add(q); branchQs.push(q); });
     }
 
-    // cross_check
+    // cross_check: 确定性选取
     const adjacent = ADJACENT[primary] || [];
     const active = adjacent.filter(b => normalized[b] >= 50);
     let crossQs = [];
     if (active.length > 0) {
-      const aSet = new Set(active);
-      crossQs = pick(bank, 'cross_check', 2, [primary, ...active], usedIds).filter(
-        q => q.targetBuckets.some(b => aSet.has(b))
-      );
-      crossQs.forEach(q => usedIds.add(q));
+      var aSet = {};
+      for (var ai = 0; ai < active.length; ai++) aSet[active[ai]] = true;
+      var ccPool = bank.questions.filter(function(q) {
+        return q.type === 'cross_check' && !usedIds.has(q.id);
+      }).filter(function(q) {
+        return q.targetBuckets.some(function(b) { return b === primary || aSet[b]; });
+      });
+      ccPool.sort(function(a, b) { return a.id.localeCompare(b.id); });
+      crossQs = ccPool.slice(0, 2);
+      crossQs.forEach(function(q) { usedIds.add(q); });
     }
 
-    // risk
-    const riskQs = pick(bank, 'risk', 2, null, usedIds);
-    riskQs.forEach(q => usedIds.add(q));
+    // risk: 确定性选取
+    var rPool = bank.questions.filter(function(q) { return q.type === 'risk' && !usedIds.has(q.id); });
+    rPool.sort(function(a, b) { return a.id.localeCompare(b.id); });
+    var riskQs = rPool.slice(0, 2);
+    riskQs.forEach(function(q) { usedIds.add(q); });
 
     return { uType, hp, primary, secondary, branchQs, crossQs, riskQs };
   }
@@ -322,10 +326,18 @@
   }
 
   function startTest() {
-    const pool = bank.questions.filter(q => q.type === 'general');
-    const selected = shuffle(pool).slice(0, 9);
-    generalQ = selected.map((q, i) => ({ question: q, phase: 'general', order: i + 1 }));
-    allQ = [...generalQ];
+    // 固定第一阶段：按 FIRST_STAGE_QUESTION_IDS 顺序选取，不随机
+    var qMap = {};
+    bank.questions.forEach(function(q) { qMap[q.id] = q; });
+    var selected = [];
+    for (var i = 0; i < FIRST_STAGE_QUESTION_IDS.length; i++) {
+      var q = qMap[FIRST_STAGE_QUESTION_IDS[i]];
+      if (q) selected.push(q);
+    }
+    generalQ = selected.map(function(q, i) { return { question: q, phase: 'general', order: i + 1 }; });
+    // v1.0 题目集合固定，但顺序随机——消除位置疲劳偏差
+    generalQ = shuffle(generalQ);
+    allQ = generalQ.slice();
     phase = 'general';
     idx = 0;
     responses = {};
@@ -376,14 +388,14 @@
       }
     } else {
       // ── 选择题：option buttons ──
-      // 内容随机打乱映射到固定 label（A/B/C/D...），每道题仅打乱一次
+      // 选项保持原始顺序，不再随机打乱——保证跨测试一致性
       var LABELS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
       var mapping = shuffledOptionsCache[q.question.id];
       if (!mapping) {
-        var shuffled = shuffle(q.question.options.slice());
+        var orig = q.question.options.slice();
         mapping = [];
-        for (var si = 0; si < shuffled.length; si++) {
-          mapping.push({ label: LABELS[si] || String(si + 1), optId: shuffled[si].id, text: shuffled[si].text });
+        for (var si = 0; si < orig.length; si++) {
+          mapping.push({ label: LABELS[si] || String(si + 1), optId: orig[si].id, text: orig[si].text });
         }
         shuffledOptionsCache[q.question.id] = mapping;
       }
@@ -468,6 +480,7 @@
       var adp = buildAdaptivePhase(raw, norm, usedIds);
 
       bucketScores = raw;
+      genOnlyBucketScores = raw;
       userType = adp.uType;
       humanitiesProtected = adp.hp;
 
@@ -491,7 +504,8 @@
       // 主观题阶段：先插入 1-2 道主观开放题
       if (subjectiveQ.length === 0) {
         var subPool = bank.questions.filter(function (x) { return x.type === 'subjective'; });
-        var picked = shuffle(subPool).slice(0, 2);
+        subPool.sort(function(a, b) { return a.id.localeCompare(b.id); });
+        var picked = subPool.slice(0, 2);
         var sitems = [];
         var sord = allQ.length + 1;
         for (var j = 0; j < picked.length; j++) {
@@ -515,6 +529,7 @@
       var tags = collectRiskTags(responses);
       var payload = {
         bucketScores: bucketScores ?? computeBucketScores(responses),
+        genOnlyBucketScores: genOnlyBucketScores ?? computeBucketScores(responses),
         userType: userType ?? 'exploratory',
         humanitiesProtected,
         riskTags: tags,
@@ -542,6 +557,7 @@
       var tags2 = collectRiskTags(responses);
       var payload2 = {
         bucketScores: bucketScores ?? computeBucketScores(responses),
+        genOnlyBucketScores: genOnlyBucketScores ?? computeBucketScores(responses),
         userType: userType ?? 'exploratory',
         humanitiesProtected,
         riskTags: tags2,
