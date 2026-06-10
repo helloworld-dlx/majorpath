@@ -10,7 +10,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "simulate": "tsx scripts/simulateTests.ts",
+    "simulate": "tsx scripts/simulate.ts",
     "evolve": "tsx scripts/evolveRecommendationParams.ts"
   },
   "dependencies": {

@@ -25,3 +25,15 @@ pnpm-debug.log*
 
 # wrangler local dev artifacts
 .wrangler/
+
+# simulation output (keep data files and .gitkeep)
+simulation-results/single/
+simulation-results/batch/
+simulation-results/audit/
+simulation-results/niche/
+simulation-results/*.md
+simulation-results/*.csv
+simulation-results/*.json
+!simulation-results/v04_weights_raw.json
+!simulation-results/v04_fields.json
+!simulation-results/.gitkeep
