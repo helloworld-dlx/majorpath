@@ -875,7 +875,7 @@
         var b = BUCKETS[bk3];
         mixed[b] = Math.round((genRefined[b] || 0) * 0.7 + (allRefined[b] || 0) * 0.3);
       }
-      finalBuckets = normalizeBucketScores(mixed);
+      finalBuckets = normalizeScores(mixed);
     } else {
       finalBuckets = computeRefinedBucketScores(raw, dim);
     }
