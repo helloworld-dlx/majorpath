@@ -1276,3 +1276,28 @@
   4. 如有条件，真人走一遍测试→报告流程验证前端 report.js 行为
 - **当前版本状态**：v0.19.5 — 算法保护规则 + 前后端规则对齐完成
 
+
+### 2026-06-11 11:59 — 机械设计内容替换 + 给排水页面路由修复
+
+- **使用模型**：MiniMax M2.7
+- **任务类型**：内容 / 修复
+- **完成内容**：
+  - 读取用户 Word 文档（`新建_Microsoft_Word_文档---70f6978b-4074-4012-aec3-e39c2be7e015.docx`）
+  - 完整替换机械设计制造及其自动化专业详情（`engineering/mechanical/mechanical-design`）
+  - 更新 oneLiner、whatYouLearn、vsHighSchool、suitableFor、notSuitableFor、commonMisconceptions、realScenes、futurePaths、pitfalls、relatedMajors（7个专业对比，均含 slug 链接）
+  - reviewStatus 改为 draft，updatedAt 改为 2026-06-11
+  - 构建验证通过（115 页面）✅
+  - **修复给排水页面无法访问**：
+    1. `major-details/engineering.ts`：key 修复（`engineering/water-supply` → `engineering/civil-engineering/water-supply`）
+    2. 新建 `[major].astro` 路由页面（三级路由：门类→专业类→具体专业），解决具体专业详情页从未生成的问题
+    3. 导入路径：`../../../../layouts`（深度4）
+    4. 构建：116 → **782 页面**，所有 catalog 中有 majors 数组的具体专业全部生成静态页面
+- **修改的文件**：
+  - `src/data/major-details/engineering.ts` — 机械设计内容替换 + water-supply key 修复
+  - `src/pages/majors/[gate]/[category]/[major].astro` — 新建（具体专业详情页路由）
+- **关键决策**：
+  - major-detail key 结构：`${gate}/${category}/${major}` = `engineering/civil-engineering/water-supply`
+  - [major].astro 必须用 `../../../../` 而非 `../../../`（深度4 vs 深度3）
+- **遗留问题**：无
+- **下次建议**：暂无（已正常）
+- **当前版本状态**：v0.19.6 — 机械设计内容替换 + 给排水页面修复，782 页面构建通过
