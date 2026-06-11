@@ -548,7 +548,7 @@ export const engineeringDetails: MajorDetailMap = {
     gateSlug: 'engineering',
 
     oneLiner:
-      '把水处理干净后输送给人使用，再把用过的污水收集起来处理达标后排放。',
+      '把水处理干净后输送供使用，再把用过的污废水收集起来，处理达标后排放。',
 
     whatYouLearn: [
       '水质处理工艺（自来水厂、污水厂）设计与运行',
@@ -610,9 +610,9 @@ export const engineeringDetails: MajorDetailMap = {
     ],
 
     updatedAt: '2026-06-11',
-    reviewStatus: 'draft',
+    reviewStatus: 'reviewed',
     videos: [],
-    contributors: [],
+    contributors: [{ name: 'dr', role: '给排水专业毕业生' }],
   },
 };
 
