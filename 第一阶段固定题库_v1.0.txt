@@ -1,0 +1,108 @@
+# 专业不迷路 v1.0 — 第一阶段固定通用题（12道）
+# 版本标识：FIRST_STAGE_VERSION = "v1.0"
+# 固定题库，不随机，不换题
+# 生成时间：2026/6/10 17:42:34
+
+════════════════════════════════════════════════════════════
+
+【gen_001】undefined
+  A. 窝在角落读一本好书或写点东西 → humanities(+12), reading_expression(+8)
+  B. 和朋友聊聊天，或者帮别人解决一个问题 → social_science(+10), interpersonal(+8), business(+4)
+  C. 捣鼓一个小项目：修东西、鼓捣设备、做手工都行 → stem(+12), engineering_practice(+8), info_systems(+4)
+  D. 去看展、听音乐会，或者自己画画 / 拍照 → art_creative(+12), aesthetic_creation(+8)
+  E. 研究一个健康话题，或者去户外接触自然 → life_health(+12), life_health_interest(+8)
+
+────────────────────────────────────────────────────────────
+
+【gen_002】undefined
+  A. 写出一篇打动人心的文章或分析报告 → humanities(+10), reading_expression(+8), social_science(+4)
+  B. 组织一场活动，让所有人配合得很好 → social_science(+10), business(+8), interpersonal(+6)
+  C. 算清楚一笔账或分析出一组数据背后的规律 → business(+10), math_logic(+8), business_sense(+6), stem(+4)
+  D. 动手做出一个能实际运行的东西（程序 / 装置 / 模型） → stem(+10), engineering_practice(+8), info_systems(+6)
+  E. 帮一个人恢复健康或解决一个实际困难 → life_health(+10), interpersonal(+6), social_science(+4)
+  F. 创作一件打动人的作品（画作、影像、音乐都算） → art_creative(+10), aesthetic_creation(+8)
+
+────────────────────────────────────────────────────────────
+
+【gen_003】undefined
+  A. 买一批书或资料，泡在里面研究一个话题 → humanities(+10), reading_expression(+6), abstract_theory(+4)
+  B. 组织朋友一起做一件有意义的事 → social_science(+10), interpersonal(+8), business(+4)
+  C. 买材料自己做东西：烘焙、木工、电子套件之类 → stem(+10), engineering_practice(+8)
+  D. 买画材、乐器或相机，专注创作一整天 → art_creative(+10), aesthetic_creation(+8)
+
+────────────────────────────────────────────────────────────
+
+【gen_004】undefined
+  A. 提出想法和框架的人，喜欢先想清楚再分工 → humanities(+8), abstract_theory(+6), stem(+4)
+  B. 协调者——确保大家沟通顺畅、进度正常 → social_science(+8), interpersonal(+8), business(+6)
+  C. 动手执行的人——别人出想法，我来落地 → stem(+8), engineering_practice(+8)
+  D. 检查把关的人——确保每个细节都没问题 → business(+6), rule_detail(+8), business_sense(+6), life_health(+4)
+
+────────────────────────────────────────────────────────────
+
+【gen_006】undefined
+  A. 读大量的书和资料，自己梳理思路 → humanities(+8), social_science(+6), reading_expression(+8)
+  B. 和别人讨论、辩论，在交流中理清问题 → social_science(+8), business(+6), interpersonal(+8)
+  C. 看公式、画图、推导演算 → stem(+8), math_logic(+8)
+  D. 上手试，做实验、搭东西、鼓捣设备 → stem(+8), engineering_practice(+8)
+  E. 看案例、观察真实的人或事物 → life_health(+6), social_science(+4), art_creative(+4)
+
+────────────────────────────────────────────────────────────
+
+【gen_007】undefined
+  A. 文字、阅读与写作——用语言表达想法让我兴奋 → humanities(+10), social_science(+6), reading_expression(+6)
+  B. 逻辑推演与证明——一步步推出来的结果让我有安全感 → stem(+10), math_logic(+10)
+  C. 实验与观察——动手探究让我好奇 → life_health(+8), stem(+6), science_basic(+6)
+  D. 地理、社会实践——真实世界的运作让我感兴趣 → social_science(+6), business(+6), life_health(+4)
+  E. 创作与表达——画画、设计或跳舞让我沉浸 → art_creative(+10), aesthetic_creation(+8)
+
+────────────────────────────────────────────────────────────
+
+【gen_008】undefined
+  A. 先了解背景和历史，从"为什么"开始 → humanities(+8), abstract_theory(+6), history_philosophy(+4)
+  B. 先看这套规则/方法是怎么运行的 → social_science(+8), business(+6), rule_detail(+6)
+  C. 先看公式、定律和底层原理 → stem(+8), math_logic(+8), science_basic(+4)
+  D. 直接上手试，边做边学 → stem(+8), engineering_practice(+8)
+  E. 先感受和体验，从身体和感官出发 → art_creative(+8), life_health(+6)
+  F. 先观察真实的人或场景，在生活里找答案 → life_health(+8), social_science(+6)
+
+────────────────────────────────────────────────────────────
+
+【gen_010】undefined
+  A. 围绕一个抽象概念反复咀嚼，直到清晰 → humanities(+8), abstract_theory(+6)
+  B. 思考"为什么人和组织会这么行动" → social_science(+8), business(+6), interpersonal(+6)
+  C. 在脑子里模拟一个过程或系统怎么运转 → stem(+8), engineering_practice(+6), info_systems(+4)
+  D. 思考"怎样让效率和结果更好" → business(+8), math_logic(+6)
+  E. 沉浸在画面、声音或身体表达的想象中 → art_creative(+8), aesthetic_creation(+6)
+  F. 思考生命和自然的运作——从身体到生态系统 → life_health(+8), life_health_interest(+6)
+
+────────────────────────────────────────────────────────────
+
+【gen_014】undefined
+  A. 我觉得规则和流程让事情更清晰，不排斥按规矩来 → social_science(+8), business(+6), rule_detail(+8)
+  B. 我更看重灵活和创意，太细的规则让我不舒服 → humanities(+6), art_creative(+8), rule_detail(+-6)
+  C. 看情况——工作中需要规则，但不必事事都框死 → stem(+4), business(+4)
+
+────────────────────────────────────────────────────────────
+
+【gen_016】undefined
+  A. 低——我喜欢知道接下来会发生什么，有计划才安心 → business(+6), rule_detail(+6), stable_path(+6)
+  B. 中等——可以接受不确定性，但有大致方向比较好 → stem(+4), social_science(+4), business(+4)
+  C. 高——不确定才有意思，不喜欢被框死 → humanities(+6), art_creative(+6)
+
+────────────────────────────────────────────────────────────
+
+【gen_017】undefined
+  A. 有意义——做对社会/他人有正面影响的事 → social_science(+8), life_health(+8), humanities(+4)
+  B. 有成长——能持续学到新东西，不被重复消耗 → stem(+8), business(+4), humanities(+4)
+  C. 有稳定——路径清晰、收入体面、生活有保障 → business(+8), stable_path(+8), business_sense(+6), social_science(+4)
+  D. 有创造——能做出属于自己的作品或成果 → art_creative(+10), stem(+4), aesthetic_creation(+6)
+  E. 有掌控——自己做主，不是一直听别人安排 → business(+6), stem(+6), humanities(+4)
+
+────────────────────────────────────────────────────────────
+
+【gen_020】undefined
+  A. 我会认真想想——可能是真的，也可能只是对方不了解我 → stable_path(+12)
+  B. 不太在意——我觉得兴趣比天赋更重要 → humanities(+4), art_creative(+4)
+  C. 我会去求证——自己试试看是不是真的不适合 → stem(+4), business(+4)
+  D. 如果很多人都这么说，我可能会调整方向 → social_science(+4), stable_path(+12)

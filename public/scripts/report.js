@@ -954,6 +954,7 @@
   }
 
   var _reportResult = null;
+  var _storedResponses = null;
 
   function buildReportText(result) {
     var lines = [];
@@ -996,6 +997,35 @@
     }
     lines.push('【置信度】' + (result.confidenceNote || ''));
     lines.push('');
+    // ── 答题记录 ──
+    if (_storedResponses && window.__QUESTION_BANK__) {
+      var bank = window.__QUESTION_BANK__;
+      var qTypeMap = { 'gen': '通用题', 'br': '方向题', 'cc': '校验题', 'risk': '避坑题', 'subj': '主观题' };
+      var sortedIds = Object.keys(_storedResponses).sort();
+      lines.push('【答题记录】');
+      lines.push('');
+      sortedIds.forEach(function (qId, idx) {
+        var optId = _storedResponses[qId];
+        var q = bank.questions.find(function (x) { return x.id === qId; });
+        if (!q) return;
+        // 从 ID 前缀判断题目类型
+        var prefix = qId.substring(0, qId.indexOf('_'));
+        var typeLabel = qTypeMap[prefix] || '题目';
+        lines.push('  ' + (idx + 1) + '. [' + typeLabel + '] ' + q.title);
+        if (prefix === 'subj') {
+          // 主观题：直接显示用户输入
+          lines.push('     回答：' + (optId || '(未作答)'));
+        } else {
+          var opt = (q.options || []).find(function (o) { return o.id === optId; });
+          if (opt) {
+            var label = opt.label || '';
+            var content = opt.text || opt.content || '';
+            lines.push('     回答：[' + label + '] ' + content);
+          }
+        }
+        lines.push('');
+      });
+    }
     // AI 解释（如果已加载）
     var aiEl = document.getElementById('ai-explain-section');
     if (aiEl) {
@@ -1648,6 +1678,7 @@
     }
 
     try {
+      _storedResponses = stored.responses;
       window.__USER_SUBJECTS__ = stored.userSubjects || null;
       var result = generateResult(
         bank,
