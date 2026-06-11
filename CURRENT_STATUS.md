@@ -7,8 +7,8 @@
 
 ## 版本信息
 
-- **当前版本**：v0.19.6（机械设计内容替换 + 给排水页面修复 + [major].astro 新建）
-- **更新日期**：2026-06-11 11:59
+- **当前版本**：v0.19.7（修复页面数暴涨：恢复 majorDetails 过滤条件，782→116）
+- **更新日期**：2026-06-11 14:01
 
 ---
 
@@ -83,18 +83,24 @@
 
 ## 阻塞项
 
-暂无。v0.19.6 正常。
+暂无。v0.19.7 正常。
 
 ---
+
+## v0.19.7 模块变更
+
+| 模块 | 变更 |
+|------|------|
+| [major].astro | 恢复 `if (majorDetails[key])` 过滤条件，修复页面数 782→116，避免无差别生成所有专业 |
 
 ## v0.19.6 模块变更
 
 | 模块 | 变更 |
 |------|------|
-| 机械设计制造及其自动化 | 用户 Word 内容完整替换（oneLiner/whatYouLearn/vsHighSchool/suitableFor/notSuitableFor/commonMisconceptions/realScenes/futurePaths/pitfalls/relatedMajors） |
+| 机械设计制造及其自动化 | 用户 Word 内容完整替换 |
 | 给排水详情 key | engineering/water-supply → engineering/civil-engineering/water-supply |
-| [major].astro | 新建路由页面，解决具体专业详情页从未生成的问题 |
-| 构建 | 116 → 782 页面（所有 catalog 有 majors 数组的具体专业全部生成） |
+| [major].astro | 新建路由页面（三级路由，../../../../ 导入） |
+| 构建 | 116 → 782（初版，后回退） |
 
 ## v0.19.5 模块变更
 
@@ -118,7 +124,8 @@
 
 | 日期 | 更新内容 |
 |------|----------|
-| 2026-06-11 11:59 | **v0.19.6** 机械设计内容用户 Word 替换 + 给排水详情 key 修复（engineering/water-supply → engineering/civil-engineering/water-supply）+ 新建 [major].astro 路由页面 + 116→782 页面构建通过 |
+| 2026-06-11 14:01 | **v0.19.7** 修复页面数暴涨：恢复 majorDetails 过滤条件，782→116 页面 |
+| 2026-06-11 11:59 | **v0.19.6** 机械设计内容用户 Word 替换 + 给排水详情 key 修复 + 新建 [major].astro 路由页面（116→782 后回退） |
 | 2026-06-09 23:15 | **v0.19.5** 数学/生命健康保护 + 门类阈值 20→8 + 临床医学/口腔医学乘法惩罚 + 热门跟风替代惩罚 + CS 降级保护 + 商科恢复 + 去重逻辑 + 领域感知 fallback + report.js 与 scoring.ts 全规则对齐。100 用户模拟验收：空推荐 0%，overlap 0，趋势冲突 0。npm run build ✅ 115 页面 |
 | 2026-06-08 21:41 | **v0.19.4** Header 搜索居中（w-72）+ 四个导航链接移至右侧 + Hero 文案正向化（"来自在读生和毕业生的真实介绍" + "在填报志愿之前，你总得知道专业是干什么的"） + HeaderSearch 组件（client:idle） + Footer 移动端双列 |
 | 2026-06-08 19:58 | **v0.19.3** 搜索 UI 增强：匹配词高亮（琥珀色 <mark>）、summary 匹配权重 +5→+2、空状态"换个思路"建议（代码→计算机/软件等） |
