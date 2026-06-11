@@ -543,7 +543,7 @@ export const engineeringDetails: MajorDetailMap = {
   },
 
   // 路由：/majors/engineering/water-supply
-  'engineering/water-supply': {
+  'engineering/civil-engineering/water-supply': {
     categorySlug: 'water-supply',
     gateSlug: 'engineering',
 
