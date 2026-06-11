@@ -10,9 +10,10 @@ export function getStaticPaths() {
   for (const gate of catalog.gates) {
     for (const cat of gate.categories) {
       for (const major of cat.majors) {
-        paths.push({
-          params: { gate: gate.slug, category: cat.slug, major: major.slug },
-        });
+        const key = `${gate.slug}/${cat.slug}/${major.slug}`;
+        if (majorDetails[key]) {
+          paths.push({ params: { gate: gate.slug, category: cat.slug, major: major.slug } });
+        }
       }
     }
   }
