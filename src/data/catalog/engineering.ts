@@ -207,7 +207,7 @@ export const engineeringGate: Gate = {
           description: '不只是盖房子——从桥梁隧道到城市地下空间，土木是"基础设施"的底层学科',
           majors: [
             { code: '081001', name: '土木工程', slug: 'civil-eng', status: 'todo', tags: ['传统工科', '基础广'], summary: '结构设计、施工管理、地基基础——土木类最核心的方向' },
-            { code: '081003', name: '给排水科学与工程', slug: 'water-supply', status: 'building', tags: ['已有人共建'], aliases: ['给排水', '市政给排水', '水处理'], keywords: ['水', '管道', '市政', '建筑', '环境', '城市', '供水', '排水', '环保'], summary: '水怎么来、怎么走——城市供水排水和建筑给排水' },
+            { code: '081003', name: '给排水科学与工程', slug: 'water-supply', status: 'completed', tags: ['已有人共建'], aliases: ['给排水', '市政给排水', '水处理'], keywords: ['水', '管道', '市政', '建筑', '环境', '城市', '供水', '排水', '环保'], summary: '水怎么来、怎么走——城市供水排水和建筑给排水' },
             { code: '081002', name: '建筑环境与能源应用工程', slug: 'building-env', status: 'todo', summary: '暖通空调、建筑节能、室内环境调控' },
             { code: '081004', name: '建筑电气与智能化', slug: 'building-electrical', status: 'todo', summary: '建筑里电气系统和智能控制的设计' },
             { code: '081005T', name: '城市地下空间工程', slug: 'urban-underground', status: 'todo', tags: ['新兴'], summary: '地铁、地下管廊、地下商业空间等地下工程' },
