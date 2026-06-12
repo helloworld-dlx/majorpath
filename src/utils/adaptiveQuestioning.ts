@@ -158,7 +158,7 @@ export function selectGeneralQuestions(
 ): Question[] {
   // v1.0 固定第一阶段 12 题（对应 test-flow.js 的 FIRST_STAGE_QUESTION_IDS）
   const FIXED_IDS = [
-    'gen_001', 'gen_002', 'gen_003', 'gen_004', 'gen_006', 'gen_007',
+    'gen_001', 'gen_002', 'gen_019', 'gen_004', 'gen_006', 'gen_007',
     'gen_008', 'gen_010', 'gen_014', 'gen_016', 'gen_017', 'gen_020',
   ];
   const qMap: Record<string, Question> = {};

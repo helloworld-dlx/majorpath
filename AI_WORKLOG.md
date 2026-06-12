@@ -1318,3 +1318,53 @@
 - **遗留问题**：无
 - **下次建议**：无
 - **当前版本状态**：v0.19.7 — 页面数恢复正常（116），给排水页面正常访问
+
+---
+### 2026-06-12 21:55 — 题库评分引擎审计修复
+
+- **使用模型**：opencode-go/qwen3.7-max
+- **任务类型**：审查 + 开发
+- **完成内容**：
+  - 完成「题目 → 标签/维度 → 分数 → 推荐桶 → 报告」全链路审计
+  - 发现 22 个 score target 为死代码（4 新标签 + 18 SubDirection），被评分引擎 hasOwnProperty 静默丢弃
+  - 清理 165 个 SubDirection 死代码条目（从 scoreEffects 中移除，保留 Question.subDirection 元数据）
+  - gen_019（唯一通用排斥题）替换 gen_003 进入固定 12 题列表，用户可表达负向偏好
+  - 4 个新标签（exploration_preference / self_improvement_preference / autonomy_preference / feedback_reflection）作为「性格特质」展示在报告页
+  - gen_016_B 空 scoreEffects 修复（[] → stable_path(3)）
+  - gen_010/016/017 三道题场景化改写，更贴近高中生生活
+- **修改的文件**：
+  - `src/data/questionBank.ts` — 清理 SubDirection 死代码 + gen_016_B 修复 + gen_010/016/017 改写
+  - `public/scripts/test-flow.js` — FIRST_STAGE_QUESTION_IDS: gen_003 → gen_019
+  - `src/utils/adaptiveQuestioning.ts` — FIXED_IDS: gen_003 → gen_019
+  - `public/scripts/report.js` — 新增 collectPersonalityTags + renderPersonalityHints + PERSONALITY_HINTS
+- **关键决策**：
+  - 4 个新标签作为「报告解释标签」而非「正式评分维度」，不参与推荐排序，只在报告页展示性格提示
+  - gen_019 替换 gen_003（而非新增为第 13 题），因为 gen_003 与 gen_001/002 高度同质
+  - SubDirection target 保留在 Question.subDirection 字段作为元数据，仅从 scoreEffects 中移除
+- **遗留问题**：
+  - P3: 4 个新标签未正式加入 Dimension 类型和评分引擎（当前仅作为报告展示标签）
+  - gen_004（小组角色）/gen_008（学新东西）/gen_014（规则态度）表述仍可优化
+- **下次建议**：
+  - 跑一轮 200 人模拟验证 gen_019 纳入后的推荐结果变化
+  - 考虑将 gen_018（职业期待）替换 gen_003（已不在测试流中）或加入题库轮换池
+- **当前版本状态**：v0.20.0 — 题库评分引擎审计修复完成，构建 116 页面通过
+
+---
+### 2026-06-12 22:05 — 第二轮场景化改写
+
+- **使用模型**：opencode-go/qwen3.7-max
+- **任务类型**：开发
+- **完成内容**：
+  - gen_002 场景化改写：「负责一件小但完整的事」→「班上组织活动（毕业旅行/主题班会），你更想管哪块？」，6 个选项全部匹配新场景
+  - gen_020 修复：补充上下文「你感兴趣的专业方向」+ 消除 A/C 选项重叠（原 C「自己找机会试一下」与 A「先听理由」逻辑重叠，改为「有点动摇，认真想想他说的有没有道理」）
+  - gen_008 选项 C/E 表述优化：去掉抽象用语，改为更直白的表达
+  - gen_014 场景化改写：加入「做一件重要的事（比如考试复习或组织活动）」锚定场景
+  - gen_007 选项 E 表述优化：「你把一种感觉做出来了」→「做了一个东西（画、视频、音乐、手工都行），别人看到后说"我懂你想表达什么"」
+- **修改的文件**：
+  - `src/data/questionBank.ts` — gen_002/007/008/014/020 改写
+  - `CURRENT_STATUS.md` — 版本更新至 v0.20.1
+- **关键决策**：
+  - gen_020 原选项 C「自己找机会试一下」改为「有点动摇」，拉开与选项 A 的区分度
+- **遗留问题**：无
+- **下次建议**：跑一轮 200 人模拟验证改写后的题目对推荐结果的影响
+- **当前版本状态**：v0.20.1 — 第二轮场景化改写完成，构建 116 页面通过

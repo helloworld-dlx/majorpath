@@ -831,6 +831,29 @@
     return steps;
   }
 
+  function collectPersonalityTags(bank, responses) {
+    var TAGS = ['exploration_preference', 'self_improvement_preference', 'autonomy_preference', 'feedback_reflection'];
+    var scores = {};
+    TAGS.forEach(function(t) { scores[t] = 0; });
+    Object.keys(responses).forEach(function(qId) {
+      var q = bank.questions.find(function(x) { return x.id === qId; });
+      if (!q) return;
+      var opt = q.options.find(function(o) { return o.id === responses[qId]; });
+      if (!opt) return;
+      (opt.scoreEffects || []).forEach(function(eff) {
+        if (scores.hasOwnProperty(eff.target)) scores[eff.target] += eff.points;
+      });
+    });
+    return scores;
+  }
+
+  var PERSONALITY_HINTS = {
+    exploration_preference: { label: '探索倾向', icon: '🧭', hint: '你对不确定性有较高的接受度，可能在交叉学科或新兴方向中找到乐趣' },
+    self_improvement_preference: { label: '成长驱动', icon: '🌱', hint: '你很在意持续学习和成长，选择时可以考虑那些知识更新快、发展空间大的方向' },
+    autonomy_preference: { label: '自主需求', icon: '🦅', hint: '你重视自主决策，可能更适合那些给你独立空间的专业和工作方式' },
+    feedback_reflection: { label: '理性反思', icon: '🪞', hint: '你善于理性面对反馈，不容易被外界评价左右——这在需要长期坚持的方向中是优势' },
+  };
+
   function generateResult(bank, responses, riskTags, userType, genOnlyBucketScores, userSubjects) {
     var raw = computeBucketScores(bank, responses);
     var dim = computeDimensionScores(bank, responses);
@@ -903,12 +926,14 @@
     var dims = generateDimensionProfile(dim);
     var steps = buildNextSteps(prof.name, cats.recommended, cats.cautious, conf.level);
     var niche = computeNicheExplorations(cats.scored, cats.recommended, cats.cautious, dim);
+    var personalityTags = collectPersonalityTags(bank, responses);
 
     return {
       profileName: prof.name, profileSummary: prof.summary, topBuckets: prof.topBuckets,
       dimensions: dims, topDisciplines: disc,
       recommendedCategories: cats.recommended, optionalCategories: cats.optional,
       cautiousCategories: cats.cautious, riskTags: risks,
+      personalityTags: personalityTags,
       userType: userType, confidenceLevel: conf.level, confidenceNote: conf.note,
       nextStepSuggestions: steps,
     };
@@ -1610,6 +1635,42 @@
     return el('div', { className: 'mb-6' }, children);
   }
 
+  function renderPersonalityHints(result) {
+    var tags = result.personalityTags;
+    if (!tags) return document.createTextNode('');
+    var active = [];
+    Object.keys(PERSONALITY_HINTS).forEach(function(key) {
+      if ((tags[key] || 0) > 0) active.push({ key: key, score: tags[key], info: PERSONALITY_HINTS[key] });
+    });
+    if (active.length === 0) return document.createTextNode('');
+
+    var container = el('div', { className: 'bg-white border border-slate-200 rounded-xl p-6 shadow-sm mb-6' });
+    container.appendChild(
+      el('div', { className: 'flex items-center gap-3 mb-4' },
+        el('span', { className: 'text-2xl' }, '✨'),
+        el('div', {},
+          el('h2', { className: 'text-lg font-bold text-slate-900' }, '你的性格特质'),
+          el('p', { className: 'text-xs text-slate-400' }, '这些不影响推荐结果，但能帮你更了解自己')
+        )
+      )
+    );
+
+    var list = el('div', { className: 'space-y-2' });
+    active.forEach(function(item) {
+      list.appendChild(
+        el('div', { className: 'flex items-start gap-3 p-3 bg-slate-50 rounded-lg' },
+          el('span', { className: 'text-sm shrink-0 mt-0.5' }, item.info.icon),
+          el('div', {},
+            el('p', { className: 'text-xs font-medium text-slate-700' }, item.info.label),
+            el('p', { className: 'text-[11px] text-slate-500 leading-relaxed' }, item.info.hint)
+          )
+        )
+      );
+    });
+    container.appendChild(list);
+    return container;
+  }
+
   function renderFullReport(result, userSubjects) {
     _reportResult = result;
     var r = rootEl();
@@ -1640,6 +1701,7 @@
     wrapper.appendChild(aiSection);
     wrapper.appendChild(renderProfile(result));
     wrapper.appendChild(renderDimensionProfile(result));
+    wrapper.appendChild(renderPersonalityHints(result));
     wrapper.appendChild(renderDisciplines(result));
     wrapper.appendChild(renderCategorySection(result, 'recommendedCategories', { icon: '\ud83c\udfaf', title: TXT.recommendedTitle, sub: TXT.recommendedSub, tier: 'recommended' }));
     wrapper.appendChild(renderCategorySection(result, 'optionalCategories', { icon: '\ud83d\udc40', title: TXT.optionalTitle, sub: TXT.optionalSub, tier: 'optional' }));

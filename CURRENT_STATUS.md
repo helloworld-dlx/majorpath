@@ -7,8 +7,8 @@
 
 ## 版本信息
 
-- **当前版本**：v0.19.7（修复页面数暴涨：恢复 majorDetails 过滤条件，782→116）
-- **更新日期**：2026-06-11 14:01
+- **当前版本**：v0.20.1（第二轮场景化改写：gen_002/007/008/014/020 表述优化）
+- **更新日期**：2026-06-12 22:05
 
 ---
 
@@ -87,6 +87,29 @@
 
 ---
 
+## v0.20.1 模块变更
+
+| 模块 | 变更 |
+|------|------|
+| questionBank.ts | gen_002 场景化改写：「负责一件小但完整的事」→「班上组织活动（毕业旅行/主题班会），你更想管哪块？」 |
+| questionBank.ts | gen_020 修复：补充上下文「你感兴趣的专业方向」+ 消除 A/C 选项重叠（C 改为「有点动摇，认真想想他说的有没有道理」） |
+| questionBank.ts | gen_008 选项 C/E 表述优化：「先找底层关键点」→「先搞清楚最基本的几条规则或原理」；「先感受它给人的体验」→「先亲自体验一下，看看感觉对不对」 |
+| questionBank.ts | gen_014 场景化改写：「你对规则和流程的感觉」→「做一件重要的事（比如考试复习或组织活动），你对规则和计划的态度」 |
+| questionBank.ts | gen_007 选项 E 表述优化：「你把一种感觉做出来了」→「做了一个东西（画、视频、音乐、手工都行），别人看到后说"我懂你想表达什么"」 |
+
+## v0.20.0 模块变更
+
+| 模块 | 变更 |
+|------|------|
+| questionBank.ts | 清理 165 个 SubDirection 死代码（scoreEffects 中 18 种 SubDirection target 被评分引擎静默丢弃，已从 scoreEffects 中移除，保留 Question.subDirection 元数据字段） |
+| test-flow.js | gen_019（排斥题）替换 gen_003 进入固定 12 题列表，用户可表达负向偏好 |
+| adaptiveQuestioning.ts | 同步更新 FIXED_IDS 列表（gen_003 → gen_019） |
+| report.js | 新增 collectPersonalityTags + renderPersonalityHints，4 个新标签（exploration_preference / self_improvement_preference / autonomy_preference / feedback_reflection）作为「性格特质」展示在报告页 |
+| questionBank.ts | gen_016_B 空 scoreEffects 修复（[] → stable_path(3)） |
+| questionBank.ts | gen_010 场景化改写：「你平时更容易被哪种问题勾住？」→「刷手机时，哪种内容最容易让你停下来看？」 |
+| questionBank.ts | gen_016 场景化改写：「面对不确定的事情」→「开学前不知道新老师是谁、课程怎么安排」 |
+| questionBank.ts | gen_017 场景化改写：「想象以后工作很多年，你最怕哪种状态？」→「如果暑假去做一个月的兼职或实习，你最不想遇到哪种情况？」 |
+
 ## v0.19.7 模块变更
 
 | 模块 | 变更 |
@@ -124,6 +147,8 @@
 
 | 日期 | 更新内容 |
 |------|----------|
+| 2026-06-12 22:05 | **v0.20.1** 第二轮场景化改写：gen_002/007/008/014/020 表述优化。npm run build ✅ 116 页面 |
+| 2026-06-12 21:55 | **v0.20.0** 题库评分引擎审计修复：清理 165 个 SubDirection 死代码 + gen_019 排斥题替换 gen_003 进入测试流 + 4 个新标签作为「性格特质」展示在报告 + gen_016_B 空 scoreEffects 修复 + gen_010/016/017 场景化改写。npm run build ✅ 116 页面 |
 | 2026-06-11 14:01 | **v0.19.7** 修复页面数暴涨：恢复 majorDetails 过滤条件，782→116 页面 |
 | 2026-06-11 11:59 | **v0.19.6** 机械设计内容用户 Word 替换 + 给排水详情 key 修复 + 新建 [major].astro 路由页面（116→782 后回退） |
 | 2026-06-09 23:15 | **v0.19.5** 数学/生命健康保护 + 门类阈值 20→8 + 临床医学/口腔医学乘法惩罚 + 热门跟风替代惩罚 + CS 降级保护 + 商科恢复 + 去重逻辑 + 领域感知 fallback + report.js 与 scoring.ts 全规则对齐。100 用户模拟验收：空推荐 0%，overlap 0，趋势冲突 0。npm run build ✅ 115 页面 |
