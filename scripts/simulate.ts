@@ -244,16 +244,25 @@ function timestamp(): string {
   return `${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}-${pad(d.getHours())}${pad(d.getMinutes())}${pad(d.getSeconds())}`;
 }
 
+/** 前端固定 12 题（与 adaptiveQuestioning.ts / test-flow.js 一致） */
+const FIXED_GENERAL_IDS = [
+  'gen_001', 'gen_002', 'gen_019', 'gen_004', 'gen_006', 'gen_007',
+  'gen_008', 'gen_010', 'gen_014', 'gen_016', 'gen_017', 'gen_020',
+];
+
 /** 生成模拟用户答案 */
 function generateAnswers(
   profile: VirtualProfile,
   bank: QuestionBank,
   rng: SeededRandom,
+  useFixedGeneral = true,
 ): { answers: UserResponses; answerDetails: SingleResult['answers'] } {
   const answers: UserResponses = {};
   const details: SingleResult['answers'] = [];
 
-  const generalQ = bank.questions.filter((q) => q.type === 'general');
+  const qMap: Record<string, Question> = {};
+  for (const q of bank.questions) qMap[q.id] = q;
+
   const branchQ = bank.questions.filter((q) => q.type === 'branch');
   const crossQ = bank.questions.filter((q) => q.type === 'cross_check');
   const riskQ = bank.questions.filter((q) => q.type === 'risk');
@@ -267,8 +276,13 @@ function generateAnswers(
     return arr.slice(0, n);
   };
 
+  const fixedGeneral: Question[] = [];
+  for (const id of FIXED_GENERAL_IDS) {
+    if (qMap[id]) fixedGeneral.push(qMap[id]);
+  }
+
   const selectedQ = [
-    ...shuffleAndTake(generalQ, 8),
+    ...fixedGeneral,
     ...shuffleAndTake(branchQ, 6),
     ...shuffleAndTake(crossQ, 2),
     ...shuffleAndTake(riskQ, 2),
@@ -311,7 +325,9 @@ function generateAnswersFromPersona(
   const answers: UserResponses = {};
   const details: SingleResult['answers'] = [];
 
-  const generalQ = bank.questions.filter((q) => q.type === 'general');
+  const qMap: Record<string, Question> = {};
+  for (const q of bank.questions) qMap[q.id] = q;
+
   const branchQ = bank.questions.filter((q) => q.type === 'branch');
   const crossQ = bank.questions.filter((q) => q.type === 'cross_check');
   const riskQ = bank.questions.filter((q) => q.type === 'risk');
@@ -325,8 +341,13 @@ function generateAnswersFromPersona(
     return arr.slice(0, n);
   };
 
+  const fixedGeneral: Question[] = [];
+  for (const id of FIXED_GENERAL_IDS) {
+    if (qMap[id]) fixedGeneral.push(qMap[id]);
+  }
+
   const selectedQ = [
-    ...shuffleAndTake(generalQ, 8),
+    ...fixedGeneral,
     ...shuffleAndTake(branchQ, 6),
     ...shuffleAndTake(crossQ, 2),
     ...shuffleAndTake(riskQ, 2),

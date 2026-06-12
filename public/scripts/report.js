@@ -60,8 +60,11 @@
   TXT.confLow = '偏开放';
   TXT.disciplineTitle = '推荐了解的学科门类';
   TXT.disciplineSub = '以下学科门类与你的方向偏好较为匹配';
-  TXT.dimensionTitle = '你的能力倾向';
-  TXT.dimensionSub = '这不是测评，只是帮你看到自己在哪些维度上更感兴趣';
+  TXT.dimensionTitle = '性格与能力画像';
+  TXT.dimensionSub = '你的维度得分和性格特质，一目了然（不影响推荐排序，仅供自我了解）';
+  TXT.dimensionChart = '雷达图概览';
+  TXT.dimensionScoreList = '各维度得分';
+  TXT.personalityNote = '以上性格标签不影响推荐结果，仅供自我了解。';
   TXT.dimHigh = '比较突出的方面：';
   TXT.dimMid = '有一定倾向的方面：';
   TXT.recommendedTitle = '建议优先了解';
@@ -1217,17 +1220,110 @@
       },
         el('div', { className: 'flex items-center gap-2 mb-1' },
           el('span', { className: 'text-base' }, d.icon),
-          el('span', { className: 'text-sm font-medium ' + (isPrimary ? 'text-primary' : 'text-slate-700') }, d.name)
+          el('span', { className: 'text-sm font-medium ' + (isPrimary ? 'text-primary' : 'text-slate-700') }, d.name),
+          isPrimary ? el('span', { className: 'text-[10px] bg-primary text-white px-1.5 py-0.5 rounded-full' }, TXT.priorityTag) : null
         ),
-        el('p', { className: 'text-[11px] text-slate-400 leading-relaxed' }, d.reason.length > 40 ? d.reason.slice(0, 40) + '\u2026' : d.reason)
+        el('p', { className: 'text-[11px] text-slate-400 leading-relaxed' }, d.reason.length > 36 ? d.reason.slice(0, 36) + '\u2026' : d.reason)
       );
-      if (isPrimary) {
-        card.firstChild.appendChild(el('span', { className: 'text-[10px] bg-primary text-white px-1.5 py-0.5 rounded-full ml-1.5' }, TXT.priorityTag));
-      }
       grid.appendChild(card);
     });
     container.appendChild(grid);
     return container;
+  }
+
+  function drawRadarChart(container, dims) {
+    var n = dims.length;
+    if (n < 3) return;
+    var W = 320, H = 320;
+    var cx = W / 2, cy = H / 2;
+    var R = 100;
+    var angleStep = (2 * Math.PI) / n;
+    var maxScore = 10;
+    for (var z = 0; z < n; z++) { if (dims[z].score > maxScore) maxScore = dims[z].score; }
+
+    var svgNS = 'http://www.w3.org/2000/svg';
+    var svg = document.createElementNS(svgNS, 'svg');
+    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+    svg.setAttribute('class', 'w-full max-w-[320px] mx-auto block');
+    svg.setAttribute('role', 'img');
+    svg.setAttribute('aria-label', TXT.dimensionTitle);
+
+    // Grid rings
+    for (var l = 1; l <= 3; l++) {
+      var pts = '';
+      for (var i = 0; i < n; i++) {
+        var a = -Math.PI / 2 + i * angleStep;
+        pts += (cx + R * l / 3 * Math.cos(a)).toFixed(1) + ',' + (cy + R * l / 3 * Math.sin(a)).toFixed(1) + ' ';
+      }
+      var poly = document.createElementNS(svgNS, 'polygon');
+      poly.setAttribute('points', pts.trim());
+      poly.setAttribute('fill', 'none');
+      poly.setAttribute('stroke', '#e2e8f0');
+      poly.setAttribute('stroke-width', l === 3 ? '1' : '0.5');
+      svg.appendChild(poly);
+    }
+
+    // Radial axes
+    for (var i = 0; i < n; i++) {
+      var a = -Math.PI / 2 + i * angleStep;
+      var ln = document.createElementNS(svgNS, 'line');
+      ln.setAttribute('x1', cx); ln.setAttribute('y1', cy);
+      ln.setAttribute('x2', (cx + R * Math.cos(a)).toFixed(1));
+      ln.setAttribute('y2', (cy + R * Math.sin(a)).toFixed(1));
+      ln.setAttribute('stroke', '#f1f5f9'); ln.setAttribute('stroke-width', '0.5');
+      svg.appendChild(ln);
+    }
+
+    // Data polygon
+    var dp = '';
+    for (var i = 0; i < n; i++) {
+      var a = -Math.PI / 2 + i * angleStep;
+      var s = Math.max(5, dims[i].score);
+      var r = R * s / maxScore;
+      dp += (cx + r * Math.cos(a)).toFixed(1) + ',' + (cy + r * Math.sin(a)).toFixed(1) + ' ';
+    }
+    var dpoly = document.createElementNS(svgNS, 'polygon');
+    dpoly.setAttribute('points', dp.trim());
+    dpoly.setAttribute('fill', 'rgba(37, 99, 235, 0.12)');
+    dpoly.setAttribute('stroke', '#2563eb');
+    dpoly.setAttribute('stroke-width', '1.5');
+    dpoly.setAttribute('stroke-linejoin', 'round');
+    svg.appendChild(dpoly);
+
+    // Data dots
+    for (var i = 0; i < n; i++) {
+      var a = -Math.PI / 2 + i * angleStep;
+      var s = Math.max(5, dims[i].score);
+      var r = R * s / maxScore;
+      var c = document.createElementNS(svgNS, 'circle');
+      c.setAttribute('cx', (cx + r * Math.cos(a)).toFixed(1));
+      c.setAttribute('cy', (cy + r * Math.sin(a)).toFixed(1));
+      c.setAttribute('r', '2.5');
+      c.setAttribute('fill', '#2563eb');
+      c.setAttribute('stroke', '#fff');
+      c.setAttribute('stroke-width', '1');
+      svg.appendChild(c);
+    }
+
+    // Labels — full text, no truncation
+    for (var i = 0; i < n; i++) {
+      var a = -Math.PI / 2 + i * angleStep;
+      var lx = cx + (R + 26) * Math.cos(a);
+      var ly = cy + (R + 26) * Math.sin(a) + 3;
+      var ta = 'middle';
+      if (lx > cx + 20) ta = 'start';
+      else if (lx < cx - 20) ta = 'end';
+      var txt = document.createElementNS(svgNS, 'text');
+      txt.setAttribute('x', lx.toFixed(1)); txt.setAttribute('y', ly.toFixed(1));
+      txt.setAttribute('text-anchor', ta);
+      txt.setAttribute('fill', '#64748b');
+      txt.setAttribute('font-size', '9');
+      txt.setAttribute('font-family', 'system-ui, sans-serif');
+      txt.textContent = (DIMENSION_ICONS[dims[i].dimension] || '') + ' ' + dims[i].label;
+      svg.appendChild(txt);
+    }
+
+    container.appendChild(svg);
   }
 
   function renderDimensionProfile(result) {
@@ -1237,7 +1333,7 @@
     var container = el('div', { className: 'bg-white border border-slate-200 rounded-xl p-6 shadow-sm mb-6' });
     container.appendChild(
       el('div', { className: 'flex items-center gap-3 mb-4' },
-        el('span', { className: 'text-2xl' }, '📐'),
+        el('span', { className: 'text-2xl' }, '✨'),
         el('div', {},
           el('h2', { className: 'text-lg font-bold text-slate-900' }, TXT.dimensionTitle),
           el('p', { className: 'text-xs text-slate-400' }, TXT.dimensionSub)
@@ -1245,33 +1341,54 @@
       )
     );
 
-    var highList = dims.filter(function (d) { return d.level === 'high'; });
-    var midList = dims.filter(function (d) { return d.level === 'mid'; });
-
-    if (highList.length > 0) {
-      var highRow = el('div', { className: 'flex flex-wrap gap-2 mb-3' });
-      highList.forEach(function (d) {
-        highRow.appendChild(
-          el('span', { className: 'inline-flex items-center gap-1 text-xs bg-accent-light border border-accent-border text-accent px-2.5 py-1 rounded-full font-medium' },
-            (DIMENSION_ICONS[d.dimension] || '\u25cf') + ' ' + d.label
-          )
-        );
-      });
-      container.appendChild(el('p', { className: 'text-[11px] text-slate-400 mb-2' }, '\ud83d\udca1 ' + TXT.dimHigh));
-      container.appendChild(highRow);
+    // Radar chart
+    var scored = dims.filter(function(d) { return d.score > 0; });
+    if (scored.length >= 3) {
+      var chartBox = el('div', { className: 'mb-5' },
+        el('p', { className: 'text-[11px] text-slate-400 text-center mb-1' }, TXT.dimensionChart)
+      );
+      drawRadarChart(chartBox, scored);
+      container.appendChild(chartBox);
     }
 
-    if (midList.length > 0) {
-      var midRow = el('div', { className: 'flex flex-wrap gap-2' });
-      midList.forEach(function (d) {
-        midRow.appendChild(
-          el('span', { className: 'inline-flex items-center gap-1 text-xs bg-slate-50 border border-slate-200 text-slate-500 px-2.5 py-1 rounded-full' },
-            (DIMENSION_ICONS[d.dimension] || '\u25cb') + ' ' + d.label
-          )
-        );
+    // Score bars (top 8)
+    var barSection = el('div', { className: 'mb-3' });
+    barSection.appendChild(el('p', { className: 'text-[11px] text-slate-400 mb-2' }, TXT.dimensionScoreList));
+    dims.slice(0, 8).forEach(function(d) {
+      barSection.appendChild(
+        el('div', { className: 'flex items-center gap-2 mb-1.5' },
+          el('span', { className: 'text-[10px] text-slate-500 w-20 shrink-0 text-right font-medium leading-tight' },
+            (DIMENSION_ICONS[d.dimension] || '') + ' ' + d.label),
+          el('div', { className: 'flex-1' }, scoreBar(d.score, '100%')),
+          el('span', { className: 'text-[10px] text-slate-400 w-8 text-right' }, '' + Math.round(d.score))
+        )
+      );
+    });
+    container.appendChild(barSection);
+
+    // Personality hints (merged from old renderPersonalityHints)
+    var tags = result.personalityTags;
+    if (tags) {
+      var active = [];
+      Object.keys(PERSONALITY_HINTS).forEach(function(k) {
+        if ((tags[k] || 0) > 0) active.push({ key: k, info: PERSONALITY_HINTS[k] });
       });
-      container.appendChild(el('p', { className: 'text-[11px] text-slate-400 mb-2 mt-3' }, '\ud83d\udccc ' + TXT.dimMid));
-      container.appendChild(midRow);
+      if (active.length > 0) {
+        var hintBox = el('div', { className: 'border-t border-slate-100 pt-3 mt-3' });
+        hintBox.appendChild(el('p', { className: 'text-[10px] text-slate-400 mb-2' }, TXT.personalityNote));
+        active.forEach(function(item) {
+          hintBox.appendChild(
+            el('div', { className: 'flex items-start gap-2 mb-2' },
+              el('span', { className: 'text-sm shrink-0 mt-0.5' }, item.info.icon),
+              el('div', {},
+                el('p', { className: 'text-[11px] font-medium text-purple-700' }, item.info.label),
+                el('p', { className: 'text-[10px] text-slate-500 leading-relaxed' }, item.info.hint)
+              )
+            )
+          );
+        });
+        container.appendChild(hintBox);
+      }
     }
 
     return container;
@@ -1701,7 +1818,6 @@
     wrapper.appendChild(aiSection);
     wrapper.appendChild(renderProfile(result));
     wrapper.appendChild(renderDimensionProfile(result));
-    wrapper.appendChild(renderPersonalityHints(result));
     wrapper.appendChild(renderDisciplines(result));
     wrapper.appendChild(renderCategorySection(result, 'recommendedCategories', { icon: '\ud83c\udfaf', title: TXT.recommendedTitle, sub: TXT.recommendedSub, tier: 'recommended' }));
     wrapper.appendChild(renderCategorySection(result, 'optionalCategories', { icon: '\ud83d\udc40', title: TXT.optionalTitle, sub: TXT.optionalSub, tier: 'optional' }));

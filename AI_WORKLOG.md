@@ -1368,3 +1368,31 @@
 - **遗留问题**：无
 - **下次建议**：跑一轮 200 人模拟验证改写后的题目对推荐结果的影响
 - **当前版本状态**：v0.20.1 — 第二轮场景化改写完成，构建 116 页面通过
+
+---
+### 2026-06-12 22:55 — 模拟器固定12题 + 报告页雷达图 + 性格能力合并
+
+- **使用模型**：opencode-go/qwen3.7-max
+- **任务类型**：开发
+- **完成内容**：
+  - 模拟器改造：`generateAnswers` 和 `generateAnswersFromPersona` 改用前端固定 12 通用题 FIXED_GENERAL_IDS，不再随机抽 8 道。200 人固定题模拟完成（seed 613，覆盖率 26/96，异常率 10%）
+  - 报告页雷达图：新增 `drawRadarChart()` 纯 SVG 函数，11 维分数可视化（320×320 viewBox，3 层网格环 + 渐近数据多边形 + 数据点 + 全标签）
+  - 报告页能力维度重构：`renderDimensionProfile` 合并性格特质（`renderPersonalityHints` 删除独立卡片），新标题「性格与能力画像」，雷达图 + 分数条形图（top 8）+ 性格标签带描述文字
+  - 分数条形图标签从 `w-14` 加宽为 `w-20`，修复 4 字中文折行问题
+  - 雷达图标签不再截断（移除 `.substring(0,3)`），SVG 扩大至 320×320 + 标签偏移 +26
+  - 学科门类 `renderDisciplines` 保持两列卡片格布局，恢复原因说明文字
+- **修改的文件**：
+  - `scripts/simulate.ts` — FIXED_GENERAL_IDS + generateAnswers/generateAnswersFromPersona 改用固定题
+  - `public/scripts/report.js` — 新增 drawRadarChart + 重写 renderDimensionProfile + 恢复 renderDisciplines 两列卡片 + 移除独立 renderPersonalityHints 卡片渲染
+- **关键决策**：
+  - 雷达图为纯 SVG + 原生 JS，零外部依赖，移动端以分数字条形图兜底
+  - 性格特质不删，改为一卡双区（维度分 + 性格标签），减少区块数从 19→16
+  - 学科门类保留两列卡片（用户偏好），不做纯药丸标签
+- **遗留问题**：
+  - 教育学类在 200 人模拟中仍占 37%（#1），需检查维度映射是否过于宽泛
+  - `scripts/simulate.ts` 批量模式 audit.md 引用了旧版 v04_weights_raw.json slug 集，与当前 catalog slugs 不匹配，全部显示 0%
+- **下次建议**：
+  - 补充专业介绍内容（P1 众包模式）
+  - 教育学类推荐偏高排查
+  - 修 audit 模式的 slug 数据源
+- **当前版本状态**：v0.20.2 — 报告页视觉升级完成，构建 116 页面通过
