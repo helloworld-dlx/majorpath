@@ -97,8 +97,10 @@ export interface RecommendationResult {
   recommendedCategories: CategoryRecommendation[];
   /** 可以了解：2-4 个专业类 */
   optionalCategories: CategoryRecommendation[];
-  /** 谨慎了解：2-4 个专业类（含避坑标签） */
+  /** 需要重点确认：2-4 个专业类（含避坑标签） */
   cautiousCategories: CategoryRecommendation[];
+  /** 暂不优先：匹配度偏低但仍有一定信号的类别（折叠展示） */
+  lowPriorityCategories: CategoryRecommendation[];
 
   // ── 避坑 ──
   /** 触发的风险标签 */

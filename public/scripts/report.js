@@ -73,9 +73,16 @@
   TXT.optionalTitle = '可以继续看看';
   TXT.optionalSub = '这些方向也有一定的匹配度，万一你在这里找到意外之喜呢';
   TXT.optionalBadge = '可以继续看看';
-  TXT.cautiousTitle = '建议谨慎了解';
-  TXT.cautiousSub = '这些方向你可能感兴趣，但有一些需要先看清楚的地方——不是说不能选';
-  TXT.cautiousBadge = '建议谨慎了解';
+  TXT.cautiousTitle = '需要重点确认';
+  TXT.cautiousSub = '这里不是说你不适合，也不是建议你不要报，而是这些方向存在一些容易被忽略的学习方式或职业特点，建议先看清楚再决定。';
+  TXT.cautiousBadge = '需要重点确认';
+  TXT.cautiousIntrestLabel = '你为什么会感兴趣：';
+  TXT.cautiousConfirmLabel = '需要重点确认：';
+  TXT.cautiousNextLabel = '如果还感兴趣：查看专业介绍';
+  TXT.lowPriorityTitle = '暂不优先';
+  TXT.lowPrioritySub = '以下方向匹配度暂时偏低，但并非不可能——你可以先看看，也许会发现意外的兴趣点。';
+  TXT.lowPriorityBadge = '暂不优先';
+  TXT.lowPriorityToggle = '展开查看';
   TXT.riskTitle = '避坑提醒';
   TXT.riskSub = '基于你的答题发现的一些风险信号，不是否定——只是提醒你多看一眼';
   TXT.nextTitle = '下一步建议';
@@ -152,7 +159,7 @@
     info_bubble: { slugs: [], penalty: 0, reason: '你的专业认知可能集中在少数热门方向，建议在"可以继续看看"区逛逛，也许会发现意料之外的方向' },
     long_cycle: { slugs: ['clinical-medicine', 'stomatology', 'law-class'], penalty: 20, reason: '这个方向学习的周期可能比一般专业长（本科5年+规培/考证等），需要做好长期投入的心理和物质准备' },
     reading_writing_aversion: { slugs: ['law-class', 'chinese-literature', 'journalism', 'history-class', 'sociology'], penalty: 25, reason: '以下方向的学习和工作中需要大量阅读、分析文本和写作——如果你比较排斥这类任务，建议更深入地了解再决定' },
-    rule_detail_aversion: { slugs: ['law-class', 'finance', 'public-administration', 'clinical-medicine'], penalty: 20, reason: '这些方向需要和大量法律条文、规章制度、诊疗规范打交道，如果比较排斥规则细节类工作，需要留意' },
+    rule_detail_aversion: { slugs: ['law-class', 'finance', 'public-administration', 'clinical-medicine'], penalty: 20, reason: '这个方向需要和大量规则、条文和细节打交道，如果比较排斥规则细节类工作，需要留意' },
     hands_on_aversion: { slugs: ['mechanical', 'electrical', 'electronic-information', 'civil-engineering', 'plant-production'], penalty: 20, reason: '你似乎不太喜欢动手操作，但这类方向有不少实验、实训和实践环节' },
     name_misconception: { slugs: ['business-administration', 'public-administration'], penalty: 10, reason: '"工商管理"不是毕业就当管理层、"公共管理"不等于一定进体制——建议点进详情页看看大一到大四实际在学什么' },
     surface_interest: { slugs: [], penalty: 0, reason: '你对某些方向的兴趣可能来自影视、传闻或表面印象，建议点进详情页看看真实的学习内容' },
@@ -161,7 +168,7 @@
 
   var PROFILE_TEMPLATES = {
     humanities: { name: '偏感性的人文表达型', summary: '你喜欢用文字和思想来理解世界，对语言、文学和思辨有天然的亲近感。建议优先了解文学、哲学、历史学等方向。' },
-    social_science: { name: '偏理性的社会关怀型', summary: '你对社会怎么运作、人和人之间的关系有很强的好奇心。法学、教育、公共管理可能是你的菜。' },
+    social_science: { name: '偏理性的社会关怀型', summary: '你对社会怎么运作、人和人之间的关系有很强的好奇心。社会制度与人际关系类方向值得深入了解。' },
     business: { name: '偏实务的商业管理型', summary: '你对商业规则、资源组织和效率有天然的敏感。经济学、管理学和金融方向值得深入了解。' },
     stem: { name: '偏逻辑的理工探索型', summary: '你喜欢用逻辑和数学来看世界，对技术、系统和如何建造东西有热情。理工科方向有丰富的选择。' },
     life_health: { name: '偏实践的生命关怀型', summary: '你对生命、健康和自然世界有真诚的关注。医学、药学、农学等方向可能让你找到意义感。' },
@@ -631,7 +638,7 @@
       }
     }
 
-    var recommended = [], optional = [], cautious = [];
+    var recommended = [], optional = [], cautious = [], lowPriority = [];
         var userSubjects = window.__USER_SUBJECTS__;
     var subjectBlockedCats = [];
     scored = scored.filter(function(cat) {
@@ -651,19 +658,25 @@
     scored.forEach(function (cat) {
       var penalty = penalized.get(cat.slug);
       if (penalty) {
+        var originalScore = cat.score;
         cat.score = Math.max(0, cat.score - penalty.penalty);
         cat.cautions.push(penalty.reason);
-        // v0.19.5: hotTrend 替代惩罚不强制进 cautious
         var isSubstitute = penalty.reason.indexOf('热门跟风降级') >= 0;
         if (isSubstitute && cat.score >= 35) {
           optional.push(cat);
-        } else {
+        } else if (originalScore >= 55) {
           cautious.push(cat);
+        } else if (cat.score >= 35) {
+          optional.push(cat);
+        } else {
+          lowPriority.push(cat);
         }
       } else if (cat.score >= 55) {
         recommended.push(cat);
       } else if (cat.score >= 35) {
         optional.push(cat);
+      } else if (cat.score >= 20) {
+        lowPriority.push(cat);
       }
     });
 
@@ -684,11 +697,17 @@
       seenSlugs[c.slug] = true;
       return true;
     });
+    var dedupedLowPriority = lowPriority.filter(function(c) {
+      if (seenSlugs[c.slug]) return false;
+      seenSlugs[c.slug] = true;
+      return true;
+    });
 
     return {
       recommended: dedupedRecommended.slice(0, 5),
       optional: dedupedOptional.slice(0, 4),
       cautious: dedupedCautious.slice(0, 4),
+      lowPriority: dedupedLowPriority.slice(0, 3),
       scored: scored,
     };
   }
@@ -828,7 +847,7 @@
       steps.push('「' + recommended[0].name + '」是你得分最高的方向，从它的详情页开始了解是个好起点');
     }
     if (cautious.length > 0) {
-      steps.push('有 ' + cautious.length + ' 个方向放入了「建议谨慎了解」区，不是说你不能选，而是建议先看清楚再决定');
+      steps.push('有 ' + cautious.length + ' 个方向放入了「需要重点确认」区，不是说你不能选，而是这些方向有一些容易忽略的点，建议先看清楚再决定');
     }
     steps.push('本测试只是认知工具——帮你缩小了解范围，最终选择还需结合你的分数、位次、学校和家庭情况');
     return steps;
@@ -935,7 +954,8 @@
       profileName: prof.name, profileSummary: prof.summary, topBuckets: prof.topBuckets,
       dimensions: dims, topDisciplines: disc,
       recommendedCategories: cats.recommended, optionalCategories: cats.optional,
-      cautiousCategories: cats.cautious, riskTags: risks,
+      cautiousCategories: cats.cautious, lowPriorityCategories: cats.lowPriority,
+      riskTags: risks,
       personalityTags: personalityTags,
       userType: userType, confidenceLevel: conf.level, confidenceNote: conf.note,
       nextStepSuggestions: steps,
@@ -1008,7 +1028,7 @@
       lines.push('');
     }
     if (result.cautiousCategories && result.cautiousCategories.length > 0) {
-      lines.push('【建议谨慎了解】');
+      lines.push('【需要重点确认】');
       result.cautiousCategories.forEach(function (c) {
         lines.push('  ' + c.name + '（' + c.gate + '）');
         (c.cautions || []).forEach(function (caution) { lines.push('    注意：' + caution); });
@@ -1402,6 +1422,7 @@
     };
     var c = colors[tier];
     var detailUrl = '/majors/' + cat.gateSlug + '/' + cat.slug;
+    var isCautious = tier === 'cautious';
 
     var card = el('a', { href: detailUrl, className: 'block p-4 rounded-xl border transition-colors ' + c.border + ' ' + c.bg });
 
@@ -1417,23 +1438,29 @@
     );
 
     if (cat.reason) {
-      card.appendChild(el('p', { className: 'text-[11px] text-slate-500 leading-relaxed mb-1' }, cat.reason.length > 60 ? cat.reason.slice(0, 60) + '\u2026' : cat.reason));
+      var reasonLabel = isCautious ? TXT.cautiousIntrestLabel : '';
+      var reasonColor = isCautious ? 'text-slate-600 font-medium' : 'text-slate-500';
+      card.appendChild(el('p', { className: 'text-[11px] ' + reasonColor + ' leading-relaxed mb-1' },
+        (reasonLabel ? reasonLabel : '') + (cat.reason.length > 54 ? cat.reason.slice(0, 54) + '\u2026' : cat.reason)));
     }
 
     if (cat.cautions && cat.cautions.length > 0) {
       cat.cautions.slice(0, 2).forEach(function (caution) {
+        var prefix = isCautious ? TXT.cautiousConfirmLabel : '';
         card.appendChild(
           el('div', { className: 'flex items-start gap-1 mt-1' },
             el('span', { className: 'text-[10px] shrink-0 mt-0.5' }, '\u26a0\ufe0f'),
-            el('p', { className: 'text-[10px] text-amber-600 leading-relaxed' }, caution.length > 50 ? caution.slice(0, 50) + '\u2026' : caution)
+            el('p', { className: 'text-[10px] text-amber-600 leading-relaxed' },
+              (prefix ? prefix : '') + (caution.length > 44 ? caution.slice(0, 44) + '\u2026' : caution))
           )
         );
       });
     }
 
+    var nextLabel = isCautious ? TXT.cautiousNextLabel : TXT.viewDetail;
     card.appendChild(
       el('div', { className: 'flex items-center gap-1 mt-2 pt-2 border-t border-slate-100' },
-        el('span', { className: 'text-[10px] text-primary' }, TXT.viewDetail),
+        el('span', { className: 'text-[10px] text-primary' }, nextLabel),
         el('span', { className: 'text-[10px] text-primary' }, '\u2192')
       )
     );
@@ -1702,6 +1729,60 @@
       });
   }
 
+  function renderLowPriority(result) {
+    var cats = result.lowPriorityCategories;
+    if (!cats || cats.length === 0) return document.createTextNode('');
+
+    var container = el('div', { className: 'bg-white border border-slate-200 rounded-xl p-6 shadow-sm mb-6' });
+    var idSuffix = 'lowp_' + Math.random().toString(36).slice(2, 8);
+    var toggleId = 'lp_toggle_' + idSuffix;
+    var bodyId = 'lp_body_' + idSuffix;
+
+    container.appendChild(
+      el('div', { className: 'flex items-center gap-3' },
+        el('span', { className: 'text-2xl' }, '📭'),
+        el('div', { className: 'flex-1' },
+          el('h2', { className: 'text-lg font-bold text-slate-900' }, TXT.lowPriorityTitle),
+          el('p', { className: 'text-xs text-slate-400' }, TXT.lowPrioritySub)
+        )
+      )
+    );
+
+    // Toggle button
+    var toggleBtn = el('button', {
+      id: toggleId,
+      className: 'mt-3 w-full text-center text-xs text-primary hover:text-primary/80 py-2 rounded-lg bg-slate-50 hover:bg-slate-100 transition-colors',
+      onClick: function() {
+        var body = document.getElementById(bodyId);
+        if (body) {
+          var hidden = body.style.display === 'none';
+          body.style.display = hidden ? '' : 'none';
+          toggleBtn.textContent = hidden ? '收起 ▲' : TXT.lowPriorityToggle + ' (' + cats.length + ' 个)';
+        }
+      },
+    }, TXT.lowPriorityToggle + ' (' + cats.length + ' 个)');
+
+    var body = el('div', { id: bodyId, style: 'display:none' });
+    var grid = el('div', { className: 'grid grid-cols-1 sm:grid-cols-2 gap-2 mt-3' });
+    cats.forEach(function(cat) {
+      grid.appendChild(
+        el('a', {
+          href: '/majors/' + cat.gateSlug + '/' + cat.slug,
+          className: 'block p-2.5 rounded-lg border border-slate-100 bg-slate-50 hover:bg-slate-100 transition-colors',
+        },
+          el('div', { className: 'flex items-center justify-between' },
+            el('span', { className: 'text-xs font-medium text-slate-600' }, cat.name),
+            el('span', { className: 'text-[10px] text-slate-400' }, cat.gate)
+          )
+        )
+      );
+    });
+    body.appendChild(grid);
+    container.appendChild(toggleBtn);
+    container.appendChild(body);
+    return container;
+  }
+
   function renderSubjectBlocked(result) {
     var blocked = result.subjectBlockedCategories;
     if (!blocked || blocked.length === 0) return el('div', {});
@@ -1822,6 +1903,7 @@
     wrapper.appendChild(renderCategorySection(result, 'recommendedCategories', { icon: '\ud83c\udfaf', title: TXT.recommendedTitle, sub: TXT.recommendedSub, tier: 'recommended' }));
     wrapper.appendChild(renderCategorySection(result, 'optionalCategories', { icon: '\ud83d\udc40', title: TXT.optionalTitle, sub: TXT.optionalSub, tier: 'optional' }));
     wrapper.appendChild(renderCategorySection(result, 'cautiousCategories', { icon: '\u26a0\ufe0f', title: TXT.cautiousTitle, sub: TXT.cautiousSub, tier: 'cautious' }));
+    wrapper.appendChild(renderLowPriority(result));
     wrapper.appendChild(renderSubjectBlocked(result));
     wrapper.appendChild(renderNicheExploration(result));
     wrapper.appendChild(renderRiskTags(result));

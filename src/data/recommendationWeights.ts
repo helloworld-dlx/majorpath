@@ -260,7 +260,7 @@ export const PROFILE_TEMPLATES: Record<DirectionBucket, { name: string; summary:
   },
   social_science: {
     name: '偏理性的社会关怀型',
-    summary: '你对社会怎么运作、人和人之间的关系有很强的好奇心。法学、教育、公共管理可能是你的菜。',
+    summary: '你对社会怎么运作、人和人之间的关系有很强的好奇心。社会制度与人际关系类方向值得深入了解。',
   },
   business: {
     name: '偏实务的商业管理型',

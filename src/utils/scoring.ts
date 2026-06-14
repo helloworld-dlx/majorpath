@@ -386,6 +386,7 @@ export function generateCategoryRecommendations(
   recommended: CategoryRecommendation[];
   optional: CategoryRecommendation[];
   cautious: CategoryRecommendation[];
+  lowPriority: CategoryRecommendation[];
 } {
   const scored: CategoryRecommendation[] = [];
 
@@ -496,30 +497,38 @@ export function generateCategoryRecommendations(
   const recommended: CategoryRecommendation[] = [];
   const optional: CategoryRecommendation[] = [];
   const cautious: CategoryRecommendation[] = [];
+  const lowPriority: CategoryRecommendation[] = [];
 
   const sorted = [...scored].sort((a, b) => b.score - a.score);
 
   for (const cat of sorted) {
     const penalty = penalized.get(cat.slug);
     if (penalty) {
+      const originalScore = cat.score;
       cat.score = Math.max(0, cat.score - penalty.penalty);
       cat.cautions.push(penalty.reason);
-      // v0.19.5: hotTrend 替代惩罚不强制进 cautious，按调整后分数分级
       const isSubstitute = penalty.reason.includes('热门跟风降级');
+      // 匹配分高 + 有风险 → 需要重点确认（不是劝退）
       if (isSubstitute && cat.score >= 35) {
         optional.push(cat);
-      } else {
+      } else if (originalScore >= 55) {
         cautious.push(cat);
+      } else if (cat.score >= 35) {
+        optional.push(cat);
+      } else {
+        lowPriority.push(cat);
       }
     } else if (cat.score >= 55) {
       recommended.push(cat);
     } else if (cat.score >= 35) {
       optional.push(cat);
+    } else if (cat.score >= 20) {
+      lowPriority.push(cat);
     }
   }
 
   // 去重后处理（v0.19.5）：同一专业类只能属于一个层级
-  // 优先级：cautious > recommended > optional
+  // 优先级：cautious > recommended > optional > lowPriority
   const seenSlugs = new Set<string>();
   const dedupedCautious = cautious.filter((c) => {
     if (seenSlugs.has(c.slug)) return false;
@@ -536,12 +545,18 @@ export function generateCategoryRecommendations(
     seenSlugs.add(c.slug);
     return true;
   });
+  const dedupedLowPriority = lowPriority.filter((c) => {
+    if (seenSlugs.has(c.slug)) return false;
+    seenSlugs.add(c.slug);
+    return true;
+  });
 
-  // 限制数量：推荐 3-5，可选 2-4，谨慎 2-4
+  // 限制数量：推荐 3-5，可选 2-4，谨慎 2-4，低优先 0-3
   return {
     recommended: dedupedRecommended.slice(0, 5),
     optional: dedupedOptional.slice(0, 4),
     cautious: dedupedCautious.slice(0, 4),
+    lowPriority: dedupedLowPriority.slice(0, 3),
   };
 }
 
@@ -802,7 +817,7 @@ export function generateResult(
   const topDisciplines = generateDisciplineRecommendations(finalBuckets, userType);
 
   // 4. 专业类推荐
-  let { recommended, optional, cautious } = generateCategoryRecommendations(
+  let { recommended, optional, cautious, lowPriority } = generateCategoryRecommendations(
     finalBuckets, dimScores, riskTags, humanitiesProtected, topDisciplines,
   );
 
@@ -848,6 +863,7 @@ export function generateResult(
     recommendedCategories: recommended,
     optionalCategories: optional,
     cautiousCategories: cautious,
+    lowPriorityCategories: lowPriority,
     riskTags: riskResults,
     userType,
     humanitiesProtected,
@@ -877,7 +893,7 @@ function buildNextSteps(
   }
 
   if (cautious.length > 0) {
-    steps.push(`有 ${cautious.length} 个方向放入了谨慎了解区，不是说你不能选，而是建议先看清楚再决定`);
+    steps.push(`有 ${cautious.length} 个方向放入了「需要重点确认」区，不是说你不能选，而是这些方向有一些容易忽略的点，建议先看清楚再决定`);
   }
 
   steps.push('本测试只是认知工具，最终选择还需结合你的分数、位次、学校和家庭情况');
