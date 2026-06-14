@@ -1234,7 +1234,7 @@
   function drawRadarChart(container, dims) {
     var n = dims.length;
     if (n < 3) return;
-    var W = 320, H = 320;
+    var W = 360, H = 360;
     var cx = W / 2, cy = H / 2;
     var R = 100;
     var angleStep = (2 * Math.PI) / n;
@@ -1244,7 +1244,7 @@
     var svgNS = 'http://www.w3.org/2000/svg';
     var svg = document.createElementNS(svgNS, 'svg');
     svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
-    svg.setAttribute('class', 'w-full max-w-[320px] mx-auto block');
+    svg.setAttribute('class', 'w-full max-w-[340px] mx-auto block');
     svg.setAttribute('role', 'img');
     svg.setAttribute('aria-label', TXT.dimensionTitle);
 
