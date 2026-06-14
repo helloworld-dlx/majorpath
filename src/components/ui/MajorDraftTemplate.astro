@@ -1,0 +1,69 @@
+---
+/**
+ * 草稿简介渲染组件
+ *
+ * 当专业类没有完整 11 模块详情时，展示轻量级草稿介绍。
+ * 包含草稿提示、5 个内容模块和共建入口。
+ */
+
+import type { MajorDraftContent } from '../../types/major-draft';
+
+interface Props {
+  content: MajorDraftContent;
+  categoryName: string;
+  gateSlug: string;
+  categorySlug: string;
+}
+
+const { content: c, categoryName } = Astro.props;
+---
+
+<!-- 草稿提示 -->
+<div class="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-6">
+  <div class="flex items-start gap-3">
+    <span class="text-lg shrink-0">⚠️</span>
+    <div>
+      <p class="text-sm font-medium text-amber-800">这是草稿简介</p>
+      <p class="text-xs text-amber-700 mt-1 leading-relaxed">
+        {c.draftNotice}
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- 一句话看懂 -->
+<div class="bg-white border border-slate-200 rounded-xl p-6 mb-4">
+  <p class="text-base text-slate-800 leading-relaxed font-medium">📌 {c.oneLine}</p>
+</div>
+
+<!-- 内容模块 -->
+<div class="space-y-4">
+  <div class="bg-white border border-slate-200 rounded-xl p-5">
+    <h3 class="text-sm font-semibold text-slate-800 mb-2">📖 大概学什么</h3>
+    <p class="text-sm text-slate-600 leading-relaxed">{c.learns}</p>
+  </div>
+
+  <div class="bg-white border border-slate-200 rounded-xl p-5">
+    <h3 class="text-sm font-semibold text-slate-800 mb-2">🔗 和高中有什么关系</h3>
+    <p class="text-sm text-slate-600 leading-relaxed">{c.highSchoolConnection}</p>
+  </div>
+
+  <div class="bg-white border border-slate-200 rounded-xl p-5">
+    <h3 class="text-sm font-semibold text-slate-800 mb-2">👤 适合先了解的人</h3>
+    <p class="text-sm text-slate-600 leading-relaxed">{c.goodFor}</p>
+  </div>
+
+  <div class="bg-white border border-slate-200 rounded-xl p-5">
+    <h3 class="text-sm font-semibold text-slate-800 mb-2">⚠️ 需要提前注意</h3>
+    <p class="text-sm text-slate-600 leading-relaxed">{c.watchOut}</p>
+  </div>
+</div>
+
+<!-- 共建入口 -->
+<div class="mt-6 bg-slate-50 border border-slate-200 rounded-xl p-5 text-center">
+  <p class="text-sm text-slate-500 mb-2">你是该专业的学生或从业者？</p>
+  <div class="flex flex-wrap justify-center gap-3">
+    <a href="/contribute" class="text-xs text-primary hover:underline">✏️ 补充内容</a>
+    <a href="/contribute" class="text-xs text-primary hover:underline">🐛 纠错</a>
+  </div>
+</div>

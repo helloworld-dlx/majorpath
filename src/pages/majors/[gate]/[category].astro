@@ -2,8 +2,10 @@
 import Layout from '../../../layouts/Layout.astro';
 import StatusBadge from '../../../components/ui/StatusBadge.astro';
 import MajorDetailTemplate from '../../../components/ui/MajorDetailTemplate.astro';
+import MajorDraftTemplate from '../../../components/ui/MajorDraftTemplate.astro';
 import { catalog } from '../../../data/catalog';
 import { majorDetails } from '../../../data/major-details';
+import { majorDrafts } from '../../../data/major-drafts';
 import type { Major } from '../../../types/catalog';
 
 export function getStaticPaths() {
@@ -23,6 +25,7 @@ const catData = gateData?.categories.find((c) => c.slug === category);
 
 const detailKey = `${gate}/${category}`;
 const detailContent = majorDetails[detailKey] ?? null;
+const draftContent = !detailContent ? (majorDrafts[detailKey] ?? null) : null;
 ---
 
 <Layout
@@ -108,13 +111,26 @@ const detailContent = majorDetails[detailKey] ?? null;
               )}
             </section>
 
-            <!-- 详情内容：有则渲染模板，无则占位 -->
+            <!-- 详情内容：full > draft > placeholder -->
             {detailContent ? (
               <MajorDetailTemplate
                 content={detailContent}
                 reviewStatus={detailContent.reviewStatus}
                 currentName={catData?.name}
               />
+            ) : draftContent ? (
+              <>
+                <div class="flex items-center gap-2 mb-3">
+                  <span class="text-xs bg-purple-50 text-purple-600 border border-purple-200 px-2 py-0.5 rounded-full font-medium">草稿</span>
+                  <span class="text-[10px] text-slate-400">初步介绍，非完整内容</span>
+                </div>
+                <MajorDraftTemplate
+                  content={draftContent}
+                  categoryName={catData?.name ?? category}
+                  gateSlug={gate}
+                  categorySlug={category}
+                />
+              </>
             ) : (
               <div class="text-center py-12 bg-slate-50 rounded-xl border border-slate-100">
                 <p class="text-3xl mb-3">🚧</p>

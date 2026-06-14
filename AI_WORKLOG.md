@@ -1453,3 +1453,32 @@
 - **下次建议**：
   - 更新说明文档
 - **当前版本状态**：v0.21.1 — 模拟器升级 + 报告折叠 + 小众修复完成，构建 116 页面通过
+
+---
+### 2026-06-14 23:00 — 草稿简介系统上线（30个专业类接入）
+
+- **使用模型**：opencode-go/deepseek-v4-flash
+- **任务类型**：开发
+- **完成内容**：
+  - 草稿简介系统设计：三级内容优先级（完整 11 模块 > 草稿 5 模块 > 🚧 建设中）
+  - 新增 `MajorDraftContent` 类型（MajorDraftMap，5 内容字段 + 草稿提示）
+  - 新增 `src/data/major-drafts.ts`：30 条草稿数据，通过 `catalog` 反向映射到 gateSlug/categorySlug
+  - 新增 `MajorDraftTemplate.astro`：⚠️ 草稿提示横幅 + 一句话看懂 + 学什么 + 高中关系 + 适合谁 + 注意 + 共建入口
+  - 修改 `[category].astro`：内容优先级 full > draft > building，30 个专业类从 🚧 变为可读状态
+  - 审稿 30 条草稿：全部可用，仅微调化工与制药类/仪器类 oneLine 和工商管理类 learns
+- **修改的文件**：
+  - `src/types/major-draft.ts` — **新建** MajorDraftContent 类型
+  - `src/data/major-drafts.ts` — **新建** 30 条草稿数据
+  - `src/components/ui/MajorDraftTemplate.astro` — **新建** 草稿渲染组件
+  - `src/pages/majors/[gate]/[category].astro` — 三级优先级变更
+- **关键决策**：
+  - 不修改 `ContentStatus` 类型和 `catalog` 状态字段，草稿是独立数据层
+  - 草稿不覆盖完整内容（已有 11 模块的专业优先展示完整内容）
+  - 不修改已有的 6 个完整专业内容
+- **遗留问题**：
+  - 剩余 56 个专业类无任何内容（草稿或完整）
+  - 审计模式 slug 数据源不匹配问题仍未修复
+- **下次建议**：
+  - 生成剩余 56 个专业类草稿（优先高频方向）
+  - 真实用户测试
+- **当前版本状态**：v0.22.0 — 草稿简介系统上线，30 个专业类可读，构建 116 页面通过
