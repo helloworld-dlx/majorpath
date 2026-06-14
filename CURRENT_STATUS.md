@@ -7,8 +7,8 @@
 
 ## 版本信息
 
-- **当前版本**：v0.20.2（模拟器固定12题 + 报告页雷达图 + 性格能力合并 + 学科门类优化）
-- **更新日期**：2026-06-12 22:55
+- **当前版本**：v0.21.1（谨慎区重命名 + 4层分级逻辑 + 模拟器29画像 + 报告折叠 + 小众隐藏）
+- **更新日期**：2026-06-14 21:15
 
 ---
 
@@ -87,6 +87,25 @@
 
 ---
 
+## v0.21.1 模块变更
+
+| 模块 | 变更 |
+|------|------|
+| scripts/simulate.ts | 新增 15 个虚拟画像覆盖 business/art/life_health/humanities/social_science（14→29），调整选项噪声 gaussian(0,20)→gaussian(0,8)，500 人模拟覆盖率 33.3%（+2%） |
+| public/scripts/report.js | 维度卡片雷达图默认展示，分数条和性格特质折叠在「查看详细数据 ▼」按钮后 |
+| public/scripts/report.js | 小众探索未触发时完全隐藏（之前是占位提示框）；门槛从 dimScore≥68→50，interestSignal≥70→50，bucketMatch≥75→60，ns≥45→38 |
+| public/scripts/report.js | 下载文本增加各专业类推荐原因（💡）和谨慎区提醒（⚠️） |
+
+## v0.21.0 模块变更
+
+| 模块 | 变更 |
+|------|------|
+| src/types/result.ts | 新增 `lowPriorityCategories: CategoryRecommendation[]` |
+| src/data/recommendationWeights.ts | social_science 画像去具体专业名（"法学、教育、公共管理可能是你的菜"→"社会制度与人际关系类方向值得深入了解"）；`rule_detail_aversion` 去"诊疗规范" |
+| src/utils/scoring.ts | 分层逻辑从 3 层改为 4 层：匹配分≥55 且有罚则→cautious（需要重点确认，非劝退），匹配分<55+罚则→optional/lowPriority；recommended≥55/optional≥35 阈值不变 |
+| public/scripts/report.js | `TXT.cautiousTitle`→"需要重点确认"；`TXT.cautiousSub` 加解释文案；新增 `cautiousIntrestLabel/ConfirmLabel/NextLabel`；`buildCatCard` 谨慎卡片三区结构（📌你为什么会感兴趣 / ⚠️需要重点确认 / 👉如果还感兴趣） |
+| public/scripts/report.js | 同步 4 层分级逻辑；新增 `renderLowPriority` 折叠函数；`renderFullReport` 加入低优先区；`PROFILE_TEMPLATES` 同步去具体专业名；`buildNextSteps` 文案更新 |
+
 ## v0.20.2 模块变更
 
 | 模块 | 变更 |
@@ -158,6 +177,8 @@
 
 | 日期 | 更新内容 |
 |------|----------|
+| 2026-06-14 21:15 | **v0.21.1** 15个新画像（14→29）覆盖business/art短板 + 模拟噪声−60%（±20→±8）+ 维度卡片折叠 + 小众探索未触发隐藏 + 下载报告加推荐原因。npm run build ✅ 116 页面 |
+| 2026-06-14 20:20 | **v0.21.0** 谨慎区改名"需要重点确认" + 4层分级（cautious仅限高分+risk）+ 画像模板去具体专业名 + 罚则文案去"诊疗规范" + 谨慎卡片三区结构。npm run build ✅ 116 页面 |
 | 2026-06-12 22:55 | **v0.20.2** 模拟器固定12题 + 报告页雷达图SVG + 性格能力合并为一张卡片 + 学科门类恢复两列卡片 + 分数字条标签加宽。200人固定题模拟通过（覆盖率26/96，异常率10%）。npm run build ✅ 116 页面 |
 | 2026-06-12 22:05 | **v0.20.1** 第二轮场景化改写：gen_002/007/008/014/020 表述优化。npm run build ✅ 116 页面 |
 | 2026-06-12 21:55 | **v0.20.0** 题库评分引擎审计修复：清理 165 个 SubDirection 死代码 + gen_019 排斥题替换 gen_003 进入测试流 + 4 个新标签作为「性格特质」展示在报告 + gen_016_B 空 scoreEffects 修复 + gen_010/016/017 场景化改写。npm run build ✅ 116 页面 |

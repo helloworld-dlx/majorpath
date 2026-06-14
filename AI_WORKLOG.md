@@ -1396,3 +1396,60 @@
   - 教育学类推荐偏高排查
   - 修 audit 模式的 slug 数据源
 - **当前版本状态**：v0.20.2 — 报告页视觉升级完成，构建 116 页面通过
+
+---
+### 2026-06-14 20:20 — 谨慎区改名"需要重点确认" + 4层分级逻辑
+
+- **使用模型**：opencode-go/deepseek-v4-flash
+- **任务类型**：开发
+- **完成内容**：
+  - 谨慎区改名："建议谨慎了解"→"需要重点确认"，副标题改为"不是说你不适合，也不是建议你不要报，而是这些方向存在一些容易被忽略的学习方式或职业特点"
+  - 分层从 3 层改为 4 层：matched≥55+penalty→cautious（而非有罚则就进），matched<55+penalty→optional/lowPriority
+  - 新增 `lowPriorityCategories` 到 RecommendationResult 类型和 scoring.ts/report.js
+  - PROFILE_TEMPLATES 去具体专业名（"法学、教育、公共管理"→"社会制度与人际关系类方向"）
+  - RISK_CATEGORY_PENALTIES 修正：`rule_detail_aversion` 去"诊疗规范"
+  - 谨慎卡片三区结构：📌你为什么会感兴趣 + ⚠️需要重点确认 + 👉如果还感兴趣
+  - 新增 `renderLowPriority` 折叠区函数
+  - buildNextSteps 文案更新
+- **修改的文件**：
+  - `src/types/result.ts` — 新增 lowPriorityCategories
+  - `src/data/recommendationWeights.ts` — PROFILE_TEMPLATES/RISK_CATEGORY_PENALTIES 文案修正
+  - `src/utils/scoring.ts` — 4层分级逻辑 + generateResult 新增 lowPriority
+  - `public/scripts/report.js` — 全同步 + 文案重命名 + 卡片三区 + lowPriority 折叠
+- **关键决策**：
+  - cautious 不再是有罚则就进，而是只有匹配分高(≥55)但有风险时才进
+  - 低匹配(调整后分<35)进 lowPriority 折叠区，避免报告过长
+- **遗留问题**：
+  - 教育学类 500 人模拟仍占 34%（#1），需进一步排查
+  - 临床医学类覆盖率 0%（0.65 乘法惩罚 + long_cycle -20 使其到不了推荐阈值）
+- **下次建议**：
+  - 真实用户测试
+  - 教育学类偏高修复
+  - 修复 audit 模式 slug 数据源不匹配问题
+- **当前版本状态**：v0.21.0 — 谨慎区重命名 + 4层分级完成，构建 116 页面通过
+
+---
+### 2026-06-14 21:15 — 15个新画像 + 模拟噪声降低 + 报告折叠 + 小众隐藏
+
+- **使用模型**：opencode-go/deepseek-v4-flash
+- **任务类型**：开发
+- **完成内容**：
+  - 新增 15 个虚拟画像覆盖 business/art/life_health/humanities/social_science（14→29）
+  - 模拟选项噪声从 ±20 降低到 ±8（信号:噪声比大幅改善）
+  - 500 人模拟覆盖率 33.3%（+2%），金融学类 4%（+3%），异常率 9.2%
+  - 维度卡片：雷达图默认展示，分数条和性格特质折叠在"查看详细数据 ▼"按钮后
+  - 小众探索：未触发时完全隐藏（之前是占位提示框）
+  - 小众探索门槛放宽：dimScore 68→50，interestSignal 70→50，bucketMatch 75→60，ns 45→38
+  - 下载文本增加各专业类推荐原因（💡）和谨慎区提醒（⚠️）
+- **修改的文件**：
+  - `scripts/simulate.ts` — 15个新画像 + gaussian(0,20)→gaussian(0,8)
+  - `public/scripts/report.js` — 维度卡片折叠 + 小众隐藏 + 下载文本原因 + 小众门槛降低
+- **关键决策**：
+  - 维度详细数据默认收起，减少首次阅读负担
+  - 小众探索彻底隐藏（不显示占位提示），避免"空鼓励"
+- **遗留问题**：
+  - 网页版推荐/可选卡片推荐原因与维度标签信息重复，待确认是否移除
+  - 临床医学/金融学仍覆盖率低
+- **下次建议**：
+  - 更新说明文档
+- **当前版本状态**：v0.21.1 — 模拟器升级 + 报告折叠 + 小众修复完成，构建 116 页面通过
