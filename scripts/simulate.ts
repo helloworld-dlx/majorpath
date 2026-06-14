@@ -226,6 +226,99 @@ const VIRTUAL_PROFILES: VirtualProfile[] = [
     bucketBiases: { stem: 80, business: 35 }, riskBiases: [],
     interestSlugs: ['computer-science', 'mathematics', 'statistics', 'management-science'],
   },
+
+  // ── v0.21.0 新增：覆盖 business/art/life_health/humanities/social_science 短板 ──
+
+  {
+    id: 'finance_detail', name: '对金融/财务感兴趣·细心', desc: '对金融、财务感兴趣，细心有条理',
+    dimBiases: { business_sense: 85, rule_detail: 70, math_logic: 55, stable_path: 40 },
+    bucketBiases: { business: 90 }, riskBiases: [],
+    interestSlugs: ['finance', 'accounting', 'financial-management', 'auditing', 'economics-class'],
+  },
+  {
+    id: 'manager_organizer', name: '喜欢管理·组织事务', desc: '喜欢管理协调、组织事务',
+    dimBiases: { interpersonal: 70, business_sense: 65, stable_path: 50, rule_detail: 40 },
+    bucketBiases: { business: 80, social_science: 30 }, riskBiases: [],
+    interestSlugs: ['business-administration', 'public-administration', 'management-science', 'logistics'],
+  },
+  {
+    id: 'sales_persuader', name: '擅长沟通·说服力强', desc: '擅长沟通、说服和谈判',
+    dimBiases: { interpersonal: 90, reading_expression: 65, business_sense: 60 },
+    bucketBiases: { business: 75, social_science: 30 }, riskBiases: [],
+    interestSlugs: ['business-administration', 'international-trade', 'e-commerce', 'tourism-management'],
+  },
+  {
+    id: 'performer', name: '喜欢表演·音乐·舞蹈', desc: '喜欢表演、音乐、舞蹈等舞台艺术',
+    dimBiases: { aesthetic_creation: 90, interpersonal: 60, reading_expression: 30 },
+    bucketBiases: { art_creative: 90 }, riskBiases: [],
+    interestSlugs: ['music-dance', 'drama-film', 'fine-arts'],
+  },
+  {
+    id: 'visual_designer', name: '喜欢视觉设计·美学', desc: '喜欢视觉设计、平面/产品/交互设计',
+    dimBiases: { aesthetic_creation: 90, engineering_practice: 45, info_systems: 40 },
+    bucketBiases: { art_creative: 85, stem: 25 }, riskBiases: [],
+    interestSlugs: ['design', 'fine-arts', 'architecture'],
+  },
+  {
+    id: 'writer_creator', name: '喜欢写作·表达·创作', desc: '喜欢文字表达和内容创作',
+    dimBiases: { reading_expression: 90, interpersonal: 40, abstract_theory: 30 },
+    bucketBiases: { humanities: 80, social_science: 30 }, riskBiases: [],
+    interestSlugs: ['chinese-literature', 'journalism', 'foreign-languages'],
+  },
+  {
+    id: 'philosopher', name: '喜欢思辨·抽象·哲学', desc: '喜欢抽象思考、哲学思辨',
+    dimBiases: { abstract_theory: 90, reading_expression: 50, math_logic: 30 },
+    bucketBiases: { humanities: 80, stem: 20 }, riskBiases: [],
+    interestSlugs: ['philosophy-class', 'history-class', 'sociology'],
+  },
+  {
+    id: 'clinical_dedicated', name: '想做医生·能接受长期学习', desc: '想做医生，能接受长学习周期',
+    dimBiases: { life_health_interest: 95, interpersonal: 70, rule_detail: 50, stable_path: 40 },
+    bucketBiases: { life_health: 95 }, riskBiases: [{ tag: 'long_cycle', chance: 0.5 }],
+    interestSlugs: ['clinical-medicine', 'stomatology', 'pharmacy', 'nursing'],
+  },
+  {
+    id: 'life_science_researcher', name: '喜欢生物·化学·科研', desc: '喜欢生命科学基础研究',
+    dimBiases: { life_health_interest: 80, abstract_theory: 70, engineering_practice: 40 },
+    bucketBiases: { life_health: 80, stem: 30 }, riskBiases: [],
+    interestSlugs: ['biology', 'pharmacy', 'biomedical-eng', 'basic-medicine'],
+  },
+  {
+    id: 'agriculture_green', name: '喜欢自然·农业·生态环境', desc: '喜欢自然、农业和生态',
+    dimBiases: { life_health_interest: 75, engineering_practice: 60, abstract_theory: 20 },
+    bucketBiases: { life_health: 85 }, riskBiases: [],
+    interestSlugs: ['plant-production', 'animal-production', 'forestry', 'environmental-ecology', 'veterinary'],
+  },
+  {
+    id: 'public_health_policy', name: '关注公共健康·社会政策', desc: '关注公共卫生、健康政策',
+    dimBiases: { life_health_interest: 70, interpersonal: 60, reading_expression: 50, rule_detail: 40 },
+    bucketBiases: { life_health: 70, social_science: 40 }, riskBiases: [],
+    interestSlugs: ['public-health', 'medical-technology', 'sociology'],
+  },
+  {
+    id: 'law_justice', name: '喜欢规则·正义·辩论', desc: '喜欢规则、法律、辩论',
+    dimBiases: { rule_detail: 85, reading_expression: 70, interpersonal: 50 },
+    bucketBiases: { social_science: 85 }, riskBiases: [],
+    interestSlugs: ['law-class', 'political-science', 'public-security'],
+  },
+  {
+    id: 'educator', name: '喜欢教书·帮助人成长', desc: '喜欢教育、帮助他人成长',
+    dimBiases: { interpersonal: 85, reading_expression: 60, stable_path: 50 },
+    bucketBiases: { social_science: 85, life_health: 20 }, riskBiases: [],
+    interestSlugs: ['education', 'physical-education', 'chinese-literature'],
+  },
+  {
+    id: 'architect_designer', name: '喜欢建筑·空间·结构设计', desc: '喜欢建筑设计、空间规划',
+    dimBiases: { aesthetic_creation: 75, engineering_practice: 70, info_systems: 30 },
+    bucketBiases: { stem: 60, art_creative: 60 }, riskBiases: [],
+    interestSlugs: ['architecture', 'design', 'civil-engineering'],
+  },
+  {
+    id: 'business_analytics', name: '喜欢数据分析·商业决策', desc: '喜欢用数据分析做商业决策',
+    dimBiases: { info_systems: 85, math_logic: 75, business_sense: 70, rule_detail: 30 },
+    bucketBiases: { business: 70, stem: 40 }, riskBiases: [],
+    interestSlugs: ['statistics', 'management-science', 'computer-science', 'finance'],
+  },
 ];
 
 // ═══════════════════════════════════════════════
@@ -300,7 +393,7 @@ function generateAnswers(
       return { option: opt, score };
     });
 
-    scoredOpts.forEach((o) => { o.score += rng.gaussian(0, 20); });
+    scoredOpts.forEach((o) => { o.score += rng.gaussian(0, 8); });
     scoredOpts.sort((a, b) => b.score - a.score);
 
     const chosen = scoredOpts[0].option;
@@ -382,7 +475,7 @@ function generateAnswersFromPersona(
       }
       return { option: opt, score };
     });
-    scoredOpts.forEach((o) => { o.score += rng.gaussian(0, 20); });
+    scoredOpts.forEach((o) => { o.score += rng.gaussian(0, 8); });
     scoredOpts.sort((a, b) => b.score - a.score);
 
     const chosen = scoredOpts[0].option;

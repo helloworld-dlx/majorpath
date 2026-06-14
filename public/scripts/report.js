@@ -64,6 +64,8 @@
   TXT.dimensionSub = '你的维度得分和性格特质，一目了然（不影响推荐排序，仅供自我了解）';
   TXT.dimensionChart = '雷达图概览';
   TXT.dimensionScoreList = '各维度得分';
+  TXT.expandDetail = '查看详细数据 ▼';
+  TXT.collapseDetail = '收起详细数据 ▲';
   TXT.personalityNote = '以上性格标签不影响推荐结果，仅供自我了解。';
   TXT.dimHigh = '比较突出的方面：';
   TXT.dimMid = '有一定倾向的方面：';
@@ -756,11 +758,11 @@
       var hiOnly = f.hi || false;
       var isSpecial = f.sc || false;
       var bw = f.bw || 4;
-      if (!hiOnly && bw > 3 && !isSpecial) return;
-      if (cat.dimScore < 68 && cat.interestSignal < 70 && cat.bucketMatch < 75) return;
+      if (!hiOnly && bw > 5 && !isSpecial) return;
+      if (cat.dimScore < 50 && cat.interestSignal < 50 && cat.bucketMatch < 60) return;
       if (cat.mismatchPenalty >= 15) return;
       var ns = cat.bucketMatch * 0.30 + cat.dimScore * 0.45 + cat.interestSignal * 0.20 + (bw / 22 * 100) * 0.05 - cat.mismatchPenalty;
-      if (ns < 45) return;
+      if (ns < 38) return;
       cat.nicheScore = Math.round(ns);
       cat.nicheReasons = [];
       cat.nicheReasons.push(cat.dimScore >= 68 ? '你的学习风格和这个方向有匹配' : '你的方向偏好和这个专业有微弱交集');
@@ -1019,19 +1021,26 @@
     }
     if (result.recommendedCategories && result.recommendedCategories.length > 0) {
       lines.push('【建议优先了解】');
-      result.recommendedCategories.forEach(function (c) { lines.push('  ' + c.name + '（' + c.gate + '）'); });
+      result.recommendedCategories.forEach(function (c) {
+        lines.push('  ' + c.name + '（' + c.gate + '）');
+        if (c.reason) lines.push('    💡 ' + c.reason);
+      });
       lines.push('');
     }
     if (result.optionalCategories && result.optionalCategories.length > 0) {
       lines.push('【可以继续看看】');
-      result.optionalCategories.forEach(function (c) { lines.push('  ' + c.name + '（' + c.gate + '）'); });
+      result.optionalCategories.forEach(function (c) {
+        lines.push('  ' + c.name + '（' + c.gate + '）');
+        if (c.reason) lines.push('    💡 ' + c.reason);
+      });
       lines.push('');
     }
     if (result.cautiousCategories && result.cautiousCategories.length > 0) {
       lines.push('【需要重点确认】');
       result.cautiousCategories.forEach(function (c) {
         lines.push('  ' + c.name + '（' + c.gate + '）');
-        (c.cautions || []).forEach(function (caution) { lines.push('    注意：' + caution); });
+        if (c.reason) lines.push('    💡 你为什么会感兴趣：' + c.reason);
+        (c.cautions || []).forEach(function (caution) { lines.push('    ⚠️ ' + caution); });
       });
       lines.push('');
     }
@@ -1363,16 +1372,40 @@
 
     // Radar chart
     var scored = dims.filter(function(d) { return d.score > 0; });
-    if (scored.length >= 3) {
-      var chartBox = el('div', { className: 'mb-5' },
+    var showChart = scored.length >= 3;
+
+    if (showChart) {
+      var chartBox = el('div', { className: 'mb-3' },
         el('p', { className: 'text-[11px] text-slate-400 text-center mb-1' }, TXT.dimensionChart)
       );
       drawRadarChart(chartBox, scored);
       container.appendChild(chartBox);
     }
 
+    // Expand/collapse toggle for detailed data
+    var detailSuffix = 'dim_' + Math.random().toString(36).slice(2, 8);
+    var detailBodyId = 'dim_detail_' + detailSuffix;
+    var toggleId = 'dim_toggle_' + detailSuffix;
+
+    var toggleBtn = el('button', {
+      id: toggleId,
+      className: 'mt-2 w-full text-center text-[11px] text-primary hover:text-primary/80 py-2 rounded-lg bg-slate-50 hover:bg-slate-100 transition-colors',
+      onClick: function() {
+        var body = document.getElementById(detailBodyId);
+        if (body) {
+          var hidden = body.style.display === 'none';
+          body.style.display = hidden ? '' : 'none';
+          toggleBtn.textContent = hidden ? TXT.collapseDetail : TXT.expandDetail;
+        }
+      },
+    }, TXT.expandDetail);
+    container.appendChild(toggleBtn);
+
+    // Collapsible detail (hidden by default)
+    var detailBox = el('div', { id: detailBodyId, style: 'display:none' });
+
     // Score bars (top 8)
-    var barSection = el('div', { className: 'mb-3' });
+    var barSection = el('div', { className: 'mb-3 pt-3' });
     barSection.appendChild(el('p', { className: 'text-[11px] text-slate-400 mb-2' }, TXT.dimensionScoreList));
     dims.slice(0, 8).forEach(function(d) {
       barSection.appendChild(
@@ -1384,7 +1417,7 @@
         )
       );
     });
-    container.appendChild(barSection);
+    detailBox.appendChild(barSection);
 
     // Personality hints (merged from old renderPersonalityHints)
     var tags = result.personalityTags;
@@ -1407,10 +1440,11 @@
             )
           );
         });
-        container.appendChild(hintBox);
+        detailBox.appendChild(hintBox);
       }
     }
 
+    container.appendChild(detailBox);
     return container;
   }
 
@@ -1807,12 +1841,7 @@
 
   function renderNicheExploration(result) {
     var niche = result.nicheExplorationCategories;
-    if (!niche || niche.length === 0) {
-      return el('div', { className: 'mb-6 text-center bg-slate-50 rounded-xl p-4' },
-        el('h2', { className: 'text-base font-bold text-slate-500' }, '🔍 你也可以顺手了解的小众方向'),
-        el('p', { className: 'text-xs text-slate-400 mt-1' }, '本次测试未触发小众方向信号——这很正常，说明你的兴趣方向比较明确。')
-      );
-    }
+    if (!niche || niche.length === 0) return document.createTextNode('');
     var children = [];
     children.push(el('div', { className: 'text-center mb-3' },
       el('h2', { className: 'text-lg font-bold text-slate-700' }, '\ud83d\udd0d 你也可以顺手了解的小众方向'),
