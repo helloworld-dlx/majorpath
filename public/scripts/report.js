@@ -959,6 +959,7 @@
       cautiousCategories: cats.cautious, lowPriorityCategories: cats.lowPriority,
       riskTags: risks,
       personalityTags: personalityTags,
+      nicheExplorationCategories: niche,
       userType: userType, confidenceLevel: conf.level, confidenceNote: conf.note,
       nextStepSuggestions: steps,
     };
@@ -1164,7 +1165,7 @@
 
   // v1.0 选科约束显示
   function renderSubjectConstraint(userSubjects) {
-    if (!userSubjects || !userSubjects.selected || !userSubjects.selected.length) return null;
+    if (!userSubjects || !userSubjects.selected || !userSubjects.selected.length) return document.createTextNode('');
     var subjects = userSubjects.selected;
     var hasPhysics = subjects.indexOf('物理') >= 0;
     var hasChemistry = subjects.indexOf('化学') >= 0;
@@ -1173,7 +1174,7 @@
     if (!hasPhysics) notes.push('未选物理，理工科方向权重已下调');
     if (!hasChemistry) notes.push('未选化学，部分工科/医学方向受限');
     if (!hasBiology) notes.push('未选生物，医学/生命科学方向权重已下调');
-    if (notes.length === 0) return null;
+    if (notes.length === 0) return document.createTextNode('');
     var items = notes.map(function(n) {
       return el('li', { className: 'text-xs text-slate-600' }, '• ' + n);
     });
