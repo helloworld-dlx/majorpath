@@ -256,7 +256,7 @@
     'transportation': { rd:'medium', bc:'low', sc:false, hi:false, lp:'low', ts:false, cm:'low', bw:7 },
     'environmental': { rd:'medium', bc:'high', sc:false, hi:false, lp:'low', ts:false, cm:'high', bw:7 },
     'bioengineering': { rd:'medium', bc:'high', sc:false, hi:false, lp:'low', ts:false, cm:'high', bw:7 },
-    'food-science': { rd:'medium', bc:'medium', sc:false, hi:false, lp:'low', ts:false, cm:'medium', bw:6 },
+    'food-science': { rd:'medium', bc:'medium', sc:false, hi:false, lp:'low', ts:false, cm:'medium', bw:8 },
     'electrical': { rd:'medium', bc:'medium', sc:false, hi:false, lp:'low', ts:false, cm:'medium', bw:11 },
     'water-resources': { rd:'medium', bc:'low', sc:false, hi:false, lp:'low', ts:false, cm:'low', bw:5 },
     'civil-engineering': { rd:'medium', bc:'medium', sc:false, hi:false, lp:'low', ts:false, cm:'low', bw:7 },
@@ -705,11 +705,16 @@
       return true;
     });
 
+    // v0.22.2 修复：可选溢出降级到低优先
+    var cappedOptional = dedupedOptional.slice(0, 4);
+    var overflowOptional = dedupedOptional.slice(4);
+    var mergedLowPriority = overflowOptional.concat(dedupedLowPriority);
+
     return {
       recommended: dedupedRecommended.slice(0, 5),
-      optional: dedupedOptional.slice(0, 4),
+      optional: cappedOptional,
       cautious: dedupedCautious.slice(0, 4),
-      lowPriority: dedupedLowPriority.slice(0, 3),
+      lowPriority: mergedLowPriority.slice(0, 6),
       scored: scored,
     };
   }

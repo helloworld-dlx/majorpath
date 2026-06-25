@@ -1507,3 +1507,36 @@
   - 用户朋友完成测试后收集反馈
   - 继续补充高频专业类草稿
 - **当前版本状态**：v0.22.1 — 食品科学与工程类草稿上线，构建 116 页面通过
+
+---
+### 2026-06-25 09:55 — 维度覆盖修复：life_health_interest + business_sense
+
+- **使用模型**：opencode-go/deepseek-v4-flash
+- **任务类型**：开发 / 修复
+- **完成内容**：
+  - **审计发现**：`life_health_interest` 维度仅38分/7选项，`business_sense` 维度0分/0选项——两类专业被系统性低估
+  - **life_health_interest 修复**：固定12题3处（gen_007_c/+6, gen_008_f/+6, gen_017_a/+4）+ B5方向题6处 = 总分84（较改前+121%）
+  - **business_sense 修复**：固定12题5处 + B3方向题12处 = 总分80（较改前从0恢复）
+  - **食品科学 weight 6→8**：与仪器类同档，非盲目加权重
+  - **可选溢出降级**：scoring.ts + report.js 同步修复，≥35分但排不进前4可选的类别降级到低优先区而非静默丢弃
+  - 模拟验证：食品科学p01/p2均出现在可选列表，商科画像前5全为商科类
+  - 50人批量回归：覆盖率32.3%→35.4%，无新增异常
+  - 全维度审计结论：无第三个0分维度，rule_detail(84)属偏弱但非断裂
+- **修改的文件**：
+  - `src/data/questionBank.ts` — 9处life_health_interest + 17处business_sense scoreEffects
+  - `src/data/recommendationWeights.ts` — food-science weight 6→8
+  - `src/utils/scoring.ts` — 可选溢出降级逻辑
+  - `public/scripts/report.js` — 同步权重+溢出逻辑
+  - `CURRENT_STATUS.md` — v0.22.2
+  - `AI_WORKLOG.md` — 追加记录
+- **关键决策**：
+  1. 不降 engineering_practice（削长板不是方案，补短板才是）
+  2. 不拉平各维度总分（多层归一化已稀释差异，拉平需要重写大部分题目）
+  3. rule_detail 不补（84分与life_health一致，影响类别多有故意惩罚，属优化项非修复项）
+- **遗留问题**：
+  - rule_detail 84分偏弱但不影响功能
+  - 临床医学类×0.65故意惩罚不调整
+- **下次建议**：
+  - D老师朋友可实地做一次测试验证食品科学推荐效果
+  - 考虑为br_med_004做场景化改写
+- **当前版本状态**：v0.22.2 — 维度覆盖修复完成，构建116页面通过

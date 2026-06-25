@@ -551,12 +551,16 @@ export function generateCategoryRecommendations(
     return true;
   });
 
-  // 限制数量：推荐 3-5，可选 2-4，谨慎 2-4，低优先 0-3
+  // 限制数量：推荐 3-5，可选 2-4，谨慎 2-4，低优先 0-6
+  // v0.22.2 修复：可选溢出降级到低优先，避免中间分数类别被静默丢弃
+  const cappedOptional = dedupedOptional.slice(0, 4);
+  const overflowOptional = dedupedOptional.slice(4);
+  const mergedLowPriority = [...overflowOptional, ...dedupedLowPriority];
   return {
     recommended: dedupedRecommended.slice(0, 5),
-    optional: dedupedOptional.slice(0, 4),
+    optional: cappedOptional,
     cautious: dedupedCautious.slice(0, 4),
-    lowPriority: dedupedLowPriority.slice(0, 3),
+    lowPriority: mergedLowPriority.slice(0, 6),
   };
 }
 

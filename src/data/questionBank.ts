@@ -34,8 +34,8 @@ export const questionBank: QuestionBank = {
     ]},
     { id: 'gen_002', type: 'general', title: '班上要组织一次活动（比如毕业旅行或主题班会），如果让你负责一块，你更想管哪部分？', targetBuckets: ['humanities', 'social_science', 'business', 'stem', 'life_health', 'art_creative'], priority: 2, options: [
       { id: 'gen_002_a', label: 'A', text: '写方案、做介绍——把想法整理清楚，让所有人都能看懂', scoreEffects: [{ target: 'humanities', points: 6 }, { target: 'reading_expression', points: 6 }, { target: 'social_science', points: 4 }] },
-      { id: 'gen_002_b', label: 'B', text: '协调大家——谁做什么、什么时候交、有分歧怎么解决', scoreEffects: [{ target: 'social_science', points: 6 }, { target: 'business', points: 6 }, { target: 'interpersonal', points: 6 }] },
-      { id: 'gen_002_c', label: 'C', text: '算预算、排计划——盯着数据和条件，确保不超支不超时', scoreEffects: [{ target: 'math_logic', points: 8 }, { target: 'business', points: 6 }, { target: 'stem', points: 4 }] },
+      { id: 'gen_002_b', label: 'B', text: '协调大家——谁做什么、什么时候交、有分歧怎么解决', scoreEffects: [{ target: 'social_science', points: 6 }, { target: 'business', points: 6 }, { target: 'business_sense', points: 6 }, { target: 'interpersonal', points: 6 }] },
+      { id: 'gen_002_c', label: 'C', text: '算预算、排计划——盯着数据和条件，确保不超支不超时', scoreEffects: [{ target: 'math_logic', points: 8 }, { target: 'business', points: 6 }, { target: 'business_sense', points: 6 }, { target: 'stem', points: 4 }] },
       { id: 'gen_002_d', label: 'D', text: '搭东西、做道具——把想法变成实物，先做个简陋版试试', scoreEffects: [{ target: 'stem', points: 8 }, { target: 'engineering_practice', points: 6 }, { target: 'info_systems', points: 4 }] },
       { id: 'gen_002_e', label: 'E', text: '照顾人——有人不舒服或情绪不好，我去帮忙处理', scoreEffects: [{ target: 'life_health', points: 6 }, { target: 'interpersonal', points: 6 }, { target: 'social_science', points: 4 }] },
       { id: 'gen_002_f', label: 'F', text: '搞氛围和设计——海报、音乐、布置，让现场有感觉', scoreEffects: [{ target: 'art_creative', points: 8 }, { target: 'aesthetic_creation', points: 6 }, { target: 'reading_expression', points: 4 }] },
@@ -51,7 +51,7 @@ export const questionBank: QuestionBank = {
       { id: 'gen_004_a', label: 'A', text: '先把大方向想清楚：这事到底要解决什么，先后顺序是什么', scoreEffects: [{ target: 'humanities', points: 6 }, { target: 'abstract_theory', points: 6 }, { target: 'stem', points: 4 }] },
       { id: 'gen_004_b', label: 'B', text: '负责把大家拉到同一个频道：谁做什么、什么时候交、哪里有分歧', scoreEffects: [{ target: 'social_science', points: 8 }, { target: 'interpersonal', points: 6 }, { target: 'business', points: 4 }] },
       { id: 'gen_004_c', label: 'C', text: '少说两句，直接开干。别人想方案，我负责把东西做出来', scoreEffects: [{ target: 'stem', points: 8 }, { target: 'engineering_practice', points: 6 }] },
-      { id: 'gen_004_d', label: 'D', text: '最后负责检查：格式、数据、逻辑、细节，哪里不对我会很难受', scoreEffects: [{ target: 'rule_detail', points: 8 }, { target: 'business', points: 6 }, { target: 'life_health', points: 4 }] },
+      { id: 'gen_004_d', label: 'D', text: '最后负责检查：格式、数据、逻辑、细节，哪里不对我会很难受', scoreEffects: [{ target: 'rule_detail', points: 8 }, { target: 'business', points: 6 }, { target: 'business_sense', points: 4 }, { target: 'life_health', points: 4 }] },
     ]},
     { id: 'gen_005', type: 'general', title: '如果你有额外的一小时空闲，你最容易做什么？', targetBuckets: ['humanities', 'social_science', 'business', 'stem', 'life_health', 'art_creative'], priority: 7, options: [
       { id: 'gen_005_a', label: 'A', text: '拿起手边任何有字的东西读一读', scoreEffects: [{ target: 'humanities', points: 8 }, { target: 'reading_expression', points: 6 }] },
@@ -72,8 +72,8 @@ export const questionBank: QuestionBank = {
     { id: 'gen_007', type: 'general', title: '下面哪种瞬间，最容易让你觉得\'爽到了\'？', targetBuckets: ['humanities', 'social_science', 'business', 'stem', 'life_health', 'art_creative'], priority: 9, options: [
       { id: 'gen_007_a', label: 'A', text: '一团说不清的想法，终于被你讲成了别人能听懂的话', scoreEffects: [{ target: 'humanities', points: 8 }, { target: 'reading_expression', points: 6 }, { target: 'social_science', points: 4 }] },
       { id: 'gen_007_b', label: 'B', text: '原本乱糟糟的条件，被你一步步推到一个确定结果', scoreEffects: [{ target: 'stem', points: 8 }, { target: 'math_logic', points: 8 }] },
-      { id: 'gen_007_c', label: 'C', text: '反复试了好几次之后，终于看到某个变化真的发生了', scoreEffects: [{ target: 'stem', points: 6 }, { target: 'life_health', points: 6 }] },
-      { id: 'gen_007_d', label: 'D', text: '你突然看懂了一个系统：原来这群人、这件事、这个环境是这样运转的', scoreEffects: [{ target: 'social_science', points: 6 }, { target: 'business', points: 6 }, { target: 'life_health', points: 4 }] },
+      { id: 'gen_007_c', label: 'C', text: '反复试了好几次之后，终于看到某个变化真的发生了', scoreEffects: [{ target: 'stem', points: 6 }, { target: 'life_health', points: 6 }, { target: 'life_health_interest', points: 6 }] },
+      { id: 'gen_007_d', label: 'D', text: '你突然看懂了一个系统：原来这群人、这件事、这个环境是这样运转的', scoreEffects: [{ target: 'social_science', points: 6 }, { target: 'business', points: 6 }, { target: 'business_sense', points: 4 }, { target: 'life_health', points: 4 }] },
       { id: 'gen_007_e', label: 'E', text: '做了一个东西（画、视频、音乐、手工都行），别人看到后说"我懂你想表达什么"', scoreEffects: [{ target: 'art_creative', points: 8 }, { target: 'aesthetic_creation', points: 6 }] },
     ]},
     { id: 'gen_008', type: 'general', title: '学一个新东西时，你通常最想先抓住什么？', targetBuckets: ['humanities', 'social_science', 'business', 'stem', 'life_health', 'art_creative'], priority: 10, options: [
@@ -82,7 +82,7 @@ export const questionBank: QuestionBank = {
       { id: 'gen_008_c', label: 'C', text: '先搞清楚它最基本的几条规则或原理', scoreEffects: [{ target: 'stem', points: 6 }, { target: 'math_logic', points: 6 }] },
       { id: 'gen_008_d', label: 'D', text: '先别讲太多，给我试一下，边做边懂', scoreEffects: [{ target: 'stem', points: 6 }, { target: 'engineering_practice', points: 6 }] },
       { id: 'gen_008_e', label: 'E', text: '先亲自体验一下，看看感觉对不对', scoreEffects: [{ target: 'art_creative', points: 6 }, { target: 'life_health', points: 4 }, { target: 'aesthetic_creation', points: 4 }] },
-      { id: 'gen_008_f', label: 'F', text: '先看真实场景里的人是怎么用它、怎么被它影响的', scoreEffects: [{ target: 'life_health', points: 6 }, { target: 'social_science', points: 6 }, { target: 'business', points: 4 }] },
+      { id: 'gen_008_f', label: 'F', text: '先看真实场景里的人是怎么用它、怎么被它影响的', scoreEffects: [{ target: 'life_health', points: 6 }, { target: 'life_health_interest', points: 6 }, { target: 'social_science', points: 6 }, { target: 'business', points: 4 }] },
     ]},
     { id: 'gen_009', type: 'general', title: '面对一道难题，你的第一反应更接近哪种？', targetBuckets: ['humanities', 'social_science', 'stem', 'business', 'life_health'], priority: 11, options: [
       { id: 'gen_009_a', label: 'A', text: '先查资料、阅读相关背景', scoreEffects: [{ target: 'humanities', points: 8 }, { target: 'reading_expression', points: 6 }, { target: 'abstract_theory', points: 4 }] },
@@ -94,7 +94,7 @@ export const questionBank: QuestionBank = {
       { id: 'gen_010_a', label: 'A', text: '一篇深度分析文章，把一个复杂话题讲得很透', scoreEffects: [{ target: 'humanities', points: 6 }, { target: 'abstract_theory', points: 6 }] },
       { id: 'gen_010_b', label: 'B', text: '一条讲社会现象的短视频，分析为什么大家会这么做', scoreEffects: [{ target: 'social_science', points: 8 }, { target: 'interpersonal', points: 4 }, { target: 'business', points: 4 }] },
       { id: 'gen_010_c', label: 'C', text: '一个技术拆解或原理科普，告诉你某个东西到底怎么工作', scoreEffects: [{ target: 'stem', points: 6 }, { target: 'math_logic', points: 6 }, { target: 'info_systems', points: 4 }] },
-      { id: 'gen_010_d', label: 'D', text: '一条商业案例或效率技巧，讲怎么把一件事做得更好', scoreEffects: [{ target: 'business', points: 6 }, { target: 'math_logic', points: 6 }, { target: 'rule_detail', points: 4 }] },
+      { id: 'gen_010_d', label: 'D', text: '一条商业案例或效率技巧，讲怎么把一件事做得更好', scoreEffects: [{ target: 'business', points: 6 }, { target: 'business_sense', points: 6 }, { target: 'math_logic', points: 6 }, { target: 'rule_detail', points: 4 }] },
       { id: 'gen_010_e', label: 'E', text: '一个视觉作品或创意视频，画面、节奏或设计让你印象深刻', scoreEffects: [{ target: 'art_creative', points: 6 }, { target: 'aesthetic_creation', points: 6 }] },
       { id: 'gen_010_f', label: 'F', text: '一个关于身体、自然或动物的内容，讲生命怎么运作', scoreEffects: [{ target: 'life_health', points: 6 }, { target: 'life_health_interest', points: 4 }] },
     ]},
@@ -139,7 +139,7 @@ export const questionBank: QuestionBank = {
 
     // --- 职业期待（gen_017 - gen_018）---
     { id: 'gen_017', type: 'general', title: '如果暑假去做一个月的兼职或实习，你最不想遇到哪种情况？', targetBuckets: ['humanities', 'social_science', 'business', 'stem', 'life_health', 'art_creative'], priority: 3, options: [
-      { id: 'gen_017_a', label: 'A', text: '做的事对别人完全没用，只是机械重复', scoreEffects: [{ target: 'social_science', points: 6 }, { target: 'life_health', points: 6 }] },
+      { id: 'gen_017_a', label: 'A', text: '做的事对别人完全没用，只是机械重复', scoreEffects: [{ target: 'social_science', points: 6 }, { target: 'life_health', points: 6 }, { target: 'life_health_interest', points: 4 }] },
       { id: 'gen_017_b', label: 'B', text: '每天都在做一模一样的事，学不到任何新东西', scoreEffects: [{ target: 'self_improvement_preference', points: 6 }] },
       { id: 'gen_017_c', label: 'C', text: '完全不知道下个月干什么，没有任何规划和安排', scoreEffects: [{ target: 'stable_path', points: 6 }, { target: 'business', points: 6 }, { target: 'rule_detail', points: 4 }] },
       { id: 'gen_017_d', label: 'D', text: '只能照着别人安排做，没有任何自己创作或发挥的空间', scoreEffects: [{ target: 'aesthetic_creation', points: 6 }, { target: 'art_creative', points: 6 }, { target: 'stem', points: 4 }] },
@@ -278,26 +278,26 @@ export const questionBank: QuestionBank = {
     // 覆盖：经济理论 / 金融财会 / 工商管理
     // ============================================================
     { id: 'br_biz_001', type: 'branch', title: '你对"钱"的兴趣更偏向哪个层面？', targetBuckets: ['business'], subDirection: 'finance_accounting', priority: 10, options: [
-      { id: 'br_biz_001_a', label: 'A', text: '宏观经济——钱在整个社会里怎么流动', scoreEffects: [{ target: 'business', points: 8 }] },
-      { id: 'br_biz_001_b', label: 'B', text: '微观财务——企业的钱怎么管、怎么花、怎么赚', scoreEffects: [{ target: 'business', points: 8 }, { target: 'rule_detail', points: 6 }] },
-      { id: 'br_biz_001_c', label: 'C', text: '商业运作——怎么把一个产品或组织做起来', scoreEffects: [{ target: 'business', points: 8 }] },
+      { id: 'br_biz_001_a', label: 'A', text: '宏观经济——钱在整个社会里怎么流动', scoreEffects: [{ target: 'business', points: 8 }, { target: 'business_sense', points: 6 }] },
+      { id: 'br_biz_001_b', label: 'B', text: '微观财务——企业的钱怎么管、怎么花、怎么赚', scoreEffects: [{ target: 'business', points: 8 }, { target: 'business_sense', points: 6 }, { target: 'rule_detail', points: 6 }] },
+      { id: 'br_biz_001_c', label: 'C', text: '商业运作——怎么把一个产品或组织做起来', scoreEffects: [{ target: 'business', points: 8 }, { target: 'business_sense', points: 6 }] },
     ]},
     { id: 'br_biz_002', type: 'branch', title: '你更享受哪种"商业场景"？', targetBuckets: ['business'], subDirection: 'business_admin', priority: 10, options: [
-      { id: 'br_biz_002_a', label: 'A', text: '分析数据，看财报，做出理性判断', scoreEffects: [{ target: 'business', points: 8 }, { target: 'math_logic', points: 6 }] },
+      { id: 'br_biz_002_a', label: 'A', text: '分析数据，看财报，做出理性判断', scoreEffects: [{ target: 'business', points: 8 }, { target: 'business_sense', points: 4 }, { target: 'math_logic', points: 6 }] },
       { id: 'br_biz_002_b', label: 'B', text: '和人谈判、说服、建立合作关系', scoreEffects: [{ target: 'business', points: 8 }, { target: 'interpersonal', points: 8 }] },
-      { id: 'br_biz_002_c', label: 'C', text: '设想一个商业模型，从 0 到 1 让它跑起来', scoreEffects: [{ target: 'business', points: 8 }] },
+      { id: 'br_biz_002_c', label: 'C', text: '设想一个商业模型，从 0 到 1 让它跑起来', scoreEffects: [{ target: 'business', points: 8 }, { target: 'business_sense', points: 4 }] },
     ]},
     { id: 'br_biz_003', type: 'branch', title: '你更想研究哪个问题？', targetBuckets: ['business'], subDirection: 'economics_theory', priority: 10, options: [
       { id: 'br_biz_003_a', label: 'A', text: '为什么有的国家富、有的国家穷？', scoreEffects: [{ target: 'business', points: 8 }] },
-      { id: 'br_biz_003_b', label: 'B', text: '为什么有的公司能持续成功、有的昙花一现？', scoreEffects: [{ target: 'business', points: 8 }] },
+      { id: 'br_biz_003_b', label: 'B', text: '为什么有的公司能持续成功、有的昙花一现？', scoreEffects: [{ target: 'business', points: 8 }, { target: 'business_sense', points: 4 }] },
     ]},
     { id: 'br_biz_004', type: 'branch', title: '你对"数字"在商业中的角色怎么看？', targetBuckets: ['business'], subDirection: 'finance_accounting', priority: 10, options: [
-      { id: 'br_biz_004_a', label: 'A', text: '数字是真相——账目和报表最能说明问题', scoreEffects: [{ target: 'business', points: 8 }, { target: 'rule_detail', points: 6 }] },
+      { id: 'br_biz_004_a', label: 'A', text: '数字是真相——账目和报表最能说明问题', scoreEffects: [{ target: 'business', points: 8 }, { target: 'business_sense', points: 4 }, { target: 'rule_detail', points: 6 }] },
       { id: 'br_biz_004_b', label: 'B', text: '数字是工具——重要，但更要看数字背后的故事', scoreEffects: [{ target: 'business', points: 8 }] },
     ]},
     { id: 'br_biz_005', type: 'branch', title: '如果让你做一个"创业计划"，你最先想搞清楚什么？', targetBuckets: ['business'], subDirection: 'business_admin', priority: 10, options: [
-      { id: 'br_biz_005_a', label: 'A', text: '市场有多大、竞争对手是谁', scoreEffects: [{ target: 'business', points: 8 }] },
-      { id: 'br_biz_005_b', label: 'B', text: '成本结构——钱从哪来、花到哪去、多久能赚回来', scoreEffects: [{ target: 'business', points: 8 }, { target: 'math_logic', points: 6 }] },
+      { id: 'br_biz_005_a', label: 'A', text: '市场有多大、竞争对手是谁', scoreEffects: [{ target: 'business', points: 8 }, { target: 'business_sense', points: 4 }] },
+      { id: 'br_biz_005_b', label: 'B', text: '成本结构——钱从哪来、花到哪去、多久能赚回来', scoreEffects: [{ target: 'business', points: 8 }, { target: 'business_sense', points: 4 }, { target: 'math_logic', points: 6 }] },
       { id: 'br_biz_005_c', label: 'C', text: '用户到底需要什么——产品和服务的核心价值', scoreEffects: [{ target: 'business', points: 8 }, { target: 'interpersonal', points: 4 }] },
     ]},
     { id: 'br_biz_006', type: 'branch', title: '你对"管理"的理解更接近？', targetBuckets: ['business'], subDirection: 'business_admin', priority: 10, options: [
@@ -305,12 +305,12 @@ export const questionBank: QuestionBank = {
       { id: 'br_biz_006_b', label: 'B', text: '管理是艺术——因人而异，没有万能公式', scoreEffects: [{ target: 'business', points: 6 }, { target: 'interpersonal', points: 6 }] },
     ]},
     { id: 'br_biz_007', type: 'branch', title: '你为什么要管好一笔钱？', targetBuckets: ['business'], subDirection: 'finance_accounting', priority: 10, options: [
-      { id: 'br_biz_007_a', label: 'A', text: '对钱怎么流转有好奇心，不只是想赚钱', scoreEffects: [{ target: 'business', points: 8 }] },
+      { id: 'br_biz_007_a', label: 'A', text: '对钱怎么流转有好奇心，不只是想赚钱', scoreEffects: [{ target: 'business', points: 8 }, { target: 'business_sense', points: 4 }] },
       { id: 'br_biz_007_b', label: 'B', text: '想学会管好自己的钱，这是生活技能', scoreEffects: [{ target: 'business', points: 6 }, { target: 'stable_path', points: 12 }] },
     ]},
     { id: 'br_biz_008', type: 'branch', title: '你更想和哪个部门打交道？', targetBuckets: ['business'], subDirection: 'business_admin', priority: 10, options: [
       { id: 'br_biz_008_a', label: 'A', text: '和数字打交道，确保每一笔都清楚明白', scoreEffects: [{ target: 'business', points: 8 }, { target: 'rule_detail', points: 6 }] },
-      { id: 'br_biz_008_b', label: 'B', text: '考虑怎么让更多人知道并认可一个好东西', scoreEffects: [{ target: 'business', points: 8 }] },
+      { id: 'br_biz_008_b', label: 'B', text: '考虑怎么让更多人知道并认可一个好东西', scoreEffects: [{ target: 'business', points: 8 }, { target: 'business_sense', points: 4 }] },
       { id: 'br_biz_008_c', label: 'C', text: '关心团队里的人怎么配合得更好', scoreEffects: [{ target: 'business', points: 6 }, { target: 'interpersonal', points: 6 }] },
     ]},
     { id: 'br_biz_009', type: 'branch', title: '你对"规则"在商业中作用的看法？', targetBuckets: ['business'], subDirection: 'economics_theory', priority: 10, options: [
@@ -319,7 +319,7 @@ export const questionBank: QuestionBank = {
     ]},
     { id: 'br_biz_010', type: 'branch', title: '在团队里做事，你最喜欢扮演什么角色？', targetBuckets: ['business'], subDirection: 'business_admin', priority: 10, options: [
       { id: 'br_biz_010_a', label: 'A', text: '用数据和逻辑帮团队看清方向', scoreEffects: [{ target: 'business', points: 8 }, { target: 'math_logic', points: 6 }] },
-      { id: 'br_biz_010_b', label: 'B', text: '站出来定方向，带着大家把事做成', scoreEffects: [{ target: 'business', points: 8 }] },
+      { id: 'br_biz_010_b', label: 'B', text: '站出来定方向，带着大家把事做成', scoreEffects: [{ target: 'business', points: 8 }, { target: 'business_sense', points: 4 }] },
       { id: 'br_biz_010_c', label: 'C', text: '找到资源和合适的人，撮合大家把事情做好', scoreEffects: [{ target: 'business', points: 8 }, { target: 'interpersonal', points: 6 }] },
     ]},
 
@@ -429,9 +429,9 @@ export const questionBank: QuestionBank = {
     // 覆盖：临床医学 / 药学与健康 / 农学与生态
     // ============================================================
     { id: 'br_med_001', type: 'branch', title: '你对"生命健康"的兴趣，更偏向哪个层面？', targetBuckets: ['life_health'], subDirection: 'clinical_medicine', priority: 10, options: [
-      { id: 'br_med_001_a', label: 'A', text: '直接和病人打交道，诊断、治疗、手术——临床一线', scoreEffects: [{ target: 'life_health', points: 8 }, { target: 'interpersonal', points: 6 }] },
-      { id: 'br_med_001_b', label: 'B', text: '药物研发、公共卫生、健康管理——在更大范围影响健康', scoreEffects: [{ target: 'life_health', points: 8 }, { target: 'stem', points: 4 }] },
-      { id: 'br_med_001_c', label: 'C', text: '动物健康、生态保护、农业与环境——生命不只是人的事', scoreEffects: [{ target: 'life_health', points: 8 }, { target: 'hands_on_aversion', points: -2 }] },
+      { id: 'br_med_001_a', label: 'A', text: '直接和病人打交道，诊断、治疗、手术——临床一线', scoreEffects: [{ target: 'life_health', points: 8 }, { target: 'life_health_interest', points: 6 }, { target: 'interpersonal', points: 6 }] },
+      { id: 'br_med_001_b', label: 'B', text: '药物研发、公共卫生、健康管理——在更大范围影响健康', scoreEffects: [{ target: 'life_health', points: 8 }, { target: 'life_health_interest', points: 6 }, { target: 'stem', points: 4 }] },
+      { id: 'br_med_001_c', label: 'C', text: '动物健康、生态保护、农业与环境——生命不只是人的事', scoreEffects: [{ target: 'life_health', points: 8 }, { target: 'life_health_interest', points: 4 }, { target: 'hands_on_aversion', points: -2 }] },
     ]},
     { id: 'br_med_002', type: 'branch', title: '有些需要和人打交道的专业，学习周期特别长（5–8 年），你对此怎么看？', targetBuckets: ['life_health'], subDirection: 'clinical_medicine', priority: 10, options: [
       { id: 'br_med_002_a', label: 'A', text: '我已经了解，可以接受——值得投入的方向值得漫长等待', scoreEffects: [{ target: 'life_health', points: 8 }] },
@@ -443,11 +443,11 @@ export const questionBank: QuestionBank = {
       { id: 'br_med_003_b', label: 'B', text: '不太行——我更需要和人互动，不能一直对仪器', scoreEffects: [{ target: 'life_health', points: 4 }, { target: 'interpersonal', points: 6 }] },
     ]},
     { id: 'br_med_004', type: 'branch', title: '对于「食物怎么生产、环境怎么保护」这类话题，你的态度是？', targetBuckets: ['life_health'], subDirection: 'agriculture_ecology', priority: 10, options: [
-      { id: 'br_med_004_a', label: 'A', text: '想从科学角度理解——它们到底怎么影响环境和健康', scoreEffects: [{ target: 'life_health', points: 8 }] },
+      { id: 'br_med_004_a', label: 'A', text: '想从科学角度理解——它们到底怎么影响环境和健康', scoreEffects: [{ target: 'life_health', points: 8 }, { target: 'life_health_interest', points: 6 }] },
       { id: 'br_med_004_b', label: 'B', text: '情感上比较排斥——我希望食物和环境是纯天然的', scoreEffects: [{ target: 'life_health', points: 4 }] },
     ]},
     { id: 'br_med_005', type: 'branch', title: '你更想做哪种"帮助"？', targetBuckets: ['life_health'], subDirection: 'clinical_medicine', priority: 10, options: [
-      { id: 'br_med_005_a', label: 'A', text: '一对一的帮助——治好一个病人、护理一个老人', scoreEffects: [{ target: 'life_health', points: 8 }, { target: 'interpersonal', points: 6 }] },
+      { id: 'br_med_005_a', label: 'A', text: '一对一的帮助——治好一个病人、护理一个老人', scoreEffects: [{ target: 'life_health', points: 8 }, { target: 'life_health_interest', points: 4 }, { target: 'interpersonal', points: 6 }] },
       { id: 'br_med_005_b', label: 'B', text: '群体层面的帮助——让一大群人的健康得到改善', scoreEffects: [{ target: 'life_health', points: 8 }] },
     ]},
     { id: 'br_med_006', type: 'branch', title: '你对"户外和自然"的热爱程度？', targetBuckets: ['life_health'], subDirection: 'agriculture_ecology', priority: 10, options: [
@@ -462,7 +462,7 @@ export const questionBank: QuestionBank = {
     ]},
     { id: 'br_med_008', type: 'branch', title: '你觉得"健康"更接近什么？', targetBuckets: ['life_health'], subDirection: 'pharmacy_health', priority: 10, options: [
       { id: 'br_med_008_a', label: 'A', text: '健康是科学——可以被测量、预测和干预', scoreEffects: [{ target: 'life_health', points: 8 }] },
-      { id: 'br_med_008_b', label: 'B', text: '健康是生活方式——和饮食、运动、心态、环境都有关', scoreEffects: [{ target: 'life_health', points: 8 }] },
+      { id: 'br_med_008_b', label: 'B', text: '健康是生活方式——和饮食、运动、心态、环境都有关', scoreEffects: [{ target: 'life_health', points: 8 }, { target: 'life_health_interest', points: 4 }] },
     ]},
 
     // ============================================================

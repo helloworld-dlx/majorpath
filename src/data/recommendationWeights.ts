@@ -141,7 +141,7 @@ export const GATE_PRIORITY_CATEGORIES: Record<
     { categorySlug: 'agricultural-eng', buckets: ['stem'], weight: 3 },
     { categorySlug: 'forestry-eng', buckets: ['stem'], weight: 3 },
     { categorySlug: 'environmental', buckets: ['stem', 'life_health'], weight: 7 },
-    { categorySlug: 'food-science', buckets: ['stem', 'life_health'], weight: 6 },
+    { categorySlug: 'food-science', buckets: ['stem', 'life_health'], weight: 8 },
     { categorySlug: 'safety-eng', buckets: ['stem'], weight: 4 },
     { categorySlug: 'bioengineering', buckets: ['stem', 'life_health'], weight: 7 },
     { categorySlug: 'public-security-tech', buckets: ['stem', 'social_science'], weight: 3 },
