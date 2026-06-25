@@ -34,8 +34,8 @@ export const questionBank: QuestionBank = {
     ]},
     { id: 'gen_002', type: 'general', title: '班上要组织一次活动（比如毕业旅行或主题班会），如果让你负责一块，你更想管哪部分？', targetBuckets: ['humanities', 'social_science', 'business', 'stem', 'life_health', 'art_creative'], priority: 2, options: [
       { id: 'gen_002_a', label: 'A', text: '写方案、做介绍——把想法整理清楚，让所有人都能看懂', scoreEffects: [{ target: 'humanities', points: 6 }, { target: 'reading_expression', points: 6 }, { target: 'social_science', points: 4 }] },
-      { id: 'gen_002_b', label: 'B', text: '协调大家——谁做什么、什么时候交、有分歧怎么解决', scoreEffects: [{ target: 'social_science', points: 6 }, { target: 'business', points: 6 }, { target: 'business_sense', points: 6 }, { target: 'interpersonal', points: 6 }] },
-      { id: 'gen_002_c', label: 'C', text: '算预算、排计划——盯着数据和条件，确保不超支不超时', scoreEffects: [{ target: 'math_logic', points: 8 }, { target: 'business', points: 6 }, { target: 'business_sense', points: 6 }, { target: 'stem', points: 4 }] },
+      { id: 'gen_002_b', label: 'B', text: '沟通调解——谁有意见、谁和谁有分歧，我去协调', scoreEffects: [{ target: 'social_science', points: 6 }, { target: 'business', points: 6 }, { target: 'business_sense', points: 6 }, { target: 'interpersonal', points: 6 }] },
+      { id: 'gen_002_c', label: 'C', text: '数字流程——预算多少、时间表怎么排、资源够不够，我盯着', scoreEffects: [{ target: 'math_logic', points: 8 }, { target: 'business', points: 6 }, { target: 'business_sense', points: 6 }, { target: 'stem', points: 4 }] },
       { id: 'gen_002_d', label: 'D', text: '搭东西、做道具——把想法变成实物，先做个简陋版试试', scoreEffects: [{ target: 'stem', points: 8 }, { target: 'engineering_practice', points: 6 }, { target: 'info_systems', points: 4 }] },
       { id: 'gen_002_e', label: 'E', text: '照顾人——有人不舒服或情绪不好，我去帮忙处理', scoreEffects: [{ target: 'life_health', points: 6 }, { target: 'interpersonal', points: 6 }, { target: 'social_science', points: 4 }] },
       { id: 'gen_002_f', label: 'F', text: '搞氛围和设计——海报、音乐、布置，让现场有感觉', scoreEffects: [{ target: 'art_creative', points: 8 }, { target: 'aesthetic_creation', points: 6 }, { target: 'reading_expression', points: 4 }] },
@@ -48,7 +48,7 @@ export const questionBank: QuestionBank = {
       { id: 'gen_003_e', label: 'E', text: '去体验一个和身体、自然、健康或生命有关的活动，看看真实世界怎么运作', scoreEffects: [{ target: 'life_health', points: 6 }, { target: 'life_health_interest', points: 6 }] },
     ]},
     { id: 'gen_004', type: 'general', title: '小组作业快要开始了，你通常会自然滑到哪个位置？', targetBuckets: ['humanities', 'social_science', 'business', 'stem', 'life_health'], priority: 6, options: [
-      { id: 'gen_004_a', label: 'A', text: '先把大方向想清楚：这事到底要解决什么，先后顺序是什么', scoreEffects: [{ target: 'humanities', points: 6 }, { target: 'abstract_theory', points: 6 }, { target: 'stem', points: 4 }] },
+      { id: 'gen_004_a', label: 'A', text: '先把问题拆清楚——这件事到底要解决什么，哪些信息还缺，哪些假设要验证', scoreEffects: [{ target: 'humanities', points: 6 }, { target: 'abstract_theory', points: 6 }, { target: 'stem', points: 4 }] },
       { id: 'gen_004_b', label: 'B', text: '负责把大家拉到同一个频道：谁做什么、什么时候交、哪里有分歧', scoreEffects: [{ target: 'social_science', points: 8 }, { target: 'interpersonal', points: 6 }, { target: 'business', points: 4 }] },
       { id: 'gen_004_c', label: 'C', text: '少说两句，直接开干。别人想方案，我负责把东西做出来', scoreEffects: [{ target: 'stem', points: 8 }, { target: 'engineering_practice', points: 6 }] },
       { id: 'gen_004_d', label: 'D', text: '最后负责检查：格式、数据、逻辑、细节，哪里不对我会很难受', scoreEffects: [{ target: 'rule_detail', points: 8 }, { target: 'business', points: 6 }, { target: 'business_sense', points: 4 }, { target: 'life_health', points: 4 }] },
@@ -71,17 +71,17 @@ export const questionBank: QuestionBank = {
     ]},
     { id: 'gen_007', type: 'general', title: '下面哪种瞬间，最容易让你觉得\'爽到了\'？', targetBuckets: ['humanities', 'social_science', 'business', 'stem', 'life_health', 'art_creative'], priority: 9, options: [
       { id: 'gen_007_a', label: 'A', text: '一团说不清的想法，终于被你讲成了别人能听懂的话', scoreEffects: [{ target: 'humanities', points: 8 }, { target: 'reading_expression', points: 6 }, { target: 'social_science', points: 4 }] },
-      { id: 'gen_007_b', label: 'B', text: '原本乱糟糟的条件，被你一步步推到一个确定结果', scoreEffects: [{ target: 'stem', points: 8 }, { target: 'math_logic', points: 8 }] },
-      { id: 'gen_007_c', label: 'C', text: '反复试了好几次之后，终于看到某个变化真的发生了', scoreEffects: [{ target: 'stem', points: 6 }, { target: 'life_health', points: 6 }, { target: 'life_health_interest', points: 6 }] },
+      { id: 'gen_007_b', label: 'B', text: '几条线索原本各不相关，在你脑子里转了一圈之后突然连成一片', scoreEffects: [{ target: 'stem', points: 8 }, { target: 'math_logic', points: 8 }] },
+      { id: 'gen_007_c', label: 'C', text: '等了很久或反复试了好几次，终于看到某个现象真的出现了', scoreEffects: [{ target: 'stem', points: 6 }, { target: 'life_health', points: 6 }, { target: 'life_health_interest', points: 6 }] },
       { id: 'gen_007_d', label: 'D', text: '你突然看懂了一个系统：原来这群人、这件事、这个环境是这样运转的', scoreEffects: [{ target: 'social_science', points: 6 }, { target: 'business', points: 6 }, { target: 'business_sense', points: 4 }, { target: 'life_health', points: 4 }] },
       { id: 'gen_007_e', label: 'E', text: '做了一个东西（画、视频、音乐、手工都行），别人看到后说"我懂你想表达什么"', scoreEffects: [{ target: 'art_creative', points: 8 }, { target: 'aesthetic_creation', points: 6 }] },
     ]},
     { id: 'gen_008', type: 'general', title: '学一个新东西时，你通常最想先抓住什么？', targetBuckets: ['humanities', 'social_science', 'business', 'stem', 'life_health', 'art_creative'], priority: 10, options: [
       { id: 'gen_008_a', label: 'A', text: '先搞清楚它为什么会出现，前因后果是什么', scoreEffects: [{ target: 'humanities', points: 6 }, { target: 'abstract_theory', points: 6 }, { target: 'social_science', points: 4 }] },
-      { id: 'gen_008_b', label: 'B', text: '先看规则：它怎么运行，什么能做，什么不能做', scoreEffects: [{ target: 'social_science', points: 6 }, { target: 'rule_detail', points: 6 }, { target: 'business', points: 4 }] },
-      { id: 'gen_008_c', label: 'C', text: '先搞清楚它最基本的几条规则或原理', scoreEffects: [{ target: 'stem', points: 6 }, { target: 'math_logic', points: 6 }] },
-      { id: 'gen_008_d', label: 'D', text: '先别讲太多，给我试一下，边做边懂', scoreEffects: [{ target: 'stem', points: 6 }, { target: 'engineering_practice', points: 6 }] },
-      { id: 'gen_008_e', label: 'E', text: '先亲自体验一下，看看感觉对不对', scoreEffects: [{ target: 'art_creative', points: 6 }, { target: 'life_health', points: 4 }, { target: 'aesthetic_creation', points: 4 }] },
+      { id: 'gen_008_b', label: 'B', text: '先看它的约束和边界——什么能做、什么不能做、底线在哪', scoreEffects: [{ target: 'social_science', points: 6 }, { target: 'rule_detail', points: 6 }, { target: 'business', points: 4 }] },
+      { id: 'gen_008_c', label: 'C', text: '先抓住它最核心的几条原理——搞懂了这个，其他都能推出来', scoreEffects: [{ target: 'stem', points: 6 }, { target: 'math_logic', points: 6 }] },
+      { id: 'gen_008_d', label: 'D', text: '先别讲太多，给我拆一下、搭一下，在动手的过程里弄明白', scoreEffects: [{ target: 'stem', points: 6 }, { target: 'engineering_practice', points: 6 }] },
+      { id: 'gen_008_e', label: 'E', text: '先去感受——它带给你什么印象，有没有让你心动', scoreEffects: [{ target: 'art_creative', points: 6 }, { target: 'life_health', points: 4 }, { target: 'aesthetic_creation', points: 4 }] },
       { id: 'gen_008_f', label: 'F', text: '先看真实场景里的人是怎么用它、怎么被它影响的', scoreEffects: [{ target: 'life_health', points: 6 }, { target: 'life_health_interest', points: 6 }, { target: 'social_science', points: 6 }, { target: 'business', points: 4 }] },
     ]},
     { id: 'gen_009', type: 'general', title: '面对一道难题，你的第一反应更接近哪种？', targetBuckets: ['humanities', 'social_science', 'stem', 'business', 'life_health'], priority: 11, options: [
@@ -139,11 +139,11 @@ export const questionBank: QuestionBank = {
 
     // --- 职业期待（gen_017 - gen_018）---
     { id: 'gen_017', type: 'general', title: '如果暑假去做一个月的兼职或实习，你最不想遇到哪种情况？', targetBuckets: ['humanities', 'social_science', 'business', 'stem', 'life_health', 'art_creative'], priority: 3, options: [
-      { id: 'gen_017_a', label: 'A', text: '做的事对别人完全没用，只是机械重复', scoreEffects: [{ target: 'social_science', points: 6 }, { target: 'life_health', points: 6 }, { target: 'life_health_interest', points: 4 }] },
-      { id: 'gen_017_b', label: 'B', text: '每天都在做一模一样的事，学不到任何新东西', scoreEffects: [{ target: 'self_improvement_preference', points: 6 }] },
+      { id: 'gen_017_a', label: 'A', text: '做的事完全看不到意义，不知道为什么要做', scoreEffects: [{ target: 'social_science', points: 6 }, { target: 'life_health', points: 6 }, { target: 'life_health_interest', points: 4 }] },
+      { id: 'gen_017_b', label: 'B', text: '每天重复同样的事，没有任何变化和新鲜感', scoreEffects: [{ target: 'self_improvement_preference', points: 6 }] },
       { id: 'gen_017_c', label: 'C', text: '完全不知道下个月干什么，没有任何规划和安排', scoreEffects: [{ target: 'stable_path', points: 6 }, { target: 'business', points: 6 }, { target: 'rule_detail', points: 4 }] },
-      { id: 'gen_017_d', label: 'D', text: '只能照着别人安排做，没有任何自己创作或发挥的空间', scoreEffects: [{ target: 'aesthetic_creation', points: 6 }, { target: 'art_creative', points: 6 }, { target: 'stem', points: 4 }] },
-      { id: 'gen_017_e', label: 'E', text: '所有选择都要听别人的，自己完全没有决定权', scoreEffects: [{ target: 'autonomy_preference', points: 6 }] },
+      { id: 'gen_017_d', label: 'D', text: '只能按别人给的模板做，完全没有自己设计或改动的空间', scoreEffects: [{ target: 'aesthetic_creation', points: 6 }, { target: 'art_creative', points: 6 }, { target: 'stem', points: 4 }] },
+      { id: 'gen_017_e', label: 'E', text: '每一步都要等别人点头，自己不能做任何决定', scoreEffects: [{ target: 'autonomy_preference', points: 6 }] },
     ]},
     { id: 'gen_018', type: 'general', title: '以下哪种职业描述最接近你理想的未来？', targetBuckets: ['humanities', 'social_science', 'business', 'stem', 'life_health', 'art_creative'], priority: 4, options: [
       { id: 'gen_018_a', label: 'A', text: '用文字/语言/思想影响人们对世界的理解', scoreEffects: [{ target: 'humanities', points: 10 }, { target: 'reading_expression', points: 8 }] },
@@ -194,8 +194,8 @@ export const questionBank: QuestionBank = {
       { id: 'br_hum_004_c', label: 'C', text: '不同文化背景下的人是怎么理解世界的', scoreEffects: [{ target: 'humanities', points: 6 }, { target: 'social_science', points: 6 }] },
     ]},
     { id: 'br_hum_005', type: 'branch', title: '写东西时，你最享受哪个环节？', targetBuckets: ['humanities'], subDirection: 'language_literature', priority: 10, options: [
-      { id: 'br_hum_005_a', label: 'A', text: '构思框架和结构——把零散的想法组织成逻辑', scoreEffects: [{ target: 'humanities', points: 8 }, { target: 'reading_expression', points: 6 }] },
-      { id: 'br_hum_005_b', label: 'B', text: '雕琢句子——反复推敲哪个词更准确、更美', scoreEffects: [{ target: 'humanities', points: 8 }, { target: 'reading_expression', points: 6 }] },
+      { id: 'br_hum_005_a', label: 'A', text: '搭一个大概的架子——先把零散的想法串成一条线', scoreEffects: [{ target: 'humanities', points: 8 }, { target: 'reading_expression', points: 6 }] },
+      { id: 'br_hum_005_b', label: 'B', text: '把一个句子反复改，直到自己觉得"对了"', scoreEffects: [{ target: 'humanities', points: 8 }, { target: 'reading_expression', points: 6 }] },
       { id: 'br_hum_005_c', label: 'C', text: '收集资料和素材——知识本身让我兴奋', scoreEffects: [{ target: 'humanities', points: 6 }] },
     ]},
     { id: 'br_hum_006', type: 'branch', title: '看电影或读小说时，你最容易被什么打动？', targetBuckets: ['humanities'], subDirection: 'language_literature', priority: 10, options: [
@@ -247,8 +247,8 @@ export const questionBank: QuestionBank = {
       { id: 'br_soc_004_c', label: 'C', text: '两者都要——用制度来服务人', scoreEffects: [{ target: 'social_science', points: 8 }] },
     ]},
     { id: 'br_soc_005', type: 'branch', title: '看到社会上的一些问题，你的第一反应是？', targetBuckets: ['social_science'], subDirection: 'public_admin', priority: 10, options: [
-      { id: 'br_soc_005_a', label: 'A', text: '政策层面——研究什么政策更有效、更公平', scoreEffects: [{ target: 'social_science', points: 8 }] },
-      { id: 'br_soc_005_b', label: 'B', text: '执行层面——把好的想法落地成实际的公共服务', scoreEffects: [{ target: 'social_science', points: 6 }, { target: 'business', points: 4 }] },
+      { id: 'br_soc_005_a', label: 'A', text: '研究什么样的规则和方案能真正解决问题', scoreEffects: [{ target: 'social_science', points: 8 }] },
+      { id: 'br_soc_005_b', label: 'B', text: '把好的想法一步步做出来、让需要的人真正感受到', scoreEffects: [{ target: 'social_science', points: 6 }, { target: 'business', points: 4 }] },
     ]},
     { id: 'br_soc_006', type: 'branch', title: '你需要做一个重要决定，你的方式是？', targetBuckets: ['social_science'], subDirection: 'law', priority: 10, options: [
       { id: 'br_soc_006_a', label: 'A', text: '查清所有相关规则和先例，确保每一步都有依据', scoreEffects: [{ target: 'social_science', points: 8 }, { target: 'rule_detail', points: 6 }] },
@@ -328,7 +328,7 @@ export const questionBank: QuestionBank = {
     // 覆盖：理学基础 / 计算机与信息 / 工程与制造
     // ============================================================
     { id: 'br_stem_001', type: 'branch', title: '你更喜欢创造"看得见摸得着的东西"还是"在计算机里运转的系统"？', targetBuckets: ['stem'], subDirection: 'cs_info', priority: 10, options: [
-      { id: 'br_stem_001_a', label: 'A', text: '更偏好在计算机里构建系统——写代码、做网站、分析数据', scoreEffects: [{ target: 'stem', points: 8 }, { target: 'info_systems', points: 10 }] },
+      { id: 'br_stem_001_a', label: 'A', text: '更偏好在数字世界里构建系统——用逻辑和规则让计算机按你的想法运行', scoreEffects: [{ target: 'stem', points: 8 }, { target: 'info_systems', points: 10 }] },
       { id: 'br_stem_001_b', label: 'B', text: '更喜欢物理世界的创造——设计机械、搭电路、造实物', scoreEffects: [{ target: 'stem', points: 8 }, { target: 'engineering_practice', points: 10 }] },
       { id: 'br_stem_001_c', label: 'C', text: '更享受从理论出发推演规律——公式、模型、数学证明', scoreEffects: [{ target: 'stem', points: 8 }, { target: 'math_logic', points: 10 }, { target: 'abstract_theory', points: 6 }] },
     ]},
@@ -339,7 +339,7 @@ export const questionBank: QuestionBank = {
     ]},
     { id: 'br_stem_003', type: 'branch', title: '解决问题时，你的风格是？', targetBuckets: ['stem'], subDirection: 'cs_info', priority: 10, options: [
       { id: 'br_stem_003_a', label: 'A', text: '先建模型——把问题抽象成数学或逻辑形式', scoreEffects: [{ target: 'stem', points: 8 }, { target: 'math_logic', points: 8 }] },
-      { id: 'br_stem_003_b', label: 'B', text: '先写代码——让计算机帮我跑一遍看看', scoreEffects: [{ target: 'stem', points: 8 }, { target: 'info_systems', points: 8 }] },
+      { id: 'br_stem_003_b', label: 'B', text: '先用工具搭一个能跑的版本——让计算机帮我验证想法', scoreEffects: [{ target: 'stem', points: 8 }, { target: 'info_systems', points: 8 }] },
       { id: 'br_stem_003_c', label: 'C', text: '先动手试——搭原型、做实验、看现象', scoreEffects: [{ target: 'stem', points: 8 }, { target: 'engineering_practice', points: 8 }] },
     ]},
     { id: 'br_stem_004', type: 'branch', title: '对于数字、公式和逻辑推理，你的感受更接近？', targetBuckets: ['stem'], subDirection: 'science_basic', priority: 10, options: [
@@ -348,7 +348,7 @@ export const questionBank: QuestionBank = {
       { id: 'br_stem_004_c', label: 'C', text: '不太喜欢纯数学，我更喜欢能直接看到结果的', scoreEffects: [{ target: 'stem', points: 4 }] },
     ]},
     { id: 'br_stem_005', type: 'branch', title: '如果让你捣鼓一个技术项目，你最想从哪入手？', targetBuckets: ['stem'], subDirection: 'cs_info', priority: 10, options: [
-      { id: 'br_stem_005_a', label: 'A', text: '为什么能算这么快、这么准——背后的逻辑和原理让我着迷', scoreEffects: [{ target: 'stem', points: 8 }, { target: 'math_logic', points: 6 }, { target: 'abstract_theory', points: 4 }] },
+      { id: 'br_stem_005_a', label: 'A', text: '某个系统为什么能算这么快、这么准——背后的逻辑和原理让我着迷', scoreEffects: [{ target: 'stem', points: 8 }, { target: 'math_logic', points: 6 }, { target: 'abstract_theory', points: 4 }] },
       { id: 'br_stem_005_b', label: 'B', text: '做一个能让人真正用起来的东西——不管是什么形式', scoreEffects: [{ target: 'stem', points: 8 }, { target: 'info_systems', points: 6 }] },
       { id: 'br_stem_005_c', label: 'C', text: '从零部件开始，让一堆金属和电信号活起来', scoreEffects: [{ target: 'stem', points: 8 }, { target: 'engineering_practice', points: 6 }] },
     ]},
@@ -368,7 +368,7 @@ export const questionBank: QuestionBank = {
       { id: 'br_stem_008_c', label: 'C', text: '都还好，没有特别费劲的——理科对我来说都挺有意思', scoreEffects: [{ target: 'stem', points: 6 }] },
     ]},
     { id: 'br_stem_009', type: 'branch', title: '你更喜欢哪种"创造"？', targetBuckets: ['stem'], subDirection: 'engineering_manufacturing', priority: 10, options: [
-      { id: 'br_stem_009_a', label: 'A', text: '创造无形的——算法、软件、数据结构', scoreEffects: [{ target: 'stem', points: 8 }, { target: 'info_systems', points: 6 }] },
+      { id: 'br_stem_009_a', label: 'A', text: '创造无形的——逻辑规则、数字工具、自动化系统', scoreEffects: [{ target: 'stem', points: 8 }, { target: 'info_systems', points: 6 }] },
       { id: 'br_stem_009_b', label: 'B', text: '创造有形的——机器、电路、建筑、产品', scoreEffects: [{ target: 'stem', points: 8 }, { target: 'engineering_practice', points: 6 }] },
     ]},
     { id: 'br_stem_010', type: 'branch', title: '有人在实验室推公式推了十年才出成果，你对这种研究方式怎么看？', targetBuckets: ['stem'], subDirection: 'science_basic', priority: 10, options: [
@@ -376,12 +376,12 @@ export const questionBank: QuestionBank = {
       { id: 'br_stem_010_b', label: 'B', text: '尊重但不适合我——我更想把理论变成实际', scoreEffects: [{ target: 'stem', points: 6 }, { target: 'engineering_practice', points: 6 }] },
     ]},
     { id: 'br_stem_011', type: 'branch', title: '你更喜欢和什么"对话"？', targetBuckets: ['stem'], subDirection: 'engineering_manufacturing', priority: 10, options: [
-      { id: 'br_stem_011_a', label: 'A', text: '和机器/电路对话——让硬件按你的指令工作', scoreEffects: [{ target: 'stem', points: 8 }] },
-      { id: 'br_stem_011_b', label: 'B', text: '和代码/数据对话——在数字世界里构建逻辑', scoreEffects: [{ target: 'stem', points: 8 }, { target: 'info_systems', points: 6 }] },
+      { id: 'br_stem_011_a', label: 'A', text: '和机器/设备对话——让硬件按你的指令工作', scoreEffects: [{ target: 'stem', points: 8 }] },
+      { id: 'br_stem_011_b', label: 'B', text: '和数字/数据对话——在逻辑世界里构建系统', scoreEffects: [{ target: 'stem', points: 8 }, { target: 'info_systems', points: 6 }] },
     ]},
     { id: 'br_stem_012', type: 'branch', title: '你更被哪种成就打动？', targetBuckets: ['stem'], subDirection: 'cs_info', priority: 10, options: [
       { id: 'br_stem_012_a', label: 'A', text: '发了一篇论文、证明了一个定理', scoreEffects: [{ target: 'stem', points: 8 }, { target: 'math_logic', points: 6 }] },
-      { id: 'br_stem_012_b', label: 'B', text: '写了一个开源项目被很多人使用', scoreEffects: [{ target: 'stem', points: 8 }, { target: 'info_systems', points: 6 }] },
+      { id: 'br_stem_012_b', label: 'B', text: '做了一个东西被很多人使用和认可', scoreEffects: [{ target: 'stem', points: 8 }, { target: 'info_systems', points: 6 }] },
       { id: 'br_stem_012_c', label: 'C', text: '设计的产品被生产出来，人们在使用它', scoreEffects: [{ target: 'stem', points: 8 }, { target: 'engineering_practice', points: 6 }] },
     ]},
 
@@ -433,7 +433,7 @@ export const questionBank: QuestionBank = {
       { id: 'br_med_001_b', label: 'B', text: '药物研发、公共卫生、健康管理——在更大范围影响健康', scoreEffects: [{ target: 'life_health', points: 8 }, { target: 'life_health_interest', points: 6 }, { target: 'stem', points: 4 }] },
       { id: 'br_med_001_c', label: 'C', text: '动物健康、生态保护、农业与环境——生命不只是人的事', scoreEffects: [{ target: 'life_health', points: 8 }, { target: 'life_health_interest', points: 4 }, { target: 'hands_on_aversion', points: -2 }] },
     ]},
-    { id: 'br_med_002', type: 'branch', title: '有些需要和人打交道的专业，学习周期特别长（5–8 年），你对此怎么看？', targetBuckets: ['life_health'], subDirection: 'clinical_medicine', priority: 10, options: [
+    { id: 'br_med_002', type: 'branch', title: '有些方向需要很长的学习周期才能独立上手，你对此怎么看？', targetBuckets: ['life_health'], subDirection: 'clinical_medicine', priority: 10, options: [
       { id: 'br_med_002_a', label: 'A', text: '我已经了解，可以接受——值得投入的方向值得漫长等待', scoreEffects: [{ target: 'life_health', points: 8 }] },
       { id: 'br_med_002_b', label: 'B', text: '有点犹豫，但还不确定——需要再了解一下', scoreEffects: [{ target: 'life_health', points: 4 }] },
       { id: 'br_med_002_c', label: 'C', text: '太长了——我可能更想走周期较短的方向', scoreEffects: [{ target: 'life_health', points: 6 }] },
@@ -603,7 +603,7 @@ export const questionBank: QuestionBank = {
       { id: 'risk_005_a', label: 'A', text: '每天要处理大量文字和文档', scoreEffects: [], riskTags: ['reading_writing_aversion'] },
       { id: 'risk_005_b', label: 'B', text: '天天和陌生人打交道，需要快速建立信任', scoreEffects: [], riskTags: [] },
       { id: 'risk_005_c', label: 'C', text: '需要非常小心不出错，一出错后果严重', scoreEffects: [], riskTags: ['rule_detail_aversion'] },
-      { id: 'risk_005_d', label: 'D', text: '长时间待在实验室或车间，没有太多和人交流', scoreEffects: [], riskTags: ['hands_on_aversion'] },
+      { id: 'risk_005_d', label: 'D', text: '长时间待在实验室或操作间，没有太多和人交流', scoreEffects: [], riskTags: ['hands_on_aversion'] },
     ]},
     { id: 'risk_006', type: 'risk', title: '你有没有过"以为自己喜欢某件事，真做了才发现不太对"的经历？', targetBuckets: ['stem', 'business', 'humanities', 'life_health'], priority: 20, options: [
       { id: 'risk_006_a', label: 'A', text: '有过——所以现在会更谨慎地了解之后再下判断', scoreEffects: [{ target: 'stable_path', points: 12 }], riskTags: [] },
@@ -612,7 +612,7 @@ export const questionBank: QuestionBank = {
     { id: 'risk_007', type: 'risk', title: '选专业这件事，你觉得自己了解多少？', targetBuckets: ['stem', 'business', 'life_health', 'humanities'], priority: 20, options: [
       { id: 'risk_007_a', label: 'A', text: '只了解一两个热门专业，其他基本不清楚', scoreEffects: [], riskTags: ['info_bubble', 'name_misconception'] },
       { id: 'risk_007_b', label: 'B', text: '了解的不多，但正在努力查资料', scoreEffects: [], riskTags: [] },
-      { id: 'risk_007_c', label: 'C', text: '已经主动了解了多个方向，有一定的判断框架', scoreEffects: [{ target: 'stable_path', points: 12 }], riskTags: [] },
+      { id: 'risk_007_c', label: 'C', text: '已经主动了解了多个方向，心里大概知道怎么判断适不适合自己', scoreEffects: [{ target: 'stable_path', points: 12 }], riskTags: [] },
     ]},
     { id: 'risk_008', type: 'risk', title: '如果你选了某个专业后发现和想象中完全不一样，你会？', targetBuckets: ['stem', 'business', 'life_health'], priority: 20, options: [
       { id: 'risk_008_a', label: 'A', text: '及时调整——换方向或者继续深入了解再说', scoreEffects: [{ target: 'stable_path', points: 8 }], riskTags: [] },
